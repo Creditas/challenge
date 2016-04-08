@@ -1,4 +1,6 @@
-App = {
+'use strict';
+
+window.App = {
     utils: {
         addEvent: function(elem, evt, callback, options) {
             var bubble = (options && typeof options === 'boolean') ? options : false;
@@ -11,10 +13,19 @@ App = {
     message: function() {
         var sendMessage = document.getElementById('sendMessage');
         var messageField = document.getElementById('messageField');
+        var chatId = sendMessage.dataset.chatId || messageField.dataset.chatId;
+
+        console.log(chatId);
 
         var showMessage = function() {
-            var listMessage = document.getElementsByClassName('message-list')[0];
+
+            var listMessage = document.querySelector('ul[data-chat-id="' + chatId + '"]');
             var liElement = document.createElement('li');
+
+            if (!messageField.value) {
+                return;
+            }
+
             liElement.innerHTML = messageField.value;
             listMessage.appendChild(liElement);
             messageField.value = "";
@@ -29,6 +40,6 @@ App = {
     }
 };
 
-App.utils.addEvent(window, 'load', function() {
+window.App.utils.addEvent(window, 'load', function() {
     App.message();
 });
