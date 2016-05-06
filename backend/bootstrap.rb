@@ -156,7 +156,8 @@ end
 # Book Example (build new payments if you need to properly test it)
 
 foolano = Customer.new(name: 'joao')
-book = Product.new(name: 'Neverwhere', type: :book)
+# avaiable product_types: :book, :service, :media, :physical_product
+book = Product.new(name: 'Neverwhere', type: :book) 
 book_order = Order.new(foolano)
 book_order.add_product(book)
 
