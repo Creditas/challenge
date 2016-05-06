@@ -154,6 +154,7 @@ class Customer
 end
 
 # Book Example (build new payments if you need to properly test it)
+
 foolano = Customer.new(name: 'joao')
 book = Product.new(name: 'Neverwhere', type: :book)
 book_order = Order.new(foolano)

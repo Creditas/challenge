@@ -28,6 +28,10 @@ class BookType < ProductType
 end
 
 class ServiceType < ProductType
+  def is_service?
+    true
+  end
+  
   def mail_body
     'subcription activated'
   end
