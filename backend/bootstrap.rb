@@ -54,7 +54,6 @@ class Order
 
   def close(closed_at = Time.now)
     @closed_at = closed_at
-    deliver_products
   end
 
   def deliver_products
@@ -150,9 +149,9 @@ order.add_product(media)
 payment_book = Payment.new(order: order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 payment_book.pay
 
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type.name
-
+if payment_book.paid? # < true
+  order.deliver_products
+end
 
 p "Coupons #{foolano.coupons.map(&:discount)}"
 p "Subscriptions #{foolano.subscriptions.map(&:name)}"
