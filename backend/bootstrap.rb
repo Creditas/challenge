@@ -54,12 +54,13 @@ class Order
 
   def close(closed_at = Time.now)
     @closed_at = closed_at
-    run_actions_after_close
+    deliver_products
   end
 
-  def run_actions_after_close
+  def deliver_products
     @items.each do |order_item|
-      order_item.run_actions_after_close_order
+      deliver = Deliver.new(product: order_item.product, order: self)
+      deliver.deliver_product
     end
   end
   # remember: you can create new methods inside those classes to help you create a better design
@@ -76,31 +77,6 @@ class OrderItem
   def total
     10
   end
-
-  def run_actions_after_close_order
-    print_shipping_label if @product.type.shipping_label
-    send_discount if @product.type.send_discount?
-    activate_subscription if @product.type.is_service?
-  end
-
-  private
-    def print_shipping_label
-      Labeler.print_shipping_label(@product.type.shipping_label)
-    end
-
-    def send_discount
-      @order.customer.add_coupon('10')
-      send_mail
-    end
-
-    def send_mail
-      Mailer.send_mail(@product.type.mail_body)
-    end
-
-    def activate_subscription
-      @order.customer.add_subscription(@product.name)
-      send_mail
-    end
 end
 
 class Product
@@ -157,11 +133,21 @@ end
 
 foolano = Customer.new(name: 'joao')
 # avaiable product_types: :book, :service, :media, :physical_product
-book = Product.new(name: 'Neverwhere', type: :book) 
-book_order = Order.new(foolano)
-book_order.add_product(book)
+book = Product.new(name: 'Neverwhere', type: :book)
+service = Product.new(name: 'Massage Service Subscription', type: :service)
+another_service = Product.new(name: 'Railscast Subscription', type: :service)
+physical_product = Product.new(name: 'Chair', type: :physical_product)
+media = Product.new(name: 'Are you experienced? - Jimi Hendrix Delux Edition', type: :media)
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+order = Order.new(foolano)
+order.add_product(book)
+order.add_product(service)
+order.add_product(another_service)
+order.add_product(physical_product)
+order.add_product(media)
+
+
+payment_book = Payment.new(order: order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 payment_book.pay
 
 p payment_book.paid? # < true
