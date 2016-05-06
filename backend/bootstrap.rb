@@ -85,8 +85,7 @@ class OrderItem
 
   private
     def print_shipping_label
-      labeler = Labeler.new(@product.type)
-      labeler.print_shipping_label
+      Labeler.print_shipping_label(@product.type.shipping_label)
     end
 
     def send_discount
@@ -95,8 +94,7 @@ class OrderItem
     end
 
     def send_mail
-      mailer = Mailer.new(@product.type)
-      mailer.send_mail
+      Mailer.send_mail(@product.type.mail_body)
     end
 
     def activate_subscription
