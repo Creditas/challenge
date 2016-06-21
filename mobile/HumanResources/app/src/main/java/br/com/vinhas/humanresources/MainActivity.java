@@ -86,62 +86,50 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
+            int leftPos;
+            int rightPos;
+
             if (mContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                int leftPos = position * 2;
-                int rightPos = leftPos + 1;
+                leftPos = position * 2;
+                rightPos = leftPos + 1;
 
 
                 if (convertView == null) {
                     LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     convertView = inflater.inflate(R.layout.row, parent, false);
                 }
-
-                ImageView imageLeft = (ImageView) convertView.findViewById(R.id.imagePerson);
-                Picasso.with(mContext).load(people.getResults().get(leftPos).getPicture().getLarge()).transform(new RoundedTransformation(5,0)).into(imageLeft);
-                TextView textViewLeft = (TextView) convertView.findViewById(R.id.namePerson);
-                String fullNameLeft = people.getResults().get(leftPos).getName().getFirst() + " " + people.getResults().get(position).getName().getLast();
-                textViewLeft.setText(fullNameLeft);
-
-                ImageView imageRight = (ImageView) convertView.findViewById(R.id.imagePerson2);
-                Picasso.with(mContext).load(people.getResults().get(rightPos).getPicture().getLarge()).transform(new RoundedTransformation(5, 0)).into(imageRight);
-                TextView textViewRight = (TextView) convertView.findViewById(R.id.namePerson2);
-                String fullNameRight = people.getResults().get(rightPos).getName().getFirst() + " " + people.getResults().get(position).getName().getLast();
-                textViewRight.setText(fullNameRight);
-
-                return convertView;
             }
             else
             {
-                int leftPos = position * 3;
+                leftPos = position * 3;
+                rightPos = leftPos + 2;
                 int centerPos = leftPos + 1;
-                int rightPos = leftPos + 2;
-
 
                 if (convertView == null) {
                     LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     convertView = inflater.inflate(R.layout.row_land, parent, false);
                 }
 
-                ImageView imageLeft = (ImageView) convertView.findViewById(R.id.imagePerson);
-                Picasso.with(mContext).load(people.getResults().get(leftPos).getPicture().getLarge()).transform(new RoundedTransformation(5,0)).into(imageLeft);
-                TextView textViewLeft = (TextView) convertView.findViewById(R.id.namePerson);
-                String fullNameLeft = people.getResults().get(leftPos).getName().getFirst() + " " + people.getResults().get(position).getName().getLast();
-                textViewLeft.setText(fullNameLeft);
-
-                ImageView imageCenter = (ImageView) convertView.findViewById(R.id.imagePerson2);
+                ImageView imageCenter = (ImageView) convertView.findViewById(R.id.imagePerson3);
                 Picasso.with(mContext).load(people.getResults().get(centerPos).getPicture().getLarge()).transform(new RoundedTransformation(5,0)).into(imageCenter);
-                TextView textViewCenter = (TextView) convertView.findViewById(R.id.namePerson2);
+                TextView textViewCenter = (TextView) convertView.findViewById(R.id.namePerson3);
                 String fullNameCenter = people.getResults().get(centerPos).getName().getFirst() + " " + people.getResults().get(position).getName().getLast();
                 textViewCenter.setText(fullNameCenter);
-
-                ImageView imageRight = (ImageView) convertView.findViewById(R.id.imagePerson3);
-                Picasso.with(mContext).load(people.getResults().get(rightPos).getPicture().getLarge()).transform(new RoundedTransformation(5,0)).into(imageRight);
-                TextView textViewRight = (TextView) convertView.findViewById(R.id.namePerson3);
-                String fullNameRight = people.getResults().get(rightPos).getName().getFirst() + " " + people.getResults().get(position).getName().getLast();
-                textViewRight.setText(fullNameRight);
-
-                return convertView;
             }
+
+            ImageView imageLeft = (ImageView) convertView.findViewById(R.id.imagePerson);
+            Picasso.with(mContext).load(people.getResults().get(leftPos).getPicture().getLarge()).transform(new RoundedTransformation(5,0)).into(imageLeft);
+            TextView textViewLeft = (TextView) convertView.findViewById(R.id.namePerson);
+            String fullNameLeft = people.getResults().get(leftPos).getName().getFirst() + " " + people.getResults().get(position).getName().getLast();
+            textViewLeft.setText(fullNameLeft);
+
+            ImageView imageRight = (ImageView) convertView.findViewById(R.id.imagePerson2);
+            Picasso.with(mContext).load(people.getResults().get(rightPos).getPicture().getLarge()).transform(new RoundedTransformation(5,0)).into(imageRight);
+            TextView textViewRight = (TextView) convertView.findViewById(R.id.namePerson2);
+            String fullNameRight = people.getResults().get(rightPos).getName().getFirst() + " " + people.getResults().get(position).getName().getLast();
+            textViewRight.setText(fullNameRight);
+
+            return convertView;
         }
     }
 

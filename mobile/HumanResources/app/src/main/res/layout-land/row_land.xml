@@ -41,7 +41,7 @@
         android:layout_margin="10dp">
 
         <ImageView
-            android:id="@+id/imagePerson2"
+            android:id="@+id/imagePerson3"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
             android:layout_width="match_parent"
@@ -53,7 +53,7 @@
             android:background="@drawable/round_corners_transparent"
             android:layout_gravity="center|bottom">
             <TextView
-                android:id="@+id/namePerson2"
+                android:id="@+id/namePerson3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -71,7 +71,7 @@
         android:layout_margin="10dp">
 
         <ImageView
-            android:id="@+id/imagePerson3"
+            android:id="@+id/imagePerson2"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
             android:layout_width="match_parent"
@@ -83,7 +83,7 @@
             android:background="@drawable/round_corners_transparent"
             android:layout_gravity="center|bottom">
             <TextView
-                android:id="@+id/namePerson3"
+                android:id="@+id/namePerson2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
