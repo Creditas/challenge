@@ -51,8 +51,6 @@ class Order
   def close(closed_at = Time.now)
     @closed_at = closed_at
   end
-
-  # remember: you can create new methods inside those classes to help you create a better design
 end
 
 class OrderItem
