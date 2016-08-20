@@ -115,9 +115,13 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
-end
+  attr_reader :name, :id, :dob
 
+  def initialize(name, id, dob)
+    @name = name
+    @id = id
+    @dob = dob # date of birth
+  end
 end
 
 # Book Example (build new payments if you need to properly test it)
