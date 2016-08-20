@@ -51,6 +51,13 @@ class Order
   def close(closed_at = Time.now)
     @closed_at = closed_at
   end
+
+  def process
+    # process every item in order associated with order
+    @items.each do |item|
+      item.product.process
+    end
+  end
 end
 
 class OrderItem
@@ -80,11 +87,20 @@ class Physical < Product
     super(name, price)
   end
 
+  def process
+    # generate shipping label
+    puts "#{self.class}: Generate shipping label."
+  end
 end
 
 class Book < Product
   def initialize(name:, price:)
     super(name, price)
+  end
+
+  def process
+    # generate special shipping label
+    puts "#{self.class}: Generate special shipping label."
   end
 end
 
@@ -92,11 +108,25 @@ class Digital < Product
   def initialize(name:, price:)
     super(name, price)
   end
+
+  def process
+    # email item description
+    puts "#{self.class}: Email item description."
+    # generate R$ 10 discount voucher
+    puts "#{self.class}: Generate R$ 10 discount voucher."
+  end
 end
 
 class Membership < Product
   def initialize(name:, price:)
     super(name, price)
+  end
+
+  def process
+    # activate subscription
+    puts "#{self.class}: Activate subscription."
+    # email user
+    puts "#{self.class}: Email user subscription info."
   end
 end
 
