@@ -67,11 +67,36 @@ class OrderItem
 end
 
 class Product
-  # use type to distinguish each kind of product: physical, book, digital, membership, etc.
-  attr_reader :name, :type
+  attr_reader :name, :price
 
-  def initialize(name:, type:)
-    @name, @type = name, type
+  def initialize(name, price)
+    @name = name
+    @price = price
+  end
+end
+
+class Physical < Product
+  def initialize(name:, price:)
+    super(name, price)
+  end
+
+end
+
+class Book < Product
+  def initialize(name:, price:)
+    super(name, price)
+  end
+end
+
+class Digital < Product
+  def initialize(name:, price:)
+    super(name, price)
+  end
+end
+
+class Membership < Product
+  def initialize(name:, price:)
+    super(name, price)
   end
 end
 
@@ -93,8 +118,6 @@ class Customer
   # you can customize this class by yourself
 end
 
-class Membership
-  # you can customize this class by yourself
 end
 
 # Book Example (build new payments if you need to properly test it)
