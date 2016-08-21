@@ -21,3 +21,5 @@ Even though this has no bearing on the solution of the challenge, the `Customer`
 ### Testing in `test.rb`
 
 A small test is provided in the `test.rb` file (`git show 427fe37` and `git show 92fb424`). The test instantiates a fictional `Customer` and creates a container holding one product of each instance (`Physical`, `Book`, `Digital`, and `Membership`). An order containing each of these instances is open. After the payment is confirmed, the order is processed.
+
+To run the test: `ruby backend/test.rb`
