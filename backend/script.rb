@@ -150,8 +150,7 @@ john = Customer.new(name: 'John Doe', email: 'john.doe@gmail.com')
 johns_address = Address.new(zipcode: '12345-678')
 johns_credit_card = CreditCardRepository.find_by_hash('asd65f1a6d5')
 
-order = Order.new(customer: john)
-order.address = johns_address
+order = Order.new(customer: john, address: johns_address)
 order.add_product Membership.new(name: 'Coffe Club Membership', price: 25)
 order.add_product DigitalProduct.new(name: 'That Awesome Game', price: 50)
 order.add_product Product.new(

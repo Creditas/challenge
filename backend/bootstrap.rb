@@ -61,11 +61,11 @@ class InvoiceFactory
 end
 
 class Order
-  attr_reader :customer, :items, :closed_at
-  attr_accessor :address
+  attr_reader :customer, :items, :address, :closed_at
 
-  def initialize(customer:)
+  def initialize(customer:, address:)
     @customer = customer
+    @address = address
     @items = []
   end
 
