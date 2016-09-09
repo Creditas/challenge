@@ -1,0 +1,9 @@
+Primeniramente venho esclarecer que eu nunca havia tido contato com o Ruby, este foi o meu primeiro programa usando esta linguagem,
+assim eu precisei dar uma estudada para entender o código presentado e a estrutura da linguagem para que eu pudesse resolver o desafio.
+
+Eu criei uma classe abstrata que possui as implementações relacionadas às formas de tratamento de dum pedido.
+Cada uma dessas formas de tratamento do pedido foram implementadas em classes que herdam da classe-mãe abstrata o método "trataPagamento", assim, cada classe-filha implementa a sua forma de tratamento
+Por fim eu criei um método chamado "direcionaPagamento" que recebe o pagamento como parâmetro e direciona o pagamento ao tratamento específico em função do tipo de produto adicionado ao pedido.
+Assim, na estrutura de if/else do método o pagamento é direcionado à classe que implementa o tratamento correto.
+Com esta estrutura eu creio que fique melhor estruturado, permitindo que sejam adicionadas novas implementações facilmente. 
+Basta que seja criada uma classe que implemente a classe "TipoPagamento" e que seja adicionada mais uma condição no método "direcionaPagamento
