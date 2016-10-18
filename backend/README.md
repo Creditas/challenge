@@ -1,47 +1,38 @@
-## Desafio para Backend Software Engineer 
+### Exemplo
 
-Você está revisando as decisões de design de um software que processa Pedidos online. Por estes pedidos, são realizados pagamentos que
-recebem tratamentos a depender as situações específicas de cada um como segue:
+```Ruby
+require_relative 'lib/bankfacil'
 
-  - Se o pagamento for para um item físico, você deverá gerar um `shipping label` para o mesmo ser colocado na caixa do envio;
-  - Caso o pagamento seja uma assinatura de serviço, você precisa ativar a assinatura, e notificar o usuário através de e-mail sobre isto;
-  - Caso o pagamento seja um livro comum, você precisa gerar o `shipping label` com uma notificação de que trata-se de um item isento de impostos
-conforme disposto na Constituição Art. 150, VI, d.
-  - Caso o pagamento seja de alguma mídia digital (música, vídeo), além de enviar a descrição da compra por e-mail ao comprador, conceder um voucher de desconto de R$ 10 ao comprador associado ao pagamento.
+# Products
+book_1 = BankFacil::Book.new(name: 'The Ruby Programming Language', price: 10.00, description: 'Learn the Ruby programming language')
+book_2 = BankFacil::Book.new(name: 'Well Grounded Rubyist', price: 21.00, description: 'It combines deep knowledge with interactive exploration')
 
-__O que é necessário fazer?__
+digital_1 = BankFacil::Digital.new(name: 'Digital Product 1', price: 20.50, description: 'Digital Product 1')
 
-Você ficou designado a prototipar como poderá ser feita a nova versão deste fluxo de pagamento/regras de envio, pois a versão atual é 
-frágil, encadeada em if/else, switch/case, requerendo modificações grandes a cada nova necessidade de processamento inserida/removida.
 
-Crie as classes, métodos e suas respectivas chamadas para que recebendo um _input_ (Pagamento), você consiga tratar os cenários acima.
-__Não é necessário__ criar as implementações para envio de e-mails, imprimir `shipping label`, etc. Deixe tudo pronto e indicado porém, para chamar estes serviços no futuro.
+# Customer information
+address = BankFacil::Address.new(zipcode: '04362-020')
+henrique = BankFacil::Customer.new(name: 'Henrique Diomede', email: 'henrique.diomede@gmail.com')
 
-Como a proposta não requer um código final funcionando, não há a necessidade de implementar os testes de unidade.
+# Order
+voucher = BankFacil::Voucher.new(amount: 10.00, code: 'PROMOBANKFACIL', expiration_date: '18-10-2016', active: true)
+order = BankFacil::Order.new(customer: henrique, address: address, voucher: voucher)
+order.add_product(book_1, 2)
+order.add_product(book_2, 1)
+order.add_product(digital_1, 1)
 
-__O que está sob avaliação?__
+# Payment
+payment = BankFacil::Payment.new(order: order, payment_method: BankFacil::CreditCard.fetch_by_hashed('43567890-987654367'))
+payment.pay
 
-Sua capacidade de analisar, projetar e codificar uma solução guiando-se com Design Orientado a Objetos e Princípios de Orientação a Objetos.
+# Shipment
+shipment = BankFacil::Shipment.new(order: order)
+```
 
-Sinta-se à vontade para modificar/refatorar o arquivo `bootstrap.rb` caso julgue necessário. Neste caso, por favor, inclua a explicação das modificações.
+### Solução
 
-__O que não vale?__
-Frameworks :] (aliás, nem precisa)
-
-__Qual linguagem?__
-Ruby por favor. Caso não sinta-se confortável com Ruby, Java/PHP/C# é ok.
-
-__Tempo__
-Estima-se 1h30 para este desafio, entretanto não há um limite.
-
-__Apresentação__
-  - Código protótipo
-  - Explicação da solução (em arquivo separado em Markdown/Plain Text)
-
-__Avaliação__
-
-Para nos enviar seu código, você pode:
-
-* Fazer um fork desse repositório, e nos mandar uma pull-request.
-* Nos dar acesso a um repositório privado seu (github, bitbucket, gitlab...) e nos avisar.
-* Nos enviar um git bundle do seu repositório para o e-mail challenge@bankfacil.com.br
+- Para a lógica para gerar uma `shipping_label` e as ações específicas para cada produto após o pagamento, eu utilizei a
+técnica de Duck Typing.
+- As classes criadas para representar os produtos foram: `Digital`, `Physical`, `Book` e `Membership`
+- A classe `Shipment` será responsável pela geração da `shipping_label` quando necessário para cada pedido
+- OrderItem possui `quantity` para que possam ser incluídas várias unidades de um mesmo produto
