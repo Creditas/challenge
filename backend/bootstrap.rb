@@ -10,7 +10,10 @@ class Payment
   def pay(paid_at = Time.now)
     @amount = order.total_amount
     @authorization_number = Time.now.to_i
-    @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
+    @invoice = Invoice.new(billing_address: order.address,
+                           shipping_address: order.address,
+                           order: order,
+                           shipping_label: shipping_label)
     @paid_at = paid_at
     order.close(@paid_at)
   end
@@ -18,15 +21,21 @@ class Payment
   def paid?
     !paid_at.nil?
   end
+
+  def shipping_label
+    "shipping_label" if self.order.items.first.product.type == :physical_item
+    "no_taxes_shipping_label" if self.order.items.first.product.type == :book
+  end
 end
 
 class Invoice
-  attr_reader :billing_address, :shipping_address, :order
+  attr_reader :billing_address, :shipping_address, :order, :shipping_label
 
   def initialize(attributes = {})
     @billing_address = attributes.values_at(:billing_address)
     @shipping_address = attributes.values_at(:shipping_address)
     @order = attributes.values_at(:order)
+    @shipping_label = attributes.values_at(:shipping_label)
   end
 end
 
@@ -51,8 +60,6 @@ class Order
   def close(closed_at = Time.now)
     @closed_at = closed_at
   end
-
-  # remember: you can create new methods inside those classes to help you create a better design
 end
 
 class OrderItem
@@ -92,14 +99,37 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_reader :voucher
+
+  def initialize()
+    @voucher = 0
+  end
+
+  def notify!(payment)
+    puts "mail(to: #{self}, subject: #{payment.invoice.shipping_label})"
+  end
+
+  def send_voucher(payment)
+    puts "You received a voucher of $10."
+    @voucher += 10
+    puts "mail(to: #{self}, subject: You bought a #{payment.order.items.first.product.type}) product"
+  end
 end
 
 class Membership
-  # you can customize this class by yourself
+  def initialize(customer:)
+    @customer = customer
+  end
+
+  def notify!
+    puts "mail(to: #{@customer}, subject: 'Membership Created')"
+  end
 end
 
-# Book Example (build new payments if you need to properly test it)
+#---------------------
+# => Book Example
+#---------------------
+puts "Exemplo Book"
 foolano = Customer.new
 book = Product.new(name: 'Awesome book', type: :book)
 book_order = Order.new(foolano)
@@ -107,7 +137,56 @@ book_order.add_product(book)
 
 payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+if payment_book.paid?
+  foolano.notify!(payment_book)
+end
 
-# now, how to deal with shipping rules then?
+#---------------------
+# => Membership Example
+#---------------------
+puts ""
+puts "Exemplo Membership"
+foolano2 = Customer.new
+membership = Product.new(name: 'Membership', type: :membership)
+membership_order = Order.new(foolano2)
+membership_order.add_product(membership)
+
+payment_membership = Payment.new(order: membership_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_membership.pay
+
+if payment_membership.paid?
+  create_membership = Membership.new(customer: foolano2)
+  create_membership.notify!
+end
+
+#---------------------
+# => Physical Item
+#---------------------
+puts ""
+puts "Exemplo Physical Item"
+physical_item = Product.new(name: 'Awesome Physical Item', type: :physical_item)
+physical_item_order = Order.new(foolano)
+physical_item_order.add_product(physical_item)
+
+payment_physical_item = Payment.new(order: physical_item_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_physical_item.pay
+if payment_physical_item.paid?
+  foolano.notify!(payment_physical_item)
+end
+
+#---------------------
+# => Digital Media
+#---------------------
+puts ""
+puts "Exemplo Digital Media"
+digital_item = Product.new(name: 'Jethro Tull Aqualung', type: :digital)
+digital_item_order = Order.new(foolano)
+digital_item_order.add_product(digital_item)
+
+payment_digital_item = Payment.new(order: digital_item_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_digital_item.pay
+if payment_digital_item.paid?
+  foolano.send_voucher(payment_digital_item)
+end
+
+
