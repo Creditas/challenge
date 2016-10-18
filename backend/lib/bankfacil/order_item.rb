@@ -17,5 +17,13 @@ module BankFacil
 		def ship?
 			@product.ship?
 		end
+
+		def tax_free?
+			@product.tax_free?
+		end
+
+		def when_order_closed
+			@product.when_order_closed(order)
+		end
 	end
 end
