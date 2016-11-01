@@ -33,6 +33,7 @@ end
 class Order
   attr_reader :customer, :items, :payment, :address, :closed_at
 
+  #I've been doing the same for a poor dependencie injection with ruby too
   def initialize(customer, overrides = {})
     @customer = customer
     @items = []
@@ -52,6 +53,14 @@ class Order
     @closed_at = closed_at
   end
 
+  def shipping_address
+    @address
+  end
+
+  def customer_email
+    @customer.email
+  end
+
   # remember: you can create new methods inside those classes to help you create a better design
 end
 
@@ -65,6 +74,10 @@ class OrderItem
 
   def total
     10
+  end
+
+  def product_type
+    @product.type
   end
 end
 
@@ -91,12 +104,60 @@ class CreditCard
   end
 end
 
-class Customer
+class BaseShip
+  def initialize(order)
+    @order = order
+  end
+
+  def ship_item(item)
+    puts "shipping...#{@order.address}"
+  end
+end
+
+class Customer < BaseShip
   # you can customize this class by yourself
 end
 
-class Membership
+class Membership < BaseShip
   # you can customize this class by yourself
+  def ship_item
+    send_membership_email
+  end
+
+  private
+
+  def send_membership_email
+    email = @order.customer_email
+    puts "sending email to: #{email}"
+  end
+end
+
+class ShipOrder
+  def initialize(payment)
+    @payment = payment
+    @order = payment.order
+  end
+
+  def ship
+    raise 'NotPaid' unless @payment.paid?
+
+    @order.items each do |order_item|
+      ship_handler_for(order_item)
+    end
+  end
+
+  private
+
+  def ship_handler_for(order_item)
+    class_name = "#{order_item.product_type}"
+    klass = Object.const_get(capitalized_word(class_name))
+    klass.new(@order).ship(order_item)
+  end
+
+  #poor implementation of capitalized
+  def capitalized_word(word)
+    word.slice(0).upcase + word.slice(1..-1).downcase
+  end
 end
 
 # Book Example (build new payments if you need to properly test it)
@@ -110,4 +171,6 @@ payment_book.pay
 p payment_book.paid? # < true
 p payment_book.order.items.first.product.type
 
+
 # now, how to deal with shipping rules then?
+ShipOrder.new(payment).ship
