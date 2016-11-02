@@ -114,13 +114,57 @@ class BaseShip
   end
 end
 
-class Customer < BaseShip
-  # you can customize this class by yourself
+class Physical < BaseShip
+  def ship_item(ordem_item)
+    @order_item = order_item
+    create_shipping_label
+  end
+
+  private
+
+  def create_shipping_label
+  end
 end
+
+class Customer < BaseShip
+  def ship_item(item)
+  end
+end
+
+class Digital < BaseShip
+  def ship_item(item)
+    @ordem_item = item
+    send_membership_email
+    apply_discount
+  end
+
+  private
+
+  def send_membership_email
+  end
+
+  def apply_discount
+  end
+end
+
+class Book < BaseShip
+  def ship_item(item)
+    @order_item = item
+    create_book_shipping_label
+  end
+
+  private
+
+  def create_book_shipping_label
+  end
+end
+
+
 
 class Membership < BaseShip
   # you can customize this class by yourself
-  def ship_item
+  def ship_item(item)
+    @order_item = item
     send_membership_email
   end
 
