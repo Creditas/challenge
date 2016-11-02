@@ -151,7 +151,7 @@ class ShipOrder
   def ship_handler_for(order_item)
     class_name = "#{order_item.product_type}"
     klass = Object.const_get(capitalized_word(class_name))
-    klass.new(@order).ship(order_item)
+    klass.new(@order).ship_item(order_item)
   end
 
   #poor implementation of capitalized
