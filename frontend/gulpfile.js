@@ -87,3 +87,8 @@ gulp.task('nodemon', function (cb) {
 gulp.task('default', ['browser-sync'], function () {
   gulp.watch(['src/**/*.*'], reload);
 });
+
+
+gulp.task('serve', ['minify-html', 'less', 'scripts', 'nodemon'], function () {
+  
+});
