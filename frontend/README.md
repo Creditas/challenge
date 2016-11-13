@@ -1,32 +1,17 @@
 ## Teste frontend - Bankfacil
 
-Esse é um teste focado em design de código, e conhecimento de orientação a 
-objeto. O objetivo é avaliar sua experiênica em escrever código de fácil 
-manutenção, baixo acoplamento, e alta coesão.
+## Como executar o código do repositório.
+O código do teste foi desenvolvido utilizando algumas das tecnologias mais recentes disponível. Todo código foi escrito utilizando a sintaxe do ECMASCRIPT 2015 (ES6) e é necessário transcompilar os arquivos para que fucionem em navegadores não tão modernos.
+Os passos para a execução do código são os seguintes.
 
-### Apresentação do problema
+Instalar as dependencias do node no diretório frontend e para isso você precisa do NodeJS e do NPM instalados.
 
-O arquivo `index.html` contém o esqueleto de uma aplicação de chat totalmente 
-*bare-bones*: uma `<ul>` com uma lista de mensagens enviadas, e um `<button>` + `<input>` 
-para envio de novas mensagens.
+```
+cd frontend && npm install
+```
 
-A feature inicial de nossa aplicação é bastante simples: o usuário deve poder 
-entrar uma mensagem na caixa de texto e, ao apertar o botão "Enviar" (ou 
-pressionar <kbd>Enter</kbd>), a mensagem deverá aparecer na lista de mensagens.
+Iniciar o servidor da aplicação com o comando gulp serve
 
-Isoladamente essa é uma feature simples de implementar, mas queremos que você 
-leve em conta a evolução futura do software. Imagine que o app irá crescer em 
-features, e adicionar coisas como:
-* envio de mensagens via ajax, com as respostas vindo via `long-polling`
-* chat em realtime via WebRTC
-* ter vários chats visíveis ao mesmo tempo, adicionadas dinamicamente com base nas ações do usuário
-
-Você deve pensar num design de código que suporte esses casos de uso sem 
-grandes modificações.
-
-### Avaliação
-
-Para nos enviar seu código, você pode:
-* Fazer um fork desse repositório, e nos mandar uma pull-request
-* Nos dar acesso a um repositório privado seu (github, bitbucket, gitlab...)
-* Nos enviar um `git bundle` do seu repositório para o e-mail challenge@bankfacil.com.br
+```
+gulp serve
+```

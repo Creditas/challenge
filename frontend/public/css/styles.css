@@ -1,0 +1,254 @@
+/**
+ * Global Reset of all HTML Elements
+ *
+ * Resetting all of our HTML Elements ensures a smoother
+ * visual transition between browsers. If you don't believe me,
+ * try temporarily commenting out this block of code, then go
+ * and look at Mozilla versus Safari, both good browsers with
+ * a good implementation of CSS. The thing is, all browser CSS
+ * defaults are different and at the end of the day if visual
+ * consistency is what we're shooting for, then we need to
+ * make sure we're resetting all spacing elements.
+ *
+ */
+html,
+body {
+  border: 0;
+  font-family: "Helvetica-Neue", "Helvetica", Arial, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+div,
+span,
+object,
+iframe,
+img,
+table,
+caption,
+thead,
+tbody,
+tfoot,
+tr,
+tr,
+td,
+article,
+aside,
+canvas,
+details,
+figure,
+hgroup,
+menu,
+nav,
+footer,
+header,
+section,
+summary,
+mark,
+audio,
+video {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+address,
+cit,
+code,
+del,
+dfn,
+em,
+ins,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+b,
+i,
+hr,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+legend,
+label {
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+}
+article,
+aside,
+canvas,
+figure,
+figure img,
+figcaption,
+hgroup,
+footer,
+header,
+nav,
+section,
+audio,
+video {
+  display: block;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+table caption,
+table th,
+table td {
+  text-align: left;
+  vertical-align: middle;
+}
+a img {
+  border: 0;
+}
+:focus {
+  outline: 0;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  font-family: 'Lato', sans-serif;
+}
+h1 {
+  font-size: 2em;
+  font-weight: 100;
+}
+.messages {
+  display: block;
+  overflow: hidden;
+  float: left;
+  max-width: 230px;
+  height: 192px;
+  margin-right: 10px;
+  border: solid 1px #e0e0e0;
+  box-shadow: 0 -1px 1px #efefef;
+}
+.messages ul.message-list {
+  display: block;
+  overflow: auto;
+  width: auto;
+  height: 73%;
+  padding: 10px;
+  list-style-type: none;
+  text-indent: 0;
+  color: #333;
+  background-color: #f0f0f0;
+}
+.messages ul.message-list li {
+  position: relative;
+  display: block;
+  width: auto;
+  max-width: 400px;
+  margin: 5px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: #fff;
+  clear: both;
+}
+.messages ul.message-list li:after {
+  font-size: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+  height: 0;
+  content: ' ';
+}
+.messages ul.message-list li span.sender {
+  font-weight: 700;
+}
+.messages ul.message-list li.sent {
+  background-color: #c0dff1;
+}
+.messages ul.message-list li.sent:before {
+  position: absolute;
+  top: 10px;
+  left: -8px;
+  width: 0;
+  height: 0;
+  content: '';
+  border-top: 15px solid transparent;
+  border-right: 8px solid #c0dff1;
+  border-bottom: 0 solid transparent;
+}
+.messages ul.message-list li.received {
+  float: right;
+}
+.messages ul.message-list li.received.error {
+  background-color: #ff0000;
+  color: #ffffff;
+}
+.messages ul.message-list li.received.error:before {
+  border-left-color: #ff0000;
+}
+.messages ul.message-list li.received:before {
+  position: absolute;
+  top: 10px;
+  right: -8px;
+  width: 0;
+  height: 0;
+  content: '';
+  border-top: 0 solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 10px solid #fff;
+}
+.messages .message-input {
+  position: relative;
+  z-index: 9;
+  height: 100%;
+  border-top: solid 1px #e0e0e0;
+  box-shadow: 0 -4px 10px #d0d0d0;
+}
+.messages .message-input input,
+.messages .message-input button {
+  position: absolute;
+  margin: 0;
+  padding: 7px;
+  border: none;
+}
+.messages .message-input input {
+  width: 100%;
+  left: 0;
+  color: #a0a0a0;
+}
+.messages .message-input button {
+  right: 0;
+  max-width: 60px;
+  background: none;
+  cursor: pointer;
+  -webkit-transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.3s;
+}
+.messages .message-input button:hover {
+  background-color: rgba(0, 0, 0, 0.13);
+}
+.messages .message-input:after {
+  font-size: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+  height: 0;
+  content: ' ';
+}

@@ -1,0 +1,185 @@
+@import 'reset';
+@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400');
+
+
+html, body{
+    width: 100%;
+    height: 100%;
+
+}
+body
+{
+    font-family: 'Lato', sans-serif;
+}
+
+h1
+{
+    font-size: 2em;
+    font-weight: 100;
+}
+.messages
+{
+    display: block;
+    overflow: hidden;
+    float: left;
+
+    max-width: 230px;
+    height: 192px;
+    margin-right: 10px;
+
+    border: solid 1px #e0e0e0;
+    box-shadow: 0 -1px 1px #efefef;
+    ul.message-list
+    {
+        display: block;
+        overflow: auto;
+
+        width: auto;
+        height: 73%;
+        padding: 10px;
+
+        list-style-type: none;
+
+        text-indent: 0;
+
+        color: #333;
+        background-color: #f0f0f0;
+        li
+        {
+            position: relative;
+
+            display: block;
+
+            width: auto;
+            max-width: 400px;
+            margin: 5px;
+            padding: 5px 10px;
+
+            border-radius: 10px;
+            background-color: #fff;
+            clear: both;
+            &:after
+            {
+                font-size: 0;
+
+                display: block;
+                visibility: hidden;
+                clear: both;
+
+                height: 0;
+
+                content: ' ';
+            }
+            span.sender
+            {
+                font-weight: 700;
+            }
+            &.sent
+            {
+                background-color: #c0dff1;
+                &:before
+                {
+                    position: absolute;
+                    top: 10px;
+                    left: -8px;
+
+                    width: 0;
+                    height: 0;
+
+                    content: '';
+
+                    border-top: 15px solid transparent;
+                    border-right: 8px solid #c0dff1;
+                    border-bottom: 0 solid transparent;
+                }
+            }
+            &.received
+            {
+                &.error{
+                    background-color: #ff0000;
+                    color: #ffffff;
+
+                    &:before{
+                        border-left-color: #ff0000;
+                    }
+                }
+
+                float: right;
+                &:before
+                {
+                    position: absolute;
+                    top: 10px;
+                    right: -8px;
+
+                    width: 0;
+                    height: 0;
+
+                    content: '';
+
+                    border-top: 0 solid transparent;
+                    border-bottom: 20px solid transparent;
+                    border-left: 10px solid #fff;
+                }
+            }
+        }
+    }
+    .message-input
+    {
+        position: relative;
+        z-index: 9;
+
+        height: 100%;
+
+        border-top: solid 1px #e0e0e0;
+        border-top: solid 1px #e0e0e0;
+        box-shadow: 0 -4px 10px #d0d0d0;
+        input,
+        button
+        {
+            position: absolute;
+            
+            margin: 0;
+            padding: 7px;
+
+            border: none;
+        }
+        input
+        {
+            width: 100%;
+
+            left: 0;
+
+            color: #a0a0a0;
+        }
+        button
+        {
+            right: 0;
+
+            max-width: 60px;
+
+            background: none;
+
+            cursor: pointer;
+
+            -webkit-transition: all ease-in-out .3s;
+            transition: all ease-in-out .3s;
+
+            &:hover{
+                background-color: rgba(0, 0, 0, 0.13)
+
+            }
+        }
+        &:after
+        {
+            font-size: 0;
+
+            display: block;
+            visibility: hidden;
+            clear: both;
+
+            height: 0;
+
+            content: ' ';
+        }
+    }
+}
