@@ -5,7 +5,7 @@ require_relative '../order'
 require_relative '../payment'
 require_relative '../credit_card'
 
-RSpec.describe Payment, "" do
+RSpec.describe Payment, "Differents types of payments!" do
 
     context "Testing the payment of a book." do
         it "should return item order book" do
@@ -43,7 +43,7 @@ RSpec.describe Payment, "" do
         it "shoud activate the customer signature" do
             foolano = Customer.new
 
-            service_signature = Product.new(name: 'Signature Service', type: :signature_service)
+            service_signature = Product.new(name: 'Signature Service', type: :membership)
             signature_service_order = Order.new(foolano)
             signature_service_order.add_product(service_signature)
 
