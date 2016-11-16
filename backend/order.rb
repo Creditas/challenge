@@ -22,18 +22,5 @@ class Order
     @closed_at = closed_at
   end
 
-  def check_order_item(order_item)
-      if @order_item.type == item_type.physical then
-          self.generate_shipping_label()
-      elsif @order_item == item.signature then
-          self.activate_client_signature(@customer)
-      elsif @order_item == item.type.common_book then
-          self.generate_shipping_label(:item_free_of_charge)
-      elsif @order_item == item.type.digital_midia then
-          self.give_discount(10.00)
-          self.send_email()
-      end
-  end
-
   # remember: you can create new methods inside those classes to help you create a better design
 end
