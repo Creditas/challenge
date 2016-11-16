@@ -22,12 +22,12 @@ class Payment
   end
 
   def check_payment (order_item)
-      if order_item.product.type == :physical_item then
+      if order_item.product.type == :physical then
           order_item.product.generate_shipping_label()
       elsif order_item.product.type == :signature_service then
           order.customer.membership.activate()
-      elsif order_item == item.type.common_book then
-          generate_shipping_label(:item_free_of_charge)
+      elsif order_item.product.type == :book then
+          order_item.product.generate_shipping_label_with_notification()
       elsif order_item == item.type.digital_midia then
           give_discount(10.00)
           send_email()

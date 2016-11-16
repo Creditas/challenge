@@ -6,8 +6,8 @@ require_relative '../payment'
 require_relative '../credit_card'
 
 RSpec.describe Payment, "" do
-=begin
-    context "Testing the payment of a book" do
+
+    context "Testing the payment of a " do
         it "should return item order book" do
             foolano = Customer.new
             book = Product.new(name: 'Awesome book', type: :book)
@@ -21,7 +21,7 @@ RSpec.describe Payment, "" do
             expect(expected_book).to be(:book)
         end
 
-        it "should generate a shipping label to the same be put on the sending box" do
+        it "should generate a shipping label and a notification" do
             foolano = Customer.new
 
             book = Product.new(name: 'Awesome book', type: :book)
@@ -33,11 +33,12 @@ RSpec.describe Payment, "" do
             expected_book = payment_book.order.items.first.product.type
 
             expect(expected_book).to be(:book)
-            expect(payment_book.shipping_label?).to be(true)
+            expect(payment_book.order.items.first.product.shipping_label?).to be(true)
+            expect(payment_book.order.items.first.product.notification).to eq("This item is free from charges according to Constituição Art. 150, VI, d.")
         end
 
     end
-=end
+
     context "Testing a actvation of a service signature" do
         it "shoud activate the customer signature" do
             foolano = Customer.new
@@ -59,16 +60,16 @@ RSpec.describe Payment, "" do
         it "should generate a shipping label when the product is physical item" do
             foolano = Customer.new
 
-            physical_item = Product.new(name: 'Awesome physical Item', type: :physical_item)
-            physical_item_order = Order.new(foolano)
-            physical_item_order.add_product(physical_item)
+            physical = Product.new(name: 'Awesome physical Item', type: :physical)
+            physical_order = Order.new(foolano)
+            physical_order.add_product(physical)
 
-            payment_physical_item = Payment.new(order: physical_item_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-            payment_physical_item.pay
-            expected_physical_item = payment_physical_item.order.items.first.product.type
+            payment_physical = Payment.new(order: physical_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+            payment_physical.pay
+            expected_physical = payment_physical.order.items.first.product.type
 
-            expect(expected_physical_item).to be(:physical_item)
-            expect(payment_physical_item.order.items.first.product.shipping_label?).to be(true)
+            expect(expected_physical).to be(:physical)
+            expect(payment_physical.order.items.first.product.shipping_label?).to be(true)
         end
 
     end
