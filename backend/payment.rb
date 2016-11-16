@@ -22,8 +22,8 @@ class Payment
   end
 
   def check_payment (order_item)
-      if order_item.product.type == :book then
-          generate_shipping_label()
+      if order_item.product.type == :physical_item then
+          order_item.product.generate_shipping_label()
       elsif order_item.product.type == :signature_service then
           order.customer.membership.activate()
       elsif order_item == item.type.common_book then
@@ -34,15 +34,8 @@ class Payment
       end
   end
 
-  def generate_shipping_label()
-      @shipping_label = true
-  end
-
   def paid?
     !paid_at.nil?
   end
 
-  def shipping_label?()
-      @shipping_label
-  end
 end

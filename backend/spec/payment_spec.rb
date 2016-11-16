@@ -4,11 +4,9 @@ require_relative '../product'
 require_relative '../order'
 require_relative '../payment'
 require_relative '../credit_card'
-#delete this line before commit
-require 'byebug'
 
 RSpec.describe Payment, "" do
-
+=begin
     context "Testing the payment of a book" do
         it "should return item order book" do
             foolano = Customer.new
@@ -39,7 +37,7 @@ RSpec.describe Payment, "" do
         end
 
     end
-
+=end
     context "Testing a actvation of a service signature" do
         it "shoud activate the customer signature" do
             foolano = Customer.new
@@ -53,5 +51,25 @@ RSpec.describe Payment, "" do
 
             expect(payment_signature_service.order.customer.membership.activated?).to be(true)
         end
+    end
+
+    context "Testing the physical item of a book" do
+
+
+        it "should generate a shipping label when the product is physical item" do
+            foolano = Customer.new
+
+            physical_item = Product.new(name: 'Awesome physical Item', type: :physical_item)
+            physical_item_order = Order.new(foolano)
+            physical_item_order.add_product(physical_item)
+
+            payment_physical_item = Payment.new(order: physical_item_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+            payment_physical_item.pay
+            expected_physical_item = payment_physical_item.order.items.first.product.type
+
+            expect(expected_physical_item).to be(:physical_item)
+            expect(payment_physical_item.order.items.first.product.shipping_label?).to be(true)
+        end
+
     end
 end
