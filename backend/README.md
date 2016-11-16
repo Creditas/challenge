@@ -14,7 +14,7 @@
 
 - Primeiramente, criei uma branch que eu chamei de `poor_solution`(solução_pobre), a qual que contém uma implementação inadequada com vários if´s e else's.
 - Depois criei uma segunda branch chamada de `good_solution`(solução_boa) que contém o refatoramento utilizando o padrão de projeto command. 
-  - Eu preferi este padrão porque fica mais legível. Porém, o ponto fraco dessa abordagem é a utilização de inner classes dentro de payment.rb.
+  - Eu preferi este padrão porque fica mais legível. Porém, o ponto fraco dessa abordagem é a utilização de inner classes dentro de do arquivo `payment.rb`.
 
 ## Desafio para Backend Software Engineer
 
