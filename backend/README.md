@@ -1,4 +1,24 @@
-## Desafio para Backend Software Engineer 
+## Explicação da solução
+
+#### Requisitos
+ - Tenha o rvm instalado na sua máquina
+    - Site com as instruções para instalar o rvm: https://rvm.io/
+ - Use o comando '$rvm install 2.3.1' para instalar o ruby 2.3.1
+ - Caso tenha mais de uma versão de ruby no rvm utilize o seguinte comando:
+    - rvm use 2.3.1
+ - Instale a gema rspec com o comando:
+    - $ gem install rspec -v 3.5.4
+- Por fim, digite $ respec dentro do diretório git para rodar os testes
+
+#### Resumo do que foi feito
+
+Primeiramente criei uma branch com o que eu chamei de poor_solution/solução pobre que contém uma implementação inadequada com vários if´s e else's.
+Já na segunda branch chamei ela de good_solution/solução que contém o refatoramento utilizando o padrão de projeto command. Eu preferi este padrão
+porque fica mais legível. Porém, o ponto fraco dessa utilização é utilização de inner classes dentro de payment.rb.
+
+Fim
+
+## Desafio para Backend Software Engineer
 
 Você está revisando as decisões de design de um software que processa Pedidos online. Por estes pedidos, são realizados pagamentos que
 recebem tratamentos a depender as situações específicas de cada um como segue:
@@ -11,7 +31,7 @@ conforme disposto na Constituição Art. 150, VI, d.
 
 __O que é necessário fazer?__
 
-Você ficou designado a prototipar como poderá ser feita a nova versão deste fluxo de pagamento/regras de envio, pois a versão atual é 
+Você ficou designado a prototipar como poderá ser feita a nova versão deste fluxo de pagamento/regras de envio, pois a versão atual é
 frágil, encadeada em if/else, switch/case, requerendo modificações grandes a cada nova necessidade de processamento inserida/removida.
 
 Crie as classes, métodos e suas respectivas chamadas para que recebendo um _input_ (Pagamento), você consiga tratar os cenários acima.
