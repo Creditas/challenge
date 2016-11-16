@@ -1,22 +1,20 @@
-## Explicação da solução
+## 1. Explicação da solução
 
-#### Requisitos
- - Tenha o rvm instalado na sua máquina
+- Requisitos:
+- Tenha o rvm instalado na sua máquina:
     - Site com as instruções para instalar o rvm: https://rvm.io/
- - Use o comando '$rvm install 2.3.1' para instalar o ruby 2.3.1
- - Caso tenha mais de uma versão de ruby no rvm utilize o seguinte comando:
-    - rvm use 2.3.1
- - Instale a gema rspec com o comando:
-    - $ gem install rspec -v 3.5.4
-- Por fim, digite $ respec dentro do diretório git para rodar os testes
+    - Use o comando `$rvm install 2.3.1` para instalar o `ruby 2.3.1`
+- Caso tenha mais de uma versão de ruby no rvm utilize o seguinte comando:
+   -  `$ rvm use 2.3.1`
+- Instale a gema rspec com o comando:
+     - $ gem install rspec -v 3.5.4
+- Por fim, digite `$ rspec` dentro do diretório do projeto para rodar os testes
 
-#### Resumo do que foi feito
+## 2.Resumo do que foi feito
 
-Primeiramente criei uma branch com o que eu chamei de poor_solution/solução pobre que contém uma implementação inadequada com vários if´s e else's.
-Já na segunda branch chamei ela de good_solution/solução que contém o refatoramento utilizando o padrão de projeto command. Eu preferi este padrão
-porque fica mais legível. Porém, o ponto fraco dessa utilização é utilização de inner classes dentro de payment.rb.
-
-Fim
+- Primeiramente, criei uma branch que eu chamei de `poor_solution`(solução_pobre), a qual que contém uma implementação inadequada com vários if´s e else's.
+- Depois criei uma segunda branch chamada de `good_solution`(solução_boa) que contém o refatoramento utilizando o padrão de projeto command. 
+  - Eu preferi este padrão porque fica mais legível. Porém, o ponto fraco dessa abordagem é a utilização de inner classes dentro de payment.rb.
 
 ## Desafio para Backend Software Engineer
 
