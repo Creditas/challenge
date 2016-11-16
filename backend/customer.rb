@@ -5,7 +5,6 @@ class Customer
     attr_reader :membership
 
     def initialize(attributes = {})
-      @signature = false
       @membership = Membership.new(customer: self)
     end
 

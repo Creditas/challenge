@@ -28,9 +28,9 @@ class Payment
           order.customer.membership.activate()
       elsif order_item.product.type == :book then
           order_item.product.generate_shipping_label_with_notification()
-      elsif order_item == item.type.digital_midia then
-          give_discount(10.00)
-          send_email()
+      elsif order_item.product.type == :digital then
+          order_item.generate_voucher_discount()
+          order_item.send_email()
       end
   end
 
