@@ -1,0 +1,14 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Esse é um teste focado em design de código, e conhecimento de orientação a  objeto. O objetivo é avaliar sua experiênica em escrever código de fácil  manutenção, baixo acoplamento, e alta coesão.",
+  "watch": {
+    "browserify": "src/javascripts/*.js"
+  },
+  "scripts": {
+    "browserify": "browserify src/javascripts/chat.js -o src/dist/bundle.js",
+    "watch": "npm-watch"
+  },
+  "author": "",
+  "license": "ISC"
+}
