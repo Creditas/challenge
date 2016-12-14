@@ -10,5 +10,8 @@
     "watch": "npm-watch"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "handlebars": "^4.0.6"
+  }
 }
