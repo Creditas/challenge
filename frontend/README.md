@@ -1,27 +1,43 @@
+## Dependências
+* [node](https://nodejs.org/en/)
+* [npm](https://www.npmjs.com/)
+* [browserify](http://browserify.org/) - `npm install -g browserify`
+
+## Como rodar
+Em **challenge/frontend**, instale as dependências do node:
+```
+npm install
+```
+Faça o bundle do javascript:
+```
+npm run browserify
+```
+Abra o arquivo **challenge/frontend/src/index.html** em um navegador.
+
 ## Teste frontend - Bankfacil
 
-Esse é um teste focado em design de código, e conhecimento de orientação a 
-objeto. O objetivo é avaliar sua experiênica em escrever código de fácil 
+Esse é um teste focado em design de código, e conhecimento de orientação a
+objeto. O objetivo é avaliar sua experiênica em escrever código de fácil
 manutenção, baixo acoplamento, e alta coesão.
 
 ### Apresentação do problema
 
-O arquivo `index.html` contém o esqueleto de uma aplicação de chat totalmente 
-*bare-bones*: uma `<ul>` com uma lista de mensagens enviadas, e um `<button>` + `<input>` 
+O arquivo `index.html` contém o esqueleto de uma aplicação de chat totalmente
+*bare-bones*: uma `<ul>` com uma lista de mensagens enviadas, e um `<button>` + `<input>`
 para envio de novas mensagens.
 
-A feature inicial de nossa aplicação é bastante simples: o usuário deve poder 
-entrar uma mensagem na caixa de texto e, ao apertar o botão "Enviar" (ou 
+A feature inicial de nossa aplicação é bastante simples: o usuário deve poder
+entrar uma mensagem na caixa de texto e, ao apertar o botão "Enviar" (ou
 pressionar <kbd>Enter</kbd>), a mensagem deverá aparecer na lista de mensagens.
 
-Isoladamente essa é uma feature simples de implementar, mas queremos que você 
-leve em conta a evolução futura do software. Imagine que o app irá crescer em 
+Isoladamente essa é uma feature simples de implementar, mas queremos que você
+leve em conta a evolução futura do software. Imagine que o app irá crescer em
 features, e adicionar coisas como:
 * envio de mensagens via ajax, com as respostas vindo via `long-polling`
 * chat em realtime via WebRTC
 * ter vários chats visíveis ao mesmo tempo, adicionadas dinamicamente com base nas ações do usuário
 
-Você deve pensar num design de código que suporte esses casos de uso sem 
+Você deve pensar num design de código que suporte esses casos de uso sem
 grandes modificações.
 
 ### Avaliação
