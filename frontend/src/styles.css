@@ -5,4 +5,15 @@
 .message-list {
   min-height: 10em;
   background-color: #f3f3f3;
+  padding: 0;
+}
+
+.message-list .message-item {
+  list-style: none;
+  border-top: 1px solid gray;
+  padding: 10px;
+}
+
+.message-list .message-item:first-child {
+  border: none;
 }

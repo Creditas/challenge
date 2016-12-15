@@ -14,10 +14,16 @@
     <div class="messages">
       <ul class="message-list"></ul>
 
-      <div class="message-input">
-        <input type="text" />
-        <button type="button">Enviar</button>
+      <div class="message-input-container">
+        <input type="text" class="message-input" />
+        <button type="button" class="send-message-button">Enviar</button>
       </div>
     </div>
+
+    <script id="message-handlebars-template" type="text/x-handlebars-template">
+      <li class="message-item">Message: {{ messageText }}</li>
+    </script>
+
+    <script src="./dist/bundle.js" type="text/javascript"></script>
   </body>
 </html>
