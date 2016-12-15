@@ -1,4 +1,5 @@
-const Message = require('./message');
+'use strict';
+var Message = require('./message');
 
 function Chat () {
   this.$messagesList = document.getElementsByClassName('message-list')[0];

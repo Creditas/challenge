@@ -1,4 +1,5 @@
-const Handlebars = require('handlebars');
+'use strict';
+var Handlebars = require('handlebars');
 
 function Message (text) {
   var template = document.getElementById('message-handlebars-template').innerHTML.trim();
