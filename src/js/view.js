@@ -32,6 +32,12 @@ function setListeners() {
   const sendButton = getElement(config.button);
 
   on(sendButton, 'click', publishMessage);
+  on(window, 'keypress', (e) => {
+    if (e.which == 13) {
+        e.preventDefault();
+        publishMessage();
+    }
+  });
 }
 
 function setConfig(viewConfig) {
@@ -45,7 +51,7 @@ function getMessage() {
 }
 
 function addMessage(message) {
-  const element = createElement('span');
+  const element = createElement('li');
   const text = `${message.user.name}: ${message.text}`;
   const textNode = createText(text);
 
