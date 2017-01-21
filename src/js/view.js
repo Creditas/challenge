@@ -63,5 +63,7 @@ function addMessage(message) {
 function publishMessage() {
   const message = getMessage();
 
+  getElement(config.textBox).value = '';
+
   PubSub.publish('message:sent', message);
 }
