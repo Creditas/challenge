@@ -37,5 +37,8 @@
     "karma": "^0.13.19",
     "jasmine-core": "^2.4.1",
     "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "pubsub-js": "^1.5.4"
   }
 }
