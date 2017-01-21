@@ -1,8 +1,29 @@
+@import "reset";
+
+body {
+  text-align: center;
+}
+
+.title {
+  font-size: 30px;
+  margin: 20px auto;
+}
+
 .messages {
   width: 20em;
+  margin: 0 auto;
 }
 
 .message-list {
   min-height: 10em;
   background-color: #f3f3f3;
+  list-style-type: none;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  
+  li:nth-child(even) {
+     background-color: #ccc;
+     margin: 10px 0;
+     padding: 10px 0;
+  }
 }
