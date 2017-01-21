@@ -3,6 +3,8 @@ export { getElement };
 export { append };
 export { createElement };
 export { createText };
+export { localStorageGet };
+export { localStorageSet };
 
 function on(element, event, callback) {
   element.addEventListener(event, callback, true);
@@ -28,4 +30,27 @@ function createElement(tagName) {
 
 function createText(text) {
   return document.createTextNode(text);
+}
+
+function localStorageGet(key) {
+  const rawValue = localStorage.getItem(key);
+  let parsedValue = null;
+
+  try {
+    parsedValue = JSON.parse(rawValue);
+  } catch(e) {
+    parsedValue = rawValue;
+  }
+
+  return parsedValue;
+}
+
+function localStorageSet(key, value) {
+  let parsedValue = value;
+
+  if (typeof value !== 'string') {
+    parsedValue = JSON.stringify(value);
+  }
+
+  localStorage.setItem(key, parsedValue);
 }
