@@ -1,5 +1,6 @@
 require("../sass/styles.scss");
 
+import { on } from './utils';
 import { app } from './app';
 
 const config = {
