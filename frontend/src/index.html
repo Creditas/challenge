@@ -11,13 +11,96 @@
   <body>
     <h1>Chat</h1>
 
-    <div class="messages">
-      <ul class="message-list"></ul>
-
-      <div class="message-input">
-        <input type="text" />
-        <button type="button">Enviar</button>
+    <button id="new-chat">Create New Chat</button>
+    <div id="messages-holder">
+      <div class="messages new">
+        <ul class="message-list"></ul>
+        <div class="message-input">
+          <form method="post">
+            <input type="text" />
+            <button type="button">Enviar</button>
+          </form>
+        </div>
       </div>
     </div>
+
+    <script>
+      // could have used babel to use const / let / arrow functions safely
+      // avoid hoisting mistakes and so on
+      "use strict";
+
+      // defining main variables 
+      const messagesElementsHolder = document.getElementById('messages-holder')
+      const messagesElements = messagesElementsHolder.getElementsByClassName('messages')
+      const newChatButton = document.getElementById('new-chat')
+      
+      // Messages prototype to create objects
+      const Messages = function(messages) {
+        this.messageForm = messages.querySelector('form')
+        this.messageSendButton = this.messageForm.querySelector('button')
+        this.messageTextInput = this.messageForm.querySelector('input'),
+        this.messageList = messages.getElementsByClassName('message-list')[0]
+      }
+
+      // Filter new chats and apply listeners to them
+      function createChats() {
+        Array.from(messagesElements)
+          .filter(messages => messages.classList.contains('new'))
+          .map(messages => {
+            const messageObj = new Messages(messages)
+            messageObj.messageForm.addEventListener('submit', (e) => sendMessage(e, messageObj))
+            messageObj.messageSendButton.addEventListener('click', (e) => sendMessage(e, messageObj))
+            // [TO-DO] add ajax, long polling and so on
+            messages.classList.remove('new')})
+      }
+
+      // if not empty, add message to the list
+      function sendMessage(e, messageObj) {
+        e.preventDefault()
+        let messageTextInputValue = messageObj.messageTextInput.value
+        if(messageTextInputValue !== "") {
+          const li = document.createElement('li')
+          li.innerText = messageObj.messageTextInput.value
+          messageObj.messageList.appendChild(li)
+          messageObj.messageTextInput.value = ""
+        }
+      }
+
+      // initiate the first chat
+      createChats()
+
+      // on newChat click add new chat and createChats for new chats 
+      newChatButton.addEventListener('click', function(e) {
+        e.preventDefault()
+        messagesElementsHolder.appendChild(newChat())
+        createChats()
+      })
+
+      // I'm not so sure how to use web components YET, but I'm willing to learn it the right way soon
+      function newChat() {
+        const messages = document.createElement('div')
+        const messageList = document.createElement('ul')
+        const messageInput = document.createElement('div')
+        const form = document.createElement('form')
+        const input = document.createElement('input')
+        const button = document.createElement('button')
+
+        messages.classList.add('messages', 'new')
+        messageList.classList.add('message-list')
+        messageInput.classList.add('message-input')
+        button.innerHTML = 'Enviar'
+        form.setAttribute('method', 'post')
+        input.setAttribute('type', 'text')
+        button.setAttribute('type', 'button')
+
+        messages.appendChild(messageList)
+        form.appendChild(input)
+        form.appendChild(button)
+        messageInput.appendChild(form)
+        messages.appendChild(messageInput)
+        return messages
+      }
+
+    </script>
   </body>
 </html>
