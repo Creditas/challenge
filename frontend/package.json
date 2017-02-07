@@ -1,0 +1,15 @@
+{
+  "name": "chat-challenge-frontend",
+  "version": "0.0.1",
+  "description": "Desafio para vaga de front end enginner",
+  "author": "Guilherme Ventura <guilherme.ventura@outlook.com>",
+  "scripts": {
+    "start": "webpack && webpack-dev-server"
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",    
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0"
+  }
+}
