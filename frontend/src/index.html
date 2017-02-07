@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-
     <title>Chat</title>
     <link rel="stylesheet" href="./styles.css" type="text/css" media="all">
   </head>
@@ -47,15 +46,20 @@
           .filter(messages => messages.classList.contains('messages-new'))
           .map(messages => {
             const messageObj = new Messages(messages)
-            messageObj.messageForm.addEventListener('submit', (e) => sendMessage(e, messageObj, 'me'))
-            messageObj.messageSendButton.addEventListener('click', (e) => sendMessage(e, messageObj, 'me'))
+            messageObj.messageForm.addEventListener('submit', (e) => {
+              e.preventDefault()
+              sendMessage(messageObj, 'me')
+            })
+            messageObj.messageSendButton.addEventListener('click', (e) => {
+              e.preventDefault()
+              sendMessage(messageObj, 'me')
+            })
             // [TO-DO] add ajax, long polling and so on
             messages.classList.remove('messages-new')})
       }
 
       // if not empty, add message to the list
-      function sendMessage(e, messageObj, who) {
-        e.preventDefault()
+      function sendMessage(messageObj, who) {
         let messageTextInputValue = messageObj.messageTextInput.value
         if(messageTextInputValue !== "") {
           const liList = messageObj.messageList.querySelectorAll('li')
