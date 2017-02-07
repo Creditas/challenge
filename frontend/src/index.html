@@ -12,6 +12,7 @@
     <button id="new-chat" class="animated">Create New Chat</button>
     <div id="messages-holder">
       <div class="messages messages-new">
+        <div class="simulate">Click here to simulate a bot response</div>
         <ul class="message-list"><li class="friend">Hi! How can I help you?</li></ul>
         <div class="message-input">
           <form method="post">
@@ -21,7 +22,6 @@
         </div>
       </div>
     </div>
-
     <script>
       // could have used babel to use const / let / arrow functions safely
       // avoid hoisting mistakes and so on
@@ -34,10 +34,11 @@
       
       // Messages prototype to create objects
       const Messages = function(messages) {
-        this.messageForm = messages.querySelector('form')
-        this.messageSendButton = this.messageForm.querySelector('button')
+        this.messageForm = messages.querySelector('form'),
+        this.simulateDiv = messages.querySelector('.simulate'),
+        this.messageSendButton = this.messageForm.querySelector('button'),
         this.messageTextInput = this.messageForm.querySelector('input'),
-        this.messageList = messages.getElementsByClassName('message-list')[0]
+        this.messageList = messages.querySelector('.message-list')
       }
 
       // Filter new chats and apply listeners to them
@@ -54,6 +55,13 @@
               e.preventDefault()
               sendMessage(messageObj, 'me')
             })
+            messageObj.simulateDiv.addEventListener('click', (e) => {
+              e.preventDefault()
+              let mockMessageObj = messageObj
+              mockMessageObj.messageTextInput.value = "Simulated response"
+              sendMessage(messageObj, 'friend')
+            })
+
             // [TO-DO] add ajax, long polling and so on
             messages.classList.remove('messages-new')})
       }
@@ -75,6 +83,7 @@
             li.innerHTML += "<br>" + messageObj.messageTextInput.value
           }
           messageObj.messageTextInput.value = ""
+          messageObj.messageList.scrollTop = messageObj.messageList.scrollHeight
         }
       }
 
@@ -90,6 +99,9 @@
 
       // I'm not so sure how to use web components YET, but I'm willing to learn it the right way soon
       function newChat() {
+        /* remove */ const simulateDiv = document.createElement('div')
+        /* remove */ const initialLi = document.createElement('li')
+
         const messages = document.createElement('div')
         const messageList = document.createElement('ul')
         const messageInput = document.createElement('div')
@@ -97,12 +109,20 @@
         const input = document.createElement('input')
         const button = document.createElement('button')
 
+        /* remove */ simulateDiv.classList.add('simulate')
+        /* remove */ simulateDiv.innerHTML = "Click here to simulate a bot response"
+        /* remove */ initialLi.classList.add('friend')
+        /* remove */ initialLi.innerHTML = "Hi! How can I help you?"
+
         messages.classList.add('messages', 'messages-new')
         messageList.classList.add('message-list')
         messageInput.classList.add('message-input')
         form.setAttribute('method', 'post')
         input.setAttribute('type', 'text')
         button.setAttribute('type', 'button')
+
+        /* remove */ messages.appendChild(simulateDiv)
+        /* remove */ messageList.appendChild(initialLi)
 
         messages.appendChild(messageList)
         form.appendChild(input)
