@@ -36,7 +36,7 @@ function createChats() {
             if(messageObj.messageTextInput.value != "")
                 mockMessageObj.messageTextInput.value = messageObj.messageTextInput.value
             else
-                mockMessageObj.messageTextInput.value = "<br>Write something in the input to simulate a bot response =)"
+                mockMessageObj.messageTextInput.value = "Write something in the input to simulate a bot response =)"
             sendMessage(messageObj, 'friend')
         })
     messages.classList.remove('messages-new')})
