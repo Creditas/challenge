@@ -28,7 +28,6 @@ h1 {
   margin: 20px 10px;
   overflow: hidden;
 }
-
 .message-list {
   margin: 0;
   min-height: 10em;
@@ -38,7 +37,7 @@ h1 {
   list-style-type: none;
   padding: 5px 10px 50px 10px;
   overflow-y: scroll;
-  word-wrap: break-word;
+  word-wrap: break-word;  
 }
 .message-list li {
   font-size: 12px;
@@ -140,4 +139,5 @@ form button:focus{
   cursor: pointer;
   font-size: 12px;
   color: #ffffff;
+  user-select: none;
 }

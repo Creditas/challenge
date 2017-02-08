@@ -1,5 +1,5 @@
-// could have used babel to use const / let / arrow functions safely
-// avoid hoisting mistakes and so on
+// [TO-DO] could have used babel to use const / let / arrow functions safely
+// use strict to avoid hoisting mistakes
 "use strict";
 
 // defining main variables 
@@ -33,7 +33,10 @@ function createChats() {
         messageObj.simulateDiv.addEventListener('click', (e) => {
             e.preventDefault()
             let mockMessageObj = messageObj
-            mockMessageObj.messageTextInput.value = "Simulated response"
+            if(messageObj.messageTextInput.value != "")
+                mockMessageObj.messageTextInput.value = messageObj.messageTextInput.value
+            else
+                mockMessageObj.messageTextInput.value = "<br>Write something in the input to simulate a bot response =)"
             sendMessage(messageObj, 'friend')
         })
     messages.classList.remove('messages-new')})
@@ -45,7 +48,7 @@ function sendMessage(messageObj, who) {
     if(messageTextInputValue !== "") {
         const liList = messageObj.messageList.querySelectorAll('li'),
             lastLi = liList[liList.length - 1]
-        var li
+        let li
         if(!lastLi.classList.contains(who)) {
             li = document.createElement('li')
             li.classList.add(who)
@@ -57,6 +60,7 @@ function sendMessage(messageObj, who) {
         }
         messageObj.messageTextInput.value = ""
         messageObj.messageList.scrollTop = messageObj.messageList.scrollHeight
+        messageObj.messageTextInput.focus()
     }
 }
 
@@ -71,8 +75,8 @@ createChats()
 
 // Create a new chat node
 function newChat() {
-    /* remove */ const simulateDiv = document.createElement('div')
-    /* remove */ const initialLi = document.createElement('li')
+    /* fake bot */ const simulateDiv = document.createElement('div')
+    /* fake bot */ const initialLi = document.createElement('li')
 
     const messages = document.createElement('div'),
         messageList = document.createElement('ul'),
@@ -81,10 +85,10 @@ function newChat() {
         input = document.createElement('input'),
         button = document.createElement('button')
 
-    /* remove */ simulateDiv.classList.add('simulate')
-    /* remove */ simulateDiv.innerHTML = "Click here to simulate a bot response"
-    /* remove */ initialLi.classList.add('friend')
-    /* remove */ initialLi.innerHTML = "Hi! How can I help you?"
+    /* fake bot */ simulateDiv.classList.add('simulate')
+    /* fake bot */ simulateDiv.innerHTML = "Click here to simulate a bot response"
+    /* fake bot */ initialLi.classList.add('friend')
+    /* fake bot */ initialLi.innerHTML = "Hi! How can I help you?"
 
     messages.classList.add('messages', 'messages-new')
     messageList.classList.add('message-list')
@@ -93,8 +97,8 @@ function newChat() {
     input.setAttribute('type', 'text')
     button.setAttribute('type', 'button')
 
-    /* remove */ messages.appendChild(simulateDiv)
-    /* remove */ messageList.appendChild(initialLi)
+    /* fake bot */ messages.appendChild(simulateDiv)
+    /* fake bot */ messageList.appendChild(initialLi)
 
     messages.appendChild(messageList)
     form.appendChild(input)
