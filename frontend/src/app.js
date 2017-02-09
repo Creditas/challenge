@@ -37,7 +37,7 @@ function createChats() {
                 mockMessageObj.messageTextInput.value = messageObj.messageTextInput.value
             else
                 mockMessageObj.messageTextInput.value = "Write something in the input to simulate a bot response =)"
-            sendMessage(messageObj, 'friend')
+            sendMessage(messageObj, 'bot')
         })
     messages.classList.remove('messages-new')})
 }
@@ -45,23 +45,27 @@ function createChats() {
 // if not empty, add message to the list
 function sendMessage(messageObj, who) {
     let messageTextInputValue = messageObj.messageTextInput.value
-    if(messageTextInputValue !== "") {
-        const liList = messageObj.messageList.querySelectorAll('li'),
-            lastLi = liList[liList.length - 1]
-        let li
-        if(!lastLi.classList.contains(who)) {
-            li = document.createElement('li')
-            li.classList.add(who)
-            li.innerText = messageObj.messageTextInput.value
-            messageObj.messageList.appendChild(li)
-        } else {
-            li = lastLi
-            li.innerHTML += "<br>" + messageObj.messageTextInput.value
-        }
-        messageObj.messageTextInput.value = ""
-        messageObj.messageList.scrollTop = messageObj.messageList.scrollHeight
-        messageObj.messageTextInput.focus()
+    if(messageTextInputValue === "") {
+        return
     }
+    const liList = messageObj.messageList.querySelectorAll('li'),
+        lastLi = liList[liList.length - 1]
+    let li
+    if(!lastLi.classList.contains(who)) {
+        li = document.createElement('li')
+        li.classList.add(who)
+        li.innerText = messageObj.messageTextInput.value
+        messageObj.messageList.appendChild(li)
+    } else {
+        li = lastLi
+        li.innerHTML += "<br>" + messageObj.messageTextInput.value
+    }
+    if(who === 'me') {
+        consumeApi(messageTextInputValue, messageObj, sendMessage)
+    }
+    messageObj.messageTextInput.value = ""
+    messageObj.messageList.scrollTop = messageObj.messageList.scrollHeight
+    messageObj.messageTextInput.focus()
 }
 
 // initiate the first chat
@@ -87,7 +91,7 @@ function newChat() {
 
     /* fake bot */ simulateDiv.classList.add('simulate')
     /* fake bot */ simulateDiv.innerHTML = "Click here to simulate a bot response"
-    /* fake bot */ initialLi.classList.add('friend')
+    /* fake bot */ initialLi.classList.add('bot')
     /* fake bot */ initialLi.innerHTML = "Hi! How can I help you?"
 
     messages.classList.add('messages', 'messages-new')
@@ -106,4 +110,21 @@ function newChat() {
     messageInput.appendChild(form)
     messages.appendChild(messageInput)
     return messages
+}
+
+function consumeApi(question, messageObj, fn) {
+    var xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // [TO-DO] this have to be verified on server side
+            const data = JSON.parse(this.responseText)
+            if(data.hasOwnProperty(question)) {
+                const mockMessageObj = messageObj
+                mockMessageObj.messageTextInput.value = data[question]
+                sendMessage(mockMessageObj, 'bot')
+            }
+        }
+    }
+    xhr.open("GET", "mock.json", true);
+    xhr.send();
 }

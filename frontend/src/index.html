@@ -9,11 +9,10 @@
 
   <body>
     <h1>CreditasBot</h1>
-    <button id="new-chat" class="animated">Create New Chat</button>
     <div id="messages-holder">
       <div class="messages messages-new">
         <div class="simulate">Click here to simulate a bot response</div>
-        <ul class="message-list"><li class="friend">Hi! How can I help you?</li></ul>
+        <ul class="message-list"><li class="bot">Hi! How can I help you?</li></ul>
         <div class="message-input">
           <form method="post">
             <input type="text" class="animated" />
@@ -22,6 +21,19 @@
         </div>
       </div>
     </div>
+    <button id="new-chat" class="animated">Create New Chat</button>
+    <aside class="hints">
+      <p>Why don't you try out some of the questions below? Copy and paste then in the chat!</p>
+      <div class="hints-holder">
+        <li class="hints-item">hi there</li>
+        <li class="hints-item">what is creditas?</li>
+        <li class="hints-item">what is the min for properties?</li>
+        <li class="hints-item">what is the min for vehicles?</li>
+        <li class="hints-item">could we use watson?</li>
+        <li class="hints-item">help!</li>
+        <li class="hints-item">who is caio?</li>
+      </ul>
+    </aside>
     <script src="./app.js"></script>
   </body>
 </html>
