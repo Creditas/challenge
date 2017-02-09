@@ -1,23 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-
     <title>Chat</title>
     <link rel="stylesheet" href="./styles.css" type="text/css" media="all">
   </head>
 
   <body>
-    <h1>Chat</h1>
-
-    <div class="messages">
-      <ul class="message-list"></ul>
-
-      <div class="message-input">
-        <input type="text" />
-        <button type="button">Enviar</button>
+    <h1>CreditasBot</h1>
+    <div id="chat">
+      <div class="chat__messages chat__messages--new">
+        <div class="chat__simulate">Click here to simulate a bot response</div>
+        <ul class="chat__message-list">
+          <li class="chat__message-item chat__message-item--bot">Hi! How can I help you?</li>
+        </ul>
+        <div class="chat__message-input">
+          <form method="post">
+            <input type="text" class="animated" />
+            <button type="button" class="animated"></button>
+          </form>
+        </div>
       </div>
     </div>
+    <button id="new-chat" class="animated">Create New Chat</button>
+    <aside id="hints">
+      <p>Why don't you try out some of the questions below? Copy and paste then in the chat!</p>
+      <ul class="hints__holder">
+        <li class="hints__item">hi there</li>
+        <li class="hints__item">what is creditas?</li>
+        <li class="hints__item">what is the min for properties?</li>
+        <li class="hints__item">what is the min for vehicles?</li>
+        <li class="hints__item">could we use watson?</li>
+        <li class="hints__item">help!</li>
+        <li class="hints__item">who is caio?</li>
+      </ul>
+    </aside>
+    <script src="./app.js"></script>
   </body>
 </html>

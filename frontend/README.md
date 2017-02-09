@@ -1,5 +1,12 @@
 ## Teste frontend - Bankfacil
 
+### Projeto Realizado
+Neste challenge, apliquei alguns dos meu conhecimentos de JS, CSS com BEM e HTML5.
+Decidi não utilizar nenhum framework, library ou task automation, a fim de manter este
+projeto o mais simples possível como POC (Proof of Concept) / Prototipagem.
+(Este projeto foi testado localmente no Firefox, sem nenhum server, utilizando AJAX,
+uma versão online rodando em Apache HTTP pode ser conferida em: [http://caioabe.com.br/creditas/](http://caioabe.com.br/creditas/) )
+
 Esse é um teste focado em design de código, e conhecimento de orientação a 
 objeto. O objetivo é avaliar sua experiênica em escrever código de fácil 
 manutenção, baixo acoplamento, e alta coesão.
