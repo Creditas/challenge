@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/victor/.gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams/1.0.0/14b8c877d98005ba3941c9257cfe09f6ed0e0d74/reactive-streams-1.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="14b8c877d98005ba3941c9257cfe09f6ed0e0d74">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/reactive-streams-1.0.0_68ff360f4da3a753b85377a2603b111890b70925.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1108575c7dc7b7f5b378b3290ac90de81a9b8830">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-25.0.1_a8b62631173e614110dc3a592906d4a3686414dc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.0.1_3920b1900bbd6950b83fa6f2e2044ceefce2ab6f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/design/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3b236883e0df6002cabb01ce57d00a5b1e5de610">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/com.android.support-design-25.0.1_a4d175d68daf1f87f2e69f499112c5be63e4bf36.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="297d4bcf6ed4e747a1bf7d0d094a2d911a8d3a8e">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-25.0.1_72570795f74df1f301868db4e6d0e8d21ea00455.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c5b7145fb34779b6639147b8f2f8dd77c0db771b">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/internal_impl-25.0.1_b04ee84bc141e65c5bb5ccc583f7e9d186898f7a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.5.1/bb67dad90bab7cd77a8f7f1b8442b47e3a2326bc/butterknife-annotations-8.5.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bb67dad90bab7cd77a8f7f1b8442b47e3a2326bc">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/butterknife-annotations-8.5.1_33c8024b76d3ed067e63a349effc54258ec5310e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-25.0.1_191fc5d8ece64ba3ef51ce6d009926da42df9cf5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="26c6eef571592c91f29e56fda0bac73321de0c92">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.0.1_e885adbe3b4873a686a1ac1db1ddd487da7aca26.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.0/support-annotations-25.1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="64cb6b229a8bdfd907bc8dd46839a0053e4c018d">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/support-annotations-25.1.0_2d42014fd13f295871f7e700b5986f2c9b2e934e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f7ac4b327fdb9e2ee386f5adc46164927658de4b">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-25.0.1_0b3a2a6cf6d3167293a027d6a440b628a2f7fdc0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ca3c7aa31e2726a400a6e552b93cb9f63c9a1e6d">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.1.0_ad220746d0206ca58e57aa38fa541997e03fbdd0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b24e1c688744078e1fa833ffadf696794761bbe5">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-25.0.1_6c41c79435792af2d02939fa708ed53d1abbf8e7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/picasso-2.5.2_d5b5555f237d6fe66d99e94a485c9a51110b2f82.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f83b00041ecfba705603fec40363416c7de69719">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/internal_impl-25.0.1_62b04cbeb1b14366f1b7d644e2dc6e5030aaf9f2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.jakewharton/butterknife/8.5.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="19f281a785ca0eb5f6799fc7bf7ca199a9ca1e8b">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/com.jakewharton-butterknife-8.5.1_1c62b8ff60d0c38fa5d0cde4c24fff774d4049a8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.8.0/5ea7af56cc7c567ed9856d99efb30740e9b17ff/okio-1.8.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="05ea7af56cc7c567ed9856d99efb30740e9b17ff">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/okio-1.8.0_b68d432ba62b3755a4c150ed561b7d1f139ed972.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.3.0/2b802460eea20f8f2ad9c08c74e0f14718e88aa9/okhttp-3.3.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2b802460eea20f8f2ad9c08c74e0f14718e88aa9">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/okhttp-3.3.0_854f9e3eee0fc21e94a8416617dcad4b026eba8f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/transition/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c1b6ab157e8e12cb08b9ee82bb5e3c5d22632eb3">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/com.android.support-transition-25.0.1_9174e3d8a8edad3671cdce471d76e6f878bef1b7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-25.0.1_b110b98526684e7dfd36390c5b49cb876fc0757f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/gson-2.7_f07bbd84c8b36c8c55a009186817e80c6e3d109e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/internal_impl-25.0.1_e4b09658a1b541203e98c4abeb29fb1366ab1574.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.1.0/aa557d71ead91cbf26e0c316a0f593d168303309/converter-gson-2.1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="aa557d71ead91cbf26e0c316a0f593d168303309">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/converter-gson-2.1.0_1313e69fdd105e42ef1cdc0ad1db0081bfc1385a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/.gradle/caches/modules-2/files-2.1/com.jakewharton.retrofit/retrofit2-rxjava2-adapter/1.0.0/e117362a2103f8ec01091ebd2f40aca4e1ada599/retrofit2-rxjava2-adapter-1.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e117362a2103f8ec01091ebd2f40aca4e1ada599">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/retrofit2-rxjava2-adapter-1.0.0_608d0ec38f0dc9c127fc1ff339590be55ab0f7a8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.1.0/2de7cd8b95b7021b1d597f049bcb422055119f2c/retrofit-2.1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2de7cd8b95b7021b1d597f049bcb422055119f2c">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/retrofit-2.1.0_c5039e8833ffd7726c45fa0943df1fdf9c44ee41.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.0.1_c1ce41872cf7a6d12cc17048f02c17087ede40c1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-25.0.1_feed804e22cebfb916fe345957247ea223153fcf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/io.reactivex.rxjava2/rxandroid/2.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4119ea97a7191ff9b8f33b534ea220448f62f491">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/io.reactivex.rxjava2-rxandroid-2.0.1_e76502675149ef12f6b037f72a438fa4566548e0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.0.1/57f850a6b317e5582f1dbaff10a9e7d7e1fcdcfb/rxjava-2.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="57f850a6b317e5582f1dbaff10a9e7d7e1fcdcfb">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/rxjava-2.0.1_71cf5f138a74d5978e3f0882d8fce521c1277b8b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.1/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="/home/victor/dev/android/tests/HumanResources/app/build/intermediates/pre-dexed/debug/internal_impl-25.0.1_629e2d874fc3c3b050284fd1a48821e698b62ddc.jar" />
+    </item>
+
+</items>
