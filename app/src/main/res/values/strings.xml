@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Human Resources</string>
+    <string name="employess_list_get_error">Não foi possivel atualizar informações, verifique sua conexão!</string>
+    <string name="retry">retry</string>
+</resources>

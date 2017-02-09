@@ -1,0 +1,6 @@
+<resources>
+    <dimen name="card_view_margin">4dp</dimen>
+    <dimen name="card_view_corner">8dp</dimen>
+    <dimen name="card_view_height">200dp</dimen>
+    <dimen name="edit_text_padding">8dp</dimen>
+</resources>
