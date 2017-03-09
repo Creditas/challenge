@@ -1,6 +1,6 @@
 <?php
 
-namespace Creditas\Shipping\PaymentMethod;
+namespace Creditas\Shipping\Rule;
 
 use Creditas\Shipping\Entity\Payment;
 use Creditas\Shipping\Enum\Messages;
