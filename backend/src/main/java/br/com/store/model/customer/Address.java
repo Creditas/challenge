@@ -5,9 +5,9 @@ package br.com.store.model.customer;
  */
 public class Address {
 
-    String zipCode;
-    String billingAddress;
-    String shippingAddress;
+    private String zipCode;
+    private String billingAddress;
+    private String shippingAddress;
 
     public Address(String zipCode, String billingAddress, String shippingAddress) {
         this.zipCode = zipCode;

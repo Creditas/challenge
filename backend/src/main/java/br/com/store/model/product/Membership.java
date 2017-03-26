@@ -7,8 +7,8 @@ import java.util.ArrayList;
  * Created by tinguan on 26/03/17.
  */
 public class Membership {
-    Product product;
-    boolean isActive;
+    private Product product;
+    private boolean isActive;
 
     public Membership(Product product, boolean isActive) {
         this.product = product;

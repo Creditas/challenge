@@ -5,7 +5,7 @@ package br.com.store.model.customer;
  */
 public class Customer {
 
-    String name;
+    private String name;
 
     public Customer(String name) {
         this.name = name;

@@ -1,9 +1,6 @@
 package br.com.store.model.payment;
 
-import br.com.store.model.order.Invoice;
-import br.com.store.model.order.Order;
-import br.com.store.model.order.OrderDescription;
-import br.com.store.model.order.ShippingLabel;
+import br.com.store.model.order.*;
 import br.com.store.model.product.Product;
 
 import java.util.ArrayList;
@@ -15,21 +12,21 @@ import java.util.Calendar;
 
 public class Payment {
 
-    String autorizationNumber;
-    Double amount;
-    Order order;
-    Invoice invoice;
-    Calendar paidAt;
-    PaymentMethod paymentMethod;
-    OrderDescription orderDescription;
-    Double voucherValue = 0.00;
+    private String autorizationNumber;
+    private Double amount;
+    private Order order;
+    private Invoice invoice;
+    private Calendar paidAt;
+    private PaymentMethod paymentMethod;
+    private ArrayList<OrderDescription> orderDescriptions;
+    private Double voucherValue = 0.00;
 
     public Payment(String autorizationNumber, Order order, Calendar paidAt, PaymentMethod paymentMethod) {
         this.autorizationNumber = autorizationNumber;
         this.order = order;
         this.paidAt = paidAt;
         this.paymentMethod = paymentMethod;
-        this.orderDescription = this.createOrderDescription();
+        this.orderDescriptions = this.createOrderDescriptions();
     }
 
     public Double getAmount(ArrayList<Product> items) {
@@ -56,25 +53,31 @@ public class Payment {
     }
 
     public boolean isPaid() {
-        return this.paidAt != null;
+        return this.invoice != null;
     }
 
-    private OrderDescription createOrderDescription() {
-        OrderDescription orderDescription = new OrderDescription();
+    private ArrayList<OrderDescription> createOrderDescriptions() {
 
+        ArrayList<OrderDescription> orderDescriptions = new ArrayList<OrderDescription>();
         if(this.order.getItems().size() > 0) {
             if (this.order.hasBook(this.order.getItems())) {
-                orderDescription = new ShippingLabel(this.order.getAddress().getZipCode(), this.order.getAddress());
+                ShippingLabel orderDescription = new ShippingLabel(this.order.getAddress().getZipCode(), this.order.getAddress());
                 orderDescription.setDescription("This item doesn't require taxes");
                 this.voucherValue = 10.00;
+                orderDescriptions.add(orderDescription);
             } else if (this.order.hasDigitalOrSignature(this.order.getItems())) {
+                EmailNotification orderDescription = new EmailNotification();
                 orderDescription.createEmail(this.order.getDigitalProducts(this.order.getItems()));
+                orderDescriptions.add(orderDescription);
             } else {
-                orderDescription = new ShippingLabel(this.order.getAddress().getZipCode(), this.order.getAddress());
+                ShippingLabel orderDescription = new ShippingLabel(this.order.getAddress().getZipCode(), this.order.getAddress());
+                orderDescriptions.add(orderDescription);
             }
         }
-        return orderDescription;
+        return orderDescriptions;
     }
 
-
+    public ArrayList<OrderDescription> getOrderDescriptions() {
+        return orderDescriptions;
+    }
 }

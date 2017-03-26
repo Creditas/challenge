@@ -5,9 +5,9 @@ package br.com.store.model.product;
  */
 public class Product {
 
-    String name;
-    Double price;
-    Type type;
+    private String name;
+    private Double price;
+    private Type type;
 
     public Product(String name, Double price, Type type) {
         this.name = name;

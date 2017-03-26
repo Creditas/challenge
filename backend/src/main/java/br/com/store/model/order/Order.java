@@ -12,10 +12,10 @@ import java.util.Calendar;
  * Created by tinguan on 26/03/17.
  */
 public class Order {
-    Customer customer;
-    ArrayList<Product> items = new ArrayList<Product>();
-    Calendar closedAt;
-    Address address;
+    private Customer customer;
+    private ArrayList<Product> items = new ArrayList<Product>();
+    private Calendar closedAt;
+    private Address address;
 
     public Order(Customer customer, Calendar closedAt, String zipCode, String billingAddress, String shippingAddress) {
         this.customer = customer;

@@ -7,7 +7,7 @@ import br.com.store.model.customer.Address;
  */
 public class ShippingLabel extends OrderDescription {
 
-    Address address;
+    private Address address;
 
     public ShippingLabel(String description, Address address) {
         super.description = description;

@@ -9,9 +9,9 @@ import java.util.ArrayList;
  * Created by tinguan on 26/03/17.
  */
 public class Invoice {
-    String billingAddress;
-    String shippingAddress;
-    ArrayList<Membership> memberships;
+    private String billingAddress;
+    private String shippingAddress;
+    private ArrayList<Membership> memberships;
     public Invoice(String billingAddress, String shippingAddress) {
         this.billingAddress = billingAddress;
         this.shippingAddress = shippingAddress;
@@ -28,6 +28,10 @@ public class Invoice {
                 memberships.add(new Membership(product, true));
             }
         }
+        return memberships;
+    }
+
+    public ArrayList<Membership> getMemberships() {
         return memberships;
     }
 }
