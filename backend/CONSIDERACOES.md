@@ -8,4 +8,4 @@ A solução foi feita utilizando **JAVA** e **GRADLE**. A estrutura consiste no 
 
 # TESTES UNITÁRIOS
 <br>
-Para validar o calculo da compra, ou shipping labels e ajudar na transparência do desenvolvimento, criei testes unitários para boa parte do fluxo. Eles foram escritos em JUnit (é, o framework de testes poderia ser melhor :s) e podem ser encontrados [AQUI](https://github.com/vtinguan/challenge/tree/master/backend/src/test/java) :
+Para validar o calculo da compra, ou shipping labels e ajudar na transparência do desenvolvimento, criei testes unitários para boa parte do fluxo. Eles foram escritos em JUnit (é, o framework de testes poderia ser melhor :s) e podem ser encontrados [AQUI:](https://github.com/vtinguan/challenge/tree/master/backend/src/test/java)
