@@ -12,6 +12,7 @@ class Payment
     @authorization_number = Time.now.to_i
     @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
     @paid_at = paid_at
+    order.payment = self
     order.close(@paid_at)
   end
 
@@ -52,6 +53,11 @@ class Order
     @closed_at = closed_at
   end
 
+  def deliver
+    @delivery = Delivery.new(self)
+    @delivery.deliver
+  end
+
   # remember: you can create new methods inside those classes to help you create a better design
 end
 
@@ -75,6 +81,25 @@ class Product
   def initialize(name:, type:)
     @name, @type = name, type
   end
+
+  def typed_product
+    @typed_product ||= case type
+      when :physical
+        Physical.new(name)
+      when :book
+        Book.new(name)
+      when :digital
+        Digital.new(name)
+      when :membership
+        Membership.new(name)
+      else
+        self
+      end
+  end
+
+  def deliver(order)
+    typed_product.deliver(order)
+  end
 end
 
 class Address
@@ -93,14 +118,80 @@ end
 
 class Customer
   # you can customize this class by yourself
+
+  attr_reader :email
+
+  def initialize(email:)
+    @email = email
+  end
 end
 
-class Membership
+class Physical < Product
+
+  def deliver(order)
+    self.print_shipping_label(order.address)
+  end
+
+  def print_shipping_label(address)
+    # should print label with address
+  end
+end
+
+class Book < Physical
+
+  def print_shipping_label(address)
+    # should print label with address and tax exemptation notification
+  end
+end
+
+class Digital < Product
+
+  def deliver(order)
+    self.create_voucher(order.payment)
+    self.send_notification_mail(order.customer.email)
+  end
+
+  def create_voucher(payment)
+    # should create discount voucher for customer
+  end
+
+  def send_notification_mail(email)
+    # should send Digital purchase mail notification for customer
+  end
+end
+
+class Membership < Product
   # you can customize this class by yourself
+
+  def deliver(order)
+    self.activate
+    self.send_activation_mail(order.customer.email)
+  end
+
+  def activate
+    # should active Membership for customer
+  end
+
+  def send_activation_mail(email)
+    # should send Membership activation mail notification for customer
+  end
+end
+
+class Delivery
+
+  attr_reader :order
+
+  def initialize(order:)
+    @order = order
+  end
+
+  def deliver
+    @order.items.each { |item| item.deliver(@order) }
+  end
 end
 
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
+foolano = Customer.new(email: 'customer@example.com')
 book = Product.new(name: 'Awesome book', type: :book)
 book_order = Order.new(foolano)
 book_order.add_product(book)
