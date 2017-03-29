@@ -1,4 +1,4 @@
-﻿namespace DomainModel
+﻿namespace rec DomainModel
 
 open System
 open System.Text.RegularExpressions
@@ -20,16 +20,56 @@ module CustomerTypes =
         zipcode: string //todo: this can be more strict!
     }
 
-open CustomerTypes
-module OrderProcessingModel = 
+
+module OrderModel = 
+    open CustomerTypes
+    open OrderFullfilmentModel
+    open PaymentModel
+    open ProductModel
+    
 
     type Customer = 
         {   cpf : Cpf
             name : string
             email : EmailAddress }
 
+    type Order = 
+        { orderId : System.Guid
+          customer : Customer
+          items : OrderItem list
+          shippingAddress : CustomerAddress
+          closeDate : DateTime option
+          orderFullfilmentStatus: OrderFulfillmentStatus
+          payment : Payment }
+
+    type OrderItem = 
+        { orderItemId : int
+          product : Product
+          listPrice : decimal
+          sellingPrice : decimal }
+
+    type Invoice = 
+        { billingAddres : CustomerAddress
+          shippingAddress : CustomerAddress
+          order : Order }
+
+
+    let processPhysicalOrderItem item = printfn "processando ordem para item físico"
+
+    let processMembershipOrderItem item  = printfn "processando assinatura digital"
+    
+    let processBookOrderItem item = printfn "processando livro físico"
+    
+    let processDigitalMediaOrderItem item = printfn "processando mídia digital"
+
+
+
+module ProductModel =
+    
     type PhysicalProducItemType = Book | Other
+    
     type DigitalProductItemType = DigitalMedia | Membership
+    
     type ProductType = 
         | PhysicalItem of PhysicalProducItemType
         | DigitalItem of DigitalProductItemType
@@ -39,6 +79,9 @@ module OrderProcessingModel =
           itemType : ProductType
           listPrice : decimal }
 
+    
+module PaymentModel = 
+    
     type PaymentMethod = 
         | CreditCard of hashed : string
         | Debit
@@ -56,6 +99,12 @@ module OrderProcessingModel =
           paymentStatus : PaymentProcessingStatus
           paymentMethod : PaymentMethod }
 
+    
+ 
+module OrderFullfilmentModel =
+    open OrderModel
+    open ProductModel
+
     type OrderDeclinationReason =
         | OutOfStock
         | PaymentRejected
@@ -67,39 +116,6 @@ module OrderProcessingModel =
         | Shipped
         | Delivered
         | Declined of reason : OrderDeclinationReason
-
-    type Order = 
-        { orderId : System.Guid
-          customer : Customer
-          items : OrderItem list
-          shippingAddress : CustomerAddress
-          closeDate : DateTime option
-          payment : Payment }
-
-    and OrderItem = 
-        { orderItemId : int
-          product : Product
-          listPrice : decimal
-          sellingPrice : decimal }
-
-    type Invoice = 
-        { billingAddres : CustomerAddress
-          shippingAddress : CustomerAddress
-          order : Order }
-
-
-          
-
-    let processPhysicalOrderItem item = printfn "processando ordem para item físico"
-
-    let processMembershipOrderItem item  = printfn "processando assinatura digital"
-    
-    let processBookOrderItem item = printfn "processando livro físico"
-    
-    let processDigitalOrderItem item = printfn "processando mídia digital"
-
-
-
 
     let handleOrderFullfilment (order:Order) = 
         
@@ -114,9 +130,9 @@ module OrderProcessingModel =
                             | Other -> processPhysicalOrderItem head
                     | DigitalItem item -> 
                         match item with 
-                            | DigitalMedia -> processMembershipOrderItem head
+                            | DigitalMedia -> processDigitalMediaOrderItem head
                             | Membership -> processMembershipOrderItem head
                 handleOrderItems tail
 
         handleOrderItems order.items
-        
+
