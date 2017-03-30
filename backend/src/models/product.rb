@@ -1,10 +1,10 @@
 class Product
   attr_reader :name,
-  			  :price, 
-  			  :type
+              :price,
+              :type
 
-  def initialize name:, price:, type: 
-    @name = name 
+  def initialize name:, price:, type:
+    @name = name
     @price = price
     @type = type
   end
