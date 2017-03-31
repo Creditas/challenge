@@ -3,7 +3,7 @@
 open System
 open System.Text.RegularExpressions
 
-module CustomerTypes = 
+module CustomerModel = 
     
     type Cpf = Cpf of string
     let createValidCpf (cpfString:string) = 
@@ -20,19 +20,17 @@ module CustomerTypes =
         zipcode: string //todo: this can be more strict!
     }
 
-
-module OrderModel = 
-    open CustomerTypes
-    open OrderFullfilmentModel
-    open PaymentModel
-    open ProductModel
-    
-
     type Customer = 
         {   cpf : Cpf
             name : string
             email : EmailAddress }
 
+module OrderModel = 
+    open CustomerModel
+    open PaymentModel
+    open ProductModel
+    
+    //todo: make explicit order states
     type Order = 
         { orderId : System.Guid
           customer : Customer
@@ -42,8 +40,22 @@ module OrderModel =
           orderFullfilmentStatus: OrderFulfillmentStatus
           payment : Payment }
 
+    
+    type OrderFulfillmentStatus = 
+        | AwaitingProcessing
+        | ProcessingPayment
+        | Shipped
+        | Delivered
+        | Declined of reason : OrderDeclinationReason
+
+    type OrderDeclinationReason =
+        | OutOfStock
+        | PaymentRejected
+        | OtherReason
+
     type OrderItem = 
         { orderItemId : int
+          orderId: System.Guid
           product : Product
           listPrice : decimal
           sellingPrice : decimal }
@@ -52,17 +64,6 @@ module OrderModel =
         { billingAddres : CustomerAddress
           shippingAddress : CustomerAddress
           order : Order }
-
-
-    let processPhysicalOrderItem item = printfn "processando ordem para item físico"
-
-    let processMembershipOrderItem item  = printfn "processando assinatura digital"
-    
-    let processBookOrderItem item = printfn "processando livro físico"
-    
-    let processDigitalMediaOrderItem item = printfn "processando mídia digital"
-
-
 
 module ProductModel =
     
@@ -78,7 +79,6 @@ module ProductModel =
         { productId : string
           itemType : ProductType
           listPrice : decimal }
-
     
 module PaymentModel = 
     
@@ -98,41 +98,130 @@ module PaymentModel =
           amount : decimal
           paymentStatus : PaymentProcessingStatus
           paymentMethod : PaymentMethod }
-
     
  
 module OrderFullfilmentModel =
+
     open OrderModel
-    open ProductModel
+    open ProductModel 
+    open OrderItemProcessingModel
 
-    type OrderDeclinationReason =
-        | OutOfStock
-        | PaymentRejected
-        | OtherReason
 
-    type OrderFulfillmentStatus = 
-        | AwaitingProcessing
-        | ProcessingPayment
-        | Shipped
-        | Delivered
-        | Declined of reason : OrderDeclinationReason
-
-    let handleOrderFullfilment (order:Order) = 
+    let startOrderFullfilment (order:Order) = 
         
         let rec handleOrderItems (orderItems: OrderItem list) =
             match orderItems with 
             | [] -> printfn "Itens processados"
-            | head::tail -> 
-                match head.product.itemType with 
+            | currentItem::restOfItems -> 
+                match currentItem.product.itemType with 
                     | PhysicalItem item  -> 
                         match item with
-                            | Book -> processBookOrderItem head
-                            | Other -> processPhysicalOrderItem head
+                            | Book -> processBookOrderItem order currentItem
+                            | Other -> processPhysicalOrderItem order currentItem
                     | DigitalItem item -> 
                         match item with 
-                            | DigitalMedia -> processDigitalMediaOrderItem head
-                            | Membership -> processMembershipOrderItem head
-                handleOrderItems tail
+                            | DigitalMedia -> processDigitalMediaOrderItem order currentItem
+                            | Membership -> processMembershipOrderItem order currentItem
+                handleOrderItems restOfItems
 
         handleOrderItems order.items
 
+
+module OrderItemProcessingModel = 
+    open RestrictedStrings
+    open OrderModel
+    open CustomerModel
+    
+    type PhysicalItemDeliveryRequest = 
+        { orderId : Guid
+          orderItem : OrderItem
+          customer : Customer
+          shippingLabelContent : String50
+          shippingLabelAdditionalContent : String100 option }
+    
+    type DigitalDeliveryWorkflow = 
+        | MembershipActivationAndEmail
+        | EmailNotificationAndVoucher
+    
+    type DigitalItemDeliveryRequest = 
+        { orderId : Guid
+          orderItem : OrderItem
+          customer : Customer
+          deliveryWorkflow : DigitalDeliveryWorkflow }
+    
+    let processPhysicalOrderItem order item = 
+            printfn "processando ordem para item físico"
+            let request = 
+                { orderId = order.orderId
+                  orderItem = item
+                  customer = order.customer
+                  shippingLabelContent = 
+                      match createString50 ("Label for Order " + order.orderId.ToString()) with
+                      | Some x -> x
+                      | None -> failwith "Invalid Shipment Label Content"
+                  shippingLabelAdditionalContent = None }
+            DeliveryService.deliverPhysicalItem request
+
+
+    let processBookOrderItem order item = 
+            printfn "processando livro físico"
+            let request = 
+                    { orderId = order.orderId
+                      orderItem = item
+                      customer = order.customer
+                      shippingLabelContent = 
+                          match createString50 ("Label for Order " + order.orderId.ToString()) with
+                          | Some x -> x
+                          | None -> failwith "Invalid Shipment Label Content"
+                      shippingLabelAdditionalContent = 
+                          match createString100 ("Item isento de impostos conforme disposto na Constituição Art. 150, VI, d.") with
+                          | Some x -> Some x
+                          | None -> failwith "Invalid Supplementary Shipment Label Content"}
+            DeliveryService.deliverPhysicalItem request
+
+
+
+    let processMembershipOrderItem order item = 
+        printfn "processando ativação de assinatura"
+        let request = 
+            {   orderId = order.orderId
+                orderItem = item
+                customer = order.customer
+                deliveryWorkflow = MembershipActivationAndEmail
+            }
+        DeliveryService.deliverDigitalItem request
+    
+    let processDigitalMediaOrderItem order item = 
+        printfn "processando entrga mídia digital"
+        let request = 
+            {   orderId = order.orderId
+                orderItem = item
+                customer = order.customer
+                deliveryWorkflow = EmailNotificationAndVoucher
+            }
+        DeliveryService.deliverDigitalItem request
+
+
+module DeliveryService = 
+    open OrderItemProcessingModel
+    
+    let deliverPhysicalItem deliveryRequest =
+        printfn "%s" ("Sending digital Item for order: " + deliveryRequest.orderId.ToString() )
+
+    let deliverDigitalItem deliveryRequest =
+        match deliveryRequest.deliveryWorkflow with
+            | MembershipActivationAndEmail -> printfn "todo"
+            | EmailNotificationAndVoucher -> printfn "todo"
+
+
+module NotificationServices = 
+    
+    let sendEmail message = printfn "todo"
+    let sendSms message = printfn "todo"
+    let sendPushNotification message = printfn "todo"
+
+
+module VoucherServices = 
+    
+    let generateVoucher request = printfn "todo"
+    let validateVoucher request = printfn "todo"
