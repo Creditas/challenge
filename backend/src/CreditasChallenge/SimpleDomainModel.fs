@@ -5,32 +5,37 @@ open System.Text.RegularExpressions
 
 module CustomerModel = 
     
-    type Cpf = Cpf of string
-    let createValidCpf (cpfString:string) = 
-        if cpfString.Length = 11 then 
-            Some cpfString
+    /// In Brazil this number is used to uniquely indentify people. It's an identity document.
+    type Cpf = 
+        | Cpf of string
+    
+    let createValidCpf (cpfString : string) = 
+        if cpfString.Length = 11 then Some cpfString
         else None
-
-    type EmailAddress = EmailAddress of email : string
+    
+    type EmailAddress = 
+        | EmailAddress of email : string
+    
     let createEmail (s : string) = 
         if Regex.IsMatch(s, @"^\S+@\S+\.\S+$") then Some(EmailAddress s)
         else None
     
-    type CustomerAddress = {
-        zipcode: string //todo: this can be more strict!
-    }
-
+    type CustomerAddress = { zipcode : string } //maybe this can be more restrictive...
+    
     type Customer = 
-        {   cpf : Cpf
-            name : string
-            email : EmailAddress }
+        { cpf : Cpf
+          name : string
+          email : EmailAddress }
+
+
 
 module OrderModel = 
     open CustomerModel
     open PaymentModel
     open ProductModel
+    open CommonTypes.CurrencyTypes
     
-    //todo: make explicit order states
+    /// This is a representation of an order that might have come from one of multiple stores.
     type Order = 
         { orderId : System.Guid
           customer : Customer
@@ -38,8 +43,10 @@ module OrderModel =
           shippingAddress : CustomerAddress
           closeDate : DateTime option
           orderFullfilmentStatus: OrderFulfillmentStatus
-          payment : Payment }
-
+          payment : Payment
+          storeOfOrigin: Store}
+          
+    type Store = UsinaDoSom | SaraivaMegastore
     
     type OrderFulfillmentStatus = 
         | AwaitingProcessing
@@ -57,8 +64,8 @@ module OrderModel =
         { orderItemId : int
           orderId: System.Guid
           product : Product
-          listPrice : decimal
-          sellingPrice : decimal }
+          listPrice : decimal<BRL>
+          sellingPrice : decimal<BRL> }
 
     type Invoice = 
         { billingAddres : CustomerAddress
@@ -66,6 +73,7 @@ module OrderModel =
           order : Order }
 
 module ProductModel =
+    open CommonTypes.CurrencyTypes
     
     type PhysicalProducItemType = Book | Other
     
@@ -78,13 +86,16 @@ module ProductModel =
     type Product = 
         { productId : string
           itemType : ProductType
-          listPrice : decimal }
+          listPrice : decimal<BRL> }
     
 module PaymentModel = 
     
     type PaymentMethod = 
         | CreditCard of hashed : string
         | Debit
+        | BrazilianBoleto
+        | Paypal
+        | Pagseguro
 
     type PaymentProcessingStatus = 
         | New
@@ -98,6 +109,10 @@ module PaymentModel =
           amount : decimal
           paymentStatus : PaymentProcessingStatus
           paymentMethod : PaymentMethod }
+    
+    //todo: here we would improve the payment model with more logic and probably, some services.
+    //todo: here we could impose payment restrictions based on types of acquisitions
+    
     
  
 module OrderFullfilmentModel =
@@ -128,7 +143,7 @@ module OrderFullfilmentModel =
 
 
 module OrderItemProcessingModel = 
-    open RestrictedStrings
+    open CommonTypes.RestrictedStrings
     open OrderModel
     open CustomerModel
     
@@ -143,14 +158,18 @@ module OrderItemProcessingModel =
         | MembershipActivationAndEmail
         | EmailNotificationAndVoucher
     
+
     type DigitalItemDeliveryRequest = 
         { orderId : Guid
           orderItem : OrderItem
           customer : Customer
+          notificationSubject: String50
+          notificationMessage: String
           deliveryWorkflow : DigitalDeliveryWorkflow }
+          
     
     let processPhysicalOrderItem order item = 
-            printfn "processando ordem para item físico"
+            printfn "processing order item: common physical item..."
             let request = 
                 { orderId = order.orderId
                   orderItem = item
@@ -164,7 +183,7 @@ module OrderItemProcessingModel =
 
 
     let processBookOrderItem order item = 
-            printfn "processando livro físico"
+            printfn "processing order item: physical book..."
             let request = 
                     { orderId = order.orderId
                       orderItem = item
@@ -182,44 +201,97 @@ module OrderItemProcessingModel =
 
 
     let processMembershipOrderItem order item = 
-        printfn "processando ativação de assinatura"
+        printfn "processing order item: membership activation..."
         let request = 
             {   orderId = order.orderId
                 orderItem = item
                 customer = order.customer
                 deliveryWorkflow = MembershipActivationAndEmail
+                notificationSubject = Option.get  (createString50 "Membership Activation")
+                notificationMessage = "Notification message for membership activation."
             }
         DeliveryService.deliverDigitalItem request
     
     let processDigitalMediaOrderItem order item = 
-        printfn "processando entrga mídia digital"
+        printfn "processing order item: digital media delivery..."
         let request = 
             {   orderId = order.orderId
                 orderItem = item
                 customer = order.customer
                 deliveryWorkflow = EmailNotificationAndVoucher
+                notificationSubject = Option.get  (createString50 "Digital Media Delivery")
+                notificationMessage = "Notification message informing availability of digital media."
             }
         DeliveryService.deliverDigitalItem request
 
 
 module DeliveryService = 
     open OrderItemProcessingModel
+    open NotificationServices
+    open MembershipServices
+    open VoucherServices
     
     let deliverPhysicalItem deliveryRequest =
-        printfn "%s" ("Sending digital Item for order: " + deliveryRequest.orderId.ToString() )
+        printfn "%s" <| "Sending physical Item for order: " + deliveryRequest.orderId.ToString()
+
+    
+    let requestMembershipActivation (request:DigitalItemDeliveryRequest) = 
+        activateMembership request
+        request
+    
+    let notifyUserViaEmail (request:DigitalItemDeliveryRequest) =
+        let message = 
+            { destination = request.customer.email
+              subject = request.notificationSubject
+              message = request.notificationMessage }
+        
+        sendEmail message                  
+        request
+    
+    let requestVoucherGeneration (request:DigitalItemDeliveryRequest) =
+        generateVoucher request
+        request
 
     let deliverDigitalItem deliveryRequest =
+
         match deliveryRequest.deliveryWorkflow with
-            | MembershipActivationAndEmail -> printfn "todo"
-            | EmailNotificationAndVoucher -> printfn "todo"
+            | MembershipActivationAndEmail -> 
+                printfn "starting workflow: membership activation and e-mail notification..."
+                deliveryRequest
+                        |> requestMembershipActivation
+                        |> notifyUserViaEmail
+                        |> ignore
+                
+
+            | EmailNotificationAndVoucher -> 
+                printfn "starting workflow: e-mail notification and voucher generation..."
+                deliveryRequest
+                        |> notifyUserViaEmail
+                        |> requestVoucherGeneration
+                        |> ignore
+
 
 
 module NotificationServices = 
+    open CommonTypes.RestrictedStrings
+    open CustomerModel
     
-    let sendEmail message = printfn "todo"
-    let sendSms message = printfn "todo"
-    let sendPushNotification message = printfn "todo"
+    type EmailMessage = 
+        { destination : EmailAddress
+          subject : String50
+          message : string }
 
+    let sendEmail emailMessage = 
+        printfn "todo"
+
+
+    let sendSms smsMessage = printfn "todo"
+    let sendPushNotification pushNotificationMessage = printfn "todo"
+
+module MembershipServices = 
+    
+    let activateMembership request = printfn "todo"
+    let checkMembership request = printfn "todo"
 
 module VoucherServices = 
     

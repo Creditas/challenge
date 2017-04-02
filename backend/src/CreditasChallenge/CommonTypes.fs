@@ -1,4 +1,6 @@
-﻿module RestrictedStrings
+﻿namespace CommonTypes
+
+module RestrictedStrings =
 
     open System
     open System.Text.RegularExpressions
@@ -44,8 +46,12 @@
         match v with
         | HasNoMoreThan100Chars & HasOnlyValidChars-> Some(String100 v)
         | _ -> None
+   
 
-
-
+module CurrencyTypes = 
+    
+    [<Measure>] type BRL
+    [<Measure>] type USD
+    [<Measure>] type EUR
 
 
