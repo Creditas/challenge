@@ -19,6 +19,7 @@ module CustomerModel =
     let createEmail (s : string) = 
         if Regex.IsMatch(s, @"^\S+@\S+\.\S+$") then Some(EmailAddress s)
         else None
+    let unwrapEmail (EmailAddress e) = e
     
     type CustomerAddress = { zipcode : string } //maybe this can be more restrictive...
     
@@ -83,8 +84,10 @@ module ProductModel =
         | PhysicalItem of PhysicalProducItemType
         | DigitalItem of DigitalProductItemType
 
+    //note: of course, this can be as complicated as wanted. It's not needed to invest in product modeling right now.
     type Product = 
         { productId : string
+          productName : string
           itemType : ProductType
           listPrice : decimal<BRL> }
     
@@ -146,6 +149,7 @@ module OrderItemProcessingModel =
     open CommonTypes.RestrictedStrings
     open OrderModel
     open CustomerModel
+    open CommonTypes.CurrencyTypes
     
     type PhysicalItemDeliveryRequest = 
         { orderId : Guid
@@ -156,7 +160,7 @@ module OrderItemProcessingModel =
     
     type DigitalDeliveryWorkflow = 
         | MembershipActivationAndEmail
-        | EmailNotificationAndVoucher
+        | EmailNotificationAndVoucher of voucherValue: decimal<BRL>
     
 
     type DigitalItemDeliveryRequest = 
@@ -218,7 +222,7 @@ module OrderItemProcessingModel =
             {   orderId = order.orderId
                 orderItem = item
                 customer = order.customer
-                deliveryWorkflow = EmailNotificationAndVoucher
+                deliveryWorkflow = EmailNotificationAndVoucher 10.0M<BRL> //passing the value of the voucher - strongly typed value
                 notificationSubject = Option.get  (createString50 "Digital Media Delivery")
                 notificationMessage = "Notification message informing availability of digital media."
             }
@@ -231,45 +235,39 @@ module DeliveryService =
     open MembershipServices
     open VoucherServices
     
-    let deliverPhysicalItem deliveryRequest =
+    let deliverPhysicalItem deliveryRequest = 
         printfn "%s" <| "Sending physical Item for order: " + deliveryRequest.orderId.ToString()
-
     
-    let requestMembershipActivation (request:DigitalItemDeliveryRequest) = 
+    let requestMembershipActivation (request : DigitalItemDeliveryRequest) = 
         activateMembership request
         request
     
-    let notifyUserViaEmail (request:DigitalItemDeliveryRequest) =
+    let notifyUserViaEmail (request : DigitalItemDeliveryRequest) = 
         let message = 
             { destination = request.customer.email
               subject = request.notificationSubject
               message = request.notificationMessage }
-        
-        sendEmail message                  
+        sendEmail message
         request
     
-    let requestVoucherGeneration (request:DigitalItemDeliveryRequest) =
-        generateVoucher request
+    let requestVoucherGeneration (request : DigitalItemDeliveryRequest) voucherValue = 
+        generateVoucher request voucherValue
         request
-
-    let deliverDigitalItem deliveryRequest =
-
+    
+    let deliverDigitalItem deliveryRequest = 
         match deliveryRequest.deliveryWorkflow with
-            | MembershipActivationAndEmail -> 
-                printfn "starting workflow: membership activation and e-mail notification..."
-                deliveryRequest
-                        |> requestMembershipActivation
-                        |> notifyUserViaEmail
-                        |> ignore
-                
-
-            | EmailNotificationAndVoucher -> 
-                printfn "starting workflow: e-mail notification and voucher generation..."
-                deliveryRequest
-                        |> notifyUserViaEmail
-                        |> requestVoucherGeneration
-                        |> ignore
-
+        | MembershipActivationAndEmail -> 
+            printfn "starting workflow: membership activation and e-mail notification..."
+            deliveryRequest
+            |> requestMembershipActivation
+            |> notifyUserViaEmail
+            |> ignore
+        | EmailNotificationAndVoucher voucherValue-> 
+            printfn "starting workflow: e-mail notification and voucher generation..."
+            deliveryRequest
+            |> notifyUserViaEmail
+            |> requestVoucherGeneration <| voucherValue
+            |> ignore
 
 
 module NotificationServices = 
@@ -280,20 +278,35 @@ module NotificationServices =
         { destination : EmailAddress
           subject : String50
           message : string }
-
+    
     let sendEmail emailMessage = 
-        printfn "todo"
+        let destination = unwrapEmail emailMessage.destination
+        let subject = unwrapString50 emailMessage.subject
 
-
-    let sendSms smsMessage = printfn "todo"
-    let sendPushNotification pushNotificationMessage = printfn "todo"
+        printfn "%s" <| "Sending notificatio via e-mail to: " + destination + " with subject: " + subject 
+    
+    let sendSms smsMessage = failwith "not implemented"
+    let sendPushNotification pushNotificationMessage = failwith "not implemented"
 
 module MembershipServices = 
     
-    let activateMembership request = printfn "todo"
-    let checkMembership request = printfn "todo"
+    let activateMembership request = 
+        let user = request.customer.name
+        let item = request.orderItem.product.productName
+        printfn "Activating membership for user %s with for item %s" user item
+
+    
+    let checkMembership request = failwith "not implemented"
 
 module VoucherServices = 
     
-    let generateVoucher request = printfn "todo"
-    let validateVoucher request = printfn "todo"
+    let generateVoucher request voucherValue = 
+        let user = request.customer.name
+        let item = request.orderItem.product.productName
+        let value = decimal voucherValue 
+        printfn "Generating voucher for user %s regarding item %s of %M R$" user item value
+
+
+
+    let validateVoucher request = failwith "not implemented"
+    let redeemVoucher request = failwith "not implemented"

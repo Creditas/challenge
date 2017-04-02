@@ -46,6 +46,9 @@ module RestrictedStrings =
         match v with
         | HasNoMoreThan100Chars & HasOnlyValidChars-> Some(String100 v)
         | _ -> None
+    
+    let unwrapString50 (String50 s) = s
+    let unwrapString100 (String100 s) = s
    
 
 module CurrencyTypes = 
