@@ -54,9 +54,11 @@ chat = {
 	},
 
 	listener: function() {
+		var messages = ['Funcionaria melhor com React - Apache', 'Palmeiras não tem mundial - Apache'];
+
 		setInterval(function() {
-			chat.append('Funcionaria melhor com React - Apache');
-		}, 7000);
+			chat.append(messages[Math.floor(Math.random() * messages.length)]);
+		}, 10000);
 	},
 
 	clean: function() {
