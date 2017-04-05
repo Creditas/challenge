@@ -41,7 +41,7 @@ public enum Type implements ProcessOrderDescription {
     }, MEMBERSHIP {
         public OrderDescription process(Order order, Payment payment, boolean isUsedVoucher) {
             // DO NOTHING
-            return null;
+            return new OrderDescription();
         }
     },
     REGULAR_ITEM {
