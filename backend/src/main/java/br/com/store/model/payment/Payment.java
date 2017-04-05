@@ -20,6 +20,7 @@ public class Payment {
     private PaymentMethod paymentMethod;
     private ArrayList<OrderDescription> orderDescriptions;
     private Double voucherValue = 0.00;
+    private boolean isUsedVoucher = false;
 
     public Payment(String autorizationNumber, Order order, Calendar paidAt, PaymentMethod paymentMethod) {
         this.autorizationNumber = autorizationNumber;
@@ -34,7 +35,7 @@ public class Payment {
         for (Product product : items) {
             amount += product.getPrice();
         }
-        amount = amount - voucherValue;
+        amount = amount - this.voucherValue;
         if (amount < 0.00) {
             amount = 0.00;
         }
@@ -47,6 +48,7 @@ public class Payment {
         this.order.setClosedAt(Calendar.getInstance());
         this.paidAt = Calendar.getInstance();
         this.amount = this.getAmount(order.getItems());
+        System.out.println("AMOUNT VALUE = " + this.amount);
         invoice.setMemberships(invoice.activateMembership(this.order.getItems()));
         this.invoice = invoice;
         return invoice;
@@ -59,22 +61,17 @@ public class Payment {
     private ArrayList<OrderDescription> createOrderDescriptions() {
 
         ArrayList<OrderDescription> orderDescriptions = new ArrayList<OrderDescription>();
-        if(this.order.getItems().size() > 0) {
-            if (this.order.hasBook(this.order.getItems())) {
-                ShippingLabel orderDescription = new ShippingLabel(this.order.getAddress().getZipCode(), this.order.getAddress());
-                orderDescription.setDescription("This item doesn't require taxes");
-                this.voucherValue = 10.00;
-                orderDescriptions.add(orderDescription);
-            } else if (this.order.hasDigitalOrSignature(this.order.getItems())) {
-                EmailNotification orderDescription = new EmailNotification();
-                orderDescription.createEmail(this.order.getDigitalProducts(this.order.getItems()));
-                orderDescriptions.add(orderDescription);
-            } else {
-                ShippingLabel orderDescription = new ShippingLabel(this.order.getAddress().getZipCode(), this.order.getAddress());
-                orderDescriptions.add(orderDescription);
-            }
+
+        for (Product item : this.order.getItems()) {
+            orderDescriptions.add(item.getType().process(this.order, this, isUsedVoucher));
         }
+
         return orderDescriptions;
+    }
+
+    public void setVoucherValue(Double voucherValue) {
+        this.voucherValue = voucherValue;
+        this.isUsedVoucher = true;
     }
 
     public ArrayList<OrderDescription> getOrderDescriptions() {
