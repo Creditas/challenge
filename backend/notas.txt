@@ -1,0 +1,13 @@
+O arquivo bootstrap.br foi movido para a pasta lib.
+
+Decidi por implementar estratégias para os diferentes tipos de produto.
+Aliado a isso, uma fábrica cria a estratégia apropriada para cada produto de um pedido.
+Quando é feita uma entrega, relativa a um pagamento, há uma iteração por todos os produtos no pedido relacionado para fazer a entrega de forma apropriada.
+As estratégias sobrescrevem o método #deliver com a ação definida para o tipo de produto relacionado.
+Assim, alterações nessas ações são feitas pontualmente, nos métodos pertinentes.
+E, no caso de criação de um novo tipo de produto, é preciso definir uma estratégia (criar ou escolher uma existente) e fazer a assiação entre tipo e estratégia na fábrica.
+
+Criei a classe Voucher e implementei Membership e Customer de forma que os dois primeiros possam ser associados ao último.
+Implementei dois testes de unidade para verifiar se essas associações estão sende feitas de forma correta.
+Os métodos print_shipping_label, send_digital_shipment_email e send_membership_email não foram implementados.
+Se eles forem comentados ou removidos os testes podem ser executados.
