@@ -1,7 +1,53 @@
-﻿namespace rec DomainModel
+﻿namespace rec SimpleDomainModel
 
 open System
 open System.Text.RegularExpressions
+
+
+module OrderModel = 
+    open CustomerModel
+    open PaymentModel
+    open ProductModel
+    open CommonTypes.CurrencyTypes
+    
+    /// This is a representation of an order that might have come from one of multiple stores.
+    type Order = 
+        { orderId : System.Guid
+          customer : Customer
+          items : OrderItem list
+          shippingAddress : CustomerAddress
+          closeDate : DateTime option
+          orderFullfilmentStatus: OrderFulfillmentStatus
+          payment : Payment 
+          storeOfOrigin: Store}
+          
+    type Store = UsinaDoSom | SaraivaMegastore
+    
+    type OrderFulfillmentStatus = 
+        | AwaitingProcessing
+        | ProcessingPayment
+        | Shipped
+        | Delivered
+        | Declined of reason : OrderDeclinationReason
+
+    type OrderDeclinationReason =
+        | OutOfStock
+        | PaymentRejected
+        | OtherReason
+
+    type OrderItem = 
+        { orderItemId : int
+          orderId: System.Guid
+          product : Product
+          listPrice : decimal<BRL>
+          sellingPrice : decimal<BRL> }
+
+    type Invoice = 
+        { invoiceId: int
+          invoiceDate: DateTime
+          billingAddres : CustomerAddress
+          shippingAddress : CustomerAddress
+          order : Order }
 
 module CustomerModel = 
     
@@ -28,50 +74,6 @@ module CustomerModel =
           name : string
           email : EmailAddress }
 
-
-
-module OrderModel = 
-    open CustomerModel
-    open PaymentModel
-    open ProductModel
-    open CommonTypes.CurrencyTypes
-    
-    /// This is a representation of an order that might have come from one of multiple stores.
-    type Order = 
-        { orderId : System.Guid
-          customer : Customer
-          items : OrderItem list
-          shippingAddress : CustomerAddress
-          closeDate : DateTime option
-          orderFullfilmentStatus: OrderFulfillmentStatus
-          payment : Payment
-          storeOfOrigin: Store}
-          
-    type Store = UsinaDoSom | SaraivaMegastore
-    
-    type OrderFulfillmentStatus = 
-        | AwaitingProcessing
-        | ProcessingPayment
-        | Shipped
-        | Delivered
-        | Declined of reason : OrderDeclinationReason
-
-    type OrderDeclinationReason =
-        | OutOfStock
-        | PaymentRejected
-        | OtherReason
-
-    type OrderItem = 
-        { orderItemId : int
-          orderId: System.Guid
-          product : Product
-          listPrice : decimal<BRL>
-          sellingPrice : decimal<BRL> }
-
-    type Invoice = 
-        { billingAddres : CustomerAddress
-          shippingAddress : CustomerAddress
-          order : Order }
 
 module ProductModel =
     open CommonTypes.CurrencyTypes
