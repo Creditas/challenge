@@ -1,69 +1,89 @@
-var chat = {};
+function Chat(params) {
+	this.$message = params.message;
+	this.$submit  = params.submit;
+	this.$box     = params.box;
+	this.id       = params.id;
+};
 
-chat = {
-	$message: null,
-	$submit: null,
-	$box: null,
-
-	init: function() {
-		this.$box     = document.getElementsByClassName('js-messages');
-		this.$message = document.getElementsByClassName('js-input-message');
-		this.$submit  = document.getElementsByClassName('js-submit-message');
-
-		if (this.$message[0] && this.$submit[0] && this.$box[0]) {
-			this.bind();
-			this.listener();
-		}
-	},
-
-	bind: function() {
-		var callback = this.submit.bind(this);
-
-		this.$submit[0].addEventListener('click', callback);
-		this.$message[0].addEventListener('keypress', function(e) {
-			var key = e.which || e.keyCode;
-
-			if (key === 13)
-				callback();
-		});
-	},
-
-	submit: function() {
-		var message = this.$message[0].value;
-
-		if (message) {
-			this.append(message)
-			.then(function() {
-				chat.clean();
-			})
-			.catch(function(err) {
-				// TODO tratar erro
-			});
-		}
-	},
-
-	append: function(message) {
-		return new Promise(function(resolve, reject) {
-			var $message = document.createElement('li');
-			$message.innerHTML = message;
-
-			chat.$box[0].appendChild($message);
-
-			resolve();
-		});
-	},
-
-	listener: function() {
-		var messages = ['Funcionaria melhor com React - Apache', 'Palmeiras não tem mundial - Apache'];
-
-		setInterval(function() {
-			chat.append(messages[Math.floor(Math.random() * messages.length)]);
-		}, 10000);
-	},
-
-	clean: function() {
-		this.$message[0].value = '';
+Chat.prototype.build = function() {
+	if (this.$message && this.$submit && this.$box) {
+		this.bind();
+		this.listener();
 	}
-}
+};
 
-document.onload = chat.init();
+Chat.prototype.bind = function() {
+	var callback = this.submit.bind(this);
+
+	this.$submit.addEventListener('click', callback);
+	this.$message.addEventListener('keypress', function(e) {
+		var key = e.which || e.keyCode;
+
+		if (key === 13)
+			callback();
+	});
+};
+
+Chat.prototype.submit = function() {
+	var self = this,
+			message = this.$message.value;
+
+	if (message) {
+		this.append(message)
+		.then(function() {
+			self.clean();
+		})
+		.catch(function(err) {
+			// TODO tratar erro
+		});
+	}
+};
+
+Chat.prototype.append = function(message) {
+	var self = this;
+
+	return new Promise(function(resolve, reject) {
+		var $message = document.createElement('li');
+		$message.innerHTML = message;
+
+		self.$box.appendChild($message);
+
+		resolve();
+	});
+};
+
+Chat.prototype.listener = function() {
+	var self = this,
+			messages = ['Funcionaria melhor com React', 'Palmeiras não tem mundial'];
+
+	setInterval(function() {
+		self.append(messages[Math.floor(Math.random() * messages.length)]);
+	}, 10000);
+};
+
+Chat.prototype.clean = function() {
+	this.$message.value = '';
+};
+
+var init = function() {
+	var $chats = document.getElementsByClassName('js-chat');
+
+	if (!$chats[0]) return; 
+
+	var $message = document.getElementsByClassName('js-input-message'),
+			$submit  = document.getElementsByClassName('js-submit-message'),
+			$box     = document.getElementsByClassName('js-message-list');
+
+	for (var i = 0; i < $chats.length; i++) {
+		var chat = new Chat({
+			message: $message[i],
+			submit: $submit[i],
+			box: $box[i],
+			id: $chats[i].getAttribute('data-id')
+		});
+
+		chat.build();
+	}
+};
+
+document.onload = init();
