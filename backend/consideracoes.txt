@@ -1,0 +1,7 @@
+Decidi alterar a implementação original e transformar o tipo do produto em um objeto, para poder trabalhar as diferenças no método de envio de cada um.
+Alterei também a classe OrderItem para acrescentar uma função que gerencia o método de envio conforme o tipo do item, de forma transparente para quem está consumindo.
+Usei a mesma interface nas classes criadas, o método de envio recebe o proprio item como argumento para ser manipulado conforme cada especificação.
+A interação com os métodos de envio acontece na ação de pagamento da ordem.
+Quis dessa forma, evitar o uso de condicionais e facilitar no caso de novos métodos de envio incluidos no projeto.
+
+Estou disponível para qualquer esclarecimento.
