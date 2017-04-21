@@ -41,7 +41,7 @@ class Order
   end
 
   def add_product(product)
-    @items << @order_item_class.new(order: self, product: product)
+    @items << @order_item_class.new(self, product)
   end
 
   def total_amount
@@ -58,7 +58,7 @@ end
 class OrderItem
   attr_reader :order, :product
 
-  def initialize(order:, product:)
+  def initialize(order, product)
     @order = order
     @product = product
   end
@@ -70,17 +70,21 @@ end
 
 class Product
   # use type to distinguish each kind of product: physical, book, digital, membership, etc.
-  attr_reader :name, :type
+  attr_reader :name, :type, :commom
 
-  def initialize(name:, type:)
-    @name, @type = name, type
+  def initialize(name, type, commom = false)
+    @name, @type, @commom = name, type, commom
+  end
+
+  def commom?
+    @commom
   end
 end
 
 class Address
   attr_reader :zipcode
 
-  def initialize(zipcode:)
+  def initialize(zipcode)
     @zipcode = zipcode
   end
 end
@@ -92,22 +96,56 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_accessor :name, :email, :address, :memberships, :vouchers
+
+  def initialize(name, email, address)
+    @name         = name
+    @email        = email
+    @address      = address
+    @memberships  = []
+    @vouchers     = []
+  end
+end
+
+class Voucher
+  attr_reader :voucher
+
+  def initialize(amount)
+    @amount = amount
+  end
+
+  def amount
+    @amount
+  end
 end
 
 class Membership
-  # you can customize this class by yourself
+  attr_reader :product
+  attr_reader :activated
+
+  def initialize(product, payment)
+    @product = product
+    @activated = payment.paid?
+  end
+
+  def active?
+    @activated
+  end
+
+  def activate!
+    @activated = true
+  end
 end
 
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
+#foolano = Customer.new('Gabriel Hamdan', 'ghamdan.eng@gmail.com', 'Rua Alvorada, 735')
+#book = Product.new('Awesome book', :book)
+#book_order = Order.new(foolano)
+#book_order.add_product(book)
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+#payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+#payment_book.pay
+#p payment_book.paid? # < true
+#p payment_book.order.items.first.product.type
 
 # now, how to deal with shipping rules then?
