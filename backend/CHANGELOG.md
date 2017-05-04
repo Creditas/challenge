@@ -9,16 +9,16 @@ Dependendo do tipo do produto, são gerados *side-effects* diferentes, como impr
 
 **Tasks:**
 
-1. Refatoração da classe `Product
-  - Incluir validação de tipos `digital?`, `physhical?`, `subscription?`, `tax_free?` e `allow_voucher?`
+1. Refatoração da classe `Product`;
+    - Incluisão de métodos para validação dos tipos `digital?`, `physhical?`, `subscription?`, `tax_free?` e `allow_voucher?`
 2. Adicionar atributo nome ao `Customer`;
 3. Implementação da classe `Membership`;
 4. Implementação da classe `Voucher`;
 5. Implmentação da classe `OrderDispatch`;
-  - Gera uma etiqueta se for um produto físico;
-  - Envia um email se o produto for digital;
-  - Cria uma `Membership` se o produto for uma assinatura;
-  - Gera um voucher ao cliente de acordo com o produto (se for mídia digital).
+    - Gera uma etiqueta se for um produto físico;
+    - Envia um email se o produto for digital;
+    - Cria uma `Membership` se o produto for uma assinatura;
+    - Gera um voucher ao cliente de acordo com o produto (se for mídia digital).
 
 **Testes unitários:**
 
