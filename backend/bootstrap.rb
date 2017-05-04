@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 class Payment
   attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at
 
@@ -69,11 +71,35 @@ class OrderItem
 end
 
 class Product
+  DIGITAL_TYPES  = [:subscription, :digital_media]
+  TAX_FREE_TYPES = [:book]
+  ALLOWS_VOUCHER = [:digital_media]
+
   # use type to distinguish each kind of product: physical, book, digital, membership, etc.
   attr_reader :name, :type
 
   def initialize(name:, type:)
     @name, @type = name, type
+  end
+
+  def tax_free?
+    TAX_FREE_TYPES.include? @type
+  end
+
+  def allow_voucher?
+    ALLOWS_VOUCHER.include? @type
+  end
+
+  def digital?
+    DIGITAL_TYPES.include? @type
+  end
+
+  def physical?
+    not digital?
+  end
+
+  def subscription?
+    @type == :subscription
   end
 end
 
@@ -92,22 +118,124 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_reader :name
+
+  def initialize(name:)
+    @name = name
+  end
 end
 
 class Membership
-  # you can customize this class by yourself
+  attr_reader :payment, :customer, :product
+
+  def initialize(customer:, payment:, product:)
+    @customer = customer
+    @payment = payment
+    @product = product
+  end
+
+  def save
+    # TODO
+  end
 end
 
-# Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
+class Voucher
+  attr_reader :payment, :customer, :value
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+  def initialize(customer:, payment:, value:)
+    @customer = customer
+    @payment = payment
+    @value = value
+  end
 
-# now, how to deal with shipping rules then?
+  def save
+    # TODO
+  end
+end
+
+class OrderDispatch
+  attr_reader :payment
+
+  def initialize(payment:)
+    @payment = payment
+    @customer = payment.order.customer
+    @products = payment.order.items.map(&:product)
+  end
+
+  def has_tax_free?
+    @products.select(&:tax_free?).any?
+  end
+
+  def has_subscription?
+    @products.select(&:subscription?).any?
+  end
+
+  def has_voucher?
+    @products.select(&:allow_voucher?).any?
+  end
+
+  def has_digital_products?
+    @products.select(&:digital?).any?
+  end
+
+  def has_shipping_label?
+    @products.select(&:physical?).any?
+  end
+
+  def render_shipping_label
+    %(
+      -------------------
+      From: Merchant Name
+
+      To:
+      \t#{@customer.name}
+      \tLorem ipsum St.
+      \tSao Paulo, SP, #{@payment.order.address.zipcode}
+
+      #{"Obs: Tax free product" if has_tax_free?}
+      --------------------
+    ).gsub(/^\s+/, "").strip
+  end
+
+  def render_email
+    %(
+      Dear #{@customer.name}
+
+      Your order was received and processed:
+      #{@products.select(&:digital?).map(&:name).join("\n")}
+
+      #{"You won a $10 voucher for your next purchase" if has_voucher?}
+    ).gsub(/^\s+/, "").strip
+  end
+
+  def send_email(body)
+    # TODO
+  end
+
+  def ship_package(shipping_label)
+    # TODO
+  end
+
+  def ship_it
+    # Mostly executes a bunch of side effects
+    if has_voucher?
+      voucher = Voucher.new(customer: @customer, payment: @payment, value: BigDecimal.new("10.0"))
+      voucher.save
+    end
+
+    if has_subscription?
+      @products.select(&:subscription?).each do |item|
+        membership = Membership.new(customer: @customer, payment: @payment, product: item)
+        membership.save
+      end
+    end
+
+    if has_shipping_label?
+      ship_package(render_shipping_label)
+    end
+
+    if has_digital_products?
+      send_email(render_email)
+    end
+  end
+end
