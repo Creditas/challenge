@@ -1,9 +1,11 @@
 # Creditas Backend Challenge
 
 A partir de um `Payment` a classe `OrderDispatch` processa o pedido e decide qual o melhor método,
-para enviar cada um dos items da `Order`.
+para enviar cada um dos items da `Order` através do método `OrderDispatch#ship_it`.
 
-Dependendo do tipo do produtos são gerados *side-effects* diferentes, como imprimir a etiqueta de postagem, o envio de um email ou a ativação de uma assinatura.
+O método de `#ship_it` permite que no mesmo pedido sejam processados produtos tantos físicos como digitais.
+
+Dependendo do tipo do produto, são gerados *side-effects* diferentes, como imprimir a etiqueta de postagem, o envio de um email ou a ativação de uma assinatura.
 
 **Tasks:**
 
