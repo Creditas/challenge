@@ -7,7 +7,7 @@ class OrderItem
   end
 
   def total
-    10
+    product.price
   end
 end
 

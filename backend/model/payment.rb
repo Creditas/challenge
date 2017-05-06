@@ -5,6 +5,7 @@ class Payment
     @authorization_number, @amount = attributes.values_at(:authorization_number, :amount)
     @invoice, @order = attributes.values_at(:invoice, :order)
     @payment_method = attributes.values_at(:payment_method)
+    @order.prepare_payment
   end
 
   def pay(paid_at = Time.now)
