@@ -1,9 +1,7 @@
-require_relative '../payment'
 require_relative '../customer'
 require_relative '../product'
 require_relative '../order'
 require_relative '../order_item'
-require_relative '../invoice'
 
 describe OrderItem do
   before(:each) do

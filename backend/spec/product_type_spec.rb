@@ -1,4 +1,5 @@
 require_relative '../product'
+require_relative '../product_type'
 
 describe Membership do
 end
