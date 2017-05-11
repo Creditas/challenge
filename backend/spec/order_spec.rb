@@ -1,8 +1,8 @@
 require_relative '../customer'
 require_relative '../product'
+require_relative '../product_type'
 require_relative '../order'
 require_relative '../order_item'
-require_relative '../invoice'
 
 describe Order do
   before(:each) do
@@ -24,21 +24,21 @@ describe Order do
   end
 
   describe 'has various products' do
-    let(:membership) { Product.new(name: "Super membership", type: :membership) }
+    before {@membership_product = Product.new(name: "Super membership", type: :book) }
 
     it 'adds products to items array' do
       expect(@book_order.items.length).to eq 1
 
-      @book_order.add_product(:membership)
+      @book_order.add_product(@membership_product)
 
       expect(@book_order.items.length).to eq 2
-      expect(@book_order.items.last.product).to eq :membership
+      expect(@book_order.items.last.product).to eq @membership_product
     end
 
     it 'calculates total amount' do
       expect(@book_order.total_amount).to eq 10
 
-      @book_order.add_product(:membership)
+      @book_order.add_product(@membership_product)
       expect(@book_order.total_amount).to eq 20
     end
   end
@@ -52,7 +52,7 @@ describe Order do
     end
 
     it 'shows when the order was closed' do
-      @book_order.closeo  
+      @book_order.close
       expect(@book_order.closed_at.class).to be Time
     end
   end
@@ -71,14 +71,13 @@ describe Address do
   end
 end
 
-
 describe CreditCard do
   before(:each) do
     @credit_card = CreditCard.fetch_by_hashed('43567890-987654367')
   end
 
-  describe 'initialization' do
-    it 'initializes by code' do
+  describe 'fetch by hashed' do
+    it 'initializes when it\'s fetch by hashed' do
       expect(@credit_card.class).to be CreditCard
     end
   end
