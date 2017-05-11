@@ -88,3 +88,38 @@ describe Payment do
   end
 
 end
+
+describe ShippingDetails do
+  before(:each) do
+    @foolano = Customer.new
+    @book = Product.new(name: 'Awesome book', type: :book)
+    @membership_product = Product.new(name: "Super membership", type: :membership)
+    @order = Order.new(@foolano)
+    @order.add_product(@book)
+    @order.add_product(@membership_product)
+    @shipping_descrip = ShippingDetails.new(@order)
+  end
+
+  describe 'has the order\'s products as an attribute' do
+    it 'generates an array of all the products in an order' do
+      products = @shipping_descrip.products
+      expect(products).to eq [@book, @membership_product]
+    end
+  end
+
+  describe 'generates shipping details for each product type as an attribute' do
+    before do
+      @description_arr = @shipping_descrip.status
+    end
+
+    it 'generates an array of strings with shiping details for the shipping label' do
+      expect(@description_arr.all? {|item| item.is_a?(String) }).to be true
+      expect(@description_arr.class).to be Array
+    end
+
+    it 'has unique instructions' do
+      unique_description = @description_arr.uniq
+      expect(unique_description == @description_arr).to be true
+    end
+  end
+end
