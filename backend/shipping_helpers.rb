@@ -34,7 +34,5 @@ module ShippingHelpers
     true # for now, it's always true
   end
 
-  def
-
 
 end

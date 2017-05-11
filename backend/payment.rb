@@ -12,11 +12,11 @@ class Payment
     @authorization_number = Time.now.to_i
     @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
     @paid_at = paid_at
-    ship
+    ship_order
     order.close(@paid_at)
   end
 
-  def ship
+  def ship_order
     ShippingDetails.new(@order)
   end
 
@@ -42,8 +42,8 @@ class ShippingDetails
   # Output: array of strings, with shipping preferences
   def ship
     status = []
-    product_types = get_products
-    product_types.each do |object|
+    products_arr = get_products
+    products_arr.each do |object|
       type = Object.const_get("#{object.type.capitalize}") #looks for module/class with constant name in parenthesis
       status << type.shipping(object, @order)
     end
