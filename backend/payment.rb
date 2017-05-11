@@ -12,7 +12,16 @@ class Payment
     @authorization_number = Time.now.to_i
     @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
     @paid_at = paid_at
+    ship
     order.close(@paid_at)
+  end
+
+  def ship
+    ShippingDetails.new(@order)
+  end
+
+  def shipping_status
+    ShippingDetails.new(@order).status
   end
 
   def paid?
@@ -20,13 +29,31 @@ class Payment
   end
 end
 
+class ShippingDetails
+  attr_reader :status, :products
 
-# Book Example (build new payments if you need to properly test it)
+  def initialize(order)
+    @order = order
+    @products = get_products
+    @status = ship
+  end
 
-#
-# payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-# payment_book.pay
-# p payment_book.paid? # < true
-# p payment_book.order.items.first.product.type
+  private
 
-# now, how to deal with shipping rules then?
+  # Output: array of strings, with shipping preferences
+  def ship
+    status = []
+    product_types = get_products
+    product_types.each do |object|
+      type = Object.const_get("#{object.type.capitalize}") #looks for module/class with constant name in parenthesis
+      status << type.shipping(object)
+    end
+    # If there are repeated shipping details, we make them unique
+    status.uniq
+  end
+
+  def get_products
+    @order.items.map{|order_item| order_item.product}
+  end
+
+end
