@@ -100,13 +100,6 @@ describe ShippingDetails do
     @shipping_descrip = ShippingDetails.new(@order)
   end
 
-  describe 'has the order\'s products as an attribute' do
-    it 'generates an array of all the products in an order' do
-      products = @shipping_descrip.products
-      expect(products).to eq [@book, @membership_product]
-    end
-  end
-
   describe 'generates shipping details for each product type as an attribute' do
     before do
       @description_arr = @shipping_descrip.status

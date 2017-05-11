@@ -30,11 +30,10 @@ class Payment
 end
 
 class ShippingDetails
-  attr_reader :status, :products
+  attr_reader :status
 
   def initialize(order)
     @order = order
-    @products = get_products
     @status = ship
   end
 
@@ -46,7 +45,7 @@ class ShippingDetails
     product_types = get_products
     product_types.each do |object|
       type = Object.const_get("#{object.type.capitalize}") #looks for module/class with constant name in parenthesis
-      status << type.shipping(object)
+      status << type.shipping(object, @order)
     end
     # If there are repeated shipping details, we make them unique
     status.uniq

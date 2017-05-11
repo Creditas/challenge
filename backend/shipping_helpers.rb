@@ -10,7 +10,7 @@ module ShippingHelpers
 
   def self.shipping_label_create(params)
     # ~ CRAZY THINGS HAPPEN HERE ~
-    true
+    true # for now, it's always true
   end
 
   def self.send_email(customer, voucher = 0)
