@@ -1,3 +1,8 @@
 class Customer
-  # you can customize this class by yourself
+  attr_reader :name, :email
+
+  def initialize(args = {})
+    @name = args.fetch(:name) {"foolano"}
+    @email = args.fetch(:email) {"test@test.com"}
+  end
 end
