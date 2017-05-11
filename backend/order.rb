@@ -40,3 +40,32 @@ class CreditCard
     CreditCard.new
   end
 end
+
+class ShippingDetails
+  def initialize(order)
+    @order = order
+  end
+
+  # Output: array of strings, with shipping preferences
+  def description
+    description = []
+    product_types = get_products
+    product_types.each do |object|
+      type = Object.const_get("#{object.type.capitalize}") #looks for module/class with constant name in parenthesis
+      description << type.shipping(object)
+    end
+    # If there are repeated shipping details, we make them unique
+    description.uniq
+  end
+
+  def get_products
+    @order.items.map{|order_item| order_item.product}
+  end
+
+  private
+
+  def shipping_preferences
+    define_type.shipping
+  end
+
+end
