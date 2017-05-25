@@ -13,6 +13,7 @@ class Payment
     @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
     @paid_at = paid_at
     order.close(@paid_at)
+    order.finish_order if paid?
   end
 
   def paid?
@@ -43,7 +44,7 @@ class Order
   def add_product(product)
     @items << @order_item_class.new(order: self, product: product)
   end
-
+  
   def total_amount
     @items.map(&:total).inject(:+)
   end
@@ -52,6 +53,11 @@ class Order
     @closed_at = closed_at
   end
 
+  def finish_order
+    order_send = OrderSend.new(order: self)
+    order_send.send_order
+  end
+  
   # remember: you can create new methods inside those classes to help you create a better design
 end
 
@@ -92,15 +98,82 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_reader :first_name, :last_name, :email, :voucher
+
+  def initialize(first_name:, last_name:, email:, voucher: 0)
+    @first_name = first_name
+    @last_name = last_name
+    @email = email
+    @voucher = voucher
+  end
+
+  def voucher(value)
+    @voucher = value
+  end
 end
 
 class Membership
-  # you can customize this class by yourself
+  attr_reader :start_membership_date, :end_membership_date, :customer
+  
+  def initialize(customer)
+    @customer = customer
+  end
+
+  def add_membership
+  end
 end
 
+class OrderSend
+  attr_reader :order
+
+  def initialize(attributes = {})
+    @order = attributes.values_at(:order)
+    @customer = @order.first.customer
+    @address = @order.first.address
+    @shipping = Shipping.new
+  end
+
+  def send_order
+    @order.first.items.each do |item|
+      send("send_#{item.product.type.to_s}", item)
+    end
+  end
+  
+  def send_physical(item)
+    @shipping.shipping_label(@customer, @address, item, true)
+  end
+
+  def send_book(item)
+    @shipping.shipping_label(@customer, @address, item, false)
+  end
+
+  def send_digital(item)
+    @shipping.shipping_digital(@order, @customer, item)
+    @customer.voucher(10)
+  end
+
+  def send_membership(item)
+    membership = Membership.new(@customer)
+    membership.add_membership
+    @shipping.shipping_membership(membership)
+  end
+end
+
+class Shipping
+
+  def shipping_label(customer, address, item, with_tax)
+  end
+
+  def shipping_digital(order, customer, item)
+  end
+
+  def shipping_membership(membership)
+  end
+end
+
+
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
+foolano = Customer.new(first_name: 'Marcelo', last_name: 'Diegues', email: 'marcelo.diegues.ferreira@gmail.com')
 book = Product.new(name: 'Awesome book', type: :book)
 book_order = Order.new(foolano)
 book_order.add_product(book)
