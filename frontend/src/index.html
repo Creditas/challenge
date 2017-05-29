@@ -11,13 +11,14 @@
   <body>
     <h1>Chat</h1>
 
-    <div class="messages">
-      <ul class="message-list"></ul>
 
-      <div class="message-input">
-        <input type="text" />
-        <button type="button">Enviar</button>
-      </div>
-    </div>
+    <div id="appChat"></div>
+
   </body>
+  <script src="js/MessageCenter.js"></script>
+  <script src="js/ChatTemplate.js"></script>
+  <script src="js/ChatRoom.js"></script>
+  <script>
+    let Chat = new ChatRoom(document.getElementById('appChat'));
+  </script>
 </html>
