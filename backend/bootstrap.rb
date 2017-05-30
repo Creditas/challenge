@@ -265,7 +265,7 @@ test_membership_order = TestClass.new(payment_membership,shipping_membership).pr
 # < true
 # < false
 # < true
-# < E-mail sent to:
+# < To: mike@email.com - Subject: Membership - Text: Your membership is now activeted.
 
 p '---'
 
