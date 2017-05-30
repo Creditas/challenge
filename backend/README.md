@@ -28,7 +28,7 @@ Por favor, inclua suas considerações da atividade em um arquivo de texto ou ma
 __O que não vale?__
  - Frameworks :] (aliás, nem precisa)
  - Metaprogramação
- 
+
 __Qual linguagem?__
 Ruby.
 
