@@ -20,6 +20,94 @@ class Payment
   end
 end
 
+class Shipment
+  attr_reader :order
+  
+  def initialize(payment)
+    @payment = payment
+    @order = @payment.order
+    @type = @order.items.first.product.type
+  end
+  
+  def has_label?
+    [:physical, :book].include? @type  
+  end
+  
+  def set_label
+    label = Label.new(address: @order.address.zipcode, notification: @order.no_tax? ? ' - No taxes according to Const. Art. 150, VI, d.' : '').print  
+  end
+  
+  def has_membership?
+    [:membership].include? @type 
+  end
+  
+  def set_membership
+    membership = Membership.new(customer: @order.customer, active: true).set_active
+  end
+  
+  def is_digital?
+    [:digital].include? @type  
+  end
+  
+  def set_digital
+    card = GiftCard.new(customer: @order.customer, payment: @payment, value: 10).send_gift_card     
+  end
+  
+  def finish
+    if has_label?
+      set_label
+    elsif has_membership?
+      set_membership
+    elsif is_digital?
+      set_digital
+    end
+  end
+end
+
+class Label
+  attr_reader :address, :notification
+  
+  def initialize(address:, notification:)
+    @address = address
+    @notification = notification
+  end
+  
+  def print
+    # print here 
+    "Label: #{@address}#{@notification}"
+  end
+end
+
+class Email
+  attr_reader :to, :subject, :text
+  
+  def initialize(to,subject,text)
+    @to = to
+    @subject = subject
+    @text = text
+  end
+  
+  def send_email
+    # send email here
+    "To: #{@to} - Subject: #{@subject} - Text: #{@text}"
+  end
+end
+
+class GiftCard
+  attr_reader :customer, :payment
+  
+  def initialize(customer:, payment:, value:)
+    @customer = customer
+    @payment = payment
+    @card_number = Random.rand(10000..20000)
+    @value = value
+  end
+  
+  def send_gift_card
+    new_mail = Email.new(@customer.email,'Midia Order',"Hi #{@customer.name}, your order of #{@payment.order.items.first.product.name} is now complete. Please, receive this $#{@value} gift card (No.#{@card_number}) as our thank you for buying in our store.").send_email 
+  end
+end
+
 class Invoice
   attr_reader :billing_address, :shipping_address, :order
 
@@ -51,8 +139,10 @@ class Order
   def close(closed_at = Time.now)
     @closed_at = closed_at
   end
-
-  # remember: you can create new methods inside those classes to help you create a better design
+  
+  def no_tax?
+    [:book].include? @items.first.product.type   
+  end
 end
 
 class OrderItem
@@ -92,22 +182,121 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_reader :name, :email
+  
+  def initialize(name:, email:)
+    @name = name
+    @email = email
+  end
 end
 
 class Membership
-  # you can customize this class by yourself
+  attr_reader :customer
+  
+  def initialize(customer:, active:)
+    @customer = customer
+    @active = active
+  end
+  
+  def set_active
+    # Send e-mail here
+    status = @active ? 'activeted' : 'inactiveted'
+    new_mail = Email.new(@customer.email,'Membership',"Your membership is now #{status}.").send_email
+  end
 end
 
-# Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
+class TestClass
+  attr_reader :payment, :shipment
+  
+  def initialize(payment, shipment)
+    @payment = payment
+    @shipment = shipment
+  end
+  
+  def print_test
+    p "Customer: #{@payment.order.customer.name}"
+    p "Item type: #{@payment.order.items.first.product.type}"
+    p "Paid: #{@payment.paid?}"
+    p "Label printed: #{@shipment.has_label?}"
+    p "Membership: #{@shipment.has_membership?}"
+    p "#{@shipment.finish}"
+  end
+end
 
+# Products
+phone = Product.new(name: 'Gorgeous cellphone', type: :physical)
+book = Product.new(name: 'Awesome book', type: :book)
+digital = Product.new(name: 'Amazing digital', type: :digital)
+membership = Product.new(name: 'Incredible membership', type: :membership)
+other = Product.new(name: 'Terrific other', type: :other)
+
+# Customers
+peter = Customer.new(name: 'Peter', email: 'peter@email.com')
+mike = Customer.new(name: 'Mike', email: 'mike@email.com')
+celina = Customer.new(name: 'Celina', email: 'celina@email.com') 
+
+# Physical Order
+phone_order = Order.new(peter)
+phone_order.add_product(phone)
+payment_phone = Payment.new(order: phone_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_phone.pay
+shipping_phone = Shipment.new(payment_phone)
+shipping_phone.finish
+test_physical_order = TestClass.new(payment_phone,shipping_phone).print_test
+# < Peter
+# < physical
+# < true
+# < true
+# < false
+# < 45678-979
+
+p '---'
+
+# Membership Order
+membership_order = Order.new(mike)
+membership_order.add_product(membership)
+payment_membership = Payment.new(order: membership_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_membership.pay
+shipping_membership = Shipment.new(payment_membership)
+shipping_membership.finish
+test_membership_order = TestClass.new(payment_membership,shipping_membership).print_test
+# < Mike
+# < membership
+# < true
+# < false
+# < true
+# < E-mail sent to:
+
+p '---'
+
+# Book Order
+book_order = Order.new(celina)
+book_order.add_product(book)
 payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+shipping_book = Shipment.new(payment_book)
+shipping_book.finish
+test_book_order = TestClass.new(payment_book,shipping_book).print_test
+# < Celina
+# < book
+# < true
+# < true
+# < false
+# < 45678-979 - No taxes according to Const. Art. 150, VI, d.
 
-# now, how to deal with shipping rules then?
+p '---'
+
+# Digital Order
+digital_order = Order.new(peter)
+digital_order.add_product(digital)
+payment_digital = Payment.new(order: digital_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_digital.pay
+shipping_digital = Shipment.new(payment_digital)
+shipping_digital.finish
+test_book_order = TestClass.new(payment_digital,shipping_digital).print_test
+# < Peter
+# < digital
+# < true
+# < false
+# < false
+# < To: peter@email.com - Subject: Midia Order - Text: Hi Peter, your order of Amazing digital is now complete. Please, receive this $10 gift card (No.18821) as our thank you for buying in our store.
