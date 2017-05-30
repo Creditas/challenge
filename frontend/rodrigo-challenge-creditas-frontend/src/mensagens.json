@@ -1,0 +1,11 @@
+{
+	"mensagens": [{
+		"mensagemID": 1,
+		"usuarioNome": "Mônica",
+		"texto": "Oi"
+		},{
+		"mensagemID": 2,
+		"usuarioNome": "Mônica",
+		"texto": "quer tc?"
+		}]
+}
