@@ -1,4 +1,4 @@
-## Desafio para Backend Software Engineer 
+## Desafio para Backend Software Engineer
 
 Você está revisando as decisões de design de um software que processa Pedidos online. Por estes pedidos, são realizados pagamentos que recebem tratamentos a depender as situações específicas de cada um como segue:
 
@@ -28,7 +28,7 @@ Por favor, inclua suas considerações da atividade em um arquivo de texto ou ma
 __O que não vale?__
  - Frameworks :] (aliás, nem precisa)
  - Metaprogramação
- 
+
 __Qual linguagem?__
 Ruby.
 
