@@ -1,0 +1,22 @@
+.App {
+  text-align: left;
+}
+
+.messages {
+  width: 20em;
+}
+
+.message-list {
+  min-height: 10em;
+  background-color: #f3f3f3;
+  list-style-type: none;
+}
+
+.message-line p {
+	display: inline-block;
+}
+
+.message-line p:first-of-type{
+	font-size: smaller;
+	color: #777;
+}
