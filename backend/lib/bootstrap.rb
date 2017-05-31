@@ -92,15 +92,113 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_reader :name, :email, :memberships, :vouchers
+
+  def initialize(name:, email:)
+    @name = name
+    @email = email
+    @memberships = []
+    @vouchers = []
+  end
+
+  def add_membership(product)
+    @memberships << Membership.new(customer: self, product: product)
+  end
+
+  def add_voucher(value)
+    @vouchers << Voucher.new(customer: self, value: value)
+  end
+
 end
 
 class Membership
-  # you can customize this class by yourself
+  attr_reader :customer, :product
+
+  def initialize(customer:, product:)
+    @customer = customer
+    @product = product
+    activate
+  end
+
+  def activate
+    @started_at = Time.now
+  end
+
+  def deactivate
+    @started_at = nil
+  end
+
+  def is_active?
+    !@started_at.nil?
+  end
+
+end
+
+class Voucher
+  attr_reader :customer, :value
+
+  def initialize(customer:, value:)
+    @customer = customer
+    @value = value
+  end
+
+end
+
+class Shipment
+  def initialize(parameters)
+    @payment = parameters.fetch(:payment)
+    @product = parameters.fetch(:product, nil)
+  end
+
+  def deliver
+    @payment.order.items.each do |item|
+      ShipmentFactory.for(item.product.type, {product: item.product, payment: @payment}).deliver
+    end
+  end
+end
+
+class PhysicalShipment < Shipment
+  def deliver
+    print_shipping_label(address: @payment.invoice.shipping_address, receiver: @payment.order.customer)
+  end
+end
+
+class BookShipment < PhysicalShipment
+  def deliver
+    print_shipping_label(address: @payment.invoice.shipping_address, receiver: @payment.order.customer, tax_free_notification: true)
+  end
+end
+
+class DigitalShipment < Shipment
+  def deliver
+    @payment.order.customer.add_voucher(10)
+    send_digital_shipment_email(@product)
+  end
+end
+
+class MembershipShipment < Shipment
+  def deliver
+    @payment.order.customer.add_membership(@product)
+    send_membership_email(@payment.order.customer, @product)
+  end
+end
+
+
+class ShipmentFactory
+  TYPES = {
+    physical: PhysicalShipment,
+    book: BookShipment,
+    digital: DigitalShipment,
+    membership: MembershipShipment
+  }
+
+  def self.for(type, parameters)
+    TYPES[type].new(parameters)
+  end
 end
 
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
+foolano = Customer.new(name: 'foolano', email: 'fool@no.com')
 book = Product.new(name: 'Awesome book', type: :book)
 book_order = Order.new(foolano)
 book_order.add_product(book)
