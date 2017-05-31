@@ -1,0 +1,13 @@
+Explicação da solução:
+
+Separei os conceitos da aplicação por responsabilidade (entidades, regras, serviços e validações)
+para tornar o código menos complexo possível e com baixo acoplamento de classses.
+
+
+Entities: entidades estáticas da aplicação (Payment, Order, Customer...)
+
+Rules: as regras de negócio pertinentes a cada tipo de pagamento (Default, Signature, Book ou Digital)
+
+Services: serviços responsáveis por processar ações internas e comunicar com serviços de outros módulos
+
+Validator: validadores dos dados das entidades
