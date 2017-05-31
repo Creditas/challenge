@@ -1,3 +1,7 @@
+require_relative 'shipping_label.rb'
+require_relative 'paymentservice.rb'
+require_relative 'notification.rb'
+
 class Payment
   attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at
 
@@ -18,6 +22,14 @@ class Payment
   def paid?
     !paid_at.nil?
   end
+
+  def addVoucher(voucherCode , voucherAmount)
+      puts "voucher added"
+  end  
+  def to_s
+    "payment = amount: " + @amount
+  end
+
 end
 
 class Invoice
@@ -52,6 +64,7 @@ class Order
     @closed_at = closed_at
   end
 
+  
   # remember: you can create new methods inside those classes to help you create a better design
 end
 
@@ -93,21 +106,61 @@ end
 
 class Customer
   # you can customize this class by yourself
+  attr_reader :name , :email
+
+  def initialize(name:,email:)
+    @name = name
+    @email = email
+  end
 end
 
 class Membership
   # you can customize this class by yourself
+  attr_reader :name , :email
+  def initialize(name:,email:)
+    @name = name
+    @email = email
+  end
+  def enable()
+      puts "membership is enabled"
+     
+  end
+  
 end
 
+#**************************************** new classes for solution ***********************
+
+
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
+foolano = Customer.new(name:"JOAO SILVA", email: "joao@email.com")
+
 book = Product.new(name: 'Awesome book', type: :book)
+membership = Product.new(name: 'membership book', type: :membership)
+physical = Product.new(name: 'physical book', type: :physical)
+digital = Product.new(name: 'physical book', type: :digital)
+
 book_order = Order.new(foolano)
 book_order.add_product(book)
+book_order.add_product(membership)
+book_order.add_product(physical)
+book_order.add_product(digital)
 
 payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+#payment_book.pay
+#p payment_book.paid? # < true
+#p payment_book.order.items.first.product.type
+
+paymentService = PaymentService.new(payment: payment_book)
+paymentService.process
+
 
 # now, how to deal with shipping rules then?
+
+
+
+
+
+
+
+
+
