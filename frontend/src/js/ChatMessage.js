@@ -3,8 +3,7 @@ class ChatMessage {
 		this.id = id;
 		this.el = el;
 
-		this.chatView = new ChatView();
-		this.chat = this.chatView.render(this.el);
+		this.chatView = new ChatView(this.el);
 	}
 
 	__createMessage(message) {
