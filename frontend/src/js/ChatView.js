@@ -4,7 +4,7 @@ class ChatView {
     this.template.innerHTML = `<ul class="message-list"></ul>
 
       <div class="message-input">
-        <input type="text" />
+        <input type="text" name="message" />
         <button type="submit">Enviar</button>
       </div>`;
 

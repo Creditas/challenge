@@ -3,20 +3,24 @@ class ChatMessage {
 		this.id = id;
 		this.el = el;
 
-		debugger;
 		this.chatView = new ChatView(this.el);
 		this.chatView.addEventListener('submit', this.__sendMessage.bind(this));
 	}
 
 	__createMessage(message) {
+		debugger;
 		let createMessage = document.createElement('li');
 		createMessage.innerHTML = message;
+
+		return createMessage;
 	}
 
 	__sendMessage(e) {
 		// console.log(this);
-		let message = e.target.value;
+		debugger;
+		const messageContent = e.target.message.value;
+		const message = this.__createMessage(message);
 
-		this.createMessage(message);
+		// document.selectElementById();
 	}
 }
