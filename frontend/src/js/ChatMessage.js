@@ -33,5 +33,6 @@ class ChatMessage {
 			messagesContainer.appendChild(message);
 		}
 		
+		e.target.reset();
 	}
 }
