@@ -4,18 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Chat</title>
-    <link rel="stylesheet" href="./styles.css" type="text/css" media="all">
+    <link rel="stylesheet" href="./styles.css">
   </head>
 
   <body>
     <h1>Chat</h1>
 
     <div id="coolChat"></div>
+    <div id="otherChat"></div>
   </body>
 
   <script src="js/ChatView.js"></script>
+  <script src="js/ChatMessage.js"></script>
   <script>
-    const chat = new ChatView();
-    chat.render("coolChat", 1);
+    const chat = new ChatMessage(1, 'coolChat');
   </script>
 </html>
