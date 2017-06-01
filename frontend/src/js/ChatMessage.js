@@ -1,6 +1,5 @@
 class ChatMessage {
-	constructor(id, el) {
-		this.id = id;
+	constructor(el) {
 		this.el = el;
 
 		this.chatView = new ChatView(this.el);
@@ -8,7 +7,6 @@ class ChatMessage {
 	}
 
 	__createMessage(message) {
-		debugger;
 		let createMessage = document.createElement('li');
 		createMessage.innerHTML = message;
 
@@ -17,14 +15,14 @@ class ChatMessage {
 
 	__sendMessage(e) {
 		e.preventDefault();
-		// console.log(this);
-		debugger;
+
 		const messageContent = e.target.message.value;
 		const message = this.__createMessage(messageContent);
-
 		const messagesContainer = this.chatView.children[0];
-		messagesContainer.appendChild(message);
 
-		// document.selectElementById();
+		if (messageContent) {
+			messagesContainer.appendChild(message);
+		}
+		
 	}
 }
