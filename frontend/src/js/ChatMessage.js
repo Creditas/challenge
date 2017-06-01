@@ -3,7 +3,9 @@ class ChatMessage {
 		this.id = id;
 		this.el = el;
 
+		debugger;
 		this.chatView = new ChatView(this.el);
+		this.chatView.addEventListener('submit', this.__sendMessage.bind(this));
 	}
 
 	__createMessage(message) {
