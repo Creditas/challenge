@@ -1,3 +1,12 @@
+/*
+ * This class is responsible only for
+ * handling the chat message, by creating it
+ * and sending it using two private methods.
+ *
+ * @param String
+ *
+ */
+
 class ChatMessage {
 	constructor(el) {
 		this.el = el;
