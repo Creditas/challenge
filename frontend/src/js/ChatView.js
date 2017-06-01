@@ -1,5 +1,6 @@
 class ChatView {
   constructor(el) {
+    debugger;
     this.template = document.createElement('form');
     this.template.innerHTML = `<ul class="message-list"></ul>
 

@@ -16,10 +16,14 @@ class ChatMessage {
 	}
 
 	__sendMessage(e) {
+		e.preventDefault();
 		// console.log(this);
 		debugger;
 		const messageContent = e.target.message.value;
-		const message = this.__createMessage(message);
+		const message = this.__createMessage(messageContent);
+
+		const messagesContainer = this.chatView.children[0];
+		messagesContainer.appendChild(message);
 
 		// document.selectElementById();
 	}
