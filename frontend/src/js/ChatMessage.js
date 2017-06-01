@@ -35,4 +35,4 @@ class ChatMessage {
 		
 		e.target.reset();
 	}
-}
+

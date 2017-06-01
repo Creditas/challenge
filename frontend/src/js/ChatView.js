@@ -13,3 +13,4 @@ class ChatView {
     return this.template;
   }
 }
+
