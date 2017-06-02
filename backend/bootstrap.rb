@@ -1,3 +1,7 @@
+Dir.glob(File.expand_path("../lib/*.rb", __FILE__)).each do |file|
+  require file
+end
+
 class Payment
   attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at
 
@@ -52,15 +56,21 @@ class Order
     @closed_at = closed_at
   end
 
+  def deliver_products
+    @items.each do |order_item|
+      deliver = Deliver.new(product: order_item.product, order: self)
+      deliver.deliver_product
+    end
+  end
   # remember: you can create new methods inside those classes to help you create a better design
 end
 
+
 class OrderItem
   attr_reader :order, :product
-
-  def initialize(order:, product:)
-    @order = order
-    @product = product
+  # changes (order, product) arguments to attributes to become like the other classes with named params
+  def initialize(attributes = {})
+    @order, @product = attributes.values_at(:order, :product)
   end
 
   def total
@@ -69,18 +79,28 @@ class OrderItem
 end
 
 class Product
-  # use type to distinguish each kind of product: physical, book, digital, membership, etc.
   attr_reader :name, :type
+  # use type to distinguish each kind of product: physical, book, digital, membership, etc.
+  
+  # Hash to map product type classes
+  PRODUCT_TYPES = {
+    book: BookType,
+    service: ServiceType,
+    physical_product: PhysicalProductType,
+    media: MediaType
+  }
 
-  def initialize(name:, type:)
-    @name, @type = name, type
+  # changes (name, type) arguments to attributes to become like the other classes with named params
+  def initialize(attributes = {})
+    @name, type = attributes.values_at(:name, :type)
+    @type = PRODUCT_TYPES[type].new
   end
 end
 
 class Address
   attr_reader :zipcode
 
-  def initialize(zipcode:)
+  def initialize(zipcode)
     @zipcode = zipcode
   end
 end
@@ -92,22 +112,46 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
-end
+  attr_reader :coupons, :subscriptions
+  def initialize(attributes = {})
+    @name = attributes.values_at(:name)
+    @coupons = []
+    @subscriptions = []
+  end
 
-class Membership
-  # you can customize this class by yourself
+  def add_coupon(discount)
+    @coupons << Coupon.new(discount)
+  end
+
+  def add_subscription(service_name)
+    @subscriptions << Subscription.new(service_name)
+  end
 end
 
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+foolano = Customer.new(name: 'joao')
+# avaiable product_types: :book, :service, :media, :physical_product
+book = Product.new(name: 'Neverwhere', type: :book)
+service = Product.new(name: 'Massage Service Subscription', type: :service)
+another_service = Product.new(name: 'Railscast Subscription', type: :service)
+physical_product = Product.new(name: 'Chair', type: :physical_product)
+media = Product.new(name: 'Are you experienced? - Jimi Hendrix Delux Edition', type: :media)
+
+order = Order.new(foolano)
+order.add_product(book)
+order.add_product(service)
+order.add_product(another_service)
+order.add_product(physical_product)
+order.add_product(media)
+
+
+payment_book = Payment.new(order: order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
 
-# now, how to deal with shipping rules then?
+if payment_book.paid? # < true
+  order.deliver_products
+end
+
+p "Coupons #{foolano.coupons.map(&:discount)}"
+p "Subscriptions #{foolano.subscriptions.map(&:name)}"
