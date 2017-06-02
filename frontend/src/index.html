@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Chat</title>
+        <link rel="stylesheet" href="./public/css/styles.css" type="text/css" media="all">
+    </head>
 
-    <title>Chat</title>
-    <link rel="stylesheet" href="./styles.css" type="text/css" media="all">
-  </head>
+    <body>
+        <h1>Chat</h1>
 
-  <body>
-    <h1>Chat</h1>
+        <div class="messages">
+            <ul class="message-list" data-chat-id="126ad87d-2c5c-4ea4-b5c5-4550fdc331d4"></ul>
 
-    <div class="messages">
-      <ul class="message-list"></ul>
+            <div class="message-input">
+                <input type="text" id="messageField" data-chat-id="126ad87d-2c5c-4ea4-b5c5-4550fdc331d4" />
+                <button type="button" id="sendMessage" data-chat-id="126ad87d-2c5c-4ea4-b5c5-4550fdc331d4">Enviar</button>
+            </div>
+        </div>
 
-      <div class="message-input">
-        <input type="text" />
-        <button type="button">Enviar</button>
-      </div>
-    </div>
-  </body>
+        <script src="./public/js/index.js"></script>
+    </body>
 </html>
