@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="3">
+
+    <FrameLayout android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/imagePerson"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corners_transparent"
+            android:layout_gravity="center|bottom">
+            <TextView
+                android:id="@+id/namePerson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:textSize="23sp"
+                android:text="Text 1" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <FrameLayout android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/imagePerson3"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corners_transparent"
+            android:layout_gravity="center|bottom">
+            <TextView
+                android:id="@+id/namePerson3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_margin="5dp"
+                android:textSize="23sp"
+                android:text="Text 1" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <FrameLayout android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/imagePerson2"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corners_transparent"
+            android:layout_gravity="center|bottom">
+            <TextView
+                android:id="@+id/namePerson2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_margin="5dp"
+                android:textSize="23sp"
+                android:text="Text 1" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+</LinearLayout>
