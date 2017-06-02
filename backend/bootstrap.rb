@@ -52,7 +52,12 @@ class Order
     @closed_at = closed_at
   end
 
-  # remember: you can create new methods inside those classes to help you create a better design
+  def process
+    # process every item in order associated with order
+    @items.each do |item|
+      item.product.process
+    end
+  end
 end
 
 class OrderItem
@@ -64,16 +69,64 @@ class OrderItem
   end
 
   def total
-    10
+    return product.price
   end
 end
 
 class Product
-  # use type to distinguish each kind of product: physical, book, digital, membership, etc.
-  attr_reader :name, :type
+  attr_reader :name, :price
 
-  def initialize(name:, type:)
-    @name, @type = name, type
+  def initialize(name, price)
+    @name = name
+    @price = price
+  end
+end
+
+class Physical < Product
+  def initialize(name:, price:)
+    super(name, price)
+  end
+
+  def process
+    # generate shipping label
+    puts "#{self.class}: Generate shipping label."
+  end
+end
+
+class Book < Product
+  def initialize(name:, price:)
+    super(name, price)
+  end
+
+  def process
+    # generate special shipping label
+    puts "#{self.class}: Generate special shipping label."
+  end
+end
+
+class Digital < Product
+  def initialize(name:, price:)
+    super(name, price)
+  end
+
+  def process
+    # email item description
+    puts "#{self.class}: Email item description."
+    # generate R$ 10 discount voucher
+    puts "#{self.class}: Generate R$ 10 discount voucher."
+  end
+end
+
+class Membership < Product
+  def initialize(name:, price:)
+    super(name, price)
+  end
+
+  def process
+    # activate subscription
+    puts "#{self.class}: Activate subscription."
+    # email user
+    puts "#{self.class}: Email user subscription info."
   end
 end
 
@@ -92,22 +145,11 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_reader :name, :id, :dob
+
+  def initialize(name, id, dob)
+    @name = name
+    @id = id
+    @dob = dob # date of birth
+  end
 end
-
-class Membership
-  # you can customize this class by yourself
-end
-
-# Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
-
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
-
-# now, how to deal with shipping rules then?
