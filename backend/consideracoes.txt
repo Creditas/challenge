@@ -1,0 +1,25 @@
+Nome: Rodrigo Vieira Pinto
+
+Descrição da solução:
+
+Utilizei o pattern Strategy (do GoF) para a construção da solução, implementando os procedimentos a serem executados em cada tipo de produto. 
+Para escrever a solução, pensei em 2 possibilidades:
+
+ * escrever toda a lógica pedida no teste dentro das implementações de OrderItemType, solicitando informações para as demais classes quando necessário;
+ * dividir a lógica entre as demais classes e as implementações de OrderItemType. Dessa forma, as demais classes deixariam de ser meras fornecedoras de informações e
+ passariam a trabalhar em conjunto com as implementações de OrderItemType para a solução.
+ 
+Entendo que não há uma alternativa totalmente correta nesse caso, mas optei pela opção 2, por entender ser mais próxima do que a orientação a objetos ensina.
+ 
+Também escrevi testes. Todos eles estão em alltests.rb. Pensei em escrever arquivos de testes (e também arquivos de classe) separados. Mas entendo que, da forma como está,
+é possível entender o código sem problemas. Não escrevi muitos testes, mas dado o cenário que montei, não eram necessários muitos testes. Também não testei fluxos alternativos
+ou outras possibilidades. Testei apenas um cenário onde adiciona-se diversos tipos de produtos no pedido. Dessa forma, acabei por testar todas as possibilidades de utilização dos 
+tipos de produto.
+
+OBS: nos casos onde há dois ou mais tipos de produtos que realizam tarefas semelhantes, procurei indicar que todos foram utilizados por meio de concatenação dos resultados.
+Exemplo: os tipos "Assinatura de Serviço" e "Midia digital" enviam email. Para que fosse mostrado que ambos foram chamados, concatenei as mensagens de email (uma 
+concatenação de Strings). Executei procedimento semelhante com os "shipping labels".
+
+Espero que tenha ficado clara a minha solução. Mas, caso haja alguma dúvida, meu email é rodrigovieirapinto@gmail.com.
+
+Obrigado!

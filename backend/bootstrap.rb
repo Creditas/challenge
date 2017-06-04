@@ -12,6 +12,9 @@ class Payment
     @authorization_number = Time.now.to_i
     @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
     @paid_at = paid_at
+    for order_item in order.items do
+      order_item.product.type.handle(self)
+    end
     order.close(@paid_at)
   end
 
@@ -31,7 +34,7 @@ class Invoice
 end
 
 class Order
-  attr_reader :customer, :items, :payment, :address, :closed_at
+  attr_reader :customer, :items, :payment, :address, :closed_at, :shippingLabel
 
   def initialize(customer, overrides = {})
     @customer = customer
@@ -50,6 +53,10 @@ class Order
 
   def close(closed_at = Time.now)
     @closed_at = closed_at
+  end
+  
+  def put_shipping_label shippingLabel
+    @shippingLabel = @shippingLabel == nil ? shippingLabel : @shippingLabel.add(shippingLabel)
   end
 
   # remember: you can create new methods inside those classes to help you create a better design
@@ -93,6 +100,55 @@ end
 
 class Customer
   # you can customize this class by yourself
+  
+  attr_reader :vouchers
+  
+  def initialize
+    @email = ''
+    @vouchers = []
+  end
+  
+  def notifyViaEmail message
+    # code to send an email
+    @email += ' ' + message
+  end
+  
+  def readEmailReceived
+    @email
+  end
+  
+  def receive voucher
+    @vouchers << voucher
+  end
+
+end
+
+class ShippingLabel
+  attr_reader :instructions
+  
+  def self.simple
+    ShippingLabel.new ' To put on box'
+  end
+  
+  def self.withNotification
+    ShippingLabel.new  'Product with no taxes, according to country laws'
+  end
+  
+  def initialize instructions
+    @instructions = instructions
+  end
+
+  def add otherShippingLabel
+    @instructions = @instructions + otherShippingLabel.instructions
+  end
+end
+
+class Voucher
+  attr_reader :code
+  
+  def initialize code
+    @code = code
+  end
 end
 
 class Membership
@@ -100,14 +156,14 @@ class Membership
 end
 
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
+#foolano = Customer.new
+#book = Product.new(name: 'Awesome book', type: :book)
+#book_order = Order.new(foolano)
+#book_order.add_product(book)
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+#payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+#payment_book.pay
+#p payment_book.paid? # < true
+#p payment_book.order.items.first.product.type
 
 # now, how to deal with shipping rules then?
