@@ -3,21 +3,24 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-
     <title>Chat</title>
-    <link rel="stylesheet" href="./styles.css" type="text/css" media="all">
+    <link rel="stylesheet" href="./styles.css">
   </head>
 
   <body>
     <h1>Chat</h1>
 
-    <div class="messages">
-      <ul class="message-list"></ul>
-
-      <div class="message-input">
-        <input type="text" />
-        <button type="button">Enviar</button>
-      </div>
-    </div>
+    <div id="coolChat"></div>
+    <div id="otherChat"></div>
   </body>
+
+  <script src="js/ChatView.js"></script>
+  <script src="js/ChatMessage.js"></script>
+  <script src="js/ChatApp.js"></script>
+  <script>
+    const chat = new ChatApp(1, 'coolChat');
+    // Feel free to try using 2 or more instances of the chat app!
+    // const chat2 = new ChatApp(2, 'otherChat');
+  </script>
 </html>
+
