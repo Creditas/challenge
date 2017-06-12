@@ -31,7 +31,7 @@ class Invoice
 end
 
 class Order
-  attr_reader :customer, :items, :payment, :address, :closed_at
+  attr_reader :customer, :items, :payment, :address, :closed_at, :discount_voucher
 
   def initialize(customer, overrides = {})
     @customer = customer
@@ -52,7 +52,30 @@ class Order
     @closed_at = closed_at
   end
 
-  # remember: you can create new methods inside those classes to help you create a better design
+  def send_email
+    puts '********** ORDER DETAILS EMAIL ************'
+    puts "Order sent to: #{@customer.email}"
+    puts "Products: "
+    @items.each_with_index do |item, index|
+      puts (index + 1).to_s + ".-"
+      puts "\tProduct name: #{item.product.name}"
+      puts "\tProduct type: #{item.product.type}"
+    end
+
+    if has_discount_voucher?
+      puts "By your purchase you have a discount voucher of R$ #{@discount_voucher.value}"
+      puts "Claim with this code: #{@discount_voucher.code}"
+    end
+    puts '*******************************************'
+  end
+
+  def has_discount_voucher?
+    @discount_voucher
+  end
+
+  def add_discount_voucher(discount_voucher)
+    @discount_voucher = discount_voucher
+  end
 end
 
 class OrderItem
@@ -92,22 +115,116 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_reader :email
+
+  def initialize(email)
+    @email = email
+  end
 end
 
 class Membership
-  # you can customize this class by yourself
+  attr_reader :customer, :product, :activated
+
+  def initialize(attributes = {})
+    @customer, @product = attributes.values_at(:customer, :product)
+    @activated = false
+  end
+
+  def activate
+    @activated = true
+  end
+
+  def deactivate
+    @activated = false
+  end
+
+  def activated?
+    return @activated
+  end
+end
+
+class ShippingLabel
+  attr_reader :order, :address, :label
+
+  def initialize(attributes = {})
+    @order, @address = attributes.values_at(:order, :address)
+    @label = Array.new(10){(rand(25) + 65).chr}.join # Generate a random unique string 10-length for the label using A..Z chars
+
+    if @order.items[0].product.type != :book
+      @tax = 4.0
+    end
+  end
+
+  def tax_exempt?
+    @order.items[0].product.type == :book
+  end
+
+  def tax
+    tax_exempt? ? 'exepmted*' : @tax.to_s + '%'
+  end
+
+  def print
+    puts '********** SHIPPING LABEL ***********'
+    puts "Shipping label: #{@label}"
+    puts "Shipping address: #{@address.zipcode}"
+    puts "Tax: #{tax}"
+    puts "This box contains this products: "
+    @order.items.each_with_index do |item, index|
+      puts (index + 1).to_s + ".-"
+      puts "\tProduct name: #{item.product.name}"
+      puts "\tProduct type: #{item.product.type}"
+    end
+    if tax_exempt?
+      puts "\n* THE TAX HAS BEEN EXEMPTED DUE THE CONSTITUTION ART. 150, VI, d."
+    end
+    puts '*************************************'
+  end
+end
+
+class DiscountVoucher
+  attr_reader :value, :code, :claimed
+
+  def initialize(value)
+    @value = value
+    @code = Array.new(5){(rand(10))}.join # Generate a random unique string 5-lenght for the code using 0..9 chars
+    @claimed = false
+  end
+
+  def claim
+    @claimed = true
+  end
+
+  def claimed?
+    @claimed
+  end
 end
 
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
+customer = Customer.new('test@tes.com')
+product = Product.new(name: 'Awesome book', type: :digital)
+product_order = Order.new(customer)
+product_order.add_product(product)
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+payment = Payment.new(order: product_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment.pay
+p payment.paid? # < true
+p payment.order.items.first.product.type
 
 # now, how to deal with shipping rules then?
+case product.type
+when :book
+  shipping_label = ShippingLabel.new(order: product_order, address: Address.new(zipcode: '5101'))
+  shipping_label.print
+when :physical
+  shipping_label = ShippingLabel.new(order: product_order, address: Address.new(zipcode: '5101'))
+  shipping_label.print
+when :membership
+  membership = Membership.new(product: product, customer: customer)
+  membership.activate
+  product_order.send_email
+when :digital
+  product_order.add_discount_voucher(DiscountVoucher.new(10))
+  product_order.send_email
+else
+  puts "Sorry, that option has not rules about shipping :("
+end
