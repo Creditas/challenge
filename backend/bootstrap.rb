@@ -52,6 +52,7 @@ class Order
     @closed_at = closed_at
   end
 
+  # Dummy implementation of send email
   def send_email
     puts '********** ORDER DETAILS EMAIL ************'
     puts "Order sent to: #{@customer.email}"
@@ -115,18 +116,18 @@ class CreditCard
 end
 
 class Customer
-  attr_reader :email
+  attr_reader :email, :shipping_address
 
-  def initialize(email)
-    @email = email
+  def initialize(attributes = {})
+    @email, @shipping_address = attributes.values_at(:email, :shipping_address)
   end
 end
 
 class Membership
-  attr_reader :customer, :product, :activated
+  attr_reader :order, :activated
 
-  def initialize(attributes = {})
-    @customer, @product = attributes.values_at(:customer, :product)
+  def initialize(order)
+    @order = order
     @activated = false
   end
 
@@ -138,35 +139,48 @@ class Membership
     @activated = false
   end
 
+  def customer
+    @order.customer
+  end
+
+  def product
+    @order.items.first.product
+  end
+
   def activated?
     return @activated
   end
 end
 
 class ShippingLabel
-  attr_reader :order, :address, :label
+  attr_reader :order, :label
 
-  def initialize(attributes = {})
-    @order, @address = attributes.values_at(:order, :address)
+  def initialize(order)
+    @order = order
     @label = Array.new(10){(rand(25) + 65).chr}.join # Generate a random unique string 10-length for the label using A..Z chars
 
-    if @order.items[0].product.type != :book
+    if @order.items.first.product.type != :book
       @tax = 4.0
     end
   end
 
   def tax_exempt?
-    @order.items[0].product.type == :book
+    @order.items.first.product.type == :book
   end
 
   def tax
     tax_exempt? ? 'exepmted*' : @tax.to_s + '%'
   end
 
+  def address
+    @order.customer.shipping_address
+  end
+
+  # Dummy implementation of the print method
   def print
     puts '********** SHIPPING LABEL ***********'
     puts "Shipping label: #{@label}"
-    puts "Shipping address: #{@address.zipcode}"
+    puts "Shipping address: #{address.zipcode}"
     puts "Tax: #{tax}"
     puts "This box contains this products: "
     @order.items.each_with_index do |item, index|
@@ -199,32 +213,70 @@ class DiscountVoucher
   end
 end
 
-# Book Example (build new payments if you need to properly test it)
-customer = Customer.new('test@tes.com')
-product = Product.new(name: 'Awesome book', type: :digital)
-product_order = Order.new(customer)
-product_order.add_product(product)
+class Shipping
+  attr_reader :payment, :error
 
-payment = Payment.new(order: product_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+  SHIPMENT_METHOD_NOT_SUPPORTED = 0
+  ORDER_NOT_PAID = 1
+
+  def initialize(payment)
+    @payment = payment
+  end
+
+  def deliver
+    if !payment.paid?
+      @error = ORDER_NOT_PAID
+      return false
+    end
+
+    order = @payment.order
+    customer = order.customer
+    product = order.items.first.product
+
+    case product.type
+    when :book
+      shipping_label = ShippingLabel.new(order)
+      shipping_label.print
+    when :physical
+      shipping_label = ShippingLabel.new(order)
+      shipping_label.print
+    when :membership
+      membership = Membership.new(order)
+      membership.activate
+      order.send_email
+    when :digital
+      order.add_discount_voucher(DiscountVoucher.new(10))
+      order.send_email
+    else
+      @error = SHIPMENT_METHOD_NOT_SUPPORTED
+      return false
+    end
+
+    return true
+  end
+end
+
+# Book Example (build new payments if you need to properly test it)
+customer = Customer.new(email: 'test@test.com', shipping_address: Address.new(zipcode: '5101'))
+product = Product.new(name: 'Awesome product', type: :digital)
+order = Order.new(customer)
+order.add_product(product)
+
+payment = Payment.new(order: order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 payment.pay
-p payment.paid? # < true
-p payment.order.items.first.product.type
 
 # now, how to deal with shipping rules then?
-case product.type
-when :book
-  shipping_label = ShippingLabel.new(order: product_order, address: Address.new(zipcode: '5101'))
-  shipping_label.print
-when :physical
-  shipping_label = ShippingLabel.new(order: product_order, address: Address.new(zipcode: '5101'))
-  shipping_label.print
-when :membership
-  membership = Membership.new(product: product, customer: customer)
-  membership.activate
-  product_order.send_email
-when :digital
-  product_order.add_discount_voucher(DiscountVoucher.new(10))
-  product_order.send_email
+shipping = Shipping.new(payment)
+if shipping.deliver
+  puts "RESULT: The order has been delivered successfully"
 else
-  puts "Sorry, that option has not rules about shipping :("
+  errMsg = "ERROR: "
+  case shipping.error
+  when Shipping::SHIPMENT_METHOD_NOT_SUPPORTED
+    errMsg = errMsg + "Shipment method not supported"
+  when Shipping::ORDER_NOT_PAID
+    errMsg = errMsg + "Order not paid yet"
+  end
+
+  puts errMsg
 end

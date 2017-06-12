@@ -1,0 +1,9 @@
+I've added the following classes
+
+- Customer, with attrs email and shipping address
+- ShippingLabel, which receives an order in its constructor. Through order I can know what are the products that the shipping box will contain.
+- Membership, which receives an order in its constructor because throught the order I can know what is the product which the user is subscribing and can know the customer information
+- Discount Voucher, which receives a value in its constructor. The discount voucher is added to the order if the type of product is digital.
+- Shipping, that is the class that manage all the process about the shipping
+
+I've added the methods add_discount_voucher and send_email to the class Order.
