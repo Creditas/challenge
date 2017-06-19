@@ -7,12 +7,12 @@ if (module.hot) {
 import '../styles/styles.scss';
 import ChatFactory from "./chatFactory";
 
-var room = new ChatFactory({
+let room = new ChatFactory({
     chatType: 'normal',
     placeholder: '.messages'
 });
 
-var roomAjax = new ChatFactory({
+let roomAjax = new ChatFactory({
     chatType: 'ajax',
     placeholder: '.messages-ajax'
 });

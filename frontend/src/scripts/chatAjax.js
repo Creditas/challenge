@@ -5,7 +5,18 @@ class ChatAjax extends Chat{
         super(options);
     }
     sendMessage(event){
-        console.log( 'Event da classe Ajax: ', event);
+        console.log("Event com delay para simular outra implementacao");
+
+        setTimeout(() => {
+            event.preventDefault();
+
+            let input = this.utils.getById(this.chatView.id)
+                .querySelector('.message-input input');
+
+            this.createContainer(input.value, true);
+
+            input.value = '';
+        }, 1000);
     }
 }
 

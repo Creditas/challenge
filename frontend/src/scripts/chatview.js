@@ -11,8 +11,10 @@ class ChatView{
             <button type="button">Enviar</button>
         </div>
         </div>`;
-        placeholder.innerHTML = this.tpl;
-        console.log(this.tpl);
+
+        if(placeholder){
+            placeholder.innerHTML = this.tpl;
+        }
 
         return this.tpl;
     }

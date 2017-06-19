@@ -19,7 +19,7 @@ class Chat{
 
         this.local = new LocalStorage(options.chatType);
         this.local.getLog().map((value) => {
-            this.createContainer(value)
+            this.createContainer(value);
         });
     };
     sendMessage(event){
