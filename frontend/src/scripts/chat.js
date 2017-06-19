@@ -18,6 +18,9 @@ class Chat{
         this.utils.getById(this.chatView.id).addEventListener('keypress', this.bindEnter.bind(this));
 
         this.local = new LocalStorage(options.chatType);
+        this.local.getLog().map((value) => {
+            this.createContainer(value)
+        });
     };
     sendMessage(event){
         event.preventDefault();
@@ -25,11 +28,11 @@ class Chat{
         let input = this.utils.getById(this.chatView.id)
             .querySelector('.message-input input');
 
-        this.createContainer(input.value);
+        this.createContainer(input.value, true);
 
         input.value = '';
     };
-    createContainer(message){
+    createContainer(message, populate){
         if(message == '') return ;
 
         let createMessage = document.createElement('li');
@@ -39,7 +42,7 @@ class Chat{
             .querySelector('.message-list')
             .appendChild(createMessage);
 
-        this.local.setLog(message);
+        if(populate) this.local.setLog(message);
     };
     bindEnter(event){
         let e = event || window.event;

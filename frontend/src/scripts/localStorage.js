@@ -4,7 +4,7 @@ class LocalStorage{
     }
 
     getLog(){
-        return sessionStorage.getItem(this.key);
+        return JSON.parse(sessionStorage.getItem(this.key)) || [];
     }
 
     setLog(message){
