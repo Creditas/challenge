@@ -1,0 +1,7 @@
+<ul class="message-list">
+  {{#each messages as |message| }}
+    {{chat-message model=message}}
+  {{/each}}
+</ul>
+
+{{chat-input-bar chatId=chatId}}
