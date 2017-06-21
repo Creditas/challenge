@@ -1,6 +1,5 @@
 import Service from 'ember-service';
 import Evented from 'ember-evented';
-import Ember from 'ember';
 
 export default Service.extend(Evented, {
 

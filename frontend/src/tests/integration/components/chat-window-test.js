@@ -12,14 +12,6 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{chat-window}}`);
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#chat-window}}
-      template block text
-    {{/chat-window}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$().find('ul.message-list').length, 1);
+  assert.equal(this.$().find('div.message-input').length, 1);
 });

@@ -7,19 +7,11 @@ moduleForComponent('chat-message', 'Integration | Component | chat message', {
 
 test('it renders', function(assert) {
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  this.set('message', {
+    text: 'foo bar'
+  })
 
-  this.render(hbs`{{chat-message}}`);
+  this.render(hbs`{{chat-message model=message}}`);
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#chat-message}}
-      template block text
-    {{/chat-message}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$().text().trim(), 'foo bar');
 });
