@@ -33,7 +33,7 @@ class OrderItem
 end
 ```
 
-**:shipping_label** e ***:voucher** foram colocados na classe *OrderItem* para que seja possível atribuir um valor específico por ítem.
+**:shipping_label** e **:voucher** foram colocados na classe *OrderItem* para que seja possível atribuir um valor específico por ítem.
 
 ## Teste ##
 
@@ -48,3 +48,26 @@ $ ruby -v test/order_test.rb
 ```
 
 O pedido é gerado de acordo com os ítens adicionados e há uma mensagem em "shipping" que representa um resumo do que foi feito no pedido.
+
+Ex.:
+
+```
+# Running tests:
+
+[2/3] OrderTest#test_paymentPrinting label: Item isento de impostos conforme Art. 150, VI, d.
+Printing label: Item isento de impostos conforme Art. 150, VI, d.
+Sending email: Produto adquirido: Gonzaguinha to felipe@teste.com
+Sending email: Assinatura ativada. to felipe@teste.com
+Serviço ativado: Seguro Celular
+"Caro(a), Felipe"
+"Pedido finalizado com sucesso."
+"A entrega do pedido será realizada no CEP: 45678-979."
+"Produtos adquiridos:"
+"Item: Por um fio - R$ 25.99"
+"Item: Carcereiros - R$ 22.99"
+"Item: Gonzaguinha - R$ 45.99"
+"Item: Seguro Celular - R$ 300.99"
+"Valor Total: \t\t\t\t\t R$ 385.96000000000004"
+Finished tests in 0.007641s, 392.6188 tests/s, 392.6188 assertions/s.
+3 tests, 3 assertions, 0 failures, 0 errors, 0 skips
+```
