@@ -91,23 +91,129 @@ class CreditCard
   end
 end
 
+class Voucher
+  attr_reader :value, :customer
+
+  def initialize(value:, customer:)
+    @value = value
+    @customer = customer
+  end
+end
+
+
 class Customer
   # you can customize this class by yourself
+  attr_reader :name, :email, :vouchers
+
+  def initialize(name:, email:, vouchers: nil)
+    @name  = name
+    @email = email
+    @vouchers = (vouchers || Array.new)
+  end
+
+  def add_voucher(value)
+    vouchers << Voucher.new(value: value, customer: self)
+  end
 end
 
 class Membership
-  # you can customize this class by yourself
+  attr_reader :customer, :service, :is_active
+
+  def initialize(customer:, service:)
+    @customer = :customer
+    @service = :service
+  end
+
+  def make_active()
+    @is_active = true
+  end
 end
 
+class PostPaymentStrategyContext
+  def initialize()
+    @strategies = Hash.new
+    @strategies[:physical] = PhysicalStrategy.new
+    @strategies[:book] = BookStrategy.new
+    @strategies[:digital] = DigitalStrategy.new
+    @strategies[:membership] = MembershipStrategy.new
+  end
+
+  def execute(product:, customer:)
+    @strategy = @strategies[product.type]
+    @strategy.execute(product, customer)
+  end
+end
+
+class PostPaymentStrategy
+  def execute(product, customer)
+    puts 'not implemented'
+  end
+end
+
+class PhysicalStrategy < PostPaymentStrategy
+  def execute(product, customer)
+    puts 'PhysicalStrategy Activated'
+    puts 'Generating physical product shipping label'
+    puts "\n"
+  end
+end
+
+class BookStrategy < PostPaymentStrategy
+  def execute(product, customer)
+    puts 'BookStrategy Activated'
+    puts 'Generating book shipping label - item isento de impostos conforme disposto na Constituição Art. 150, VI, d'
+    puts "\n"
+  end
+end
+
+class DigitalStrategy < PostPaymentStrategy
+  def execute(product, customer)
+    puts 'DigitalStrategy Activated'
+    puts 'Calling e-mail service with order info'
+    puts 'Adding a R$ 10 voucher to customer'
+    puts "Customer vouchers: #{customer.vouchers.size}"
+    customer.add_voucher(10)
+    puts "Customer vouchers: #{customer.vouchers.size}"
+    puts "\n"
+  end
+end
+
+class MembershipStrategy < PostPaymentStrategy
+  def execute(product, customer)
+    puts 'Calling e-mail service with membership info'
+    puts 'Creating membership record for the customer and making it active'
+    membership = Membership.new(customer: customer, service: product.name)
+    membership.make_active
+    puts "#{customer.name}'s membership is active? #{membership.is_active}"
+    puts "\n"
+  end
+end
+
+
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
+foolano = Customer.new(name: 'Foolano Baz', email: 'foolano@creditas.com.br')
+physicalPrduct = Product.new(name: 'Awesome physical product', type: :physical)
+bookProduct = Product.new(name: 'Awesome book', type: :book)
+digitalProduct = Product.new(name: 'Awesome digital product', type: :digital)
+membershipProduct = Product.new(name: 'Awesome membership', type: :membership)
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+order = Order.new(foolano)
+order.add_product(physicalPrduct)
+order.add_product(bookProduct)
+order.add_product(digitalProduct)
+order.add_product(membershipProduct)
 
-# now, how to deal with shipping rules then?
+order_payment = Payment.new(
+                  order: order,
+                  payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+order_payment.pay
+
+if order_payment.paid?
+  strategyContext = PostPaymentStrategyContext.new
+
+  order_payment.order.items.each do |item|
+    strategyContext.execute(
+      product: item.product,
+      customer: order_payment.order.customer)
+  end
+end
