@@ -1,5 +1,7 @@
+require_relative "./shipment/ShipmentManager"
+
 class Payment
-  attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at
+  attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at, :voucher
 
   def initialize(attributes = {})
     @authorization_number, @amount = attributes.values_at(:authorization_number, :amount)
@@ -7,12 +9,21 @@ class Payment
     @payment_method = attributes.values_at(:payment_method)
   end
 
-  def pay(paid_at = Time.now)
+  def pay(paid_at = Time.now, options = {})
+    @voucher = options.fetch('voucher', nil)
     @amount = order.total_amount
+
+    # If a voucher was supplied, apply the discount
+    @amount -= @amount * (voucher.discount / 100) if (@voucher != nil)
+
     @authorization_number = Time.now.to_i
     @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
     @paid_at = paid_at
     order.close(@paid_at)
+
+    #handle shipment
+    shipmentManager = ShipmentManager.new
+    shipmentManager.handle_shipment_rules(@order.customer, self)
   end
 
   def paid?
@@ -51,8 +62,6 @@ class Order
   def close(closed_at = Time.now)
     @closed_at = closed_at
   end
-
-  # remember: you can create new methods inside those classes to help you create a better design
 end
 
 class OrderItem
@@ -69,7 +78,6 @@ class OrderItem
 end
 
 class Product
-  # use type to distinguish each kind of product: physical, book, digital, membership, etc.
   attr_reader :name, :type
 
   def initialize(name:, type:)
@@ -92,22 +100,71 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_reader :email, :membership, :vouchers
+
+  def initialize(email, options = {})
+    @email = email
+    @membership = options.fetch('membership', Membership.new)
+    @vouchers = options.fetch('vouchers', Array.new)
+  end
+
+  def add_voucher(voucher)
+    @vouchers << voucher
+  end
 end
 
 class Membership
-  # you can customize this class by yourself
+  attr_reader :customer, :is_active, :last_modified
+
+  def activate_membership
+    @is_active = true
+    @last_modified = Time.now
+  end
+
+  def deactivate_membership
+    @is_active = false
+    @last_modified = Time.now
+  end
 end
 
-# Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
+class Voucher
+  attr_reader :discount, :customer
+
+  def initialize(discount, customer)
+    @discount = discount
+    @customer = customer
+  end
+end
+
+# Book Example
+foolano = Customer.new('email@email.com')
 book = Product.new(name: 'Awesome book', type: :book)
 book_order = Order.new(foolano)
 book_order.add_product(book)
 
 payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
 
-# now, how to deal with shipping rules then?
+# Music Example 
+music = Product.new(name: 'Awesome Music', type: :digital)
+music_order = Order.new(foolano)
+music_order.add_product(music)
+
+payment_music = Payment.new(order: music_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_music.pay
+
+# Physical Example
+physical = Product.new(name: 'Awesome product', type: :physical)
+physical_order = Order.new(foolano)
+physical_order.add_product(physical)
+
+payment_physical = Payment.new(order: physical_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_physical.pay
+
+# Subscription Example
+membership = Product.new(name: 'Awesome subscription', type: :membership)
+membership_order = Order.new(foolano)
+membership_order.add_product(membership)
+
+payment_membership = Payment.new(order: membership_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_membership.pay
