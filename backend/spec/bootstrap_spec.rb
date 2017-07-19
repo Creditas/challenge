@@ -1,4 +1,4 @@
-require_relative '../../bootstrap'
+require_relative '../bootstrap'
 
 describe CreditCard do
 
