@@ -12,7 +12,7 @@ class Payment
     @authorization_number = Time.now.to_i
     @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
     @paid_at = paid_at
-    order.close(@paid_at)
+    order.close(@paid_at, paid?)
   end
 
   def paid?
