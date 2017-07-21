@@ -4,7 +4,7 @@ describe Product do
 
   context 'initialize' do
 
-    let(:type) {'book'}
+    let(:type) { ProductsType::BOOK }
     subject(:product) { described_class.new(name: 'name', type: :type) }
 
     it 'when expect to have a name and a type' do
@@ -25,6 +25,30 @@ describe Product do
 
     it 'with incorrect product type' do
       expect(product.type).not_to eq('foo')
+    end
+
+  end
+
+  context 'process' do
+
+    it 'With the product set as book' do
+      @product = Product.new(name: 'Some book', type: ProductsType::BOOK)
+      expect(@product.process).to include("the Constitution Art")
+    end
+
+    it 'With the product set as digital' do
+      @product = Product.new(name: 'Some book', type: ProductsType::MOVIE)
+      expect(@product.process).to include("10% OFF voucher")
+    end
+
+    it 'With the product set as membership' do
+      @product = Product.new(name: 'Some book', type: ProductsType::MEMBERSHIP)
+      expect(@product.process).to include("Membership for customer activated")
+    end
+
+    it 'With the product set as physical' do
+      @product = Product.new(name: 'Some book', type: ProductsType::PHYSICAL)
+      expect(@product.process).to include("Shipping Label")
     end
 
   end
