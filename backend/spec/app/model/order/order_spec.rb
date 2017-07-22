@@ -4,28 +4,28 @@ describe Order do
 
 
     let(:now) { Time.now }
-    subject(:customer) { Customer.new }
+    subject(:customer) { Customer.new(name:'Sugamele', email:'foo@bar.com.br') }
     subject(:product) { Product.new(name: 'DDD', type: ProductsType::BOOK)}
 
 
     context 'initialize' do
       let(:zipcode) { '03136040' }
-      subject(:address) { Address.new(zipcode: :zipcode) }
+      subject(:address) { Address.new(zipcode: zipcode) }
 
       it 'when expect to have a customer' do
         expect{described_class.new()}.to raise_error(ArgumentError)
       end
 
       it 'with instance customer' do
-        order = Order.new(customer)
+        order = described_class.new(customer)
         expect(order.customer).to be_instance_of(Customer)
       end
 
       it 'with parameters store' do
-        order = described_class.new( customer, address: address )
+        order = described_class.new(customer, address: address )
         expect(order.customer).to be_instance_of(Customer)
         expect(order.address).to be_instance_of(Address)
-        expect(order.address.zipcode).to eq(:zipcode)
+        expect(order.address.zipcode).to eq(zipcode)
         expect(order.items).to eq([])
       end
     end
@@ -74,5 +74,6 @@ describe Order do
       order.close(now)
       expect(order.closed_at).to eq(now)
     end
+
   end
 end

@@ -18,7 +18,7 @@ class Order
 
   def close(closed_at = Time.now, is_paid = false)
     @closed_at = closed_at
-    @is_paid ||= items.each{ |item| item.product.process() }
+    @is_paid ||= @items.each{ |item| item.product.process(@customer) }
   end
 
   # remember: you can create new methods inside those classes to help you create a better design

@@ -5,7 +5,7 @@ describe Address do
   context 'initialize' do
 
     let(:zipcode) { '03136040' }
-    subject(:address) { described_class.new(zipcode: :zipcode) }
+    subject(:address) { described_class.new(zipcode: zipcode) }
 
     it 'when expect to have a zipcode in Address' do
       expect{described_class.new()}.to raise_error(ArgumentError)
@@ -16,7 +16,7 @@ describe Address do
     end
 
     it 'with correct zipcode' do
-      expect(address.zipcode).to eq(:zipcode)
+      expect(address.zipcode).to eq(zipcode)
     end
 
     it 'with incorrect zipcode' do

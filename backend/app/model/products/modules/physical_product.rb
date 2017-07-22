@@ -1,10 +1,7 @@
 module PhysicalProduct
-  def process
-    create_shipping_label
-  end
+  attr_reader :customer
 
-  private
-  def create_shipping_label
-   "Shipping Label for #{@name} created, put it in the shipping box"
+  def process customer
+    Label.new.generate_for customer
   end
 end

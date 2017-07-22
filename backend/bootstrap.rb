@@ -1,7 +1,7 @@
 Dir[File.expand_path "app/model/**/*.rb"].each{|f| require_relative(f)}
 
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
+foolano = Customer.new(name:'Sugamele', email:'foo@bar.com.br')
 
 book = Product.new(name: 'Awesome book', type: ProductsType::BOOK)
 movie = Product.new(name: 'Awesome movie', type: ProductsType::MOVIE)

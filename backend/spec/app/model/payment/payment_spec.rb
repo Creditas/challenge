@@ -1,10 +1,9 @@
 Dir[File.expand_path "app/model/**/*.rb"].each{|f| require_relative(f)}
 
 describe Payment do
-  let(:zipcode) { '03136040' }
-  subject(:customer) { Customer.new }
+  subject(:customer) { Customer.new(name:'Suga', email:'foo@bar.com.br') }
   subject(:product) { Product.new(name: 'DDD', type: ProductsType::BOOK)}
-  subject(:order) { Order.new(:customer) }
+  subject(:order) { Order.new(customer) }
   subject(:creditCard) { CreditCard.fetch_by_hashed('3574657844') }
 
   context 'pay' do
@@ -28,5 +27,6 @@ describe Payment do
       payment.pay
       expect(payment.order.items.first.product.type).to eq(ProductsType::BOOK)
     end
+
   end
 end
