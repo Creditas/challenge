@@ -52,7 +52,33 @@ class Order
     @closed_at = closed_at
   end
 
-  # remember: you can create new methods inside those classes to help you create a better design
+  def deliver
+    @items.each do |item|
+      Ship.send(item.product.type, item)
+    end
+  end
+end
+
+class Ship
+  def self.book(item)
+    Print.shipping_label_tax_free(item.order.address, item.product)
+  end
+
+  def self.physical(item)
+    Print.shipping_label(item.order.address, item.product)
+  end
+
+  def self.digital(item)
+    item.order.customer.add_voucher(Voucher.new(10.00))
+
+    Notification.digital_purchase(item.product, item.order.customer.email)
+  end
+
+  def self.membership(item)
+    item.product.activate
+
+    Notification.membership_activated(item.product, item.order.customer.email)
+  end
 end
 
 class OrderItem
@@ -69,7 +95,6 @@ class OrderItem
 end
 
 class Product
-  # use type to distinguish each kind of product: physical, book, digital, membership, etc.
   attr_reader :name, :type
 
   def initialize(name:, type:)
@@ -92,22 +117,52 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_reader :email, :vouchers
+
+  def initialize(email)
+    @email = email
+    @vouchers = []
+  end
+
+  def add_voucher(voucher)
+    vouchers << voucher
+  end
 end
 
-class Membership
-  # you can customize this class by yourself
+class Membership < Product
+  attr_reader :active
+
+  def initialize(name:)
+    super(name: name, type: :membership)
+    @active = false
+  end
+
+  def activate
+    @active = true
+  end
 end
 
-# Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
+class Print
+  def self.shipping_label(address, product)
+  end
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+  def self.shipping_label_tax_free(address, product)
+  end
+end
 
-# now, how to deal with shipping rules then?
+class Notification
+  def self.membership_activated(membership, email)
+  end
+
+  def self.digital_purchase(membership, email)
+  end
+end
+
+class Voucher
+  attr_reader :discount, :active
+
+  def initialize(discount)
+    @discount = discount
+    @active = true
+  end
+end
