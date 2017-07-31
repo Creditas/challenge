@@ -5,7 +5,7 @@ describe OrderItem do
   context 'initialize' do
 
     subject(:order) { Order.new('Marco Antonio Sugamele') }
-    subject(:product) { Product.new(name: 'DDD', type: 'book')}
+    subject(:product) { CommonBook.new(name: 'DDD')}
     subject(:item) { described_class.new(order: :order, product: :product) }
 
     it 'when expect to have a parameters' do

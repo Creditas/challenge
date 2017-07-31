@@ -1,13 +1,12 @@
-class Product
+module Product
   attr_reader :name, :type, :product
 
-  def initialize(name:, type:)
-    @name, @type = name, type
+  def initialize(name:)
+    @name = name
     @product = self
   end
 
   def process customer
-    @product.extend Kernel.const_get(self.type)
     @product.process (customer)
   end
 

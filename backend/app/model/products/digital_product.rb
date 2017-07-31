@@ -1,4 +1,12 @@
-module DigitalProduct
+require_relative 'modules/product.rb'
+class DigitalProduct
+  include Product
+
+  def initialize(name:)
+    super
+    @type = ProductsType::MOVIE
+  end
+
   def process customer
     voucher = get_voucher_to(customer)
     messa_email = "Your #{self.name} product is ready for download\n"

@@ -2,7 +2,7 @@ Dir[File.expand_path "app/model/**/*.rb"].each{|f| require_relative(f)}
 
 describe Payment do
   subject(:customer) { Customer.new(name:'Suga', email:'foo@bar.com.br') }
-  subject(:product) { Product.new(name: 'DDD', type: ProductsType::BOOK)}
+  subject(:product) { CommonBook.new(name: 'DDD')}
   subject(:order) { Order.new(customer) }
   subject(:creditCard) { CreditCard.fetch_by_hashed('3574657844') }
 

@@ -1,4 +1,12 @@
-module Membership
+require_relative 'modules/product.rb'
+class Membership
+  include Product
+
+  def initialize(name:)
+    super
+    @type = ProductsType::MEMBERSHIP
+  end
+
   def process customer
     activate_membership_for customer
     send_email_to_for customer
