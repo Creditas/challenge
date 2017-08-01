@@ -1,4 +1,5 @@
 module Membership
+  include Email
 
   def type
     ProductsType::MEMBERSHIP
@@ -15,6 +16,6 @@ module Membership
 
   def send_email_to_for customer
     message = "Hello #{customer.name}, your signature has been successfully activated."
-    Email.send(customer.email, message)
+    send_email(customer.email, message)
   end
 end
