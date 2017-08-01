@@ -1,3 +1,4 @@
+require_relative '../../shipping/label.rb'
 module CommonBook
   include Label
 

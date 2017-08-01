@@ -1,3 +1,4 @@
+require_relative '../../email/email.rb'
 module DigitalProduct
   include Email
 
