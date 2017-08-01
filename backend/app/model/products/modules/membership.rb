@@ -1,10 +1,7 @@
-require_relative 'modules/product.rb'
-class Membership
-  include Product
+module Membership
 
-  def initialize(name:)
-    super
-    @type = ProductsType::MEMBERSHIP
+  def type
+    ProductsType::MEMBERSHIP
   end
 
   def process customer

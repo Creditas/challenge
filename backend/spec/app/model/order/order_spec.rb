@@ -5,7 +5,7 @@ describe Order do
 
     let(:now) { Time.now }
     subject(:customer) { Customer.new(name:'Sugamele', email:'foo@bar.com.br') }
-    subject(:product) { CommonBook.new(name: 'DDD')}
+    subject(:product) { Product.new(name: 'DDD', type: CommonBook)}
 
 
     context 'initialize' do

@@ -1,10 +1,7 @@
-require_relative 'modules/product.rb'
-class DigitalProduct
-  include Product
+module DigitalProduct
 
-  def initialize(name:)
-    super
-    @type = ProductsType::MOVIE
+  def type
+    ProductsType::MOVIE
   end
 
   def process customer

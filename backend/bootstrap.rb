@@ -3,10 +3,10 @@ Dir[File.expand_path "app/model/**/*.rb"].each{|f| require_relative(f)}
 # Book Example (build new payments if you need to properly test it)
 foolano = Customer.new(name:'Sugamele', email:'foo@bar.com.br')
 
-book = CommonBook.new(name: 'Awesome book')
-movie = DigitalProduct.new(name: 'Awesome movie')
-membership = Membership.new(name: 'Awesome membership')
-physical = PhysicalProduct.new(name: 'Awesome pysical product')
+book = Product.new(name: 'Awesome book', type: CommonBook)
+movie = Product.new(name: 'Awesome movie', type: DigitalProduct)
+membership = Product.new(name: 'Awesome membership', type: Membership)
+physical = Product.new(name: 'Awesome pysical product', type: PhysicalProduct)
 
 order = Order.new(foolano)
 order.add_product(book)

@@ -1,10 +1,7 @@
-require_relative 'modules/product.rb'
-class CommonBook
-  include Product
+module CommonBook
 
-  def initialize(name:)
-  	super
-  	@type = ProductsType::BOOK
+  def type
+    ProductsType::BOOK
   end
 
   def process customer
