@@ -15,3 +15,6 @@ __Como eu fiz?__
   - Implementei as novas funcionalidades preferindo composição em vez de herança
   - Por fim, me atentei as regras do desafio, de shpping e email, aonde foi relativamente
     simples aplicar
+  - Refatorei para retirar a metaprogramação, nesse processo transformei o produto num módulo e os tipos em entidades
+  - Não satisfeito com o design, refatorei novamente, transformando o produto numa entidade, aonde ele recebe um contexto (seus tipos)
+  - Desacoplei as classes de email, voucher e label aumentando a coesão
