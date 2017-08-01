@@ -13,8 +13,8 @@ module DigitalProduct
   end
 
   def get_voucher_to customer
-  	discount = 10
-  	voucher = Voucher.new(customer)
-  	voucher.voucher_with(discount)
+    self.extend(Voucher)
+    discount = 10
+  	voucher_to(customer: customer, discount: discount)
   end
 end

@@ -1,13 +1,8 @@
-class Voucher
-  attr_reader :customer
+module Voucher
 
-  def initialize(customer)
-    @customer = customer
-  end
-
-  def voucher_with value
-    @voucher = generate_voucher_by_customer
-    "#{@customer.name} your voucher is  #{@voucher} with #{value}% OFF"
+  def voucher_to (customer:, discount:)
+    voucher = generate_voucher_by_customer
+    "#{customer.name} your voucher is  #{voucher} with #{discount}% OFF"
   end
 
   private
