@@ -10,9 +10,9 @@ physical = Product.new(name: 'Awesome pysical product', type: PhysicalProduct)
 
 order = Order.new(foolano)
 order.add_product(book)
-order.add_product(movie)
-order.add_product(membership)
-order.add_product(physical)
+# order.add_product(movie)
+# order.add_product(membership)
+# order.add_product(physical)
 
 payment_book = Payment.new(order: order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 payment_book.pay

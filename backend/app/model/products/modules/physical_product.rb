@@ -1,9 +1,11 @@
 module PhysicalProduct
+  include Label
+
   def type
     ProductsType::PHYSICAL
   end
 
   def process customer
-    Label.new.generate_for customer
+    generate_label_for customer
   end
 end
