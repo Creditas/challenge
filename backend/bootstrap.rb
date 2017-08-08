@@ -58,6 +58,12 @@ end
 class OrderItem
   attr_reader :order, :product
 
+  # ATTRS FOR ITEMS TYPE MEMBERSHIP
+  attr_accessor :membership_active, :membership_activated_at
+
+  # ATTRS FOR ITEMS WITH SHIPPING LABEL
+  attr_accessor :shipping_label_created, :shipping_label_created_at
+
   def initialize(order:, product:)
     @order = order
     @product = product
@@ -96,7 +102,123 @@ class Customer
 end
 
 class Membership
-  # you can customize this class by yourself
+  attr_reader :customer, :membership
+  
+  def initialize(customer, membership)
+    @customer = customer
+    @membership = membership
+  end
+
+  def go
+    send_email if activate!
+    return false
+  end
+
+  private
+
+  def activate!
+    @membership.membership_active = true
+    @membership.membership_activated_at = Time.now
+    @membership.save!
+  end
+
+  def send_email
+    MembershipEmail.notify(@customer, @membership)
+  end
+end
+
+class Physical
+  def initialize(physical)
+    @physical = physical
+  end
+
+  def go
+    return false unless generate_shipping_label
+    @physical.shipping_label_created = true
+    @physical.shipping_label_created_at = Time.now
+    @physical.save!
+  end
+
+  private
+
+  def generate_shipping_label    
+    ShippingLabelPhysical.generate(@physical)
+  end
+end
+
+class Book
+  attr_reader :book
+
+  def initialize(book)
+    @book = book
+  end
+
+  def go
+    return false unless generate_shipping_label
+    @book.shipping_label_created = true
+    @book.shipping_label_created_at = Time.now
+    @book.save!
+  end
+
+  private
+
+  def generate_shipping_label
+    ShippingLabelBook.generate(@book)
+  end
+end
+
+class Digital
+  attr_reader :customer, :digital, :payment
+  
+  def initialize(customer, digital, order)
+    @customer = customer
+    @digital = digital
+    @order = order
+  end
+
+  def go
+    send_email
+
+    grant_discount_voucher
+  end
+
+  private
+
+  def grant_discount_voucher
+    DigitalDiscountVoucher.grant(@customer, @order)
+  end
+
+  def send_email
+    DigitalEmail.notify(@customer, @digital, @order)
+  end
+end
+
+class OrderProcessor
+  attr_reader :customer, :order, :payment
+
+  def initialize(order)
+    @customer = order.customer
+    @order = order
+    @payment = order.payment
+  end
+
+  def process
+    @order.items.each do |item|
+      product = item.product
+      case product.type.to_s
+      when 'physical'
+        Physical.new(item).go
+      when 'book'
+        Boook.new(item).go
+      when 'digital'
+        Digital.new(@customer, digital, @payment).go
+      when 'membership'
+        Membership.new(@customer, item)
+      else
+        raise StandardError 'Item not recognized!'
+      end
+    end
+  end
 end
 
 # Book Example (build new payments if you need to properly test it)
@@ -111,3 +233,4 @@ p payment_book.paid? # < true
 p payment_book.order.items.first.product.type
 
 # now, how to deal with shipping rules then?
+OrderProcessor.new(order).process
