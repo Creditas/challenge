@@ -204,3 +204,12 @@ class Email
     p format('Email sent to %s', @address)
   end
 end
+
+# Voucher
+class Voucher
+  attr_reader :name, :value
+  def initialize(args)
+    @name = args.fetch(:name)
+    @value = args.fetch(:value)
+  end
+end
