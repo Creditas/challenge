@@ -37,13 +37,13 @@ end
 
 # Order class
 class Order
-  attr_reader :customer, :items, :payment, :address, :closed_at
+  attr_reader :customer, :items, :payment, :address, :closed_at, :sent_at
 
   def initialize(customer, overrides = {})
     @customer = customer
     @items = []
     @order_item_class = overrides.fetch(:item_class) { OrderItem }
-    @address = overrides.fetch(:address) { Address.new(zipcode: '45678-979') }
+    @address = overrides.fetch(:address) { customer.address }
   end
 
   def add_product(product)
@@ -52,6 +52,11 @@ class Order
 
   def total_amount
     @items.map(&:total).inject(:+)
+  end
+
+  def dispatch(sent_at = Time.now)
+    @items.map(&:ship)
+    @sent_at = sent_at
   end
 
   def close(closed_at = Time.now)
@@ -69,6 +74,10 @@ class OrderItem
   def initialize(args)
     @order = args.fetch(:order)
     @product = args.fetch(:product)
+  end
+
+  def ship
+    Shipment.send(@product.type, @order, @product)
   end
 
   def total
@@ -118,4 +127,25 @@ end
 # Membership class
 class Membership
   # you can customize this class by yourself
+end
+
+# Shipment documentation
+class Shipment
+  def self.physical(order, _)
+    ShippingLabel.new(order)
+  end
+end
+
+# ShippingLabel class
+class ShippingLabel
+  attr_reader :name, :shipping_address
+
+  def initialize(order)
+    @name = order.customer.name
+    @shipping_address = order.address
+  end
+
+  def print
+    p format('Shipping label to %s', @name)
+  end
 end
