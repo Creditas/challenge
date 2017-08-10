@@ -8,6 +8,7 @@ When(/^the payment is done$/) do
   payment_product = Payment.new(
     order: @product_order,
     payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+  expect(@product_order.sent?).to be false
   expect(payment_product.paid?).to be false
   payment_product.pay
   expect(payment_product.paid?).to be true
@@ -15,6 +16,7 @@ end
 
 Then(/^we must generate one shipping label to the shipping box$/) do
   expect(@product_order.items[0].ship).to be_a(ShippingLabel)
+  expect(@product_order.sent?).to be true
   expect(@product_order.items[0].ship.print).to(
     eq(format('Shipping label to %s', @foolano.name)))
 end
