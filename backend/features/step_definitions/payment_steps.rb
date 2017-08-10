@@ -65,14 +65,24 @@ Then(/^we must generate the shipping label with a notification$/) do
   expect(book.print).to eq(format('Shipping label to %s', @foolano.name))
 end
 
-Given(/^the payment is for any "([^"]*)" media$/) do |arg1|
-  pending # Write code here that turns the phrase above into concrete actions
+Given(/^the payment is for any "([^"]*)" media$/) do |arg|
+  digital = Product.new(name: 'Awesome Music', type: arg.to_sym)
+  @digital_order = Order.new(@foolano)
+  @digital_order.add_product(digital)
 end
 
 Then(/^we need to send the description of purchase by email to buyer$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  payment = Payment.new(
+    order: @digital_order,
+    payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+  payment.pay
+  digital_item = @digital_order.items[0]
+  email = digital_item.ship.fetch(:email)
+  expect(email.print).to eq(format('Email sent to %s', @foolano.email))
 end
 
-Then(/^grant a discount voucher of \$(\d+) to the buyer$/) do |arg1|
-  pending # Write code here that turns the phrase above into concrete actions
+Then(/^grant a discount voucher of \$(\d+) to the buyer$/) do |value|
+  digital_item = @digital_order.items[0]
+  voucher = digital_item.ship.fetch(:voucher)
+  expect(voucher.value).to eq(value.to_i)
 end
