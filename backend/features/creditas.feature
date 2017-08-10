@@ -19,3 +19,13 @@ Feature: Payment stream
     When the payment (for service) is done
     Then we must activate the subscription
     And notify the user via email
+
+  Scenario: Ordinary book
+
+    If the payment is an ordinary book, you must generate it shipping label with a
+    notification that it is a tax-exempt item as provided in the Constitution
+    Art. 150, VI, d.
+    
+    Given the payment is for ordinary book
+    When the payment (for book) is done
+    Then we must generate the shipping label with a notification
