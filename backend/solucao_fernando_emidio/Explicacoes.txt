@@ -1,0 +1,13 @@
+Como foi realizado o teste:
+
+1) As classes foram separas em diferentes arquivos para melhor compreensão, exceto para as classes de Payment;
+2) Assumi que uma Ordem seria vinculada a um tipo de produto, ou seja, uma ordem do tipo Book somente receberia produtos do tipo Book;
+3) Criei classes especializadas de pagamento: PaymentPhysical, PaymentBook, PaymentDigital, PaymentMembership
+4) Transformei o método Pay da classe Payment em um Template Method, chamando um método especializado chamado specializedPayment();
+5) Toda classe que herda de Payment deve implementar o método specializedPayment() com as regras específicas para cada tipo de produto/pagamento;
+6) Uma factory para instanciar obter a classe de pagamento correta foi criada;
+7) Classes de teste de unidade foram criadas para testar a factory e as regras solicitadas no exercício, além da obritoriedade de ordens de classes específicas.
+
+
+Observação:
+Algumas coisas podem não estar no padrão Ruby, uma vez que estou mais familiarizado com Java e C#.
