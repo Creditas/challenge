@@ -29,3 +29,14 @@ Feature: Payment stream
     Given the payment is for ordinary book
     When the payment (for book) is done
     Then we must generate the shipping label with a notification
+    
+  Scenario: Digital media
+
+    If payment of any digital media (music, video), in addition to sending the
+    description of the purchase by email to the buyer, grant a discount voucher of
+    $ 10 to the buyer associated with the payment.
+    
+    Given the payment is for any "digital" media
+    Then we need to send the description of purchase by email to buyer
+    And grant a discount voucher of $10 to the buyer
+    
