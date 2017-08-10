@@ -145,7 +145,7 @@ class Membership
     @active = nil
   end
 
-  def is_active?
+  def active?
     !@active.nil?
   end
 end

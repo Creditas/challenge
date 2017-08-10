@@ -37,7 +37,7 @@ end
 Then(/^we must activate the subscription$/) do
   subscription = @subscription_order.items[0]
   membership = subscription.ship.fetch(:membership)
-  expect(membership.is_active?).to be true
+  expect(membership.active?).to be true
 end
 
 Then(/^notify the user via email$/) do
