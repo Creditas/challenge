@@ -166,6 +166,12 @@ class Shipment
   def self.book(order, _)
     ShippingLabelNotify.new(order)
   end
+
+  def self.digital(order, _)
+    email = Email.new(order.customer)
+    voucher = Voucher.new(name: order.customer.name, value: 10)
+    { email: email, voucher: voucher }
+  end
 end
 
 # ShippingLabel class
