@@ -178,6 +178,15 @@ class ShippingLabel
   end
 end
 
+# ShippingLabelNotify
+class ShippingLabelNotify < ShippingLabel
+  attr_reader :notification
+
+  def create_notification
+    @notification = 'Notification'
+  end
+end
+
 # Email
 class Email
   attr_reader :name, :address
