@@ -1,16 +1,19 @@
 class Payment
-  attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at
+  attr_reader :authorization_number, :amount, :invoice, :order, :payment_method,
+              :paid_at
 
-  def initialize(attributes = {})
-    @authorization_number, @amount = attributes.values_at(:authorization_number, :amount)
-    @invoice, @order = attributes.values_at(:invoice, :order)
-    @payment_method = attributes.values_at(:payment_method)
+  def initialize(args)
+    @order = args.fetch(:order)
+    @payment_method = args.fetch(:payment_method)
+    @amount = @order.total_amount
   end
 
   def pay(paid_at = Time.now)
-    @amount = order.total_amount
     @authorization_number = Time.now.to_i
-    @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
+    @invoice = Invoice.new(
+      billing_address: order.address,
+      shipping_address: order.address,
+      order: order)
     @paid_at = paid_at
     order.close(@paid_at)
   end
@@ -23,10 +26,10 @@ end
 class Invoice
   attr_reader :billing_address, :shipping_address, :order
 
-  def initialize(attributes = {})
-    @billing_address = attributes.values_at(:billing_address)
-    @shipping_address = attributes.values_at(:shipping_address)
-    @order = attributes.values_at(:order)
+  def initialize(args)
+    @billing_address = args.fetch(:billing_address)
+    @shipping_address = args.fetch(:shipping_address)
+    @order = args.fetch(:order)
   end
 end
 
@@ -52,15 +55,16 @@ class Order
     @closed_at = closed_at
   end
 
-  # remember: you can create new methods inside those classes to help you create a better design
+  # remember: you can create new methods inside those classes to help you create
+  # a better design
 end
 
 class OrderItem
   attr_reader :order, :product
 
-  def initialize(order:, product:)
-    @order = order
-    @product = product
+  def initialize(args)
+    @order = args.fetch(:order)
+    @product = args.fetch(:product)
   end
 
   def total
@@ -69,24 +73,26 @@ class OrderItem
 end
 
 class Product
-  # use type to distinguish each kind of product: physical, book, digital, membership, etc.
+  # use type to distinguish each kind of product: physical, book, digital,
+  # membership, etc.
   attr_reader :name, :type
 
-  def initialize(name:, type:)
-    @name, @type = name, type
+  def initialize(args)
+    @name = args.fetch(:name)
+    @type = args.fetch(:type)
   end
 end
 
 class Address
   attr_reader :zipcode
 
-  def initialize(zipcode:)
+  def initialize(zipcode)
     @zipcode = zipcode
   end
 end
 
 class CreditCard
-  def self.fetch_by_hashed(code)
+  def self.fetch_by_hashed(_)
     CreditCard.new
   end
 end
@@ -105,7 +111,9 @@ book = Product.new(name: 'Awesome book', type: :book)
 book_order = Order.new(foolano)
 book_order.add_product(book)
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_book = Payment.new(
+  order: book_order,
+  payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 payment_book.pay
 p payment_book.paid? # < true
 p payment_book.order.items.first.product.type
