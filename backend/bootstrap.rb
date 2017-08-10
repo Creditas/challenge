@@ -170,3 +170,17 @@ class ShippingLabel
     p format('Shipping label to %s', @name)
   end
 end
+
+# Email
+class Email
+  attr_reader :name, :address
+
+  def initialize(customer)
+    @name = customer.name
+    @address = customer.email
+  end
+
+  def print
+    p format('Email sent to %s', @address)
+  end
+end
