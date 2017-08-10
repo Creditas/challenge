@@ -106,7 +106,13 @@ end
 
 # Customer class
 class Customer
-  # you can customize this class by yourself
+  attr_reader :name, :email, :address
+
+  def initialize(args)
+    @name = args.fetch(:name)
+    @email = args.fetch(:email)
+    @address = args.fetch(:address)
+  end
 end
 
 # Membership class
