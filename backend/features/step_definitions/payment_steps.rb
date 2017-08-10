@@ -47,15 +47,22 @@ Then(/^notify the user via email$/) do
 end
 
 Given(/^the payment is for ordinary book$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  book = Product.new(name: 'Another awesome book', type: :book)
+  @book_order = Order.new(@foolano)
+  @book_order.add_product(book)
 end
 
 When(/^the payment \(for book\) is done$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  book_payment = Payment.new(
+    order: @book_order,
+    payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+  book_payment.pay
 end
 
 Then(/^we must generate the shipping label with a notification$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  book_item = @book_order.items[0]
+  book = book_item.ship
+  expect(book.print).to eq(format('Shipping label to %s', @foolano.name))
 end
 
 Given(/^the payment is for any "([^"]*)" media$/) do |arg1|
