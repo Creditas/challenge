@@ -1,3 +1,4 @@
+# Payment class
 class Payment
   attr_reader :authorization_number, :amount, :invoice, :order, :payment_method,
               :paid_at
@@ -23,6 +24,7 @@ class Payment
   end
 end
 
+# Invoice class
 class Invoice
   attr_reader :billing_address, :shipping_address, :order
 
@@ -33,6 +35,7 @@ class Invoice
   end
 end
 
+# Order class
 class Order
   attr_reader :customer, :items, :payment, :address, :closed_at
 
@@ -59,6 +62,7 @@ class Order
   # a better design
 end
 
+# OrderItem class
 class OrderItem
   attr_reader :order, :product
 
@@ -72,6 +76,7 @@ class OrderItem
   end
 end
 
+# Product class
 class Product
   # use type to distinguish each kind of product: physical, book, digital,
   # membership, etc.
@@ -83,6 +88,7 @@ class Product
   end
 end
 
+# Address class
 class Address
   attr_reader :zipcode
 
@@ -91,16 +97,19 @@ class Address
   end
 end
 
+# CreditCard class
 class CreditCard
   def self.fetch_by_hashed(_)
     CreditCard.new
   end
 end
 
+# Customer class
 class Customer
   # you can customize this class by yourself
 end
 
+# Membership class
 class Membership
   # you can customize this class by yourself
 end
