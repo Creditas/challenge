@@ -131,7 +131,23 @@ end
 
 # Membership class
 class Membership
-  # you can customize this class by yourself
+  attr_reader :name, :active
+
+  def initialize(args)
+    @name = args.fetch(:name)
+  end
+
+  def activate
+    @active = 'yes'
+  end
+
+  def deactivate
+    @active = nil
+  end
+
+  def is_active?
+    !@active.nil?
+  end
 end
 
 # Shipment documentation
