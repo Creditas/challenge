@@ -16,6 +16,7 @@ class Payment
       shipping_address: order.address,
       order: order)
     @paid_at = paid_at
+    order.dispatch
     order.close(@paid_at)
   end
 
