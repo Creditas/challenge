@@ -22,19 +22,28 @@ Then(/^we must generate one shipping label to the shipping box$/) do
 end
 
 Given(/^the payment is for a service subscription$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  membership = Product.new(name: 'Awesome Service', type: :membership)
+  @subscription_order = Order.new(@foolano)
+  @subscription_order.add_product(membership)
 end
 
 When(/^the payment \(for service\) is done$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  payment_service = Payment.new(
+    order: @subscription_order,
+    payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+  payment_service.pay
 end
 
 Then(/^we must activate the subscription$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  subscription = @subscription_order.items[0]
+  membership = subscription.ship.fetch(:membership)
+  expect(membership.is_active?).to be true
 end
 
 Then(/^notify the user via email$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  subscription = @subscription_order.items[0]
+  email = subscription.ship.fetch(:email)
+  expect(email.print).to eq(format('Email sent to %s', @foolano.email))
 end
 
 Given(/^the payment is for ordinary book$/) do
