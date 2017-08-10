@@ -59,6 +59,10 @@ class Order
     @sent_at = sent_at
   end
 
+  def sent?
+    !sent_at.nil?
+  end
+
   def close(closed_at = Time.now)
     @closed_at = closed_at
   end
