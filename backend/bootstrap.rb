@@ -155,6 +155,13 @@ class Shipment
   def self.physical(order, _)
     ShippingLabel.new(order)
   end
+
+  def self.membership(order, service)
+    email = Email.new(order.customer)
+    membership = Membership.new(name: service.name)
+    membership.activate
+    { email: email, membership: membership }
+  end
 end
 
 # ShippingLabel class
