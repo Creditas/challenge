@@ -162,6 +162,10 @@ class Shipment
     membership.activate
     { email: email, membership: membership }
   end
+
+  def self.book(order, _)
+    ShippingLabelNotify.new(order)
+  end
 end
 
 # ShippingLabel class
