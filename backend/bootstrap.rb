@@ -75,6 +75,60 @@ class Product
   def initialize(name:, type:)
     @name, @type = name, type
   end
+
+  def shipping
+    raise "Abstract method"
+  end
+end
+
+class Book < Product
+  def shipping
+    p "Book shipping"
+    p "Gera shipping label sem imposto"
+    p "/n"
+  end
+end
+
+class PhysicalItem < Product
+  def shipping
+    p "Physical Item shipping"
+    p "Gera Shipping Label"
+    p "/n"
+  end
+end
+
+class ServiceSubscription < Product
+  def shipping
+    p "Service Subscription shipping"
+    p "Ativar assinatura"
+    p "Notificar usuário por email que assinatura foi ativada"
+    p "/n"
+  end
+end
+
+class DigitalMedia < Product
+
+  def shipping
+    p "Digital Media shipping"
+    p "Enviar por email descrição do produto"
+    p "Conceder voucher lde R$ 10 reais ao comprador associado"
+    p "/n"
+  end
+end
+
+class ShipmentManagement
+  attr_accessor :order
+
+  def initialize(order)
+    @order = order
+  end
+
+  def shipping
+    order.items.each do |item|
+      p item.product.type
+      item.product.shipping
+    end
+  end
 end
 
 class Address
@@ -99,15 +153,23 @@ class Membership
   # you can customize this class by yourself
 end
 
-# Book Example (build new payments if you need to properly test it)
+
 foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+book = Book.new(name: 'Awesome book', type: :book)
+digital_media = DigitalMedia.new(name: 'Awesome digital media', type: :digital_media)
+service_subscription = ServiceSubscription.new(name: 'Awesome service subscription', type: :service_subscription)
+physical_item = PhysicalItem.new(name: 'Awesome book', type: :physical_item)
 
-# now, how to deal with shipping rules then?
+order = Order.new(foolano)
+order.add_product(book)
+order.add_product(digital_media)
+order.add_product(service_subscription)
+order.add_product(physical_item)
+
+payment_order = Payment.new(order: order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_order.pay
+
+if payment_order.paid?
+  ShipmentManagement.new(payment_order.order).shipping
+end
