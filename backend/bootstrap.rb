@@ -1,17 +1,22 @@
+# Payment class
 class Payment
-  attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at
+  attr_reader :authorization_number, :amount, :invoice, :order, :payment_method,
+              :paid_at
 
-  def initialize(attributes = {})
-    @authorization_number, @amount = attributes.values_at(:authorization_number, :amount)
-    @invoice, @order = attributes.values_at(:invoice, :order)
-    @payment_method = attributes.values_at(:payment_method)
+  def initialize(args)
+    @order = args.fetch(:order)
+    @payment_method = args.fetch(:payment_method)
+    @amount = @order.total_amount
   end
 
   def pay(paid_at = Time.now)
-    @amount = order.total_amount
     @authorization_number = Time.now.to_i
-    @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
+    @invoice = Invoice.new(
+      billing_address: order.address,
+      shipping_address: order.address,
+      order: order)
     @paid_at = paid_at
+    order.dispatch
     order.close(@paid_at)
   end
 
@@ -20,24 +25,26 @@ class Payment
   end
 end
 
+# Invoice class
 class Invoice
   attr_reader :billing_address, :shipping_address, :order
 
-  def initialize(attributes = {})
-    @billing_address = attributes.values_at(:billing_address)
-    @shipping_address = attributes.values_at(:shipping_address)
-    @order = attributes.values_at(:order)
+  def initialize(args)
+    @billing_address = args.fetch(:billing_address)
+    @shipping_address = args.fetch(:shipping_address)
+    @order = args.fetch(:order)
   end
 end
 
+# Order class
 class Order
-  attr_reader :customer, :items, :payment, :address, :closed_at
+  attr_reader :customer, :items, :payment, :address, :closed_at, :sent_at
 
   def initialize(customer, overrides = {})
     @customer = customer
     @items = []
     @order_item_class = overrides.fetch(:item_class) { OrderItem }
-    @address = overrides.fetch(:address) { Address.new(zipcode: '45678-979') }
+    @address = overrides.fetch(:address) { customer.address }
   end
 
   def add_product(product)
@@ -48,19 +55,34 @@ class Order
     @items.map(&:total).inject(:+)
   end
 
+  def dispatch(sent_at = Time.now)
+    @items.map(&:ship)
+    @sent_at = sent_at
+  end
+
+  def sent?
+    !sent_at.nil?
+  end
+
   def close(closed_at = Time.now)
     @closed_at = closed_at
   end
 
-  # remember: you can create new methods inside those classes to help you create a better design
+  # remember: you can create new methods inside those classes to help you create
+  # a better design
 end
 
+# OrderItem class
 class OrderItem
   attr_reader :order, :product
 
-  def initialize(order:, product:)
-    @order = order
-    @product = product
+  def initialize(args)
+    @order = args.fetch(:order)
+    @product = args.fetch(:product)
+  end
+
+  def ship
+    Shipment.send(@product.type, @order, @product)
   end
 
   def total
@@ -68,46 +90,132 @@ class OrderItem
   end
 end
 
+# Product class
 class Product
-  # use type to distinguish each kind of product: physical, book, digital, membership, etc.
+  # use type to distinguish each kind of product: physical, book, digital,
+  # membership, etc.
   attr_reader :name, :type
 
-  def initialize(name:, type:)
-    @name, @type = name, type
+  def initialize(args)
+    @name = args.fetch(:name)
+    @type = args.fetch(:type)
   end
 end
 
+# Address class
 class Address
   attr_reader :zipcode
 
-  def initialize(zipcode:)
+  def initialize(zipcode)
     @zipcode = zipcode
   end
 end
 
+# CreditCard class
 class CreditCard
-  def self.fetch_by_hashed(code)
+  def self.fetch_by_hashed(_)
     CreditCard.new
   end
 end
 
+# Customer class
 class Customer
-  # you can customize this class by yourself
+  attr_reader :name, :email, :address
+
+  def initialize(args)
+    @name = args.fetch(:name)
+    @email = args.fetch(:email)
+    @address = args.fetch(:address)
+  end
 end
 
+# Membership class
 class Membership
-  # you can customize this class by yourself
+  attr_reader :name, :active
+
+  def initialize(args)
+    @name = args.fetch(:name)
+  end
+
+  def activate
+    @active = 'yes'
+  end
+
+  def deactivate
+    @active = nil
+  end
+
+  def active?
+    !@active.nil?
+  end
 end
 
-# Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
+# Shipment documentation
+class Shipment
+  def self.physical(order, _)
+    ShippingLabel.new(order)
+  end
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+  def self.membership(order, service)
+    email = Email.new(order.customer)
+    membership = Membership.new(name: service.name)
+    membership.activate
+    { email: email, membership: membership }
+  end
 
-# now, how to deal with shipping rules then?
+  def self.book(order, _)
+    ShippingLabelNotify.new(order)
+  end
+
+  def self.digital(order, _)
+    email = Email.new(order.customer)
+    voucher = Voucher.new(name: order.customer.name, value: 10)
+    { email: email, voucher: voucher }
+  end
+end
+
+# ShippingLabel class
+class ShippingLabel
+  attr_reader :name, :shipping_address
+
+  def initialize(order)
+    @name = order.customer.name
+    @shipping_address = order.address
+  end
+
+  def print
+    p format('Shipping label to %s', @name)
+  end
+end
+
+# ShippingLabelNotify
+class ShippingLabelNotify < ShippingLabel
+  attr_reader :notification
+
+  def create_notification
+    @notification = 'Notification'
+  end
+end
+
+# Email
+class Email
+  attr_reader :name, :address
+
+  def initialize(customer)
+    @name = customer.name
+    @address = customer.email
+  end
+
+  def print
+    p format('Email sent to %s', @address)
+  end
+end
+
+# Voucher
+class Voucher
+  attr_reader :name, :value
+  def initialize(args)
+    @name = args.fetch(:name)
+    @value = args.fetch(:value)
+  end
+end
