@@ -1,0 +1,11 @@
+Solution explenation:
+
+- Classes for each type of of product was created in order to solve shipoing logic.
+- Each class created has the hability to call it's respective `shipping label` creator class
+  in order to notify any special need of the product.
+- Since tracking processes it's essential to determine problems, attributes were
+  added to `OrderItem` class.
+- I could not fin a way to remove `switch` method using Dependency injection due
+  to metaprogramming restriction.
+
+  Thanks. :)
