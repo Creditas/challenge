@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "#{Dir.pwd}/models/voucher"
+require_relative "#{Dir.pwd}/models/product"
 Dir["#{Dir.pwd}/types/*"].each { |file| require_relative file }
 
 # Class responsible for handle an order
@@ -36,18 +37,34 @@ class Order
 
   def handle_order_items
     @items.each do |item|
-      # Take the item type (e.g. Book) and build the Type class (e.g. BookType)
-      name = "#{item.product.type}Type"
+      # Old version with metaprogramming
+      # # Take the item type (e.g. Book) and build the Type class (e.g. BookType)
+      # name = "#{item.product.type}Type"
 
-      # Instances the class (e.g BookType.new(@customer, item.product, item))
-      type_class = Object.const_get(name).new(@customer, item.product, item)
+      # # Instances the class (e.g BookType.new(@customer, item.product, item))
+      # type_class = Object.const_get(name).new(@customer, item.product, item)
 
-      # Call the handle method of the class
-      type_class.handle
+      # # Call the handle method of the class
+      # type_class.handle
 
-      check_for_voucher if item.product.type == 'Digital'
-    end
-  end
+      # check_for_voucher if item.product.type == 'Digital'
+
+      # New version
+      case Product::TYPE.key(item.product.type)
+      when :book
+        BookType.handle(item)
+      when :digital
+        DigitalType.handle(customer, item)
+        check_for_voucher
+      when :membership
+        MembershipType.handle(customer, item)
+      when :physical
+        PhysicalType.handle(item)
+      else
+        puts "Unknown product: #{item.product.name}"
+      end # end-case
+    end # end-each
+  end # end-handle_order_items
 
   def check_for_voucher
     return if @customer.has_voucher

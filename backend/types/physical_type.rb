@@ -6,15 +6,16 @@ require_relative "#{Dir.pwd}/services/printer_service"
 # Class responsible for handle a physical type
 # Parent class is OrderItemType
 class PhysicalType < OrderItemType
-  attr_reader :customer, :product, :item
+  # attr_reader :customer, :product, :item
 
-  def initialize(customer, product, item)
-    super(customer, product, item)
-  end
+  # def initialize(customer, product, item)
+  #   super(customer, product, item)
+  # end
 
-  def handle
-    @item.shipping_labels.push('Item Físico - Não é isento de impostos')
+  # def handle
+  def self.handle(item)
+    item.shipping_labels.push('Item Físico - Não é isento de impostos')
 
-    PrinterService.print(@item.shipping_labels)
+    PrinterService.print(item.shipping_labels)
   end
 end
