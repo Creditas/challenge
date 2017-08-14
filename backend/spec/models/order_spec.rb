@@ -171,7 +171,7 @@ RSpec.describe Order do
     end # end-it
   end # end-describe
 
-  describe 'An order with a digital item' do
+  describe 'An order with a membership subscription item' do
     it 'generates an email to Customer' do
       order_item = OrderItem.new(order: order, product: @product_membership2)
 
