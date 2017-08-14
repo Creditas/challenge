@@ -35,9 +35,9 @@ RSpec.describe Order do
 
   describe 'given an Order with a couple of itens' do
     it 'checks the order size' do
-      order_item1 = OrderItem.new(order: order, product: @product_book1)
+      order_item1 = OrderItem.new(@product_book1)
 
-      order_item2 = OrderItem.new(order: order, product: @product_book2)
+      order_item2 = OrderItem.new(@product_book2)
 
       order.add_item(order_item1)
       order.add_item(order_item2)
@@ -48,11 +48,11 @@ RSpec.describe Order do
 
   describe 'given an Order for a gamer' do
     it 'checks the order total' do
-      order_item1 = OrderItem.new(order: order, product: @product_physical1)
+      order_item1 = OrderItem.new(@product_physical1)
 
-      order_item2 = OrderItem.new(order: order, product: @product_membership2)
+      order_item2 = OrderItem.new(@product_membership2)
 
-      order_item3 = OrderItem.new(order: order, product: @product_digital2)
+      order_item3 = OrderItem.new(@product_digital2)
 
       order.add_item(order_item1)
       order.add_item(order_item2)
@@ -68,9 +68,9 @@ RSpec.describe Order do
 
   describe 'an Order with some digital itens' do
     it 'gets one voucher per order' do
-      order_item1 = OrderItem.new(order: order, product: @product_digital1)
+      order_item1 = OrderItem.new(@product_digital1)
 
-      order_item2 = OrderItem.new(order: order, product: @product_digital2)
+      order_item2 = OrderItem.new(@product_digital2)
 
       order.add_item order_item1
       order.add_item order_item2
@@ -87,7 +87,7 @@ RSpec.describe Order do
 
   describe 'given an Order for a service subscription' do
     it 'checks if Customer has a membership' do
-      order_item = OrderItem.new(order: order, product: @product_membership1)
+      order_item = OrderItem.new(@product_membership1)
 
       order.add_item(order_item)
 
@@ -103,7 +103,7 @@ RSpec.describe Order do
 
   describe 'payment of an order' do
     it 'checks if it was paid' do
-      order_item = OrderItem.new(order: order, product: @product_physical1)
+      order_item = OrderItem.new(@product_physical1)
 
       order.add_item(order_item)
 
@@ -119,7 +119,7 @@ RSpec.describe Order do
 
   describe 'An order with a book' do
     it 'generates a shipping label with no taxes info' do
-      order_item = OrderItem.new(order: order, product: @product_book2)
+      order_item = OrderItem.new(@product_book2)
 
       order.add_item(order_item)
 
@@ -137,7 +137,7 @@ RSpec.describe Order do
 
   describe 'An order with a physical item' do
     it 'generates a shipping label with taxes info' do
-      order_item = OrderItem.new(order: order, product: @product_physical2)
+      order_item = OrderItem.new(@product_physical2)
 
       order.add_item(order_item)
 
@@ -155,7 +155,7 @@ RSpec.describe Order do
 
   describe 'An order with a digital item' do
     it 'generates an email to Customer' do
-      order_item = OrderItem.new(order: order, product: @product_digital2)
+      order_item = OrderItem.new(@product_digital2)
 
       order.add_item(order_item)
 
@@ -173,7 +173,7 @@ RSpec.describe Order do
 
   describe 'An order with a membership subscription item' do
     it 'generates an email to Customer' do
-      order_item = OrderItem.new(order: order, product: @product_membership2)
+      order_item = OrderItem.new(@product_membership2)
 
       order.add_item(order_item)
 
