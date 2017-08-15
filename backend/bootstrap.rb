@@ -12,6 +12,7 @@ class Payment
     @authorization_number = Time.now.to_i
     @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
     @paid_at = paid_at
+    order.ship()
     order.close(@paid_at)
   end
 
@@ -52,7 +53,28 @@ class Order
     @closed_at = closed_at
   end
 
-  # remember: you can create new methods inside those classes to help you create a better design
+  def ship
+    ShippingLabel.new(order: self).print if @items.any? { |item | item.product.is_physical? }
+
+    if @items.any? { |item | item.product.is_digital? }
+      self.send_details_email
+      @customer.add_voucher(Voucher.new(amount: 10))
+    end
+
+    @items.each do |item |
+      #this should also check if customer already has a membership for the service,
+      #but is pointless without persistent data
+      if item.product.is_membership?
+        membership = Membership.new(customer: @customer, service: item.product.name, active: true)
+        membership.send_notification_email
+      end
+    end
+  end
+
+  def send_details_email
+    puts "Sending order details email to #{self.customer.email}"
+    puts "Purchased items: \n #{self.items.map(&:product).map(&:name).join('\n')}"
+  end
 end
 
 class OrderItem
@@ -70,10 +92,27 @@ end
 
 class Product
   # use type to distinguish each kind of product: physical, book, digital, membership, etc.
+  #this is a little confusing, a book can be both physical and digital
   attr_reader :name, :type
 
   def initialize(name:, type:)
-    @name, @type = name, type
+    @name, @type = name, type.downcase.to_sym
+  end
+
+  def is_digital?
+    self.type == :digital
+  end
+
+  def is_physical?
+    self.type == :physical || self.type == :book
+  end
+
+  def is_book?
+    self.type == :book
+  end
+
+  def is_membership?
+    self.type == :membership
   end
 end
 
@@ -92,22 +131,84 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_reader :name, :email, :vouchers
+
+  def initialize(name:, email:, vouchers: [])
+    @name, @email = name, email
+    @vouchers = vouchers
+  end
+
+  def add_voucher(voucher)
+    puts "Adding #{voucher.amount}% voucher to customer #{self.name}"
+    @vouchers << voucher
+  end
 end
 
 class Membership
-  # you can customize this class by yourself
+  attr_reader :customer, :service, :active
+
+  def initialize(customer:, service:, active: false)
+    @customer, @service, @active = customer, service, active
+  end
+
+  def send_notification_email()
+    p "sending Membership email to customer #{@customer.email}"
+    p "subscribed to #{self.service}"
+  end
 end
 
-# Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
+class Voucher
+  attr_reader :amount
+
+  def initialize(amount:)
+    @id = Random.rand.to_s[2..15]
+    @amount = amount
+  end
+end
+
+class ShippingLabel
+  attr_reader :order
+
+  def initialize(order:)
+    @order = order
+  end
+
+  def print()
+    puts "printing shipping label for customer #{self.order.customer.name}'s order"
+    puts "Ship to: #{self.order.address.zipcode}"
+    if self.order.items.any? { |item| item.product.is_book? }
+      puts "This order has a tax-exempt item as provided in the Constitution Art. 150, VI, d."
+    end
+  end
+end
+
+foolano = Customer.new(name: 'Foolano', email: 'foolano@abc.com')
+credit_card = CreditCard.fetch_by_hashed('43567890-987654367')
+
+#Book
 book = Product.new(name: 'Awesome book', type: :book)
 book_order = Order.new(foolano)
 book_order.add_product(book)
-
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_book = Payment.new(order: book_order, payment_method: credit_card)
 payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
 
-# now, how to deal with shipping rules then?
+#Physical
+physical = Product.new(name: 'Awesome physical product', type: :physical)
+physical_order = Order.new(foolano)
+physical_order.add_product(physical)
+payment_physical = Payment.new(order: physical_order, payment_method: credit_card)
+payment_physical.pay
+
+#Digital
+digital = Product.new(name: 'Music Album', type: :digital)
+digital_order = Order.new(foolano)
+digital_order.add_product(digital)
+payment_digital = Payment.new(order: digital_order, payment_method: credit_card)
+payment_digital.pay
+
+#Membership
+membership = Product.new(name: 'Streaming subscription', type: :membership)
+membership_order = Order.new(foolano)
+membership_order.add_product(membership)
+payment_membership = Payment.new(order: membership_order, payment_method: credit_card)
+payment_membership.pay
