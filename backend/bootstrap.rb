@@ -50,6 +50,7 @@ class Order
 
   def close(closed_at = Time.now)
     @closed_at = closed_at
+    @items.map(&:paid)
   end
 
   # remember: you can create new methods inside those classes to help you create a better design
@@ -64,16 +65,31 @@ class OrderItem
   end
 
   def total
-    10
+    10 - @product.discount
+  end
+  
+  def paid
+    @product.paid(@order)
   end
 end
 
 class Product
-  # use type to distinguish each kind of product: physical, book, digital, membership, etc.
-  attr_reader :name, :type
+  attr_reader :name
 
-  def initialize(name:, type:)
-    @name, @type = name, type
+  def initialize(name:)
+    @name = name
+  end
+  
+  def type
+    self.class.name
+  end
+  
+  def discount
+    0
+  end
+  
+  def paid(order)
+    raise "Abstract class"
   end
 end
 
@@ -92,22 +108,68 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_reader :name, :email
+
+  def initialize(name:, email:)
+    @name = name
+    @email = email
+  end
 end
 
-class Membership
+class Membership < Product
   # you can customize this class by yourself
+  
+  def initialize
+    super(name: "Subscription")
+  end
+  
+  def paid(order)
+    activate_subscription
+    notify_user(order.customer)
+  end
+  
+  private
+  
+  def activate_subscription
+    p "Activate Subscription"
+  end
+  
+  def notify_user(user)
+    p "Notify #{user.name}"
+  end
 end
 
-# Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
+class Physical < Product
+  def paid(order)
+    print_shipping_label(order.address)
+  end
+  
+  protected
+  
+  def print_shipping_label(address)
+    p "Shipping label: zipcode -> #{address.zipcode}"
+  end
+end
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+class Book < Physical
+  def print_shipping_label(address)
+    p "Shipping label for the book: #{@name}"
+    p "zipcode -> #{address.zipcode}"
+  end
+end
 
-# now, how to deal with shipping rules then?
+class Digital < Product
+  def paid(order)
+    send_purchase_by_email(order.customer)
+  end
+  
+  def discount
+    10
+  end
+  
+  private
+  
+  def send_purchase_by_email(user)
+    p "Send Purchase to #{user.name}"
+  end
+end
