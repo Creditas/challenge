@@ -1,0 +1,15 @@
+Explanation:
+
+The first change was to separate the different products into business classes (Membership, Digital, Physical and Book). 
+This allows the individual logic of the different types to be created independently of the form of payment and 
+the logic associated with it.
+
+The second change was to create an "interface" of connection between the business logic and the different types of product. 
+To do this, use the existing product class, change the implementation and generate the abstract methods 
+that should implement the derived classes.
+
+Finally, update the methods of existing business logic to make the call of the new methods. This change was quite small and 
+can be seen in the pay method of the Payment class.
+
+This redistribution of the different products allows creating new classes of products deriving from the "interface" Product 
+without affecting the business logic created, promoting the reuse and standardization.
