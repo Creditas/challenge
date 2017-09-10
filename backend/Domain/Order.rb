@@ -1,11 +1,17 @@
+require_relative './Address.rb'
+require_relative './OrderItem.rb'
+
 class Order
-    attr_reader :customer, :items, :payment, :address, :closed_at
+    attr_reader :customer, :product, :items, :payment, :address, :closed_at
   
-    def initialize(customer, overrides = {})
+    def initialize(customer, product, overrides = {})
       @customer = customer
       @items = []
       @order_item_class = overrides.fetch(:item_class) { OrderItem }
       @address = overrides.fetch(:address) { Address.new(zipcode: '45678-979') }
+      @product = product
+      add_product(@product)
+      apply(product.order_type)
     end
   
     def add_product(product)
