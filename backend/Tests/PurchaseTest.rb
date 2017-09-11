@@ -24,4 +24,50 @@ class PurchaseProductTest < Minitest::Test
         assert_equal(true, book_product_order.payment.paid?)
         assert_equal(true, book_product_order.closed?)
     end
+
+    def test_should_buy_a_physical_product
+        customer = Customer.new("João da Silva", "joao@silva.com")
+        product = Product.new(name: 'Awesome CD', type: :physical)
+        physical_product_order = PhysicalProductOrder.new(customer)
+        physical_product_order.add_product(product)
+        physical_product_order.apply_payment(CreditCard.fetch_by_hashed('43567890-987654367'))
+        physical_product_order.post_payment
+        physical_product_order.close
+               
+        assert_instance_of(PhysicalProductOrder, physical_product_order)     
+        assert_equal(:physical, physical_product_order.items.first.product.type)
+        assert_equal(true, physical_product_order.payment.paid?)
+        assert_equal(true, physical_product_order.closed?)
+    end
+
+    def test_should_subscribe_a_service
+        customer = Customer.new("João da Silva", "joao@silva.com")
+        product = Product.new(name: 'Video Streaming', type: :service)
+        service_product_order = ServiceSubscriptionOrder.new(customer)
+        service_product_order.add_product(product)
+        service_product_order.apply_payment(CreditCard.fetch_by_hashed('43567890-987654367'))
+        service_product_order.post_payment
+        service_product_order.close
+               
+        assert_instance_of(ServiceSubscriptionOrder, service_product_order)     
+        assert_equal(:service, service_product_order.items.first.product.type)
+        assert_equal(true, service_product_order.payment.paid?)
+        assert_equal(true, service_product_order.closed?)
+    end
+  
+    def test_should_buy_a_digital_product
+        customer = Customer.new("João da Silva", "joao@silva.com")
+        product = Product.new(name: 'Awesome Digital CD', type: :digital)
+        digital_product_order = DigitalProductOrder.new(customer)
+        digital_product_order.add_product(product)
+        digital_product_order.apply_payment(CreditCard.fetch_by_hashed('43567890-987654367'))
+        digital_product_order.post_payment
+        digital_product_order.close
+               
+        assert_instance_of(DigitalProductOrder, digital_product_order)     
+        assert_equal(:digital, digital_product_order.items.first.product.type)
+        assert_equal(true, digital_product_order.payment.paid?)
+        assert_equal(true, digital_product_order.closed?)
+    end
+
 end
