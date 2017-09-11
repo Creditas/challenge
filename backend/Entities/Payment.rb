@@ -1,4 +1,4 @@
-require_relative 'Invoice.rb'
+require_relative '../ValueObjects/Invoice.rb'
 
 class Payment
     attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at
@@ -14,7 +14,6 @@ class Payment
       @authorization_number = Time.now.to_i
       @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
       @paid_at = paid_at
-      order.close(@paid_at)
     end
   
     def paid?
