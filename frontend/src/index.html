@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="appCreditas">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
@@ -8,16 +8,28 @@
     <link rel="stylesheet" href="./styles.css" type="text/css" media="all">
   </head>
 
-  <body>
+  <body ng-controller="appCreditasCtrl">
     <h1>Chat</h1>
 
     <div class="messages">
-      <ul class="message-list"></ul>
+      <div id="mainChat">
+        <div id="chat">
+          <ul id="conversa" class="message-list"></ul>
 
-      <div class="message-input">
-        <input type="text" />
-        <button type="button">Enviar</button>
+          <div class="message-input">
+            <input id="mensagem-conversa" ng-model="mensagem" type="text" />
+            <button id="btn-envia-mensagem"  ng-disabled="mensagem==null||mensagem==''" ng-click="enviaMensagem(mensagem)" type="button">Enviar</button>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- Importacao JQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- Importacao AngularJS -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+    <!-- Importacao scripts.js -->
+    <script src="./scripts.js"></script>
+
   </body>
 </html>
