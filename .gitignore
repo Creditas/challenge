@@ -1,0 +1,7 @@
+### JetBrains IDEs ###
+*.iml
+.idea/
+*.ipr
+*.iws
+.idea_modules/
+.DS_Store
