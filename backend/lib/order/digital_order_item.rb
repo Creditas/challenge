@@ -1,7 +1,4 @@
 class DigitalOrderItem < OrderItem
-  def initialize(order:, product:)
-    super
-  end
 
   def pick
     puts "Getting digital item #{product.name} and key of access"

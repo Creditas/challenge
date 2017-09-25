@@ -2,12 +2,8 @@ class MembershipOrderItem < OrderItem
 
   attr_reader :membership
 
-  def initialize(order:, product:)
-    super
-    @membership = Membership.new(name: product.name, price: product.price)
-  end
-
   def pick
+    @membership = Membership.new(name: product.name, price: product.price)
     @membership.enable
     puts "Signature #{product.name} enabled"
   end

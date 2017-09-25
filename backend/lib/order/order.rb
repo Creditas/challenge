@@ -7,16 +7,7 @@ class Order
   end
 
   def add_product(product)
-    case product.type.to_s
-      when 'digital'
-        @items << DigitalOrderItem.new(order: self, product: product)
-      when 'membership'
-        @items << MembershipOrderItem.new(order: self, product: product)
-      when 'book'
-        @items << TaxFreeOrderItem.new(order: self, product: product)
-      else
-        @items << OrderItem.new(order: self, product: product)
-    end
+    @items << OrderItemFactory::create(order: self, product: product)
   end
 
   def add_shipping_address(shipping_address)
