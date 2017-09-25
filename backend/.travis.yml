@@ -1,0 +1,13 @@
+language: ruby
+sudo: false
+cache: bundler
+script: "bin/rspec --format doc"
+
+rvm:
+  - 2.4
+
+gemfile:
+  - gemfiles/4.0.0.gemfile
+  - gemfiles/4.0.1.gemfile
+  - gemfiles/4.1.gemfile
+  - gemfiles/4.2.gemfile
