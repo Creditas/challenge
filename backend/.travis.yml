@@ -4,9 +4,6 @@ cache: bundler
 script: "bin/rspec --format doc"
 
 rvm:
-  - 2.0
-  - 2.1
-  - 2.2
   - 2.4
 
 gemfile:
