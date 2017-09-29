@@ -1,5 +1,14 @@
+require 'capybara/cucumber'
+require 'pry'
 require 'rspec'
 require 'page-object'
-require 'data_magic'
+require 'site_prism'
 
-World(PageObject::PageFactory)
+Capybara.default_driver = :selenium
+
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :chrome
+  )
+end
