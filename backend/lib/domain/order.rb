@@ -10,8 +10,8 @@ module OnlineInvoice
     end
 
     def add_product(product)
-      order_item_type_mapping = OrderItemTypeFactory.new(self, product)
-      order_item = order_item_type_mapping.get_order_item_by_type
+      order_item_type_factory = OrderItemTypeFactory.new(self, product)
+      order_item = order_item_type_factory.get_order_item_by_type
       @items.push(order_item) 
     end
 
@@ -21,7 +21,7 @@ module OnlineInvoice
 
     def close(closed_at = Time.now)
       @closed_at = closed_at
-      @items.map(&:close)      
+      @items.map(&:close)
     end
   end
 end
