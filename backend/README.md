@@ -1,47 +1,45 @@
-## Desafio para Backend Software Engineer
 
-Você está revisando as decisões de design de um software que processa Pedidos online. Por estes pedidos, são realizados pagamentos que recebem tratamentos a depender as situações específicas de cada um como segue:
+## Quais são as dependências?
 
-  - Se o pagamento for para um item físico, você deverá gerar um `shipping label` para o mesmo ser colocado na caixa do envio;
-  - Caso o pagamento seja uma assinatura de serviço, você precisa ativar a assinatura, e notificar o usuário através de e-mail sobre isto;
-  - Caso o pagamento seja um livro comum, você precisa gerar o `shipping label` com uma notificação de que trata-se de um item isento de impostos conforme disposto na Constituição Art. 150, VI, d.
-  - Caso o pagamento seja de alguma mídia digital (música, vídeo), além de enviar a descrição da compra por e-mail ao comprador, conceder um voucher de desconto de R$ 10 ao comprador associado ao pagamento.
+O projeto depende do MiniTest para a sua suíte de testes e utilização de mocks, além do Rake apenas para facilitar a execução de todos os testes.
 
-__O que é necessário fazer?__
+## Como posso ver o projeto funcionando?
 
-Você ficou designado a prototipar como poderá ser feita a nova versão deste fluxo de pagamento/regras de envio, pois a versão atual é frágil, **encadeada em if/else, switch/case**, exigindo modificações grandes a cada nova regra de envio/processamento inserida ou removida.
+O projeto já possui um `Rakefile.rb` para a tarefa de execução dos testes unitários. Basta executar:
 
-Crie as classes, métodos e suas respectivas chamadas para que recebendo um _input_ (`Pagamento` ou `Order` - fica a seu critério), você consiga tratar os cenários acima.
+```shell
+rake test
+```
 
-**Não é necessário** criar as implementações para envio de e-mails, imprimir o _shipping label_, etc. Para estes casos (email, shipping label) crie apenas as chamadas de métodos, para indicar que ali seria o local aonde o envio ocorreria.
+Caso receba este output, os testes foram executados com sucesso.
+```
+Finished in 0.007027s, 1992.3154 runs/s, 1850.0071 assertions/s.
 
-Como a proposta **não requer um código final funcionando**, não há a necessidade de implementar os testes de unidade. Entretanto, levaremos isso como _bonus points_. É permitido o uso de libs para facilitar a implementação dos testes.
+14 runs, 13 assertions, 0 failures, 0 errors, 0 skips
+```
 
-__O que está sob avaliação?__
+## Estrutura Principal
 
-Sua capacidade de analisar, projetar e codificar uma solução guiando-se com **Design Orientado a Objetos** e **Princípios de Orientação a Objetos**.
+* `/test`: pasta onde se encontra todos os testes
+* `/lib/domain`: pasta onde se encontra as regras de negócio da aplicação
+* `/lib/infra`: pasta onde se encontra as classes de infraestrutura (envio de email / repositório)
+* `bootstrap.rb`: as referências dos arquivos ficaram concentradas neste arquivo, somente para fins da proposta
 
-Sinta-se à vontade para modificar/refatorar o arquivo `bootstrap.rb` caso julgue necessário.
+## Solução do Desafio
 
-Por favor, inclua suas considerações da atividade em um arquivo de texto ou markdown.
+**Manter código legado funcionando**
 
-__O que não vale?__
- - Frameworks :] (aliás, nem precisa)
- - Metaprogramação
+Antes de iniciar qualquer tipo de intervenção, foi criado um teste unitário afim de garantir que o código legado (código de exemplo fornecido inicialmente) não acabasse ficando quebrado durante as modificações do código desconhecido. O código original permanece na suíte de testes `BootstrapTest.test_original_bootstrap `.
 
-__Qual linguagem?__
-Ruby.
 
-__Tempo__
-Estima-se 1h30 para este desafio, entretanto não há um limite.
+**Evitar o uso de if/switch nestes cenários**
 
-__Apresentação__
-  - Código
-  - Explicação da solução (em arquivo separado em Markdown/Plain Text)
+Os quatro principais requisitos poderiam ter sido solucionados com condicionais, porém iriam ferir o príncipio de Open/Closed do SOLID. Decidiu-se portanto criar classes especializadas da OrderItem para cada um dos comportamentos solicitados, fechando as classes para modificação e abrindo-as para extensão. O polimorfismo utilizado desta forma alivia a classe Order (na qual tem uma lista de OrderItem) da responsabilidade de saber o tipo de cada um dos produtos na lista. Para ela, tudo é um OrderItem e o pagamento apenas notificará cada elemento da lista de maneira uniforme, ficando a cargo das especializações, a execução do comportamento específico dependendo da instância.
 
-__Avaliação__
+**Injeção de dependência para comunicação externa**
 
-Para nos enviar seu código, você pode:
+Nos pontos onde podem haver interações externas como envio de email ou shipping label (não houve implementação concreta para fins da proposta), injetei as dependências via construtor. Isso favoreceu a criação de um código mais testável, pois estas classes puderam ser mockadas e também permitiram que os testes unitários checassem se os mocks receberam os parâmetros conforme esperado. Além disso, a injeção de dependência colaborou com um desacoplamento entre estas classes.
 
- - Fazer um fork desse repositório, e nos mandar uma pull-request.
- - Dar acesso ao seu repositório privado no [Gitlab](http://gitlab.com) para `hlegius`, `matheusca`, `regishideki` e `eduardodiniz`.
+**Factory para abstrair a criação das classes especializadas**
+
+As classes especializadas dependem do tipo de produto para serem criadas. Isso pode acabar se tornando em um emaranhado de condicionais espalhadas pelo sistema e dificultando cada vez mais a manutenção. Para resolver este problema, centralizei a criação das instâncias destas classes dentro de uma Factory. Desta maneira, a lógica de criação não precisa ficar exposta para os consumidores e as composições podem conservar somente a lógica necessária para ficarem coesas.
