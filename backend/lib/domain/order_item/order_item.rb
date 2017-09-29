@@ -6,6 +6,7 @@ module OnlineInvoice
       @order = order
       @product = product
       @vouchers = []
+      @closed_at = nil
     end
 
     def add_voucher(voucher)
