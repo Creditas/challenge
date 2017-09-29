@@ -1,4 +1,4 @@
-# Exercise 2.1 - Validating a New Tab
+# Exercise 2.2 - Validating a New Tab
 
 Challenge to validate if a new tab was opened in herokuapp website.
 
