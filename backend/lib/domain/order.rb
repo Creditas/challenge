@@ -21,7 +21,6 @@ module OnlineInvoice
 
     def close(closed_at = Time.now)
       @closed_at = closed_at
-      
       @items.map(&:close)      
     end
   end

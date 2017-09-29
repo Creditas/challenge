@@ -2,6 +2,7 @@ require_relative '../lib/bootstrap.rb'
 
 module OnlineInvoice
   class BootstrapTest < Minitest::Test
+    # test to assure that the legacy code is still working
     def test_original_bootstrap
       foolano = Customer.new('king_size@bol.com.br')
       book = Product.new('Awesome book', 'book')
