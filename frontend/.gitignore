@@ -24,6 +24,3 @@ jspm_packages/
 
 # babel cache
 .babel_cache
-
-#webpack bundle
-src/bundle.js
