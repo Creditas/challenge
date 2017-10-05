@@ -17,4 +17,3 @@ describe ::Domain::Commands::SendEmailCommand do
     end
   end
 end
-
