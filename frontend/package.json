@@ -1,0 +1,22 @@
+{
+  "name": "frontend-challeng",
+  "version": "1.0.0",
+  "description": "Creditas' challenge",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack -p",
+    "watch": "webpack --watch --colors"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "standard": "^10.0.3",
+    "standard-loader": "^6.0.1",
+    "supertest": "^3.0.0",
+    "webpack": "^3.5.2"
+  },
+  "author": "Letícia Costa",
+  "license": "ISC"
+}
