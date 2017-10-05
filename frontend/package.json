@@ -5,16 +5,19 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -p",
-    "watch": "webpack --watch --colors"
+    "watch": "webpack --watch --colors",
+    "dev": "concurrently \"webpack --watch --colors\" \"http-server ./src\""
   },
-  "dependencies": {},
+  "dependencies": {
+    "pubsub-js": "^1.5.7"
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-loader": "^7.1.1",
     "babel-preset-env": "^1.6.0",
+    "concurrently": "^3.5.0",
     "standard": "^10.0.3",
     "standard-loader": "^6.0.1",
-    "supertest": "^3.0.0",
     "webpack": "^3.5.2"
   },
   "author": "Letícia Costa",
