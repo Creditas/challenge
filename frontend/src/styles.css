@@ -3,6 +3,18 @@
 }
 
 .message-list {
-  min-height: 10em;
   background-color: #f3f3f3;
+  min-height: 10em;
+  padding: 10px;
+}
+
+.message-item {
+  background: #fff;
+  border-radius: 10px;
+  display: block;
+  list-style: none;
+  margin-bottom: 5px;
+  padding: 5px 15px;
+  width: 10rem;
+  word-break: break-word;
 }
