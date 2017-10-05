@@ -7,13 +7,13 @@ export default class Chat {
     this.active = true
     this.channel = pubSub.subscribe(
       this.id,
-      this.addMessage.bind(this)
+      this.__addMessage.bind(this)
     )
     // Podem ser incluídas mais informações aqui, como nome e ids dos usuários,
     // data e hora em que o chat foi iniciado, etc
   }
 
-  addMessage (channel, data) {
+  __addMessage (channel, data) {
     const node = document.createElement('li')
     const textnode = document.createTextNode(data)
 
