@@ -20,8 +20,8 @@ class Order
     @items.map(&:total).inject(:+)
   end
 
-  def add_payment
-    @payment = Payment.new(self)
+  def add_payment(payment_method)
+    @payment = Payment.new(self, payment_method: payment_method)
   end
 
   def pay

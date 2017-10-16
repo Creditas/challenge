@@ -1,7 +1,8 @@
+require_relative '../domain/_seedwork/domain_event_publisher'
 require_relative '../domain/customers/customer'
 require_relative '../domain/products/product'
 require_relative '../domain/orders/order'
-require_relative '../domain/_seedwork/domain_event_publisher'
+require_relative '../domain/orders/credit_card'
 require_relative '../domain/shipping_handling/membership_item_shipping_handler'
 require_relative '../domain/shipping_handling/physical_item_shipping_handler'
 require_relative '../domain/shipping_handling/digital_item_shipping_handler'
@@ -45,6 +46,6 @@ order.add_product(membership)
 order.add_product(digital_media)
 order.add_product(physical_item)
 order.add_product(book)
-order.add_payment
+order.add_payment(CreditCard.fetch_by_hashed("92833-133"))
 
 order.pay
