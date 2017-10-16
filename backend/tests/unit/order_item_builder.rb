@@ -5,7 +5,7 @@ require_relative '../../src/domain/products/product'
 
 class OrderItemBuilder
   def initialize
-    @order = Order.new(Customer.new(1, 'Dummy Name', 'dummy-email'))
+    @order = Order.new(1, Customer.new(1, 'Dummy Name', 'dummy-email'))
   end
 
   def of_type(product_type)
