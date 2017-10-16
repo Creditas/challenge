@@ -1,0 +1,35 @@
+OBSERVAÇÕES QUANTO À LINGUAGEM
+Minha linguagem principal é o C#. Estou iniciando com Ruby, então certamente algumas boas práticas e convenções comuns da linguagem devem ter passado despercebidas por mim.
+
+QUANTO À SOLUÇÃO
+Para resolver o problema dos If's, utilizei eventos de domínio (DomainEvents), juntamente com o padrão Observer:
+
+1. Sempre que um pedido (Order) é encerrado devido ao seu pagamento, o mesmo encerra todos os seus itens.
+2. Cada item, por sua vez, publica um evento do tipo OrderItemClosed correspondente ao tipo do produto.
+3. Para cada tipo de evento, há um tratador de evento que sabe executar a operação correspondente. Por ex, o handler BookItemShippingHandler é chamado assim que um evento 'book_item_closed' é disparado, gerando a etiqueta para o envio do livro.
+
+A solução adotada também desacopla os objetos de domínio de detalhes de baixo nível (mailer, printer e repositórios), cujas implementações ficam na camada de infraestrutura (a seguir detalhes da arquitetura).
+
+ARQUITETURA
+A solução foi organizada em pastas, correspondentes às camadas lógicas da aplicação:
+
+1. Domain: camada de domínio (regras de negócio), a observar:
+	- nem todas as classes (que foram extraídas do original bootstrap.rb) foram alteradas/refatoradas ou por falta de tempo ou por não serem foco do problema proposto. Por ex, não foram feitas validações nos métodos alterados/criados nem revisadas algumas associações bi-direcionais já presentes no design original.
+
+	- a pasta '_seedwork' contem a classe DomainEventPublisher comum a todas as entidades que queiram publicar eventos (no caso da solução, somente OrderItem a utiliza). Esta pasta também serve para agrupar outras classes de suporte desta camada, como, por ex, Entidades e Value Objects Base (layer supertypes).
+
+	- DomainEventPublisher não contém a implementação de fato da publicação de eventos. A implementação encontra-se na pasta 'main' (mais detalhes abaixo), novamente uma forma de isolar o domínio de detalhes técnicos.
+
+2. Infrastructure: camada de infraestrutura, que abriga todas as implementações de baixo nível, relacionadas a persistência, messaging, criptografia, file system, etc.... OBS.: todas as implementações contidas nesta pasta são FAKE, já que não faziam parte do problema proposto.
+
+3. Main: camada mais externa de todas, consiste no bootstrap da aplicação, onde são feitas as configurações da aplicação, incluindo o registro de todas as dependências a serem injetadas ('Main' também pode ser chamado de Composition Root da aplicação):
+
+	- nesta camada está a implementação do DomainEventPublisher (registry_based_domain_event_publisher.rb). Esta implementação faz uso de um dicionário (hash) que mapeia cada evento a sua lista de event handlers. Uma solução alternativa seria usar um container de DI como um Service Locator para obter os handlers de acordo com o tipo do evento (esta solução já empreguei no C# graças à tipagem da linguagem e o uso de generics: https://github.com/robsoncastilho/NotificadorDeEventos/blob/master/Exemplo.ConsoleApp/NotificadorBaseadoEmContainerDeDi.cs)
+
+	- no arquivo main.rb é feita a configuração do DomainEventPublisher (linha 30) e a partir da linha 32 é feita uma demonstração de uso da solução.
+
+A ideia geral da arquitetura mostrada aqui segue a Clean Architecture, com as dependências seguindo das camadas de baixo nível para as de alto nível, no caso Main --> Infra --> Domain (https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html). Por uma questão de simplicidade, a camada de aplicação (com os 'use cases') foi subtraída desta solução.
+
+TESTES DE UNIDADE
+
+Não foi possível implementar os testes de unidade por falta de tempo (devido à curva de aprendizagem com a linguagem e com o framework de testes). A exceção foi o teste de OrderItem que testa que o evento realmente é publicado ao chamar o método 'close', fazendo uso de um mock no lugar do DomainEventPublisher real. O teste também faz uso de um Builder (OrderItemBuilder), padrão que costumo usar nos testes para deixá-los menos poluídos e mais robustos.
