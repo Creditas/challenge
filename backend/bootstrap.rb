@@ -50,6 +50,7 @@ class Order
 
   def close(closed_at = Time.now)
     @closed_at = closed_at
+    ShippingRules.new(self).process
   end
 
   # remember: you can create new methods inside those classes to help you create a better design
@@ -99,9 +100,72 @@ class Membership
   # you can customize this class by yourself
 end
 
+# now, how to deal with shipping rules then?
+
+class PhysicalItem
+  def deal_with?(type)
+    type == :physical
+  end
+
+  def perform
+    puts "[physical] Call method Shipping Label"
+    # build_shipping_label
+  end
+end
+
+class Subscription
+  def deal_with?(type)
+    type == :membership
+  end
+
+  def perform
+    puts "[membership] Call enable service"
+    puts "[membership] Call notify user by e-mail"
+    # enable_service
+    # notify.mail
+  end
+end
+
+class Book
+  def deal_with?(type)
+    type == :book
+  end
+
+  def perform
+    puts "[book] Call Shipping Label without Tax"
+  end
+end
+
+class Digital
+  def deal_with?(type)
+    type == :digital
+  end
+
+  def perform
+    puts "[digital] Call voucher 10% next order"
+  end
+end
+
+class ShippingRules
+  SHIPPING_RULES = [Digital.new, Book.new, Subscription.new, PhysicalItem.new].freeze
+
+  def initialize(order)
+    @order = order
+  end
+
+  def process
+    @order.items.each do |order_item| 
+      rule = SHIPPING_RULES.select {|rule| rule.deal_with?(order_item.product.type)}.first
+      rule.perform
+    end
+    
+  end
+end
+
+
 # Book Example (build new payments if you need to properly test it)
 foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
+book = Product.new(name: 'Awesome book', type: :physical)
 book_order = Order.new(foolano)
 book_order.add_product(book)
 
@@ -109,5 +173,3 @@ payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_b
 payment_book.pay
 p payment_book.paid? # < true
 p payment_book.order.items.first.product.type
-
-# now, how to deal with shipping rules then?
