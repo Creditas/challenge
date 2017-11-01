@@ -1,0 +1,16 @@
+#ConfigurationClass
+
+require File.expand_path('lib\creditcard\creditcard.rb')
+require File.expand_path('lib\customer\customer.rb')
+require File.expand_path('lib\email\email.rb')
+require File.expand_path('lib\invoice\invoice.rb')
+require File.expand_path('lib\order\order.rb')
+require File.expand_path('lib\order_item\order_item.rb')
+require File.expand_path('lib\payment\payment.rb')
+require File.expand_path('lib\payment_book\payment_book.rb')
+require File.expand_path('lib\payment_digital\payment_digital.rb')
+require File.expand_path('lib\payment_physical\payment_physical.rb')
+require File.expand_path('lib\payment_signature\payment_signature.rb')
+require File.expand_path('lib\product\product.rb')
+require File.expand_path('lib\shipping_label\shipping_label.rb')
+require File.expand_path('lib\voucher\voucher.rb')
