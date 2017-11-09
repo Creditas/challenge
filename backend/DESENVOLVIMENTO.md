@@ -35,4 +35,4 @@ __Outras considerações__
 
 Como na regra não está especificado que um mesmo pedido possa conter diferentes tipos de produto e, presumindo que se trate de uma integração de clientes, cujo segmento seja específico, os pedidos estão sendo tratados conforme o tipo do primeiro item dos mesmos.
 
-Porém, caso não seja essa a regra, um método que itera pelos items do pedido excuta o comportamento desejado (vide código comentado em _bootstrao.rb_).
+Porém, caso não seja essa a regra, um método que itera pelos items do pedido excuta o comportamento desejado (vide código comentado em _bootstrap.rb_).
