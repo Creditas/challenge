@@ -50,8 +50,17 @@ class Order
 
   def close(closed_at = Time.now)
     @closed_at = closed_at
+    shipping_type = @items.first.product.type
+    SHIPPING_STRATEGIES[shipping_type].shipping(self) #### Pode ser substituido por multi_shipping(), conforme comentário.
   end
 
+  #### Caso o pedido contenha mais de um tipo de produto
+  def multi_shipping
+    @items.each do |item|
+      shipping_type = item.product.type
+      SHIPPING_STRATEGIES[shipping_type].shipping(self)
+    end
+  end
   # remember: you can create new methods inside those classes to help you create a better design
 end
 
