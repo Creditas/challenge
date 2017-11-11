@@ -1,5 +1,7 @@
 ## Desafio para Backend Software Engineer
 
+
+- REQUISITOS -
 Você está revisando as decisões de design de um software que processa Pedidos online. Por estes pedidos, são realizados pagamentos que recebem tratamentos a depender as situações específicas de cada um como segue:
 
   - Se o pagamento for para um item físico, você deverá gerar um `shipping label` para o mesmo ser colocado na caixa do envio;
@@ -7,41 +9,31 @@ Você está revisando as decisões de design de um software que processa Pedidos
   - Caso o pagamento seja um livro comum, você precisa gerar o `shipping label` com uma notificação de que trata-se de um item isento de impostos conforme disposto na Constituição Art. 150, VI, d.
   - Caso o pagamento seja de alguma mídia digital (música, vídeo), além de enviar a descrição da compra por e-mail ao comprador, conceder um voucher de desconto de R$ 10 ao comprador associado ao pagamento.
 
-__O que é necessário fazer?__
+---------------------
 
-Você ficou designado a prototipar como poderá ser feita a nova versão deste fluxo de pagamento/regras de envio, pois a versão atual é frágil, **encadeada em if/else, switch/case**, exigindo modificações grandes a cada nova regra de envio/processamento inserida ou removida.
+- SOLUCAO - Explicão conceitual
 
-Crie as classes, métodos e suas respectivas chamadas para que recebendo um _input_ (`Pagamento` ou `Order` - fica a seu critério), você consiga tratar os cenários acima.
+Para tratar o problema dos multiplos tipos de tratamento para os itens, utilizei um conhecido padrão chamado Strategy. O padrão consiste em ter estratégias especificas para tratamento de cada item, onde essas estrategias podem ser intercambiadas pois possuem uma mesma interface.
+Optei por usar Hash arguments e ler utilizando params.fetch pois assim, caso uma estrategia precise de argumentos diferentes, não há quebra de contrato com as demais, fazendo com que seja simples adicionar tratamento para novos tipos de itens.
 
-**Não é necessário** criar as implementações para envio de e-mails, imprimir o _shipping label_, etc. Para estes casos (email, shipping label) crie apenas as chamadas de métodos, para indicar que ali seria o local aonde o envio ocorreria.
+Geralmente quando utilizo Rails, onde os models já são super lotados de funcionalidades, eu gosto de utilizar um padrão chamado Interactor (Ou Command pattern como é conhecido em GoF)
+Assim, eu tenho classes que são responsaveis por apenas uma unica funcão (ou comando), com poucas responsabilidades e baixo acoplamento.
+Neste projeto, utilizei esse padrão de forma simplificada, sem o uso de Gems ou coisas do tipo.
 
-Como a proposta **não requer um código final funcionando**, não há a necessidade de implementar os testes de unidade. Entretanto, levaremos isso como _bonus points_. É permitido o uso de libs para facilitar a implementação dos testes.
+- Detalhamento Técnico
+  Após o pagamento, um servico do module de Pós Pagamento é chamado para executar as acões necessarias.
 
-__O que está sob avaliação?__
+  OrderProcessor tem um metodo perform, que varre os itens chamando a estrategia mais adequada para o tratamento do mesmo. Essas estrategias são chamadas de xItemProcessor.
+  ItemProcessor são como organizadores que delegam as acoes necessarias para servicos especificos.
+  Uma caso interessante é o PhysicalItemProcessor, que delega a geracao de um Shipping label, mas sem se preocupar com qual tipo de label é necessario. Afinal, essa não é a responsabilidade do processador e sim da classe que cria efetivamente o conteudo dos ShippingLabel para ser enviado a impressora.
 
-Sua capacidade de analisar, projetar e codificar uma solução guiando-se com **Design Orientado a Objetos** e **Princípios de Orientação a Objetos**.
+------------------------------------------------------------
 
-Sinta-se à vontade para modificar/refatorar o arquivo `bootstrap.rb` caso julgue necessário.
 
-Por favor, inclua suas considerações da atividade em um arquivo de texto ou markdown.
 
-__O que não vale?__
- - Frameworks :] (aliás, nem precisa)
- - Metaprogramação
 
-__Qual linguagem?__
-Ruby.
 
-__Tempo__
-Estima-se 1h30 para este desafio, entretanto não há um limite.
 
-__Apresentação__
-  - Código
-  - Explicação da solução (em arquivo separado em Markdown/Plain Text)
 
-__Avaliação__
 
-Para nos enviar seu código, você pode:
 
- - Fazer um fork desse repositório, e nos mandar uma pull-request.
- - Dar acesso ao seu repositório privado no [Gitlab](http://gitlab.com) para `hlegius`, `matheusca`, `regishideki` e `eduardodiniz`.
