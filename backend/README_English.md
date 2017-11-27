@@ -44,4 +44,4 @@ __Evaluation__
 To send us your code, you can:
 
  - Make a fork of this repository, and send us a pull-request.
- - Give access to your private repository in gitlab to hlegius, matheusca and regishideki.
+ - Give access to your private repository in gitlab to `camilacampos`, `juliabirkett`, `RafaelFerraro`, `RenanZll` and `eduardodiniz`.
