@@ -1,36 +1,7 @@
-require_relative 'shipping_label.rb'
-require_relative 'paymentservice.rb'
-require_relative 'notification.rb'
-
-class Payment
-  attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at
-
-  def initialize(attributes = {})
-    @authorization_number, @amount = attributes.values_at(:authorization_number, :amount)
-    @invoice, @order = attributes.values_at(:invoice, :order)
-    @payment_method = attributes.values_at(:payment_method)
-  end
-
-  def pay(paid_at = Time.now)
-    @amount = order.total_amount
-    @authorization_number = Time.now.to_i
-    @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
-    @paid_at = paid_at
-    order.close(@paid_at)
-  end
-
-  def paid?
-    !paid_at.nil?
-  end
-
-  def addVoucher(voucherCode , voucherAmount)
-      puts "voucher added"
-  end  
-  def to_s
-    "payment = amount: " + @amount
-  end
-
-end
+require_relative 'shipping/shipping.rb'
+require_relative 'payment/paymentservice.rb'
+require_relative 'notification/notification.rb'
+require_relative 'payment/payment.rb'
 
 class Invoice
   attr_reader :billing_address, :shipping_address, :order
@@ -145,12 +116,12 @@ book_order.add_product(membership)
 book_order.add_product(physical)
 book_order.add_product(digital)
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+#payment_book = PaymentModule::Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 #payment_book.pay
 #p payment_book.paid? # < true
 #p payment_book.order.items.first.product.type
 
-paymentService = PaymentService.new(payment: payment_book)
+paymentService = PaymentModule::PaymentService.new(productOrder: book_order, orderPayment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 paymentService.process
 
 
