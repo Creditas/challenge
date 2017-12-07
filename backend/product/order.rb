@@ -1,7 +1,9 @@
 require_relative './order_item'
+require_relative '../infra/pub_sub'
+require_relative '../infra/topic'
 
 class Order
-  attr_reader :customer, :products, :closed_at, :shipping_address
+  attr_reader :customer, :products, :closed_at, :shipping_address, :payment_method
 
   def initialize(customer)
     @customer = customer
@@ -20,8 +22,13 @@ class Order
     @shipping_address = address
   end
 
+  def pay_with(payment_method)
+    @payment_method = payment_method
+  end
+
   def close(closed_at = Time.now)
     @closed_at = closed_at
+    PubSub.instance.publish(Topics::ORDER_CLOSED, self)
   end
 
 end

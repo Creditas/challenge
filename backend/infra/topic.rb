@@ -5,6 +5,7 @@ class Topics
     @type = type
   end
 
+  ORDER_CLOSED = new("Fechamento de compra")
   PAID_INVOICE = new("Fatura Paga")
   PRODUCT_SOLD = new("Produto Vendido")
   MEMBERSHIP_ACTIVATED = new("Assinatura de Servico Ativada")
