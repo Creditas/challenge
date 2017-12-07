@@ -30,22 +30,6 @@ describe Customer do
     expect(foo.vouchers.size).to eq(0)
   end
 
-  it 'should have no active order when none are initiated' do
-    foo = Customer.new('Foolano')
-    expect(foo.active_order).to eq(nil)
-  end  
-
-  it 'should have one active order when one is initiated' do
-    foo = Customer.new('Foolano')
-    shirt = Product.new('Camisa da Creditas', 'Camisa')
-    foo.add_product_to_order(shirt)
-
-    order = Order.new(foo)
-    order.add_product(shirt)
-
-    expect(foo.active_order.products).to eq(order.products)
-  end
-
   it 'should have one payment method when one is setted' do
     foo = Customer.new('Foolano')
     payment_method = PaymentMethod.new(CreditCard.fetch_by_hashed('43567890'), Address.new('01525000'))
