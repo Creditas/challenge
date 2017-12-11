@@ -1,0 +1,77 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
+    archive-zip (0.7.0)
+      io-like (~> 0.3.0)
+    backports (3.10.3)
+    builder (3.2.3)
+    capybara (2.16.1)
+      addressable
+      mini_mime (>= 0.1.3)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
+    childprocess (0.8.0)
+      ffi (~> 1.0, >= 1.0.11)
+    chromedriver-helper (1.1.0)
+      archive-zip (~> 0.7.0)
+      nokogiri (~> 1.6)
+    cucumber (3.1.0)
+      builder (>= 2.1.2)
+      cucumber-core (~> 3.1.0)
+      cucumber-expressions (~> 5.0.4)
+      cucumber-wire (~> 0.0.1)
+      diff-lcs (~> 1.3)
+      gherkin (~> 5.0)
+      multi_json (>= 1.7.5, < 2.0)
+      multi_test (>= 0.1.2)
+    cucumber-core (3.1.0)
+      backports (>= 3.8.0)
+      cucumber-tag_expressions (~> 1.1.0)
+      gherkin (>= 5.0.0)
+    cucumber-expressions (5.0.7)
+    cucumber-tag_expressions (1.1.1)
+    cucumber-wire (0.0.1)
+    diff-lcs (1.3)
+    ffi (1.9.18-x64-mingw32)
+    gherkin (5.0.0)
+    httparty (0.15.6)
+      multi_xml (>= 0.5.2)
+    io-like (0.3.0)
+    mini_mime (1.0.0)
+    mini_portile2 (2.3.0)
+    multi_json (1.12.2)
+    multi_test (0.1.2)
+    multi_xml (0.6.0)
+    nokogiri (1.8.1-x64-mingw32)
+      mini_portile2 (~> 2.3.0)
+    public_suffix (3.0.1)
+    rack (2.0.3)
+    rack-test (0.8.2)
+      rack (>= 1.0, < 3)
+    rubyzip (1.2.1)
+    selenium-webdriver (3.8.0)
+      childprocess (~> 0.5)
+      rubyzip (~> 1.0)
+    site_prism (2.9)
+      addressable (>= 2.3.3, < 3.0)
+      capybara (>= 2.1, < 3.0)
+    xpath (2.1.0)
+      nokogiri (~> 1.3)
+
+PLATFORMS
+  x64-mingw32
+
+DEPENDENCIES
+  capybara
+  chromedriver-helper
+  cucumber
+  httparty
+  selenium-webdriver
+  site_prism
+
+BUNDLED WITH
+   1.15.4
