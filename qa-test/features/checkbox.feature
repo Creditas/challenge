@@ -8,7 +8,7 @@ Feature: Adionar e remover o checkbox
     
 @remover
 Scenario: Remover checkbox
-    Given que estou na página Dynamic Controls
+    Given que estou na página "dynamic_controls"
     When clico no botão "Remove"
     Then o checkbox é removido 
     And  a mensagem "It's gone!" aparece
@@ -16,7 +16,7 @@ Scenario: Remover checkbox
 
 @adicionar
 Scenario: Adicionar checkbox
-    Given que estou na página Dynamic Controls sem checkbox
+    Given que estou na página "dynamic_controls" sem checkbox
     When clico no botão "Add"
     Then o checkbox é adicionado
     And  a mensagem "It's back!" aparece

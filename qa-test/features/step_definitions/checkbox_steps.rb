@@ -1,5 +1,6 @@
-Given("que estou na página Dynamic Controls") do
-  visit "https://the-internet.herokuapp.com/dynamic_controls"
+Given("que estou na página {string}") do |string|
+  @home = Home.new
+  @home.load(destino: string)
 end
 
 When("clico no botão {string}") do |string|
@@ -14,8 +15,9 @@ And("a mensagem {string} aparece") do |string|
   page.has_content?(string)
 end
 
-Given("que estou na página Dynamic Controls sem checkbox") do
-  visit "https://the-internet.herokuapp.com/dynamic_controls"
+Given("que estou na página {string} sem checkbox") do |string|
+  @home = Home.new
+  @home.load(destino: string)
   page.execute_script("onClick()")
 end
 
