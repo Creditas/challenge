@@ -1,7 +1,5 @@
 Feature: Abrir nova aba
-    In order to value
-    As a role
-    I want feature
+    Verificação de abertura de uma nova aba
 
 
 Scenario: Abrir nova aba

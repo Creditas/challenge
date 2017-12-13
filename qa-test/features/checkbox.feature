@@ -1,9 +1,5 @@
-
-
 Feature: Adionar e remover o checkbox
-    In order to value
-    As a role
-    I want feature
+    Verificação da adição e remoção de um checkbox
 
     
 @remover

@@ -1,7 +1,5 @@
 Feature: Criar post via API
-    In order to value
-    As a role
-    I want feature
+    Verificação do sucesso do envio de uma mensagem via POST
 
 Scenario: Enviar mensagem via POST
     Given que uma mensagem é enviada via POST para a API JsonPlaceHolder
