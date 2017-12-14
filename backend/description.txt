@@ -1,0 +1,29 @@
+As considerações da atividade estão no meio dos comentários, mas basicamente:
+
+Os OrderItem são os objetos escolhidos para processar itens em um pagamento, afinal, é necessário
+ter um @product e um @order único na hora de tratar, pois podemos ter mais de um produto em um
+pedido.
+
+O método para implementar as quatro regras é o Payment.ship e ele chama cada OrderItem e executa
+cada dos três métodos dentro, para: gerar shipping label, e se for livro, enviar com o special
+remark de "livre de imposto"; ativar serviço de assinatura (membership); enviar voucher de desconto
+e e-mail com a descrição digital.
+
+No meio do código, para emular o envio do e-mail, pus os puts com dados necessários para envio.
+Este envio precisa ter o @order, no mínimo. Não vi distinção ali no Invoice para regras de
+endereço, então isso poderia ser tratado em outra sprint (shipping_address, billing_address).
+
+A classe Product tem vários métodos auxiliares para saber se o produto recebe cada dos quatro
+tratamentos: livro que receives_remark_from_tax_exemption?, físico que generates_shipping_label?,
+membership que activates_membership_services? e digital que sends_digital_description_and_voucher?.
+
+A classe Product determina o que é cada tipo de produto e sob que regra ele cai e cada regra é
+tratada dentro de um OrderItem. O Voucher é gerado apenas dentro da classe Voucher e a notificação
+de e-mails dentro das classes Voucher e Membership, com o método send_customer_notification.
+
+Para gerar o voucher, usei um UUID sem traços. Idealmente usaria SHA256 mas é menos user-friendly.
+Meu critério: algo forte, que proteja com facilidade contra IDs únicos (por isso uuid) e que possa
+ser mais user-friendly (talvez limitando no caso a menos caracteres). Base64 é um não, apenas se for
+scaneável via celular e o app também rode via celular.
+
+Para testar, é apenas rodar o .rb. Foi implementado um assert() simples com puts.
