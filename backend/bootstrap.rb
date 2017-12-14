@@ -77,6 +77,48 @@ class Product
   end
 end
 
+class Physical < Product
+  attr_reader :height, :width, :length, :weight
+
+  def initialize(name:)
+    super(name: name, type: :physical)
+  end
+
+  def send (customer, invoice)
+    super(customer, invoice)
+    generate_shipping_label(customer, invoice)
+  end
+
+  def generate_shipping_label(customer, invoice)
+    # with appropriate informations about the physical item, customer and address
+  end
+end
+
+class Membership < Product
+  attr_reader :service, :duration
+
+  def initialize(name:)
+    super(name: name, type: :membership)
+  end
+end
+
+class Book < Physical
+  attr_reader :isbn, :pages
+
+  def initialize(name:)
+    super(name: name)
+    @type = :book
+  end
+end
+
+class Digital < Product
+  attr_reader :genre, :release, :artists
+
+  def initialize(name:)
+    super(name: name, type: :digital)
+  end
+end
+
 class Address
   attr_reader :zipcode
 
