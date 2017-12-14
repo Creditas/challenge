@@ -1,0 +1,13 @@
+- A solução que utilizei utiliza herança e sobreescrita de funções herdadas para tratar os diferentes comportamentos sem necessidade de modificar o mecanismo central.
+- Ao invés de o processador de pagamentos tratar cada caso especificamente, ele chama um método genérico send da classe Produto.
+    Cada subclasse implementa suas regras específicas na função send.
+- Na necessidade de adicionar novas regras, basta modificar o método da subclasse.
+    Ou, caso haja alguma regra que se aplique a todos os produtos, pode-se incluir na classe Produto
+- Se houver necessidade de adicionar um novo tipo de produto, basta criar uma nova subclasse de Produto e especificar as regras no send da subclasse
+
+Com isso, temos um processador de pagamentos razoavelmente independente das implementações dos Produtos e regras.
+O código do modelo acabou aumentando consideravelmente de tamanho devido à criação das subclasses.
+Porém, de toda forma, em um cenário como esse, é esperado o uso de subclasses devido as peculiaridades de cada tipo de produto(coloquei alguns atributos específicos de exemplo)
+
+
+* O script main se encontra no solution.rb
