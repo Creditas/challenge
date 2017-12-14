@@ -75,6 +75,10 @@ class Product
   def initialize(name:, type:)
     @name, @type = name, type
   end
+
+  def send (customer, invoice) 
+    puts "Processing #{@type} order"
+  end
 end
 
 class Physical < Product
@@ -173,10 +177,9 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
-end
-
-class Membership
-  # you can customize this class by yourself
+  attr_reader :cpf, :full_name, :mail_address, :shipping_addressess, :default_credit_card
+  def initialize(full_name)
+    @full_name = full_name
+  end
 end
 
