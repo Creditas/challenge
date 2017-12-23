@@ -90,8 +90,8 @@ class OrderPostProcessor
   end
 
   def activate_membership
-    @order.items.select { |item| item.product.type == :membership }.each do |membership_item|
-      membership = Membership.new(product: membership_item.product).activate!
+    items_by_type(:membership).each do |item|
+      membership = Membership.new(product: item.product).activate!
       @order.customer.add_membership(membership)
     end
     @order.customer.memberships
@@ -101,6 +101,10 @@ class OrderPostProcessor
 
   def product_types
     @order.items.map { |item| item.product.type }.uniq
+  end
+
+  def items_by_type(type)
+    @order.items.select { |item| item.product.type == type }
   end
 end
 
@@ -136,11 +140,14 @@ class Customer
 
   def add_membership(membership)
     @memberships << membership
+    # TODO: MembershipMailer.new(customer: @customer).send! if membership.active?
+    membership
   end
 end
 
 class Membership
   attr_reader :active
+  alias_method :active?, :active
 
   def initialize(product:)
     @product = product
