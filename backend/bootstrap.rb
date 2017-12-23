@@ -78,7 +78,7 @@ class OrderPostProcessor
     if product_types.include?(:physical) || product_types.include?(:book)
       puts generate_shipping_label
     end
-    activate_membership if product_types.include?(:membership)
+    puts activate_membership if product_types.include?(:membership)
     send_invoice if product_types.include?(:digital)
     send_voucher if product_types.include?(:digital)
   end
@@ -87,6 +87,14 @@ class OrderPostProcessor
     label = ['Dados de envio do consumidor']
     label << 'Inclui itens isentos de imposto' if product_types.include?(:book)
     ShippingLabel.new(order: @order, label: label.join("\n"))
+  end
+
+  def activate_membership
+    @order.items.select { |item| item.product.type == :membership }.each do |membership_item|
+      membership = Membership.new(product: membership_item.product).activate!
+      @order.customer.add_membership(membership)
+    end
+    @order.customer.memberships
   end
 
   private
@@ -120,11 +128,33 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_reader :memberships
+
+  def initialize
+    @memberships = []
+  end
+
+  def add_membership(membership)
+    @memberships << membership
+  end
 end
 
 class Membership
-  # you can customize this class by yourself
+  attr_reader :active
+
+  def initialize(product:)
+    @product = product
+    @active = false
+  end
+
+  def activate!
+    @active = true
+    self
+  end
+
+  def to_s
+    active ? "Assinatura ativa" : "Assinatura inativa"
+  end
 end
 
 class ShippingLabel
@@ -150,6 +180,17 @@ class Bootstrap < Minitest::Test
 
     out, err = capture_io { book_payment.pay }
     assert book_payment.paid?
+  end
+end
+
+class Bootstrap::OrderPostProcessor < Minitest::Test
+  def setup
+    @customer = Customer.new
+    @customer_cc = CreditCard.fetch_by_hashed '43567890-987654367'
+
+    @book = Product.new(name: 'Awesome book', type: :book)
+    @pen = Product.new(name: 'Bic Cristal', type: :physical)
+    @music_sub = Product.new(name: 'Music streaming service', type: :membership)
   end
 
   def test_shipping_label
@@ -181,5 +222,17 @@ class Bootstrap < Minitest::Test
     out, err = capture_io { mixed_payment.pay }
     assert_match /Dados de envio do consumidor/, out
     assert_match /Inclui itens isentos de imposto/, out
+  end
+
+  def test_membership
+    order = Order.new(@customer)
+    order.add_product(@music_sub)
+    payment = Payment.new(order: order)
+    assert @customer.memberships.empty?
+
+    out, err = capture_io { payment.pay }
+    assert_match /Assinatura ativa/, out
+    assert_equal 1, @customer.memberships.size
+    assert @customer.memberships.first.active
   end
 end
