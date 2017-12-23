@@ -26,7 +26,16 @@ class Invoice
   def initialize(attributes = {})
     @billing_address = attributes.values_at(:billing_address)
     @shipping_address = attributes.values_at(:shipping_address)
-    @order = attributes.values_at(:order)
+    @order = attributes.values_at(:order).first
+  end
+
+  def to_s
+    output = ['Dados da compra']
+    order.items.each do |item|
+      output << item.product.name
+    end
+    output << "Voucher: #{order.customer.voucher}" unless order.customer.voucher.nil?
+    output.join("\n")
   end
 end
 
@@ -79,8 +88,7 @@ class OrderPostProcessor
       puts generate_shipping_label
     end
     puts activate_membership if product_types.include?(:membership)
-    send_invoice if product_types.include?(:digital)
-    send_voucher if product_types.include?(:digital)
+    puts send_invoice
   end
 
   def generate_shipping_label
@@ -95,6 +103,14 @@ class OrderPostProcessor
       @order.customer.add_membership(membership)
     end
     @order.customer.memberships
+  end
+
+  def send_invoice
+    address = @order.customer.default_address
+    invoice = Invoice.new(order: @order, billing_address: address, shipping_address: address)
+    @order.customer.add_voucher('CYBERMONDAY') if product_types.include?(:digital)
+    # TODO: InvoiceMailer.new(invoice: invoice).send!
+    invoice
   end
 
   private
@@ -132,16 +148,26 @@ class CreditCard
 end
 
 class Customer
-  attr_reader :memberships
+  attr_reader :memberships, :voucher
+  attr_accessor :addresses
 
   def initialize
     @memberships = []
+    @addresses = []
   end
 
   def add_membership(membership)
     @memberships << membership
     # TODO: MembershipMailer.new(customer: @customer).send! if membership.active?
     membership
+  end
+
+  def add_voucher(voucher)
+    @voucher = voucher
+  end
+
+  def default_address
+    @addresses.first
   end
 end
 
@@ -198,6 +224,7 @@ class Bootstrap::OrderPostProcessor < Minitest::Test
     @book = Product.new(name: 'Awesome book', type: :book)
     @pen = Product.new(name: 'Bic Cristal', type: :physical)
     @music_sub = Product.new(name: 'Music streaming service', type: :membership)
+    @stairway_to_heaven = Product.new(name: 'Led Zeppelin - 04 - Stairway to Heaven.mp3', type: :digital)
   end
 
   def test_shipping_label
@@ -241,5 +268,21 @@ class Bootstrap::OrderPostProcessor < Minitest::Test
     assert_match /Assinatura ativa/, out
     assert_equal 1, @customer.memberships.size
     assert @customer.memberships.first.active
+  end
+
+  def test_invoice_and_voucher
+    order = Order.new(@customer)
+    order.add_product(@music_sub)
+    payment = Payment.new(order: order)
+
+    out, err = capture_io { payment.pay }
+    refute_match /Voucher/, out
+    
+    order = Order.new(@customer)
+    order.add_product(@stairway_to_heaven)
+    payment = Payment.new(order: order)
+
+    out, err = capture_io { payment.pay }
+    assert_match /Voucher/, out
   end
 end
