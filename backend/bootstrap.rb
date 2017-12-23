@@ -227,33 +227,30 @@ class Bootstrap::OrderPostProcessor < Minitest::Test
     @stairway_to_heaven = Product.new(name: 'Led Zeppelin - 04 - Stairway to Heaven.mp3', type: :digital)
   end
 
-  def test_shipping_label
-    foolano = Customer.new
-    book = Product.new(name: 'Awesome book', type: :book)
-    pen = Product.new(name: 'Bic Cristal', type: :physical)
+  def test_shipping_label_for_books
+    order = Order.new(@customer)
+    order.add_product(@book)
 
-    book_order = Order.new(foolano)
-    book_order.add_product(book)
-    book_payment = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-
-    out, err = capture_io { book_payment.pay }
+    out, err = capture_io { Payment.new(order: order).pay }
     assert_match /Dados de envio do consumidor/, out
     assert_match /Inclui itens isentos de imposto/, out
+  end
 
-    pen_order = Order.new(foolano)
-    pen_order.add_product(pen)
-    pen_payment = Payment.new(order: pen_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+  def test_shipping_label_for_physical
+    order = Order.new(@customer)
+    order.add_product(@pen)
 
-    out, err = capture_io { pen_payment.pay }
+    out, err = capture_io { Payment.new(order: order).pay }
     assert_match /Dados de envio do consumidor/, out
     refute_match /Inclui itens isentos de imposto/, out
+  end
 
-    mixed_order = Order.new(foolano)
-    mixed_order.add_product(book)
-    mixed_order.add_product(pen)
-    mixed_payment = Payment.new(order: mixed_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+  def test_shipping_label_for_mixed_order
+    order = Order.new(@customer)
+    order.add_product(@book)
+    order.add_product(@pen)
 
-    out, err = capture_io { mixed_payment.pay }
+    out, err = capture_io { Payment.new(order: order).pay }
     assert_match /Dados de envio do consumidor/, out
     assert_match /Inclui itens isentos de imposto/, out
   end
@@ -261,28 +258,30 @@ class Bootstrap::OrderPostProcessor < Minitest::Test
   def test_membership
     order = Order.new(@customer)
     order.add_product(@music_sub)
-    payment = Payment.new(order: order)
     assert @customer.memberships.empty?
 
-    out, err = capture_io { payment.pay }
+    out, err = capture_io { Payment.new(order: order).pay }
     assert_match /Assinatura ativa/, out
     assert_equal 1, @customer.memberships.size
-    assert @customer.memberships.first.active
+    assert @customer.memberships.first.active?
+  end
+
+  def test_invoice
+    order = Order.new(@customer)
+    order.add_product(@music_sub)
+
+    out, err = capture_io { Payment.new(order: order).pay }
+    assert_match /Dados da compra/, out
+    assert_match /#{@music_sub.name}/, out
   end
 
   def test_invoice_and_voucher
     order = Order.new(@customer)
-    order.add_product(@music_sub)
-    payment = Payment.new(order: order)
-
-    out, err = capture_io { payment.pay }
-    refute_match /Voucher/, out
-    
-    order = Order.new(@customer)
     order.add_product(@stairway_to_heaven)
-    payment = Payment.new(order: order)
 
-    out, err = capture_io { payment.pay }
+    out, err = capture_io { Payment.new(order: order).pay }
+    assert_match /Dados da compra/, out
+    assert_match /#{@stairway_to_heaven.name}/, out
     assert_match /Voucher/, out
   end
 end
