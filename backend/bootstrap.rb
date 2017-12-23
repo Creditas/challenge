@@ -50,6 +50,7 @@ class Order
 
   def close(closed_at = Time.now)
     @closed_at = closed_at
+    OrderPostProcessor.new(order: self).process
   end
 
   # remember: you can create new methods inside those classes to help you create a better design
@@ -65,6 +66,33 @@ class OrderItem
 
   def total
     10
+  end
+end
+
+class OrderPostProcessor
+  def initialize(order:)
+    @order = order
+  end
+
+  def process
+    if product_types.include?(:physical) || product_types.include?(:book)
+      puts generate_shipping_label
+    end
+    activate_membership if product_types.include?(:membership)
+    send_invoice if product_types.include?(:digital)
+    send_voucher if product_types.include?(:digital)
+  end
+
+  def generate_shipping_label
+    label = ['Dados de envio do consumidor']
+    label << 'Inclui itens isentos de imposto' if product_types.include?(:book)
+    ShippingLabel.new(order: @order, label: label.join("\n"))
+  end
+
+  private
+
+  def product_types
+    @order.items.map { |item| item.product.type }.uniq
   end
 end
 
@@ -99,15 +127,59 @@ class Membership
   # you can customize this class by yourself
 end
 
-# Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
+class ShippingLabel
+  def initialize(order:, label:)
+    @order = order
+    @label = label
+  end
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+  def to_s
+    @label
+  end
+end
 
-# now, how to deal with shipping rules then?
+require 'minitest/autorun'
+
+class Bootstrap < Minitest::Test
+  def test_provided_example
+    foolano = Customer.new
+    book = Product.new(name: 'Awesome book', type: :book)
+    book_order = Order.new(foolano)
+    book_order.add_product(book)
+    book_payment = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+
+    out, err = capture_io { book_payment.pay }
+    assert book_payment.paid?
+  end
+
+  def test_shipping_label
+    foolano = Customer.new
+    book = Product.new(name: 'Awesome book', type: :book)
+    pen = Product.new(name: 'Bic Cristal', type: :physical)
+
+    book_order = Order.new(foolano)
+    book_order.add_product(book)
+    book_payment = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+
+    out, err = capture_io { book_payment.pay }
+    assert_match /Dados de envio do consumidor/, out
+    assert_match /Inclui itens isentos de imposto/, out
+
+    pen_order = Order.new(foolano)
+    pen_order.add_product(pen)
+    pen_payment = Payment.new(order: pen_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+
+    out, err = capture_io { pen_payment.pay }
+    assert_match /Dados de envio do consumidor/, out
+    refute_match /Inclui itens isentos de imposto/, out
+
+    mixed_order = Order.new(foolano)
+    mixed_order.add_product(book)
+    mixed_order.add_product(pen)
+    mixed_payment = Payment.new(order: mixed_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+
+    out, err = capture_io { mixed_payment.pay }
+    assert_match /Dados de envio do consumidor/, out
+    assert_match /Inclui itens isentos de imposto/, out
+  end
+end
