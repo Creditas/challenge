@@ -1,3 +1,6 @@
+require_relative 'order_item'
+require_relative 'address'
+
 class Order
   attr_reader :customer, :items, :payment, :address, :closed_at
 
@@ -18,6 +21,10 @@ class Order
 
   def close(closed_at = Time.now)
     @closed_at = closed_at
+  end
+
+  def itens_type
+    @items.first.product.type unless @items.first.nil?
   end
 
   # remember: you can create new methods inside those classes to help you create a better design

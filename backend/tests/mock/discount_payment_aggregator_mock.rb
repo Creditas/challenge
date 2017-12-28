@@ -3,6 +3,7 @@ class DiscountPaymentAggregatorMock
 
   def initialize(discount_amount)
     @discount_amount = discount_amount
+    @applied_discount = false
   end
 
   def apply_to(payment)

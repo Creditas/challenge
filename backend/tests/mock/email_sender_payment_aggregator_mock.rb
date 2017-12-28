@@ -3,6 +3,8 @@ class EmailSenderPaymentAggregatorMock
 
   def initialize(template)
     @template = template
+    @template_sent = nil
+    @sent = false
   end
 
   def apply_to(payment)

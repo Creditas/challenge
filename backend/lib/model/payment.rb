@@ -1,3 +1,5 @@
+require_relative 'invoice'
+
 class Payment
   attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at
 

@@ -11,9 +11,9 @@ class PaymentServiceTests < Test::Unit::TestCase
   def setup
     @printer_aggregator = PrinterPaymentAggregatorMock.new "foo {{product}} data"
     @free_tax_printer_aggregator = PrinterPaymentAggregatorMock.new "foo {{product}} data with free tax"
-    @subscription_email_sender_aggregator = EmailSenderPaymentAggregatorMock.new template: "subscription_template"
-    @digital_media_email_sender_aggregator = EmailSenderPaymentAggregatorMock.new template: "digital_media_template"
-    @discount_payment_aggregator = DiscountPaymentAggregatorMock.new discount_ammount: 10
+    @subscription_email_sender_aggregator = EmailSenderPaymentAggregatorMock.new "subscription_template"
+    @digital_media_email_sender_aggregator = EmailSenderPaymentAggregatorMock.new "digital_media_template"
+    @discount_payment_aggregator = DiscountPaymentAggregatorMock.new 10
 
     @payment_service = PaymentService.new
     @payment_service.add_aggregator aggregator: @printer_aggregator, product_type: :physical
@@ -40,19 +40,20 @@ class PaymentServiceTests < Test::Unit::TestCase
 
     assert_equal(false, @free_tax_printer_aggregator.printed)
     assert_equal(false, @subscription_email_sender_aggregator.sent)
-    assert_equal(false, @discount_payment_aggregator_mock.applied_discount)
+    assert_equal(false, @discount_payment_aggregator.applied_discount)
     assert_equal(false, @digital_media_email_sender_aggregator.sent)
   end
 
   def test_pay__service_subscription__should_only_send_subscription_email
     @order.add_product Product.new(name: 'foo', type: :subscription)
     @payment_service.pay(@payment)
+
     assert(@subscription_email_sender_aggregator.sent)
     assert_equal("subscription_template", @subscription_email_sender_aggregator.template_sent)
 
     assert_equal(false, @printer_aggregator.printed)
     assert_equal(false, @free_tax_printer_aggregator.printed)
-    assert_equal(false, @discount_payment_aggregator_mock.applied_discount)
+    assert_equal(false, @discount_payment_aggregator.applied_discount)
     assert_equal(false, @digital_media_email_sender_aggregator.sent)
   end
 
@@ -65,7 +66,7 @@ class PaymentServiceTests < Test::Unit::TestCase
 
     assert_equal(false, @printer_aggregator.printed)
     assert_equal(false, @subscription_email_sender_aggregator.sent)
-    assert_equal(false, @discount_payment_aggregator_mock.applied_discount)
+    assert_equal(false, @discount_payment_aggregator.applied_discount)
     assert_equal(false, @digital_media_email_sender_aggregator.sent)
   end
 
@@ -74,10 +75,11 @@ class PaymentServiceTests < Test::Unit::TestCase
     @payment_service.pay(@payment)
 
     assert(@discount_payment_aggregator.applied_discount)
+    assert(@digital_media_email_sender_aggregator.sent)
 
     assert_equal(false, @printer_aggregator.printed)
     assert_equal(false, @subscription_email_sender_aggregator.sent)
-    assert_equal(false, @discount_payment_aggregator_mock.applied_discount)
-    assert_equal(false, @digital_media_email_sender_aggregator.sent)
+    assert_equal(false, @free_tax_printer_aggregator.printed)
   end
 end
+
