@@ -1,3 +1,5 @@
+require_relative 'PaymentHandler.rb'
+
 class Payment
   attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at
 
@@ -18,6 +20,14 @@ class Payment
   def paid?
     !paid_at.nil?
   end
+
+  def process
+    order.items.each do |item|
+        handler = PaymentHandler.new(item)
+        handler.conclude(item, self)
+    end
+    this.pay
+  end 
 end
 
 class Invoice
@@ -92,11 +102,34 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_reader :fullname, :email, :member, :vouchers
+  def initialize(fullname:, email:){
+    @fullname = fullname
+    @email = email
+    @member = false
+    @voucher = []
+  }
+
+  def member?
+    @member
+  end
+
+  def giveVoucher(value:)
+    @vouchers << value
+  end
 end
 
 class Membership
-  # you can customize this class by yourself
+  attr_reader :name , :email
+  def initialize(name:,email:)
+    @name = name
+    @email = email
+  end
+
+  def activate(customer:)
+    customer.member = true
+    p "#{@name} agora é membro"
+  end
 end
 
 # Book Example (build new payments if you need to properly test it)
