@@ -1,3 +1,22 @@
+## Descrição da Solução
+O problema apresentado (descrição abaixo) é um ótimo exemplo para ilustrar a letra O do SOLID (Open Principle Pattern). A solução desenvolvida visa externalizar as tomadas de decisão em relação ao que fazer antes, e após cada pagamento, tendo por base o tipo do produto que está naquele pagamento.
+A fim de simplificar, presumi que cada pedido teria somente um tipo de produto, mas a solução apresentada, com algumas alterações na classe PaymentService, poderia facilmente atender a um caso onde há vários tipos de itens (digital, livro, físico) em um mesmo pedido.
+
+A implementação se deu toda através de testes e Mocks para as atividades externas (como a impressão da `shipping label` ou o envio de e-mails).
+
+Caso esta solução venha a ser utilizada em produção, é recomendado fazer a injeção de todas as classes, ao PaymentService, no startup da aplicação.
+Uma breve olhada no método setup, do arquivo payment_service_tests.rb já da uma visão clara de como utilizar essa solução.
+
+Adicionei também um arquivo Gemfile que contém uma unica gem, a unit-test, que é necessária para rodar os testes.
+
+## Passos para executar a solução
+1. Clone este repositório
+2. Navegue até a pasta onde o repositório foi clonado. Por exemplo:
+> $ cd ~/git/challenge
+3. Execute os testes:
+> $ ruby tests/payment_service_tests.rb
+4. Todos os testes deverão passar!
+
 ## Desafio para Backend Software Engineer
 
 Você está revisando as decisões de design de um software que processa Pedidos online. Por estes pedidos, são realizados pagamentos que recebem tratamentos a depender as situações específicas de cada um como segue:
