@@ -9,15 +9,22 @@
   </head>
 
   <body>
-    <h1>Chat</h1>
+    <header>
+      <h1>Chat</h1>
+    </header>
 
     <div class="messages">
-      <ul class="message-list"></ul>
+      <ul class="message-list" id="messageList">
+      </ul>
 
-      <div class="message-input">
-        <input type="text" />
-        <button type="button">Enviar</button>
-      </div>
+      <form id="messageForm" class="message-input">
+        <input type="text" id="messageText"/>
+        <button type="submit">Enviar</button>
+      </form>
     </div>
+    <script src="scripts.js"></script>
+    <script>
+      (() => {init();})();
+    </script>
   </body>
 </html>
