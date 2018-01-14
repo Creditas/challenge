@@ -9,6 +9,7 @@ import { ChatService } from '../chat.service';
 })
 export class ChatComponent implements OnInit {
   private conversationHistory: Message[]= [];
+  private clientMessage: string = '';
 
   constructor(private chatService: ChatService) { }
 
@@ -31,13 +32,14 @@ export class ChatComponent implements OnInit {
 
   addClientMessage(e) {
     e.preventDefault();
-    console.log(e)
 
     let msg = new Message(
-      'teste',
+      this.clientMessage,
       new Date(),
       'client'
     );
+
+    this.clientMessage = '';
 
     this.chatService.addMessage(msg);
   }
