@@ -1,5 +1,10 @@
+import { ChatController } from './ChatController';
+
 export class Chat {
-  test() {
-    console.log('chat');
+
+  init() {
+    document.addEventListener('DOMContentLoaded', () => {
+      new ChatController('#app').init();
+    })
   }
 }
