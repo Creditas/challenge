@@ -25,4 +25,9 @@ export class ChatService {
     this.conversationHistory.push(msg);
     this.onNewMessageIsAvaiable$.emit( this.conversationHistory );
   }
+
+  cleanAll() {
+    this.conversationHistory = [];
+    this.onNewMessageIsAvaiable$.emit( this.conversationHistory );
+  }
 }
