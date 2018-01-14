@@ -1,23 +1,22 @@
 export class Message {
- 
-    constructor(content, date, sender) {
-      this.content = content;
-      this.date = date;
-      this.sender = sender;
-    }
   
-    // help methods: getters
+  constructor(content, date, sender) {
+    this.content = content;
+    this.date = date;
+    this.sender = sender;
+  }
   
-    getContent() {
-      return this.content;
-    }
+  // help methods: getters
   
-    getDate() {
-      return this.date;
-    }
+  getContent() {
+    return this.content;
+  }
   
-    getSender() {
-      return this.sender;
-    }
+  getDate() {
+    return this.date;
+  }
+  
+  getSender() {
+    return this.sender;
   }
 }
