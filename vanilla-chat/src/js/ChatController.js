@@ -4,14 +4,17 @@ import { ChatView } from './ChatView';
 import { ChatModel } from './ChatModel';
 import { Message } from './Message';
 
+// Controls and bind the chat model and view
 export class ChatController {
 
   constructor(selectorplaceholder) {
 
+    // instanciates the model and view
     this.model = new ChatModel();
     this.view = new ChatView(selectorplaceholder);
   }
 
+  // calls all main functions to be run at the beginning
   init() {
     
     this.model.init();
@@ -20,6 +23,7 @@ export class ChatController {
     this.onNewChatMessage();
   }
 
+  // subscribes to new user messages from the view
   onNewClientMessage() {
     PubSub.subscribe('newClientMessage', (msg, clientMessage) => {
       
@@ -33,9 +37,10 @@ export class ChatController {
     })
   }
 
+  // subscribes to any possibile messages from client or server and update the view
   onNewChatMessage() {
+
     PubSub.subscribe('newChatMessage', (msg, messageListUpdated) => {
-      console.log(messageListUpdated)
       this.view.render(messageListUpdated);
     })
   }
