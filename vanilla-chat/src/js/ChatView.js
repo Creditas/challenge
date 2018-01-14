@@ -1,3 +1,6 @@
+import { PubSub } from 'pubsub-js';
+import { Message } from './Message';
+
 export class ChatView {
 
   constructor(selectorPlaceholder) {
@@ -8,6 +11,19 @@ export class ChatView {
   init() {
 
     this.render();
+    this.handlingUserEvents();
+  }
+
+  handlingUserEvents() {
+
+    this.dom.addEventListener('submit', (e) => {
+      
+      e.preventDefault();
+
+      let input = this.dom.querySelector('.message-input input');
+      PubSub.publish('newClientMessage', input.value);
+      input.value = '';
+    })
   }
 
   render(messageList) {
@@ -27,10 +43,10 @@ export class ChatView {
         }
       </ul>
 
-      <div class="message-input">
-        <input type="text" />
-        <button type="button">Enviar</button>
-      </div>
+      <form class="message-input">
+        <input type="text" required/>
+        <button type="submit">Enviar</button>
+      </form>
     </div>
     `
   }

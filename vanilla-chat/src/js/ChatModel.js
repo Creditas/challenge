@@ -1,3 +1,5 @@
+import { PubSub } from 'pubsub-js';
+
 export class ChatModel {
 
   constructor() {
@@ -6,7 +8,7 @@ export class ChatModel {
   }
 
   init() {
-  
+    
   }
 
   getAllMessages() {
@@ -21,7 +23,9 @@ export class ChatModel {
   addMessage(msg) {
 
     if( msg.content && msg.date && msg.sender ) {
-      this.historyMessageList.push(msg)
+
+      this.historyMessageList.push(msg);
+      PubSub.publish('newChatMessage', this.getAllMessages());
     }
     else {
       throw new Error('The argument needs to be a Message instance.');
