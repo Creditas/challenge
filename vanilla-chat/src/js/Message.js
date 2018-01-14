@@ -19,3 +19,5 @@ export class Message {
     getSender() {
       return this.sender;
     }
+  }
+}
