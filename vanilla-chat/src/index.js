@@ -1,4 +1,5 @@
 import { style } from "./css/style.css";
 import { Chat } from "./js/Chat";
 
-new Chat().test();
+let app = new Chat();
+app.init();
