@@ -1,0 +1,14 @@
+<h1>Chat</h1>
+
+<div class="messages">
+  <ul class="message-list">
+    <li *ngFor="let message of conversationHistory">
+      {{ message.getContent() }}
+    </li>
+  </ul>
+
+  <form (submit)="addClientMessage($event)" class="message-input">
+    <input type="text" [(ngModel)]="clientMessage" name="clientMessage"/>
+    <button type="submit" [disabled]="!clientMessage.length">Enviar</button>
+  </form>
+</div>
