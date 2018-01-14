@@ -2,11 +2,13 @@
 
 <div class="messages">
   <ul class="message-list">
-    <li></li>
+    <li *ngFor="let message of conversationHistory">
+      {{message.content}}
+    </li>
   </ul>
 
-  <form class="message-input">
+  <form (submit)="addClientMessage($event)" class="message-input">
     <input type="text" />
-    <button type="button">Enviar</button>
+    <button type="submit">Enviar</button>
   </form>
 </div>
