@@ -53,4 +53,4 @@ Para nos enviar seu código, você pode:
   Para cada tipo de produto, a classe OrderDispatch faz o chaveamento para o método correspondente, responsável pelas ações de shipping, notification, subscription e voucher.
   Foram criadas variáveis apenas para controle e execução dos testes.
 - Foi considerado que uma ordem possui apenas um produto.
-- Criado testes unitários para cada tipo de produto, assim como se a ordem foi paga e se existem produtos na ordem.
+- Criado testes unitários para cada tipo de produto, assim como se a ordem foi paga e se existem produtos na ordem. 
