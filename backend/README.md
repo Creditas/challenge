@@ -45,3 +45,12 @@ Para nos enviar seu código, você pode:
 
  - Fazer um fork desse repositório, e nos mandar uma pull-request.
  - Dar acesso ao seu repositório privado no [Gitlab](http://gitlab.com) para `aureliosaraiva`, `camilacampos`, `juliabirkett`, `RafaelFerraro`, `RenanZll` e `eduardodiniz`.
+
+
+## Solução
+
+- Basicamente foi criado uma classe (OrderDispatch) para controlar as ações após o pagamento realizado, dependendo do tipo de produto.
+  Para cada tipo de produto, a classe OrderDispatch faz o chaveamento para o método correspondente, responsável pelas ações de shipping, notification, subscription e voucher.
+  Foram criadas variáveis apenas para controle e execução dos testes.
+- Foi considerado que uma ordem possui apenas um produto.
+- Criado testes unitários para cada tipo de produto, assim como se a ordem foi paga e se existem produtos na ordem.
