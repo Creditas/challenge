@@ -21,15 +21,27 @@
     </div>
     <script type="text/javascript">
       class Chat {
-        constructor(selector, content, sender, receipient) {
+        constructor(selector, content = [], sender, receipient) {
           this.selector = selector;
           this.content = content;
           this.sender = sender;
           this.receipient = receipient;
         }
+
+        sendMessage(args) {
+          // Just experimenting some stuff.
+          let date = new Date();
+          this.content[date] = [];
+          this.content[date]['message'] = args;
+          return this.content;
+        }
+
+        receiveMessage(args) {
+          return args;
+        }
       }
 
-      let chat = new Chat();
+      let chat = new Chat('.messages');
     </script>
   </body>
 </html>
