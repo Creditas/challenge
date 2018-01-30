@@ -5,19 +5,24 @@
     <meta name="viewport" content="width=device-width">
 
     <title>Chat</title>
-    <link rel="stylesheet" href="./styles.css" type="text/css" media="all">
+    <link rel="stylesheet" href="./stylesheets/chat.css" type="text/css" media="all">
+    <script type="text/javascript" src="./js/chat.js"></script>
   </head>
 
   <body>
     <h1>Chat</h1>
-
+    
     <div class="messages">
-      <ul class="message-list"></ul>
+      <ul class="message-list background-design"></ul>
 
       <div class="message-input">
-        <input type="text" />
-        <button type="button">Enviar</button>
+        <input type="text" id="cred-input__text"/>
+        <button type="button" class="send-button" id="cred-btn__send">Enviar</button>
       </div>
     </div>
   </body>
+
+  <script>
+    creditas.chat.init();
+  </script>
 </html>
