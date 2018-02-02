@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <h1>Chat</h1>
+    <!-- <h1>Chat</h1>
 
     <div class="messages">
       <ul class="message-list"></ul>
@@ -18,22 +18,34 @@
         <input type="text" />
         <button type="button">Enviar</button>
       </div>
-    </div>
+    </div> -->
     <script type="text/javascript">
       class Chat {
-        constructor(selector, content = [], sender, receipient) {
+        constructor(selector, sender, receipient, content = []) {
           this.selector = selector;
           this.content = content;
           this.sender = sender;
           this.receipient = receipient;
+          this.length = 0;
+        }
+
+        getCurrentTime() {
+          const dateObject = new Date();
+          const currentTime = `${dateObject.getHours()}h${dateObject.getMinutes() < 10 ? '0' : ''}${dateObject.getMinutes()}`;
+
+          return currentTime;
         }
 
         sendMessage(args) {
           // Just experimenting some stuff.
-          let date = new Date();
-          this.content[date] = [];
-          this.content[date]['message'] = args;
-          return this.content;
+          this.content[this.length] = [];
+          this.content[this.length]['message'] = args;
+          this.content[this.length]['time'] = this.getCurrentTime();
+          this.length++;
+          
+          // map1.map(message => console.log(message))
+
+          return true;
         }
 
         receiveMessage(args) {
@@ -41,7 +53,7 @@
         }
       }
 
-      let chat = new Chat('.messages');
+      let chat = new Chat('.messages', 'Abril', 'Rafael Thomazetti');
     </script>
   </body>
 </html>
