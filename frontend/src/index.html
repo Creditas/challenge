@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <!-- <h1>Chat</h1>
+    <!-- <h1>Chat</h1> -->
 
     <div class="messages">
       <ul class="message-list"></ul>
@@ -18,8 +18,14 @@
         <input type="text" />
         <button type="button">Enviar</button>
       </div>
-    </div> -->
+    </div>
     <script type="text/javascript">
+      class ChatHelper {
+        hello() {
+          return "Hello world!"
+        }
+      }
+
       class Chat {
         constructor(selector, sender, receipient, content = []) {
           this.selector = selector;
@@ -36,24 +42,34 @@
           return currentTime;
         }
 
+        buildListMarkup() {
+          const map1 = this.content;
+          const messages = map1.map(message => `
+            <li>${message.message}</li>
+            `);
+
+          return messages;
+        }
+
+        render() {
+          const listMarkup = this.buildListMarkup();
+          document.querySelector(this.selector).innerHTML = listMarkup;
+        }
+
         sendMessage(args) {
           // Just experimenting some stuff.
           this.content[this.length] = [];
           this.content[this.length]['message'] = args;
           this.content[this.length]['time'] = this.getCurrentTime();
           this.length++;
-          
-          // map1.map(message => console.log(message))
+          // console.log(helper.hello());
 
-          return true;
-        }
-
-        receiveMessage(args) {
-          return args;
+          this.render();
         }
       }
 
-      let chat = new Chat('.messages', 'Abril', 'Rafael Thomazetti');
+      // let helper = new ChatHelper();
+      let chat = new Chat('.message-list', 'Abril', 'Rafael Thomazetti');
     </script>
   </body>
 </html>
