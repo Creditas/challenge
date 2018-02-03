@@ -18,11 +18,24 @@
       class Chat {
         constructor(selector) {
           this.selector = selector;
-          this.chat_count = 1;
+          this.chat_count = 0;
+          this.content = Array();
+          this.message_id = 0;
+        }
+
+        getCurrentTime() {
+          const date = new Date();
+          const time = `${date.getHours()}h${date.getMinutes() < 10 ? '0' : ''}${date.getMinutes()}`;
+
+          return time;
         }
 
         create() {
           let id = this.chat_count++;
+
+          this.content[id] = [];
+          this.content[id]['messages'] = [];
+
           let markup = `
             <div class="chat-wrapper" data-chat-wrapper-id="${id}">
               <ul class="message-list" data-chat-message-list-id="${id}"></ul>
@@ -35,8 +48,13 @@
           document.querySelector(this.selector).innerHTML += markup
         }
 
-        send() {
+        send(id) {
+          const message = document.querySelector(`input[data-chat-input-id="${id}"]`).value;          
+          this.message_id++;
 
+          this.content[`${id}`]['messages'][`${this.message_id}`] = [];
+          this.content[`${id}`]['messages'][`${this.message_id}`]['text'] = message;
+          this.content[`${id}`]['messages'][`${this.message_id}`]['time'] = this.getCurrentTime();
         }
 
       }
