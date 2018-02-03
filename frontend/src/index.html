@@ -10,29 +10,35 @@
 
   <body>
     <!-- <h1>Chat</h1> -->
+    <button type="button" onclick="chat.create()">New chat</button>
 
-    <div class="messages">
-      <ul class="message-list"></ul>
+    <div class="messages"></div>
 
-      <div class="message-input">
-        <input type="text" />
-        <button type="button">Enviar</button>
-      </div>
-    </div>
     <script type="text/javascript">
       class Chat {
-        constructor() {
-
+        constructor(selector) {
+          this.selector = selector;
+          this.chat_count = 0;
         }
 
-        hello() {
-          alert("Hello world!");
+        create() {
+          let id = this.chat_count++;
+          let markup = `
+            <div class="chat-wrapper" data-chat-id="${id}">
+              <ul class="message-list"></ul>
+              <div class="message-input">
+                <input type="text" />
+                <button type="button">Enviar</button>
+              </div>
+            </div>`;
+
+          document.querySelector(this.selector).innerHTML += markup
         }
+
       }
 
-      let chat = new Chat();
+      let chat = new Chat('.messages');
 
-      chat.hello();
     </script>
   </body>
 </html>
