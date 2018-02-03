@@ -18,21 +18,25 @@
       class Chat {
         constructor(selector) {
           this.selector = selector;
-          this.chat_count = 0;
+          this.chat_count = 1;
         }
 
         create() {
           let id = this.chat_count++;
           let markup = `
-            <div class="chat-wrapper" data-chat-id="${id}">
-              <ul class="message-list"></ul>
+            <div class="chat-wrapper" data-chat-wrapper-id="${id}">
+              <ul class="message-list" data-chat-message-list-id="${id}"></ul>
               <div class="message-input">
-                <input type="text" />
-                <button type="button">Enviar</button>
+                <input type="text" data-chat-input-id="${id}" />
+                <button type="button" onclick="chat.send(${id})">Enviar</button>
               </div>
             </div>`;
 
           document.querySelector(this.selector).innerHTML += markup
+        }
+
+        send() {
+
         }
 
       }
