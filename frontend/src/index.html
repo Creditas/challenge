@@ -20,56 +20,7 @@
       </div>
     </div>
     <script type="text/javascript">
-      class ChatHelper {
-        hello() {
-          return "Hello world!"
-        }
-      }
-
-      class Chat {
-        constructor(selector, sender, receipient, content = []) {
-          this.selector = selector;
-          this.content = content;
-          this.sender = sender;
-          this.receipient = receipient;
-          this.length = 0;
-        }
-
-        getCurrentTime() {
-          const dateObject = new Date();
-          const currentTime = `${dateObject.getHours()}h${dateObject.getMinutes() < 10 ? '0' : ''}${dateObject.getMinutes()}`;
-
-          return currentTime;
-        }
-
-        buildListMarkup() {
-          const map1 = this.content;
-          const messages = map1.map(message => `
-            <li>${message.message}</li>
-            `);
-
-          return messages;
-        }
-
-        render() {
-          const listMarkup = this.buildListMarkup();
-          document.querySelector(this.selector).innerHTML = listMarkup;
-        }
-
-        sendMessage(args) {
-          // Just experimenting some stuff.
-          this.content[this.length] = [];
-          this.content[this.length]['message'] = args;
-          this.content[this.length]['time'] = this.getCurrentTime();
-          this.length++;
-          // console.log(helper.hello());
-
-          this.render();
-        }
-      }
-
-      // let helper = new ChatHelper();
-      let chat = new Chat('.message-list', 'Abril', 'Rafael Thomazetti');
+      
     </script>
   </body>
 </html>
