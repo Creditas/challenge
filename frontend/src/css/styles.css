@@ -1,0 +1,61 @@
+body {
+  background: #fdfdfd; }
+
+.messages {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
+  .messages .chat-wrapper {
+    background: white;
+    width: 30vw;
+    display: inline-block;
+    margin-bottom: 20px;
+    border: 2px solid #38eaa7;
+    border-radius: 5px; }
+  .messages .message-list {
+    min-height: 10em;
+    padding: 10px; }
+    .messages .message-list .wrap-message {
+      margin-bottom: 5px;
+      text-align: right;
+      display: block; }
+      .messages .message-list .wrap-message .element-message {
+        display: inline-block;
+        max-width: 200px;
+        padding: 8px 15px;
+        border-radius: 15px;
+        border: 1px solid #38eaa7;
+        border-radius: 15px;
+        background: white; }
+  .messages .message-input {
+    height: 40px;
+    line-height: 40px;
+    display: flex;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #38eaa7; }
+    .messages .message-input input {
+      height: 30px;
+      border: 0;
+      /*padding: 0 10px;*/
+      font-size: 18px;
+      letter-spacing: -1px;
+      margin-top: 5px;
+      flex-grow: 4;
+      background: transparent;
+      outline: 0;
+      font-weight: bolder; }
+      .messages .message-input input::-webkit-input-placeholder {
+        color: black; }
+    .messages .message-input button {
+      border: 0;
+      font-weight: bolder;
+      font-size: 18px;
+      background: transparent url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNTM1LjVweCIgaGVpZ2h0PSI1MzUuNXB4IiB2aWV3Qm94PSIwIDAgNTM1LjUgNTM1LjUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUzNS41IDUzNS41OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+PGcgaWQ9InNlbmQiPjxwb2x5Z29uIHBvaW50cz0iMCw0OTcuMjUgNTM1LjUsMjY3Ljc1IDAsMzguMjUgMCwyMTYuNzUgMzgyLjUsMjY3Ljc1IDAsMzE4Ljc1ICIvPjwvZz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PC9zdmc+) no-repeat 13px 9px;
+      line-height: 40px;
+      outline: 0;
+      cursor: pointer;
+      background-size: 24px;
+      flex-grow: 1; }
