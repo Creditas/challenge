@@ -62,6 +62,10 @@
           document.querySelector(`ul[data-chat-message-list-id="${id}"]`).innerHTML = markup;
         }
 
+        clear(id) {
+          document.querySelector(`input[data-chat-input-id="${id}"]`).value = ''
+        }
+
         getMessage(id) {
           return document.querySelector(`input[data-chat-input-id="${id}"]`).value;
         }
@@ -84,6 +88,7 @@
         send(id) {
           this.storeMessage(id);
           this.render(id);
+          this.clear(id);
         }
 
       }
