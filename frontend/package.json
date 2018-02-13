@@ -22,8 +22,12 @@
   },
   "homepage": "https://github.com/thztti/challenge#readme",
   "devDependencies": {
+    "babel-preset-env": "^1.6.1",
     "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-concat": "^2.6.1",
     "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.4",
     "jest": "^22.1.4"
   }
 }
