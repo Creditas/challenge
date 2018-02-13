@@ -1,32 +1,24 @@
-## Teste frontend - Creditas
+## Teste Frontend – Creditas
+Foi proposta a criação de uma aplicação de chat com uma função muito simples: o usuário deve poder entrar uma mensagem na caixa de texto e, ao apertar o botão "Enviar" (ou pressionar Enter), a mensagem deverá aparecer na lista de mensagens.
 
-Esse é um teste focado em design de código, e conhecimento de orientação a 
-objeto. O objetivo é avaliar sua experiênica em escrever código de fácil 
-manutenção, baixo acoplamento, e alta coesão.
+## Preparando o projeto para produção
 
-### Apresentação do problema
+### Dependências
+Assumindo que você tem o NPM instalado: 
 
-O arquivo `index.html` contém o esqueleto de uma aplicação de chat totalmente 
-*bare-bones*: uma `<ul>` com uma lista de mensagens enviadas, e um `<button>` + `<input>` 
-para envio de novas mensagens.
+	$ npm install
 
-A feature inicial de nossa aplicação é bastante simples: o usuário deve poder 
-entrar uma mensagem na caixa de texto e, ao apertar o botão "Enviar" (ou 
-pressionar <kbd>Enter</kbd>), a mensagem deverá aparecer na lista de mensagens.
+### CSS
+Os estilos desse projeto estão escritos em SASS. Para compilá-los em `dist/styles.css`, rode:
 
-Isoladamente essa é uma feature simples de implementar, mas queremos que você 
-leve em conta a evolução futura do software. Imagine que o app irá crescer em 
-features, e adicionar coisas como:
-* envio de mensagens via ajax, com as respostas vindo via `long-polling`
-* chat em realtime via WebRTC
-* ter vários chats visíveis ao mesmo tempo, adicionadas dinamicamente com base nas ações do usuário
+	$ gulp styles
+  
+### JS
+Estamos usando Babel (env). Para gerar o arquivo `dist/all.js`:
 
-Você deve pensar num design de código que suporte esses casos de uso sem 
-grandes modificações.
+	$ gulp scripts
+  
+## Como testar o código
+Escolhi o Jest como framework de testes. Para executá-los:
 
-### Avaliação
-
-Para nos enviar seu código, você pode:
-* Fazer um fork desse repositório e nos mandar uma pull-request
-* Dar acesso ao seu repositório privado no [Github](http://github.com) ou [Gitlab](http://gitlab.com) para `renato-zannon` e `matheuspoleza`.
-* Enviar um `git bundle` do seu repositório para o e-mail challenge@creditas.com.br
+	$ npm test
