@@ -38,10 +38,10 @@ class Chat {
 		let markup = ''
 
 		for (var key in messages) {
-				if (messages.hasOwnProperty(key)) {
-						console.log(key + " -> " + messages[key].text);
-						markup += `<li class="wrap-message"><span class="element-message">${messages[key].text}</span></li>`;
-				}
+			if (messages.hasOwnProperty(key)) {
+				console.log(key + " -> " + messages[key].text);
+				markup += `<li class="wrap-message"><span class="element-message">${messages[key].text}</span></li>`;
+			}
 		}
 
 		document.querySelector(`ul[data-chat-message-list-id="${id}"]`).innerHTML = markup;
