@@ -37,6 +37,10 @@ class Chat {
 		return this.content[`${id}`]['messages'];
 	}
 
+	render(target, content) {
+		document.querySelector(target).innerHTML = content;
+	}
+
 	buildChatBubbles(id) {
 		const messages = this.getMessages(id);
 		let markup = ''
@@ -47,7 +51,7 @@ class Chat {
 			}
 		}
 
-		document.querySelector(`ul[data-chat-message-list-id="${id}"]`).innerHTML = markup;
+		this.render(`ul[data-chat-message-list-id="${id}"]`, markup);
 	}
 
 	clear(id) {
