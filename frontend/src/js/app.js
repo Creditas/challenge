@@ -39,7 +39,6 @@ class Chat {
 
 		for (var key in messages) {
 			if (messages.hasOwnProperty(key)) {
-				console.log(key + " -> " + messages[key].text);
 				markup += `<li class="wrap-message"><span class="element-message">${messages[key].text}</span></li>`;
 			}
 		}
