@@ -53,7 +53,7 @@ class Chat {
 			}
 		}
 
-		this.render(`ul[data-chat-message-list-id="${id}"]`, markup, false);
+		this.render(`ul[data-chat-message-list-id="${id}"]`, markup, false)
 	}
 
 	clear(id) {
@@ -61,11 +61,12 @@ class Chat {
 	}
 
 	getMessage(id) {
-		return document.querySelector(`input[data-chat-input-id="${id}"]`).value;
+		return document.querySelector(`input[data-chat-input-id="${id}"]`).value
 	}
 
 	increaseMessageCount() {
 		this.message_id++;
+		return this.message_id
 	}
 
 	storeMessage(id) {
@@ -83,6 +84,8 @@ class Chat {
 		this.storeMessage(id);
 		this.buildChatBubbles(id);
 		this.clear(id);
+
+		return true;
 	}
 }
 

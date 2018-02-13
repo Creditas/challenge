@@ -23,6 +23,25 @@ describe('Creates a new chat instance', function() {
   });
 
   it('Chat object was properly set', function() {
-    expect(CreditasChat.content['0'].messages).toBeDefined();  
+    expect(CreditasChat.content['0'].messages).toBeDefined();
+  });
+});	
+
+describe('Send a message', function() {
+
+  it('send() – Full send message flow', function() {
+    expect(CreditasChat.send(0)).toBeTruthy();
+  });
+
+  it('storeMessage() – Message was stored', function() {
+    expect(CreditasChat.content['0'].messages['1']).toBeDefined();
+  });
+
+  it('buildChatBubbles() – Chat bubbles were created', function() {
+    expect(document.querySelector('[data-chat-message-list-id="0"] .element-message')).toBeTruthy()
+  });
+
+  it('clear() – Input value was cleared', function() {
+    expect(document.querySelector('[data-chat-input-id="0"]').value).toBe('')
   });
 });	
