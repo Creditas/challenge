@@ -33,8 +33,12 @@ class Chat {
 		document.querySelector(this.selector).innerHTML += markup
 	}
 
+	getMessages(id) {
+		return this.content[`${id}`]['messages'];
+	}
+
 	render(id) {
-		const messages = this.content[`${id}`]['messages'];
+		const messages = this.getMessages(id);
 		let markup = ''
 
 		for (var key in messages) {
