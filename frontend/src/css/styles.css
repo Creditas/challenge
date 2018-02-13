@@ -29,14 +29,14 @@ body {
         border: 1px solid #38eaa7;
         border-radius: 15px;
         background: white; }
-  .messages .message-input {
+  .messages .message-input-container {
     height: 40px;
     line-height: 40px;
     display: flex;
     margin-top: 10px;
     padding: 10px 15px;
     background: #38eaa7; }
-    .messages .message-input input {
+    .messages .message-input-container .message-input {
       height: 30px;
       border: 0;
       /*padding: 0 10px;*/
@@ -47,9 +47,9 @@ body {
       background: transparent;
       outline: 0;
       font-weight: bolder; }
-      .messages .message-input input::-webkit-input-placeholder {
+      .messages .message-input-container .message-input::-webkit-input-placeholder {
         color: black; }
-    .messages .message-input button {
+    .messages .message-input-container .send-button {
       border: 0;
       font-weight: bolder;
       font-size: 18px;

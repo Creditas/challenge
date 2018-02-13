@@ -24,9 +24,9 @@ class Chat {
 		let markup = `
 			<form class="chat-wrapper" data-chat-wrapper-id="${id}" action="javascript:chat.send(${id})">
 				<ul class="message-list" data-chat-message-list-id="${id}"></ul>
-				<div class="message-input">
-					<input type="text" placeholder="Digite sua mensagem..." data-chat-input-id="${id}" />
-					<button type="submit"></button>
+				<div class="message-input-container">
+					<input type="text" class="message-input" placeholder="Digite sua mensagem..." data-chat-input-id="${id}" />
+					<button class="send-button" type="submit"></button>
 				</div>
 			</form>`;
 
