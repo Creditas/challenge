@@ -37,7 +37,7 @@ class Chat {
 		return this.content[`${id}`]['messages'];
 	}
 
-	render(id) {
+	buildChatBubbles(id) {
 		const messages = this.getMessages(id);
 		let markup = ''
 
@@ -75,7 +75,7 @@ class Chat {
 
 	send(id) {
 		this.storeMessage(id);
-		this.render(id);
+		this.buildChatBubbles(id);
 		this.clear(id);
 	}
 }
