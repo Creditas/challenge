@@ -52,4 +52,10 @@ describe('Utils', function() {
     
     expect(CreditasChat.getMessage(0)).toBe('jest-test');
   })
+
+  it('Renders HTML to desired target', function(){
+    CreditasChat.render('body', '<span class="jest-test-render"></span>');
+    expect(document.querySelector('span.jest-test-render')).toBeDefined;
+  })
+
 });	
