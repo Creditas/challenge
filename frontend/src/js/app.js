@@ -30,7 +30,7 @@ class Chat {
 				</div>
 			</form>`;
 
-		document.querySelector(this.selector).innerHTML += markup
+		this.render(this.selector, markup);
 	}
 
 	getMessages(id) {
@@ -53,7 +53,7 @@ class Chat {
 			}
 		}
 
-		this.render(`ul[data-chat-message-list-id="${id}"]`, markup);
+		this.render(`ul[data-chat-message-list-id="${id}"]`, markup, false);
 	}
 
 	clear(id) {
