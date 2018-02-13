@@ -42,7 +42,14 @@ describe('Utils', function() {
     
     expect(CreditasChat.getCurrentTime()).toEqual(time);
   });
+
   it('Returns all messages from the specified test', function(){
     expect(CreditasChat.getMessages(0)).toBeDefined;
+  })
+
+  it('Returns current typed message in the input', function(){
+    document.querySelector('[data-chat-input-id="0"]').value = 'jest-test';
+    
+    expect(CreditasChat.getMessage(0)).toBe('jest-test');
   })
 });	
