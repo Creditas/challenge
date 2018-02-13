@@ -18,19 +18,19 @@ describe('Creates a new chat instance', function() {
 });	
 
 describe('Send a message', function() {
-  it('send() – Full send message flow', function() {
+  it('Full send message flow', function() {
     expect(CreditasChat.send(0)).toBeTruthy();
   });
 
-  it('storeMessage() – Message was stored', function() {
+  it('Message was stored', function() {
     expect(CreditasChat.content['0'].messages['1']).toBeDefined();
   });
 
-  it('buildChatBubbles() – Chat bubbles were created', function() {
+  it('Chat bubbles were created', function() {
     expect(document.querySelector('[data-chat-message-list-id="0"] .element-message')).toBeTruthy()
   });
 
-  it('clear() – Input value was cleared', function() {
+  it('Input value was cleared', function() {
     expect(document.querySelector('[data-chat-input-id="0"]').value).toBe('')
   });
 });	
