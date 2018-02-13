@@ -37,8 +37,10 @@ class Chat {
 		return this.content[`${id}`]['messages'];
 	}
 
-	render(target, content) {
-		document.querySelector(target).innerHTML = content;
+	render(target, content, increment = true) {
+		increment
+		? document.querySelector(target).innerHTML += content
+		: document.querySelector(target).innerHTML = content;
 	}
 
 	buildChatBubbles(id) {
