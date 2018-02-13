@@ -19,7 +19,7 @@ describe('Creates a new chat instance', function() {
     document.body.innerHTML = '<div class="messages"></div>';
     CreditasChat.create();
 
-    expect(document.querySelector('[data-chat-wrapper-id="0"]')).toBeDefined()
+    expect(document.querySelector('[data-chat-wrapper-id="0"]')).toBeTruthy()
   });
 
   it('Chat object was properly set', function() {
