@@ -4,16 +4,6 @@ var Chat = require('./app.js');
 
 var CreditasChat = new Chat('.messages');
 
-
-describe('Utils', function() {
-  it('Gets current time', function() {
-    const date = new Date();
-    const time = `${date.getHours()}h${date.getMinutes() < 10 ? '0' : ''}${date.getMinutes()}`;
-    
-    expect(CreditasChat.getCurrentTime()).toEqual(time);
-  });
-});	
-
 describe('Creates a new chat instance', function() {
   it('Created a new chat window on the frontend', function() {
     document.body.innerHTML = '<div class="messages"></div>';
@@ -28,7 +18,6 @@ describe('Creates a new chat instance', function() {
 });	
 
 describe('Send a message', function() {
-
   it('send() – Full send message flow', function() {
     expect(CreditasChat.send(0)).toBeTruthy();
   });
@@ -43,5 +32,14 @@ describe('Send a message', function() {
 
   it('clear() – Input value was cleared', function() {
     expect(document.querySelector('[data-chat-input-id="0"]').value).toBe('')
+  });
+});	
+
+describe('Utils', function() {
+  it('Returns current time', function() {
+    const date = new Date();
+    const time = `${date.getHours()}h${date.getMinutes() < 10 ? '0' : ''}${date.getMinutes()}`;
+    
+    expect(CreditasChat.getCurrentTime()).toEqual(time);
   });
 });	
