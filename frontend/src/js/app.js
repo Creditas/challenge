@@ -43,6 +43,11 @@ class Chat {
 		: document.querySelector(target).innerHTML = content;
 	}
 
+	scrollToBottom(id) {
+		const el = document.querySelector(`ul[data-chat-message-list-id="${id}"]`);
+		el.scrollTop = el.scrollHeight;
+	}
+
 	buildChatBubbles(id) {
 		const messages = this.getMessages(id);
 		let markup = ''
@@ -54,6 +59,7 @@ class Chat {
 		}
 
 		this.render(`ul[data-chat-message-list-id="${id}"]`, markup, false)
+		this.scrollToBottom(id);
 	}
 
 	clear(id) {

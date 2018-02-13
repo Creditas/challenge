@@ -62,4 +62,10 @@ describe('Utils', function() {
     const current_count = CreditasChat.message_id;
     expect(CreditasChat.increaseMessageCount()).toBe(current_count + 1);
   })
+
+  it('Scrolls chat window to bottom', function(){
+    CreditasChat.scrollToBottom(0);
+    const el = document.querySelector(`ul[data-chat-message-list-id="0"]`);
+    expect(el.scrollTop).toBe(el.scrollHeight);
+  })
 });	
