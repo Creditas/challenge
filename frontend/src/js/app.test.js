@@ -58,4 +58,8 @@ describe('Utils', function() {
     expect(document.querySelector('span.jest-test-render')).toBeDefined;
   })
 
+  it('Increases message count', function(){
+    const current_count = CreditasChat.message_id;
+    expect(CreditasChat.increaseMessageCount()).toBe(current_count + 1);
+  })
 });	
