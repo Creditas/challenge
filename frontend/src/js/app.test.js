@@ -42,4 +42,7 @@ describe('Utils', function() {
     
     expect(CreditasChat.getCurrentTime()).toEqual(time);
   });
+  it('Returns all messages from the specified test', function(){
+    expect(CreditasChat.getMessages(0)).toBeDefined;
+  })
 });	
