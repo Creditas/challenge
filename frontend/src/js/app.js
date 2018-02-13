@@ -1,3 +1,5 @@
+'use strict';
+
 class Chat {
 	constructor(selector) {
 		this.selector = selector;
@@ -76,3 +78,4 @@ class Chat {
 }
 
 let chat = new Chat('.messages');
+module.exports = Chat
