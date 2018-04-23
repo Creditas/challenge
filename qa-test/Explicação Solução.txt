@@ -1,0 +1,38 @@
+Explicação da Solução
+
+
+1- Especificação:
+
+Escrevi cenários cobrindo as 3 possibilidades que achei possiveis para o login.
+-Sucesso
+-Email/Login não cadastrado
+-Senha Incorreta
+
+utilizei esquema de cenários pois ficaria fácil de testar algumas possibilidades para cada cenário.
+estão no arquivo login.feature
+
+2- CheckBox: Foi bem tranquilo implementar, adicionei metodo de adição de remoção do checkBox, mas utilizam o mesmo Id do botão
+como o site ao carregar já vem com o CheckBox ativo, para validar a adição do checkbox precisei fazer a remoção antes
+e adicionei também um sleep para aguardar a ação.
+
+3- Nova Aba: Bem fácil implementar também, utilizei o código abaixo para que após abrir a nova aba o capybara 
+validasse o conteúdo dessa nova aba.
+
+Entao("deve abrir uma nova aba com mensagem") do
+  within_window(windows.last) do
+    page.should have_content("New Window")
+  end
+end
+
+eu poderia utilizar o (.load) e utilizar o endereço da nova aba "https://the-internet.herokuapp.com/windows/new"
+e validar por lá ... mas não estaria validando se a ação de clicar no link está funcionando, 
+por isso utilizei o código acima.
+
+
+4- Bem tranquilo implementar o Httparty com cucumber, e utilizei a gem 'Faker' para criar textos no Title e Body diferentes
+a cada Post.
+
+5- Usei a gem Rubocop para realizar o Lint no projeto, corrigir apenas as ofensas que achei necessário,
+ficaram apenas 10 no projeto.
+
+
