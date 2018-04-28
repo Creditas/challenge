@@ -4,6 +4,6 @@ class Notifications::TemplateBuilder::Template
   end
 
   def build
-    "book "
+    fail NotImplementedError
   end
 end
