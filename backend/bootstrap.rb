@@ -1,10 +1,16 @@
+require File.join(File.dirname(__FILE__), "/helpers/load")
+require File.join(File.dirname(__FILE__), "/notifications/load")
+require File.join(File.dirname(__FILE__), "/process_payments/load")
+
+
 class Payment
-  attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at
+  attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at, :membership
 
   def initialize(attributes = {})
     @authorization_number, @amount = attributes.values_at(:authorization_number, :amount)
     @invoice, @order = attributes.values_at(:invoice, :order)
     @payment_method = attributes.values_at(:payment_method)
+    @membership = attributes.values_at(:membership)
   end
 
   def pay(paid_at = Time.now)
@@ -27,6 +33,15 @@ class Invoice
     @billing_address = attributes.values_at(:billing_address)
     @shipping_address = attributes.values_at(:shipping_address)
     @order = attributes.values_at(:order)
+  end
+
+  def shipping_label
+    result = ''
+    @shipping_address.each do |address|
+      result += address.normalize
+    end
+
+    result
   end
 end
 
@@ -83,6 +98,10 @@ class Address
   def initialize(zipcode:)
     @zipcode = zipcode
   end
+
+  def normalize
+    "zipcode: #{zipcode}"
+  end
 end
 
 class CreditCard
@@ -92,22 +111,68 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_reader :name, :email, :membership, :membership_at, :vouchers
+
+  def initialize(name, email, zipcode)
+    @name, @email, @zipcode = name, email, zipcode
+    @vouchers = []
+  end
+
+  def to_member(membership)
+    @membership = membership
+    @membership_at = Time.now
+  end
+
+  def add_voucher(voucher)
+    @vouchers << voucher
+  end
 end
 
 class Membership
-  # you can customize this class by yourself
+  attr_reader :type, :privileges
+
+  def initialize(type)
+    @type = type
+    case type
+      when :admin
+        @privileges = ['read', 'write', 'remove']
+      when :basic
+        @privileges = ['read']
+      else
+        fail ArgumentError, 'membership type not supported'
+    end
+  end
 end
 
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
+foolano = Customer.new('Adrian', 'adrian@test.com', '000000')
 book = Product.new(name: 'Awesome book', type: :book)
 book_order = Order.new(foolano)
 book_order.add_product(book)
 
 payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+process_payment = ProcessPayments::Factory.create(payment_book)
+process_payment.execute
 
+
+# Digital Example
+foolano = Customer.new('Megan', 'megan@test.com', '111111')
+product = Product.new(name: 'Music', type: :digital)
+order = Order.new(foolano)
+order.add_product(product)
+
+payment = Payment.new(order: order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+process_payment = ProcessPayments::Factory.create(payment)
+process_payment.execute
+
+# Membership Example
+foolano = Customer.new('Stefany', 'stefany@test.com', '22222')
+product = Product.new(name: 'Membership', type: :membership)
+membership = Membership.new(:admin)
+order = Order.new(foolano)
+order.add_product(product)
+
+payment = Payment.new(order: order, membership: membership, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+process_payment = ProcessPayments::Factory.create(payment)
+process_payment.execute
 # now, how to deal with shipping rules then?
