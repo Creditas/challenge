@@ -1,10 +1,10 @@
 require_relative "customer"
-require_relative "product"
 require_relative "order"
 require_relative "payment"
 require_relative "credit_card"
 require_relative "shipping"
 require_relative "membership"
+require_relative "book"
 
 foolano = Customer.new(name: "Gabriel", email: "gabrieljustware@gmail.com")
 book = Book.new(name: 'Awesome book', value: 10)

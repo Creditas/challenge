@@ -6,7 +6,7 @@ class Membership
   end
 
   def ship(order)
-    item.activate_customer_membership
+    activate_customer_membership
     send_order_item_description_email_to_customer(order)
   end
 

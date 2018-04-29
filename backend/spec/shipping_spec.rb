@@ -8,52 +8,38 @@ describe Shipping do
   end
 
   it "ships a physical item" do
-    shipping = Shipping.new
-    physical = Product.new(name: 'Awesome physical item', type: :physical)
-    @payment.order.add_item(physical)
+    physical_item = PhysicalItem.new(name: 'Awesome physical item', value: 10)
+    @payment.order.add_item(physical_item)
+    shipping = Shipping.new(@payment)
 
-    expect(shipping).to receive(:print_shipping_label).with(:physical, @payment.order.address.zipcode)
-    shipping.ship(@payment)
+    expect(physical_item).to receive(:ship).with(@payment.order)
+    shipping.ship
   end
 
   it "ships a membership item" do
-    shipping = Shipping.new
     membership = Membership.new(name: "Assinatura do serviço creditas", customer: @payment.order.customer, value: 10)
     @payment.order.add_item(membership)
+    shipping = Shipping.new(@payment)
 
-    expect(@payment.order.items.first.item).to receive(:activate_customer_membership)
-    expect(shipping).to receive(:send_order_item_description_email_to_customer).with(@payment.order)
-    shipping.ship(@payment)
+    expect(membership).to receive(:ship).with(@payment.order)
+    shipping.ship
   end
 
   it "ships a book item" do
-    shipping = Shipping.new
     book = Book.new(name: 'Awesome book', value: 10)
     @payment.order.add_item(book)
+    shipping = Shipping.new(@payment)
 
-    expect(shipping).to receive(:print_shipping_label).with(:book, @payment.order.address.zipcode)
-    shipping.ship(@payment)
+    expect(book).to receive(:ship).with(@payment.order)
+    shipping.ship
   end
 
   it "ships a digital item" do
-    shipping = Shipping.new
-    digital = Product.new(name: 'Awesome digital item', type: :digital)
-    @payment.order.add_item(digital)
+    digital_item = DigitalItem.new(name: 'Awesome digital item', value: 10)
+    @payment.order.add_item(digital_item)
+    shipping = Shipping.new(@payment)
 
-    expect(shipping).to receive(:send_order_item_description_email_to_customer).with(@payment.order)
-    expect(@payment).to receive(:grant_discount_voucher)
-    shipping.ship(@payment)
-  end
-
-  it "prints shipping label for physical item" do
-    shipping = Shipping.new
-    shipping_label = shipping.print_shipping_label(:physical, "12345678")
-    expect(shipping_label).to eq("12345678")
-  end
-
-  it "prints shipping label for book item" do
-    shipping = Shipping.new
-    shipping_label = shipping.print_shipping_label(:book, "12345678")
-    expect(shipping_label).to eq("12345678 Item isento de impostos conforme disposto na Constituição Art. 150, VI, d.")
+    expect(digital_item).to receive(:ship).with(@payment.order)
+    shipping.ship
   end
 end
