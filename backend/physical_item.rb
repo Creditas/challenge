@@ -13,6 +13,6 @@ class PhysicalItem
   private
 
   def print_shipping_label(shipping_zipcode)
-    shipping_zipcode + "label"
+    shipping_zipcode + " label"
   end
 end
