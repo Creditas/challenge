@@ -18,7 +18,7 @@ describe Shipping do
 
   it "ships a membership item" do
     shipping = Shipping.new
-    membership = Membership.new(customer: @payment.order.customer, type: :membership)
+    membership = Membership.new(name: "Assinatura do serviço creditas", customer: @payment.order.customer, value: 10)
     @payment.order.add_item(membership)
 
     expect(@payment.order.items.first.item).to receive(:activate_customer_membership)
@@ -28,7 +28,7 @@ describe Shipping do
 
   it "ships a book item" do
     shipping = Shipping.new
-    book = Product.new(name: 'Awesome book', type: :book)
+    book = Book.new(name: 'Awesome book', value: 10)
     @payment.order.add_item(book)
 
     expect(shipping).to receive(:print_shipping_label).with(:book, @payment.order.address.zipcode)
