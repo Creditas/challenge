@@ -7,7 +7,7 @@ require_relative "shipping"
 require_relative "membership"
 
 foolano = Customer.new(name: "Gabriel", email: "gabrieljustware@gmail.com")
-book = Product.new(name: 'Awesome book', type: :book)
+book = Book.new(name: 'Awesome book', value: 10)
 book_order = Order.new(foolano)
 book_order.add_item(book)
 
@@ -15,7 +15,7 @@ payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_b
 payment_book.pay
 
 p payment_book.paid?
-p payment_book.order.items.first.item.type
+p payment_book.order.items.first.item.name
 
 shipping = Shipping.new
 shipping.ship(payment_book)

@@ -16,7 +16,7 @@ class Order
   end
 
   def total_amount
-    @items.map(&:total).inject(:+)
+    @items.map{ |order_item| order_item.item.value }.inject(:+)
   end
 
   def close(closed_at = Time.now)
