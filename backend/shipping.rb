@@ -20,8 +20,6 @@ class Shipping
   end
 
   def print_shipping_label(product_type, shipping_address)
-    product_type == :physical ? shipping_address : shipping_address + " Item isento de
-                                                                       impostos conforme disposto na
-                                                                       Constituição Art. 150, VI, d."
+    product_type == :physical ? shipping_address : shipping_address + " Item isento de impostos conforme disposto na Constituição Art. 150, VI, d."
   end
 end

@@ -2,7 +2,7 @@ class Membership
   attr_reader :customer, :type
 
   def initialize(customer:, type:)
-    @customer, @type = name, type
+    @customer, @type = customer, type
   end
 
   def activate_customer_membership

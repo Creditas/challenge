@@ -13,10 +13,8 @@ book_order.add_product(book)
 payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 payment_book.pay
 
-shipping = Shipping.new
-shipping.ship(payment_book)
-
 p payment_book.paid?
 p payment_book.order.items.first.product.type
 
-# now, how to deal with shipping rules then?
+shipping = Shipping.new
+shipping.ship(payment_book)
