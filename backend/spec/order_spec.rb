@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Order do
   before :each do
-    foolano = Customer.new
+    foolano = Customer.new(name: "Gabriel", email: "gabrieljustware@gmail.com")
     @order = Order.new(foolano)
   end
 
