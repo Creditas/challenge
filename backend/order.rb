@@ -22,4 +22,8 @@ class Order
   def close(closed_at = Time.now)
     @closed_at = closed_at
   end
+
+  def grant_discount_voucher
+    p "Concedido um voucher de desconto para #{@customer.name}, de R$ 10 associado ao pagamento."
+  end
 end

@@ -1,4 +1,4 @@
-class Book
+class PhysicalItem
   attr_reader :name, :value
 
   def initialize(name:, value:)
@@ -13,6 +13,6 @@ class Book
   private
 
   def print_shipping_label(shipping_zipcode)
-    shipping_zipcode + " Item isento de impostos conforme disposto na Constituição Art. 150, VI, d."
+    shipping_zipcode + "label"
   end
 end

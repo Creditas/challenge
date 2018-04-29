@@ -20,8 +20,4 @@ class Payment
   def paid?
     !paid_at.nil?
   end
-
-  def grant_discount_voucher
-    p "Concedido um voucher de desconto para #{@order.customer.name}, de R$ 10 associado ao pagamento."
-  end
 end

@@ -17,8 +17,8 @@ payment_book.pay
 p payment_book.paid?
 p payment_book.order.items.first.item.name
 
-shipping = Shipping.new
-shipping.ship(payment_book)
+shipping = Shipping.new(payment_book)
+shipping.ship
 
 membership = Membership.new(name: "Assinatura do serviço creditas.", customer: foolano, value: 10)
 membership_order = Order.new(foolano)
@@ -30,5 +30,5 @@ payment_membership.pay
 p payment_membership.paid?
 p payment_membership.order.items.first.item.name
 
-shipping = Shipping.new
-shipping.ship(payment_membership)
+shipping = Shipping.new(payment_membership)
+shipping.ship
