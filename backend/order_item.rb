@@ -1,16 +1,12 @@
 class OrderItem
-  attr_reader :order, :product
+  attr_reader :order, :item
 
-  def initialize(order:, product:)
+  def initialize(order:, item:)
     @order = order
-    @product = product
+    @item = item
   end
 
   def total
     10
-  end
-
-  def send_order_item_description_email_to_customer
-    p "Enviado email para #{@order.customer.email} sobre descrição da compra do item"
   end
 end

@@ -1,18 +1,18 @@
 require 'spec_helper'
 
 describe Order do
-  before :each do
+  before do
     foolano = Customer.new(name: "Gabriel", email: "gabrieljustware@gmail.com")
     @order = Order.new(foolano)
   end
 
-  it "Add a new product to Order items" do
+  it "Adds a new product to Order items" do
     book = Product.new(name: 'Awesome book', type: :book)
     @order.add_product(book)
     expect(@order.items.size).to eq(1)
   end
 
-  it "return the Order total_amount" do
+  it "returns the Order total_amount" do
     first_book = Product.new(name: 'Awesome book', type: :book)
     second_book = Product.new(name: 'Second Awesome book', type: :book)
     @order.add_product(first_book)

@@ -14,7 +14,7 @@ payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_b
 payment_book.pay
 
 p payment_book.paid?
-p payment_book.order.items.first.product.type
+p payment_book.order.items.first.item.type
 
 shipping = Shipping.new
 shipping.ship(payment_book)

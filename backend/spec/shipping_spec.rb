@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Shipping do
-  before :each do
+  before do
     foolano = Customer.new(name: "Gabriel", email: "gabrieljustware@gmail.com")
     order = Order.new(foolano)
     @payment = Payment.new(order: order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
@@ -21,8 +21,8 @@ describe Shipping do
     membership = Membership.new(customer: @payment.order.customer, type: :membership)
     @payment.order.add_product(membership)
 
-    expect(@payment.order.items.first.product).to receive(:activate_customer_membership)
-    expect(@payment.order.items.first).to receive(:send_order_item_description_email_to_customer)
+    expect(@payment.order.items.first.item).to receive(:activate_customer_membership)
+    expect(shipping).to receive(:send_order_item_description_email_to_customer).with(@payment.order)
     shipping.ship(@payment)
   end
 
@@ -40,7 +40,7 @@ describe Shipping do
     digital = Product.new(name: 'Awesome digital item', type: :digital)
     @payment.order.add_product(digital)
 
-    expect(@payment.order.items.first).to receive(:send_order_item_description_email_to_customer)
+    expect(shipping).to receive(:send_order_item_description_email_to_customer).with(@payment.order)
     expect(@payment).to receive(:grant_discount_voucher)
     shipping.ship(@payment)
   end

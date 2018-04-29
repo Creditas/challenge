@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Payment do
-  before :each do
+  before do
     foolano = Customer.new(name: "Gabriel", email: "gabrieljustware@gmail.com")
     book = Product.new(name: 'Awesome book', type: :book)
     book_order = Order.new(foolano)

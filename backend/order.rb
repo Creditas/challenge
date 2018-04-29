@@ -11,8 +11,8 @@ class Order
     @address = overrides.fetch(:address) { Address.new(zipcode: '45678-979') }
   end
 
-  def add_product(product)
-    @items << @order_item_class.new(order: self, product: product)
+  def add_product(item)
+    @items << @order_item_class.new(order: self, item: item)
   end
 
   def total_amount
