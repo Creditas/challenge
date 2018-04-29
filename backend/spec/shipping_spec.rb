@@ -10,7 +10,7 @@ describe Shipping do
   it "ships a physical item" do
     shipping = Shipping.new
     physical = Product.new(name: 'Awesome physical item', type: :physical)
-    @payment.order.add_product(physical)
+    @payment.order.add_item(physical)
 
     expect(shipping).to receive(:print_shipping_label).with(:physical, @payment.order.address.zipcode)
     shipping.ship(@payment)
@@ -19,7 +19,7 @@ describe Shipping do
   it "ships a membership item" do
     shipping = Shipping.new
     membership = Membership.new(customer: @payment.order.customer, type: :membership)
-    @payment.order.add_product(membership)
+    @payment.order.add_item(membership)
 
     expect(@payment.order.items.first.item).to receive(:activate_customer_membership)
     expect(shipping).to receive(:send_order_item_description_email_to_customer).with(@payment.order)
@@ -29,7 +29,7 @@ describe Shipping do
   it "ships a book item" do
     shipping = Shipping.new
     book = Product.new(name: 'Awesome book', type: :book)
-    @payment.order.add_product(book)
+    @payment.order.add_item(book)
 
     expect(shipping).to receive(:print_shipping_label).with(:book, @payment.order.address.zipcode)
     shipping.ship(@payment)
@@ -38,7 +38,7 @@ describe Shipping do
   it "ships a digital item" do
     shipping = Shipping.new
     digital = Product.new(name: 'Awesome digital item', type: :digital)
-    @payment.order.add_product(digital)
+    @payment.order.add_item(digital)
 
     expect(shipping).to receive(:send_order_item_description_email_to_customer).with(@payment.order)
     expect(@payment).to receive(:grant_discount_voucher)

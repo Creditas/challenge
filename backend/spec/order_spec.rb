@@ -8,15 +8,15 @@ describe Order do
 
   it "Adds a new product to Order items" do
     book = Product.new(name: 'Awesome book', type: :book)
-    @order.add_product(book)
+    @order.add_item(book)
     expect(@order.items.size).to eq(1)
   end
 
   it "returns the Order total_amount" do
     first_book = Product.new(name: 'Awesome book', type: :book)
     second_book = Product.new(name: 'Second Awesome book', type: :book)
-    @order.add_product(first_book)
-    @order.add_product(second_book)
+    @order.add_item(first_book)
+    @order.add_item(second_book)
     expect(@order.total_amount).to eq(20)
   end
 
