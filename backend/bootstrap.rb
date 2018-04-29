@@ -4,7 +4,6 @@ require_relative "order"
 require_relative "payment"
 require_relative "credit_card"
 
-# Book Example (build new payments if you need to properly test it)
 foolano = Customer.new
 book = Product.new(name: 'Awesome book', type: :book)
 book_order = Order.new(foolano)

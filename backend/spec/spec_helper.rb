@@ -1,0 +1,6 @@
+require_relative '../order'
+require_relative '../customer'
+require_relative '../product'
+require_relative '../payment'
+require_relative '../invoice'
+require_relative '../credit_card'
