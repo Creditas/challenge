@@ -13,7 +13,7 @@ describe Shipping do
     shipping = Shipping.new(@payment)
 
     expect(membership).to receive(:ship).with(@payment.order)
-    shipping.ship
+    shipping.ship_order
   end
 
   it "ships a book item" do
@@ -22,6 +22,6 @@ describe Shipping do
     shipping = Shipping.new(@payment)
 
     expect(book).to receive(:ship).with(@payment.order)
-    shipping.ship
+    shipping.ship_order
   end
 end

@@ -3,7 +3,7 @@ class Shipping
     @payment = payment
   end
 
-  def ship
+  def ship_order
     @payment.order.items.each { |order_item| order_item.item.ship(@payment.order) }
   end
 end
