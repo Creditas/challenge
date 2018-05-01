@@ -1,11 +1,6 @@
-class DigitalItem
-  attr_reader :name, :value
+require_relative "product"
 
-  def initialize(name:, value:)
-    @name = name
-    @value = value
-  end
-
+class DigitalItem < Product
   def ship(order)
     send_order_item_description_email_to_customer(order)
     order.grant_discount_voucher

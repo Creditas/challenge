@@ -1,19 +1,15 @@
-class Membership
-  attr_reader :name, :customer, :value
+require_relative "product"
 
-  def initialize(name:, customer:, value:)
-    @name, @customer, @value = name, customer, value
-  end
-
+class Membership < Product
   def ship(order)
-    activate_customer_membership
+    activate_customer_membership(order)
     send_order_item_description_email_to_customer(order)
   end
 
   private
 
-  def activate_customer_membership
-    p "Assinatura de serviço para o comprador #{@customer.name} ativada"
+  def activate_customer_membership(order)
+    p "Assinatura de serviço para o comprador #{order.customer.name} ativada"
   end
 
   def send_order_item_description_email_to_customer(order)

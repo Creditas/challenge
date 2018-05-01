@@ -1,11 +1,6 @@
-class Book
-  attr_reader :name, :value
+require_relative "product"
 
-  def initialize(name:, value:)
-    @name = name
-    @value = value
-  end
-
+class Book < Product
   def ship(order)
     print_shipping_label(order.address.zipcode)
   end

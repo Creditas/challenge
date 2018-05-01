@@ -7,7 +7,7 @@ describe Membership do
   end
 
   it "ships a book item of an order" do
-    membership = Membership.new(name: "Membership for creditas service", value: 10, customer: @order.customer)
+    membership = Membership.new(name: "Membership for creditas service", value: 10)
     @order.add_item(membership)
 
     expect(membership).to receive(:activate_customer_membership)
