@@ -11,6 +11,9 @@ class Payment:
         self.amount = self.order.total_amount
         self.authorization_number = int(time.time())
         self.paid_at = time.time()
+
+        for item in self.order.items:
+            item.shipping()
         self.order.close()
 
     @property
@@ -46,6 +49,9 @@ class OrderItem:
         self.product = product
         self.quantity = quantity
 
+    def shipping(self):
+        self.product.kind.ship()
+
 
 class Product:
     '''
@@ -56,6 +62,27 @@ class Product:
         self.name = name
         self.kind = kind
 
+
+class PhysicalKind:
+    def ship(self):
+        print('Sending for packaging')
+
+class SignatureKind:
+    def ship(self):
+        print('Sending email notification')
+        print('Activating Signature')
+
+class BookKind:
+    def ship(self):
+        print('Sending Constituição Art. 150, VI, d notification')
+
+class MediaKind:
+    def __make_discount_voucher(self, value):
+        print('R$ %s of discount granted' % value)
+
+    def ship(self):
+        print('Sending purchase description')
+        print(____make_discount_voucher('10,00'))
 
 class Address:
     def __init__(self, zipcode):
@@ -68,9 +95,3 @@ class Customer:
         self.email = email
         self.shipping_address = shipping_address
         self.billing_address = billing_address
-
-
-class Shipping:
-    def __init__(self, order):
-        pass
-# now, how to deal with shipping rules then?

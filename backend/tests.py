@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 from bootstrap import (
     Customer,
@@ -6,6 +7,10 @@ from bootstrap import (
     Order,
     OrderItem,
     Payment,
+    PhysicalKind,
+    SignatureKind,
+    BookKind,
+    MediaKind
 )
 
 
@@ -40,7 +45,7 @@ class ProductTestCase(unittest.TestCase):
         '''
         product = Product(
             name='Fake Product',
-            kind='book'
+            kind=PhysicalKind()
         )
         self.assertIsInstance(product, Product)
 
@@ -64,7 +69,7 @@ class OrderTestCase(unittest.TestCase):
         )
         self.product = Product(
             name='Fake Product',
-            kind='book'
+            kind=PhysicalKind()
         )
 
     def test_create_order_instance(self):
@@ -125,7 +130,7 @@ class OrderItemTestCase(unittest.TestCase):
         self.order = Order(self.customer)
         self.product = Product(
             name='Fake Product',
-            kind='book'
+            kind=PhysicalKind()
         )
 
     def test_create_order_item_instance(self):
@@ -180,13 +185,73 @@ class PaymentTestCase(unittest.TestCase):
         with self.assertRaises(TypeError):
             Payment()
 
-    def test_payment_pay_behavior(self):
+    @patch('bootstrap.OrderItem.shipping')
+    def test_payment_pay_for_physical_behavior(self, shipping_mock):
         '''
-        paid_at should not be None
+        paid_at should not be None and shipping method should be called
         '''
+        self.order.add_product(Product(
+            name='Pop Funko',
+            kind=PhysicalKind()),
+            quantity=10
+        )
         payment = Payment(
             order=self.order,
             payment_method='credit_card'
         )
         payment.pay()
         self.assertNotEqual(payment.paid_at, None)
+        shipping_mock.assert_called()
+
+    @patch('bootstrap.SignatureKind.ship')
+    def test_payment_pay_for_signature(self, ship_mock):
+        '''
+        paid_at should not be None and shipping method should be called
+        '''
+        self.order.add_product(Product(
+            name='MovieFlix',
+            kind=SignatureKind()),
+            quantity=1
+        )
+        payment = Payment(
+            order=self.order,
+            payment_method='credit_card'
+        )
+        payment.pay()
+        ship_mock.assert_called()
+
+    @patch('bootstrap.BookKind.ship')
+    def test_payment_pay_for_book(self, ship_mock):
+        '''
+        paid_at should not be None and shipping method should be called
+        '''
+        self.order.add_product(Product(
+            name='Fluent Python',
+            kind=BookKind()),
+            quantity=1
+        )
+        payment = Payment(
+            order=self.order,
+            payment_method='credit_card'
+        )
+        payment.pay()
+        self.assertNotEqual(payment.paid_at, None)
+        ship_mock.assert_called()
+
+    @patch('bootstrap.MediaKind.ship')
+    def test_payment_pay_for_media(self, ship_mock):
+        '''
+        paid_at should not be None and shipping method should be called
+        '''
+        self.order.add_product(Product(
+            name='My Music',
+            kind=MediaKind()),
+            quantity=1
+        )
+        payment = Payment(
+            order=self.order,
+            payment_method='credit_card'
+        )
+        payment.pay()
+        self.assertNotEqual(payment.paid_at, None)
+        ship_mock.assert_called()

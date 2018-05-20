@@ -1,0 +1,6 @@
+Optei por deixar que cada `item` soubesse da sua própria regra de negócio de envios.
+Desda forma, para cada `item` em uma `Order` basta invocar o método `shipping` e o mesmo se encarragera de gerar as devidas `shipping labels`
+e notificações necessarias.
+
+Seguindo esta abordagem, fica simples incluir um tipo de produto novo, bem como excluir algum tipo existente, afinal cada classe de produto é indvidual e implemanta
+sua propria regra de "shipagem".
