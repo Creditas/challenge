@@ -1,113 +1,67 @@
-class Payment
-  attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at
+require './orders/order.rb'
+require './orders/order_item.rb'
+require './products/product.rb'
+require './addresses/address.rb'
+require './customers/customer.rb'
+require './product_types/book.rb'
+require './product_types/digital.rb'
+require './product_types/membership.rb'
+require './product_types/physical.rb'
+require './payment_methods/payment.rb'
+require './payment_methods/invoice.rb'
+require './payment_methods/credit_card.rb'
+require './payment_methods/payment_book.rb'
+require './payment_methods/payment_digital.rb'
+require './payment_methods/payment_membership.rb'
+require './payment_methods/payment_physical.rb'
 
-  def initialize(attributes = {})
-    @authorization_number, @amount = attributes.values_at(:authorization_number, :amount)
-    @invoice, @order = attributes.values_at(:invoice, :order)
-    @payment_method = attributes.values_at(:payment_method)
-  end
 
-  def pay(paid_at = Time.now)
-    @amount = order.total_amount
-    @authorization_number = Time.now.to_i
-    @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
-    @paid_at = paid_at
-    order.close(@paid_at)
-  end
-
-  def paid?
-    !paid_at.nil?
-  end
-end
-
-class Invoice
-  attr_reader :billing_address, :shipping_address, :order
-
-  def initialize(attributes = {})
-    @billing_address = attributes.values_at(:billing_address)
-    @shipping_address = attributes.values_at(:shipping_address)
-    @order = attributes.values_at(:order)
-  end
-end
-
-class Order
-  attr_reader :customer, :items, :payment, :address, :closed_at
-
-  def initialize(customer, overrides = {})
-    @customer = customer
-    @items = []
-    @order_item_class = overrides.fetch(:item_class) { OrderItem }
-    @address = overrides.fetch(:address) { Address.new(zipcode: '45678-979') }
-  end
-
-  def add_product(product)
-    @items << @order_item_class.new(order: self, product: product)
-  end
-
-  def total_amount
-    @items.map(&:total).inject(:+)
-  end
-
-  def close(closed_at = Time.now)
-    @closed_at = closed_at
-  end
-
-  # remember: you can create new methods inside those classes to help you create a better design
-end
-
-class OrderItem
-  attr_reader :order, :product
-
-  def initialize(order:, product:)
-    @order = order
-    @product = product
-  end
-
-  def total
-    10
-  end
-end
-
-class Product
-  # use type to distinguish each kind of product: physical, book, digital, membership, etc.
-  attr_reader :name, :type
-
-  def initialize(name:, type:)
-    @name, @type = name, type
-  end
-end
-
-class Address
-  attr_reader :zipcode
-
-  def initialize(zipcode:)
-    @zipcode = zipcode
-  end
-end
-
-class CreditCard
-  def self.fetch_by_hashed(code)
-    CreditCard.new
-  end
-end
-
-class Customer
-  # you can customize this class by yourself
-end
-
-class Membership
-  # you can customize this class by yourself
-end
+customer = Customer.new(email: 'teste@creditas.com')
 
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
+book = Product.new(name: 'Awesome book', type: Book.new())
+book_order = Order.new(customer)
 book_order.add_product(book)
-
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_book = PaymentBook.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 payment_book.pay
+payment_book.shipping_label
 p payment_book.paid? # < true
 p payment_book.order.items.first.product.type
 
-# now, how to deal with shipping rules then?
+puts "\n"
+
+# physical item payment Example
+physical = Product.new(name: 'Caneca Darth Vader', type: Physical.new())
+physical_order = Order.new(customer)
+physical_order.add_product(physical)
+payment_physical = PaymentPhysical.new(order: physical_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_physical.pay
+payment_physical.shipping_label
+p payment_physical.paid?
+p payment_physical.order.items.first.product.type
+
+puts "\n"
+
+#digital item payment Example
+digital = Product.new(name: 'Harry Potter e a Pedra Filosofal', type: Digital.new())
+digital_order = Order.new(customer)
+digital_order.add_product(digital)
+payment_digital = PaymentDigital.new(order: digital_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_digital.pay
+payment_digital.send_email
+p payment_digital.paid?
+p payment_digital.order.items.first.product.type
+
+puts "\n"
+
+membership = Product.new(name: 'Clube do vinho', type: Membership.new())
+membership_order = Order.new(customer)
+membership_order.add_product(membership)
+payment_membership = PaymentMembership.new(order: membership_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+payment_membership.pay
+payment_membership.send_email
+p payment_membership.paid?
+p payment_membership.order.items.first.product.type
+
+
+
