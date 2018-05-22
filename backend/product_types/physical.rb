@@ -1,0 +1,3 @@
+class Physical
+
+end

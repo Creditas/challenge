@@ -1,0 +1,3 @@
+class PaymentPhysical < Payment
+
+end
