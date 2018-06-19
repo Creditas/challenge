@@ -61,12 +61,19 @@ class Order:
 
     def total_amount(self):
         total = 0
-        for item in items:
+        for item in self.items:
             total += item.total
 
         return total
 
+    def triage_items(self):
+        for item in self.items:
+            item.after_payment(self.customer)
+
     def close(self, closed_at=time.time()):
+        if (self.payment.is_paid):
+            self.triage_items()
+
         self.closed_at = closed_at
 
     # remember: you can create new methods inside those classes to help you create a better design
@@ -93,6 +100,9 @@ class Product:
         self.name = name
         self.type = type
 
+    def after_payment(self):
+        raise Exception('Method not implemented')
+
 
 class Address:
     zipcode = None
@@ -113,9 +123,48 @@ class Customer:
     pass
 
 
-class Membership:
+class Physical(Product):
+
+    def __init__(self):
+        super(Physical, self).__init__()
+        pass
+
+    def after_payment(self):
+        if (self.type == 'book'):
+            self.send_to_user(True)
+
+        self.send_to_user(False)
+
+    def send_to_user(self, is_book):
+        pass
+
+
+class Digital(Product):
+
+    def __init__(self):
+        super(Digital, self).__init__()
+        pass
+
+    def after_payment(self, customer):
+        self.conceal_discount(customer)
+
+    def conceal_discount(self, customer):
+        pass
+
+
+class Membership(Product):
     # you can customize this class by yourself
-    pass
+
+    def __init__(self, active):
+        super(Membership, self).__init__()
+        self.active = active or False
+
+    def after_payment(self):
+        self.active = True
+        self.send_notification()
+
+    def send_notification(self):
+        print('Email sent')
 
 
 # Book Example (build new payments if you need to properly test it)
