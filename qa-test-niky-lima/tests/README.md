@@ -7,4 +7,5 @@ Realizei o desafio elaborado pela CREDITAS e agora vou explicar o que fiz e quai
 1. [- Estrutura](explanation/ESTRUTURA.md);
 2. [- O_Código](explanation/CODIGO.md);
 3. [- Testando_a_API](explanation/API.md);
-4. [- Outros_Arquivos](explanation/OUTROS_ARQUIVOS);
+4. [- Outros_Arquivos](explanation/OUTROS_ARQUIVOS.md);
+5. [- Comandos](explanation/COMANDOS.md).
