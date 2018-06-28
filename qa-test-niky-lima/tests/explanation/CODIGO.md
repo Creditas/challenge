@@ -29,11 +29,11 @@ end
 Exemplo:
 
 ```
-**Funcionalidade**: Validar se o botão apresentado na página funciona
+Funcionalidade: Validar se o botão apresentado na página funciona
 
-**Cenário**: Validar o clique do botão da página
-  **Dado** que eu clico no botão da página
-  **Então** ele deverá responder ao estímulo
+Cenário: Validar o clique do botão da página
+  Dado que eu clico no botão da página
+  Então ele deverá responder ao estímulo
 ```
 
 - Na pasta **support** temos alguns arquivos que também são importantes.
