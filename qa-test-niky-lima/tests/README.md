@@ -10,7 +10,7 @@ Realizei o desafio elaborado pela CREDITAS e agora vou explicar o que fiz e quai
 4. [- Outros_Arquivos](explanation/OUTROS_ARQUIVOS.md);
 5. [- Comandos](explanation/COMANDOS.md).
 
-## Desafio - Especificação - Login do Site CREDITAS
+## Especificação - Login do Site CREDITAS
 
 Documento de Requisitos para o desenvolvimento da página de login.
 
