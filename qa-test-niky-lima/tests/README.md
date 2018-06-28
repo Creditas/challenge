@@ -9,3 +9,9 @@ Realizei o desafio elaborado pela CREDITAS e agora vou explicar o que fiz e quai
 3. [- Testando_a_API](explanation/API.md);
 4. [- Outros_Arquivos](explanation/OUTROS_ARQUIVOS.md);
 5. [- Comandos](explanation/COMANDOS.md).
+
+## Desafio - Especificação - Login do Site CREDITAS
+
+Documento de Requisitos para de desenvolvimento da página de login.
+
+6. [- Especificação](explanation/TESTE_LOGIN.md).
