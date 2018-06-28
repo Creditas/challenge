@@ -19,9 +19,9 @@ def request
       'userId': Faker::Number.digit
     }.to_json
 
-    ## Montamos o post utilizando o HTTParty, verbo post e no Settings temos
-    o método get_uri que nos retorna a uri desejada. Apenas temos a obrigação
-    de passar o /caminho que identifica o serviço requisitado.
+    ## Montamos o teste utilizando o HTTParty (verbo post) e no Settings temos
+    ## o método get_uri que nos retorna a uri desejada. Apenas temos a obrigação
+    ## de passar o '/caminho' que identifica o serviço requisitado.
 
     @result = HTTParty.post Settings.get_uri('posts'), :body => @body,
       :headers => {
@@ -31,7 +31,7 @@ def request
 
   def response
     ## Aqui, validamos o http status code 201 - que quer dizer CRIADO!
-    ## Também validamos o userId que enviamos com o que retorna no response...
+    ## Também validamos o 'userId' que enviamos com o que retorna no response...
     ## Assim sabemos de fato se nosso post ocorreu.
     ## O expect usado é o que está disponibilizado no pacote do RSPEC.
     ## Esses validadores do RSPEC são muito simples de usar e possuem
