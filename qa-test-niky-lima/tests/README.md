@@ -5,4 +5,4 @@
 Realizei o desafio elaborado pela CREDITAS e agora vou explicar o que fiz e quais conceitos apliquei...
 
 1. [- Estrutura](explanation/ESTRUTURA.md);
-2. [- O_Código](explanation/O_CODIGO.md);
+2. [- O_Código](explanation/CODIGO.md);
