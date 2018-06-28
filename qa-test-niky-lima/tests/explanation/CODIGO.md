@@ -4,7 +4,7 @@ Aqui explicarei sobre o padrão adotado para o desenvolvimento. Também abordare
 
 Bem, já conhecendo a estrutura e como o desafio pedia, foi adotado o padrão de Page Object e o conteúdo das pastas estão dispostos da seguinte forma:
 
-- Na pasta **pages** nos temos as classes responsáveis por agrupar os elementos de página e suas ações como por exemplo:
+- Na pasta **pages** nós temos as classes responsáveis por agrupar os elementos de página e suas ações como por exemplo:
 
 ```
 element :button, '//button'
@@ -14,7 +14,7 @@ def method
 end
 ```
 
-- Na pasta **step_definitions** nos temos o *Cucumber*, responsável por intermediar a comunicação entre a especificação e as pages (páginas).
+- Na pasta **step_definitions** nós temos o *Cucumber*, responsável por intermediar a comunicação entre a especificação e as pages (páginas).
 
 Exemplo:
 
@@ -24,7 +24,7 @@ Dado('que eu clico no botão da página') do
 end
 ```
 
-- E na pasta **specs** nos temos o *Gherkin*, que nada mais é que nosso *BDD*, ou seja, o que vai traduzir nosso código / lógica em especificação.
+- E na pasta **specs** nós temos o *Gherkin*, que nada mais é que nosso *BDD*, ou seja, o que vai traduzir nosso código / lógica em especificação.
 
 Exemplo:
 
