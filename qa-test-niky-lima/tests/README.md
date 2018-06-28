@@ -12,6 +12,6 @@ Realizei o desafio elaborado pela CREDITAS e agora vou explicar o que fiz e quai
 
 ## Desafio - Especificação - Login do Site CREDITAS
 
-> Documento de Requisitos para o desenvolvimento da página de login.
+Documento de Requisitos para o desenvolvimento da página de login.
 
 6. [- Especificação](explanation/TESTE_LOGIN.md).
