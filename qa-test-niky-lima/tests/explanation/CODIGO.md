@@ -66,7 +66,7 @@ Vou deixar aqui uma breve explicação sobre as gems adotadas nesse projeto:
        - O driver do navegador Mozilla Firefox.
 
 - __httparty__
-       - Biblioteca para testes de API. [Link para Testando_a_API](explanation/API.md)
+       - Biblioteca para testes de API. [Link para Testando_a_API](../explanation/API.md)
 
 - __report_builder__
        - Biblioteca que gera um leve relatório com os testes executados.
