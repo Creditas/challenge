@@ -1,10 +1,10 @@
 [
   {
     "uri": "features/specs/001_valida_apresentacao_checkbox.feature",
-    "id": "validação-dos-elementis-dinâmicos-da-página-dynamic-controls",
+    "id": "validação-dos-elementos-dinâmicos-da-página-dynamic-controls",
     "keyword": "Funcionalidade",
-    "name": "Validação dos elementis dinâmicos da página Dynamic Controls",
-    "description": "  - Eu, como testador, gostaria de validar na página Dynamic Controls\n    o comportamento de seus elementos.\n  - O botão Remove, após o clique, deverá tornar o checkbox da tela invisível,\n    o seu título deverá ser alterado para Add e a frase It's gone! terá que\n    ser apresentada.\n  - Ao clicar *NOVAMENTE*, agora no botão Add, o checkbox deverá ficar visível\n    e a frase a ser apresentada é It's back!",
+    "name": "Validação dos elementos dinâmicos da página Dynamic Controls",
+    "description": "  - Eu, como testador, gostaria de validar na página Dynamic Controls\n    o comportamento de seus elementos.\n  - O botão Remove, após o clique, deverá tornar o checkbox da tela invisível,\n    o seu título deverá ser alterado para Add e a frase It's gone! terá que\n    ser apresentada.\n  - Ao clicar *NOVAMENTE*, agora no botão Add, o checkbox deverá ficar visível\n    e a frase a ser apresentada será It's back!",
     "line": 5,
     "tags": [
       {
@@ -20,7 +20,7 @@
     ],
     "elements": [
       {
-        "id": "validação-dos-elementis-dinâmicos-da-página-dynamic-controls;validar-a-ocultação-do-checkbox-na-página-dynamic-controls;;2",
+        "id": "validação-dos-elementos-dinâmicos-da-página-dynamic-controls;validar-a-ocultação-do-checkbox-na-página-dynamic-controls;;2",
         "keyword": "Esquema do Cenário",
         "name": "Validar a ocultação do checkbox na página Dynamic Controls",
         "description": "",
@@ -39,7 +39,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 23455
+              "duration": 21351
             }
           },
           {
@@ -48,7 +48,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 20695
+              "duration": 19634
             }
           }
         ],
@@ -62,7 +62,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 4621460630
+              "duration": 3991060305
             }
           },
           {
@@ -74,7 +74,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 117201463
+              "duration": 111016482
             }
           },
           {
@@ -86,7 +86,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 3039323002
+              "duration": 3056191001
             }
           },
           {
@@ -98,7 +98,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 71288620
+              "duration": 67235159
             }
           }
         ],
@@ -112,7 +112,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 131557073
+              "duration": 118508071
             }
           },
           {
@@ -121,13 +121,13 @@
             },
             "result": {
               "status": "passed",
-              "duration": 689733345
+              "duration": 1564271141
             }
           }
         ]
       },
       {
-        "id": "validação-dos-elementis-dinâmicos-da-página-dynamic-controls;validar-a-apresentação-do-checkbox-na-página-dynamic-controls;;2",
+        "id": "validação-dos-elementos-dinâmicos-da-página-dynamic-controls;validar-a-apresentação-do-checkbox-na-página-dynamic-controls;;2",
         "keyword": "Esquema do Cenário",
         "name": "Validar a apresentação do checkbox na página Dynamic Controls",
         "description": "",
@@ -146,7 +146,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 19988
+              "duration": 29978
             }
           },
           {
@@ -155,7 +155,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 20948
+              "duration": 32185
             }
           }
         ],
@@ -169,7 +169,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 307171322
+              "duration": 342709475
             }
           },
           {
@@ -181,7 +181,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 109454930
+              "duration": 98353296
             }
           },
           {
@@ -193,7 +193,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 3006718684
+              "duration": 3085123428
             }
           },
           {
@@ -205,7 +205,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 95830753
+              "duration": 101192622
             }
           },
           {
@@ -217,7 +217,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 3042562201
+              "duration": 3031903277
             }
           },
           {
@@ -229,7 +229,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 73570832
+              "duration": 61788497
             }
           }
         ],
@@ -243,7 +243,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 120417832
+              "duration": 117304372
             }
           },
           {
@@ -252,7 +252,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 740559156
+              "duration": 1509515377
             }
           }
         ]
@@ -303,7 +303,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 76072
+              "duration": 19110
             }
           },
           {
@@ -312,7 +312,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 40859
+              "duration": 23971
             }
           }
         ],
@@ -326,7 +326,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 284253745
+              "duration": 294418717
             }
           },
           {
@@ -338,7 +338,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 131973864
+              "duration": 123021792
             }
           },
           {
@@ -350,7 +350,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 270857134
+              "duration": 267907144
             }
           }
         ],
@@ -365,7 +365,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 191923590
+              "duration": 199521867
             }
           },
           {
@@ -374,7 +374,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 553073712
+              "duration": 581290664
             }
           }
         ]
@@ -415,7 +415,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 30476
+              "duration": 23622
             }
           },
           {
@@ -424,7 +424,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 26180
+              "duration": 19404
             }
           }
         ],
@@ -438,7 +438,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 43521
+              "duration": 37769
             }
           },
           {
@@ -450,7 +450,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 1024473157
+              "duration": 1027460645
             }
           },
           {
@@ -462,7 +462,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 433159
+              "duration": 444243
             }
           }
         ],
@@ -476,7 +476,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 186252
+              "duration": 235023
             }
           },
           {
@@ -485,7 +485,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 34220
+              "duration": 31344
             }
           }
         ]
