@@ -6,7 +6,8 @@ Bem, já conhecendo a estrutura e como o desafio pedia, foi adotado o padrão de
 
 - Na pasta **pages** nos temos as classes responsáveis por agrupar os elementos de página e suas ações como por exemplo:
 
-```element :button, '//button'
+```
+element :button, '//button'
 
 def method
   button.click
@@ -17,7 +18,8 @@ end
 
 Exemplo:
 
-```Dado('que eu clico no botão da página') do
+```
+Dado('que eu clico no botão da página') do
   --faz alguma coisa--
 end
 ```
@@ -26,7 +28,8 @@ end
 
 Exemplo:
 
-```**Funcionalidade**: Validar se o botão apresentado na página funciona
+```
+**Funcionalidade**: Validar se o botão apresentado na página funciona
 
 **Cenário**: Validar o clique do botão da página
   **Dado** que eu clico no botão da página
