@@ -48,36 +48,36 @@ Cenário: Validar o clique do botão da página
 Vou deixar aqui uma breve explicação sobre as gems adotadas nesse projeto:
 
 - __capybara__
- - Basicamente é uma implementação do Selenium para Ruby, nosso motor para testes ponta-a-ponta.
+       - Basicamente é uma implementação do Selenium para Ruby, nosso motor para testes ponta-a-ponta.
 
 - __chromedriver-helper__
- - O driver do navegador Google Chrome.
+       - O driver do navegador Google Chrome.
 
 - __cucumber__
- - O interoperador da lógica com o Gherkin.
+       - O interoperador da lógica com o Gherkin.
 
 - __cucumber-json__
- - Gerador de .json baseado nas especificações (Gherkin). Fonte para os relatórios.
+       - Gerador de .json baseado nas especificações (Gherkin). Fonte para os relatórios.
 
 - __faker__
- - Um gerador de dados falsos/sintéticos que facilita a geração de massa para testes.
+       - Um gerador de dados falsos/sintéticos que facilita a geração de massa para testes.
 
 - __geckodriver-helper__
- - O driver do navegador Mozilla Firefox.
+       - O driver do navegador Mozilla Firefox.
 
 - __httparty__
- - Biblioteca para testes de API. [Link para Testando_a_API](explanation/API.md)
+       - Biblioteca para testes de API. [Link para Testando_a_API](explanation/API.md)
 
 - __report_builder__
- - Biblioteca que gera um leve relatório com os testes executados.
+       - Biblioteca que gera um leve relatório com os testes executados.
 
 - __rspec__
- - Framework BDD com uma sintaxe bem fluída e bom recursos para a realização de testes.
+       - Framework BDD com uma sintaxe bem fluída e bom recursos para a realização de testes.
 
 - __selenium-webdriver__
- - O motor de drivers. O pacote de soluções primordial para qualquer teste ponta-a-ponta.
+       - O motor de drivers. O pacote de soluções primordial para qualquer teste ponta-a-ponta.
 
 - __site_prism__
- - Um facilitador para a aplicação do Page Object, com bons recursos para testes - inclui bons validadores e redutores de verbosidade.
+       - Um facilitador para a aplicação do Page Object, com bons recursos para testes - inclui bons validadores e redutores de verbosidade.
 
 ## [Ir para o README](../README.md)
