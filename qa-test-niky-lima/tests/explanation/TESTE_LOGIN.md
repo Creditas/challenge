@@ -37,7 +37,7 @@
        um EMAIL com o sinal (+), invalidar;
        
        2.8. A senha deverá possuir pelo menos 1 dígito, 1 letra maiúscula e
-       um símbolo. O tamanho não poderá ser maior do que N caracteres;
+       1 símbolo. O tamanho não poderá ser maior do que N caracteres;
 
        2.9. Ao em ENTRAR, o usuário só poderá ter o acesso à plataforma se:
        O CPF ou EMAIL estiverem corretos, senão um alerta de CPF ou EMAIL
