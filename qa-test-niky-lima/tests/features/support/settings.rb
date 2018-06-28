@@ -22,11 +22,11 @@ class Settings
     return config
   end
 
-  def self.set_url(path)
+  def self.get_url(path)
     return "#{get_configurations['url']}/#{path}"
   end
 
-  def self.set_uri(path)
+  def self.get_uri(path)
     return "#{get_environment_path['uri']}/#{path}"
   end
 end

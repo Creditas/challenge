@@ -11,7 +11,7 @@ class PostsApi
       'userId': Faker::Number.digit
     }.to_json
 
-    @result = HTTParty.post Settings.set_uri('posts'), :body => @body,
+    @result = HTTParty.post Settings.get_uri('posts'), :body => @body,
       :headers => {
         'Content-Type' => 'application/json'
       }
