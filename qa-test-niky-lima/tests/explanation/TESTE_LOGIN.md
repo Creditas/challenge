@@ -20,7 +20,7 @@
 ```
        2.1. O logo da CREDITAS deverá redirecionar para a HOME PAGE do site;
        
-       2.2. O link Ajuda deverá redirecionar para página de AJUDA do site;
+       2.2. O link AJUDA deverá redirecionar para página de AJUDA do site;
        
        2.3. O formulário e os elementos html que estarão dispostos dentro do
        mesmo deverão estar centralizados (alinhados no centro da página);
