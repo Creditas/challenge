@@ -18,3 +18,5 @@ tests/resuts/screenshots/scenario_passed
 tests/resuts/screenshots/scenario_failed
 ```
 > OBS: A pasta screenshots é criada dinamicamente e por sua vez não ficará disposta no projeto.
+
+## [Ir para o README](../README.md)
