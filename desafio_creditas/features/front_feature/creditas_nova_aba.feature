@@ -1,5 +1,5 @@
 # language: pt
-
+@nova_aba
 Funcionalidade: Adiconar e remover checkbox
   Eu como desafiado
   Quero validar o conteudo da nova aba

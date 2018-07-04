@@ -1,5 +1,5 @@
 # language: pt
-
+@api
 Funcionalidade: Adiconar e remover checkbox
   Eu como desafiado
   Quero fazer um post e validar a criação do mesmo

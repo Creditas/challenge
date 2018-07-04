@@ -1,5 +1,5 @@
 # language: pt
-
+@login_creditas
 Funcionalidade: Efetuar login no site da creditas
   Eu como desafiado
   Quero validar a tela de login da creditas

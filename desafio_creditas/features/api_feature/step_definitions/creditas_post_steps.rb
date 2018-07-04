@@ -9,4 +9,7 @@ end
 
 Então("eu valido as informações que meu post foi criado") do
   binding.pry
+  xpect(@response['title']).to eq @response_body['title']
+  xpect(@response['body']).to eq @response_body['body']
+  xpect(@response['userId']).to eq @response_body['userId']
 end
