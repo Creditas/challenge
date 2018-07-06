@@ -10,12 +10,16 @@ require 'capybara/cucumber'
 require 'pry'
 require 'faker'
 
-require_relative "../../features/fixtures/factories_post.rb"
+require_relative "../../fixtures/factories_post.rb"
+
+# enables https calls
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+HTTParty::Basement.default_options.update(verify: false)
 
 # Environment definitions
 DEBUG = ENV['DEBUG'] || false
-ENV['ENV'] = 'prod' unless ENV.has_key?'ENV'
-ENVIRONMENT = YAML.load_file('features/config/environment.yml')[ENV['ENV']]
+ENV['ENV'] = 'prd' unless ENV.has_key?'ENV'
+ENVIRONMENT = YAML.load_file('./config/environment.yml')[ENV['ENV']]
 
 Capybara.register_driver :selenium_chrome do |app|
   Capybara::Selenium::Driver.new(app, :browser => :chrome)

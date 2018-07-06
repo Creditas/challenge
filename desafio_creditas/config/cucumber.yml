@@ -1,2 +1,2 @@
 default: --no-source --color --format pretty
-prd: ENV="qa" debug=true
+prd: ENV="prd" debug=true

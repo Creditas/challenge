@@ -1,8 +1,7 @@
 class PostFactory
 
   def self.factory_post
-binding.pry
-      body = YAML.load_file('features/fixtures/templates_post.yml').dup
+      body = YAML.load_file('./fixtures/templates_post.yml').dup
 
       body['title'] = Faker::Movie.quote
       body['body'] = Faker::Lorem.sentence
