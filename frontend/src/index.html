@@ -7,17 +7,39 @@
     <title>Chat</title>
     <link rel="stylesheet" href="./styles.css" type="text/css" media="all">
   </head>
-
   <body>
     <h1>Chat</h1>
 
     <div class="messages">
-      <ul class="message-list"></ul>
+      <ul class="message-list" id="message-list"></ul>
 
       <div class="message-input">
-        <input type="text" />
-        <button type="button">Enviar</button>
+        <input type="text" id="messageChat" onkeypress="enterClick(event)" />
+        <button type="button" id="sendMessage" onclick="sendMessage()">Enviar</button>
       </div>
     </div>
+
+    <script>
+      function sendMessage(){
+        var messageChat = document.getElementById('messageChat');
+        var messageChatValue = messageChat.value;
+        if (messageChatValue === ''){ return };
+        var node = document.createElement("LI");
+        var textnode = document.createTextNode(messageChatValue);
+        node.appendChild(textnode);
+        document.getElementById("message-list").appendChild(node);
+        var objDiv = document.getElementById("message-list");
+        objDiv.scrollTop = objDiv.scrollHeight;
+        messageChat.value = '';
+        messageChat.focus();
+      }
+
+      function enterClick(event) {
+        var evt = event.which || event.keyCode;
+        if(evt === 13) {
+          sendMessage();
+        }
+      }
+    </script>
   </body>
 </html>

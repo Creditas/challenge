@@ -3,6 +3,23 @@
 }
 
 .message-list {
-  min-height: 10em;
-  background-color: #f3f3f3;
+	background-color: #f3f3f3;
+	height: 200px;
+	overflow: scroll;
+	display: flex;
+	flex-direction: column;
+	padding: 15px 30px;
 }
+.message-list li {
+	position: relative;
+	background-color: #F5F7F7;
+	display: inline-block;
+	border-radius: 10px;
+	padding: 10px;
+	color: #22272F;
+	font-size: 16px;
+	line-height: 20px;
+	word-wrap: break-word;
+	margin-bottom: 20px;
+}
+.message-list li:last-child {margin-bottom: 0;}
