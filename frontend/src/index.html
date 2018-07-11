@@ -1,45 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Creditas - FrontEnd</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" type="text/css" media="all">
+</head>
+<body>
+  <header>
+    <img src="https://www.creditas.com.br/static/images/logo-creditas-white-3cd22a2808.svg" alt="">
+  </header>
 
-    <title>Chat</title>
-    <link rel="stylesheet" href="./styles.css" type="text/css" media="all">
-  </head>
-  <body>
-    <h1>Chat</h1>
+  <div class="messages">
+    <ul class="message-list" id="messageList"></ul>
+    <form id="messageForm" class="message-input">
+      <input type="text" id="messageText" autocomplete="off"/>
+      <button type="submit">Send</button>
+    </form>
+  </div>
 
-    <div class="messages">
-      <ul class="message-list" id="message-list"></ul>
+  <audio id="audio" controls preload="none" style="display: none;">
+    <source src="sounds/pling.mp3" type="audio/mpeg">
+    <source src="sounds/pling.ogg" type="audio/ogg">
+  </audio>
 
-      <div class="message-input">
-        <input type="text" id="messageChat" onkeypress="enterClick(event)" />
-        <button type="button" id="sendMessage" onclick="sendMessage()">Enviar</button>
-      </div>
-    </div>
-
-    <script>
-      function sendMessage(){
-        var messageChat = document.getElementById('messageChat');
-        var messageChatValue = messageChat.value;
-        if (messageChatValue === ''){ return };
-        var node = document.createElement("LI");
-        var textnode = document.createTextNode(messageChatValue);
-        node.appendChild(textnode);
-        document.getElementById("message-list").appendChild(node);
-        var objDiv = document.getElementById("message-list");
-        objDiv.scrollTop = objDiv.scrollHeight;
-        messageChat.value = '';
-        messageChat.focus();
-      }
-
-      function enterClick(event) {
-        var evt = event.which || event.keyCode;
-        if(evt === 13) {
-          sendMessage();
-        }
-      }
-    </script>
-  </body>
+  <script src="scripts.js"></script>
+</body>
 </html>
