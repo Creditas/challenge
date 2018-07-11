@@ -1,25 +1,173 @@
+@charset "UTF-8";
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 4%, 0);
+    transform: translate3d(0, 4%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 4%, 0);
+    transform: translate3d(0, 4%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInUp {
+  -webkit-animation-name: fadeInUp;
+  animation-name: fadeInUp;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .messages {
-  width: 20em;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #e9ebee;
 }
 
 .message-list {
-	background-color: #f3f3f3;
-	height: 200px;
-	overflow: scroll;
-	display: flex;
-	flex-direction: column;
-	padding: 15px 30px;
+  flex: 1;
+  color: #00130f;
+  margin: 0;
+  padding: 16px;
+  overflow: auto;
+  list-style: none;
 }
-.message-list li {
-	position: relative;
-	background-color: #F5F7F7;
-	display: inline-block;
-	border-radius: 10px;
-	padding: 10px;
-	color: #22272F;
-	font-size: 16px;
-	line-height: 20px;
-	word-wrap: break-word;
-	margin-bottom: 20px;
+
+.message-list li  {
+  display: block;
+  width: 100%;
+  min-height: 54px;
+  margin-bottom: 16px;
 }
-.message-list li:last-child {margin-bottom: 0;}
+
+.message-list li div {
+  color: #fff;
+  background-color: #4080ff;
+  border-radius: 5px;
+  display: flex;
+  max-width: 188px;
+  align-items: flex-end;
+  margin: 0 0 0 auto;
+  position: relative;
+  padding: 16px;
+}
+
+.message-list .user div {
+  margin: 0;
+  background-color: #cecece;
+  color: #000;
+}
+.message-list .user div:before {
+  content: " ";
+  position: absolute;
+  left: -8px;
+  top: 8px;
+  width: 0; 
+  height: 0; 
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent; 
+  border-right: 8px solid #cecece; 
+}
+
+
+.message-list .creditas .message-content {
+  color: #fff;
+  float: right;
+  background-color: #4080ff;
+}
+
+.message-list .creditas .message-content:before {
+  content: " ";
+  position: absolute;
+  right: -8px;
+  top: 8px;
+  width: 0; 
+  height: 0; 
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent; 
+  border-left: 8px solid #4080ff; 
+}
+
+.message-input {
+  display: flex;
+  flex-direction: row;
+  padding: 16px;
+  webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -ms-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  opacity: 1;
+}
+
+.message-input.inative {
+  opacity: 0;
+} 
+
+.message-input input {
+  flex: 1;
+  border: none;
+  border-bottom: solid 1px #4165b2;
+  background: transparent;
+  font-size: 16px;
+  line-height: 16px;
+  margin-right: 16px;
+  outline: none;
+}
+
+.message-input button {
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 14px;
+  padding: 11px 16px;
+  border-radius: 2px;
+  border: none;
+  background: transparent;
+  color: #4165b2;
+}
+
+header {
+  background-color: #4166b2;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+}
+header > img {
+  width: 170px;
+}
