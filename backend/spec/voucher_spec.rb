@@ -18,4 +18,8 @@ describe Voucher do
     
     expect(voucher.can_use?(order)).to eq(false)
   end
+
+  it 'voucher com valor zero' do
+    expect(Voucher.zero.value).to eq(0)
+  end
 end

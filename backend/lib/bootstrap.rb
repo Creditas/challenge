@@ -1,10 +1,10 @@
 require 'date'
 
-require 'products/product'
-require 'products/physical'
-require 'products/digital'
-require 'products/book'
-require 'products/membership'
+require './lib/products/product'
+require './lib/products/physical'
+require './lib/products/digital'
+require './lib/products/book'
+require './lib/products/membership'
 
 class MailService
   def self.send_details(product)
@@ -12,12 +12,11 @@ class MailService
 end
 
 class Customer
-  attr_reader :name, :memberships, :vouchers
+  attr_reader :name, :memberships
 
   def initialize(name)
     @name = name
     @memberships = MembershipHandler.new
-    @vouchers = VoucherHandler.new
   end
 end
 
@@ -51,32 +50,6 @@ class MembershipHandler
   end
 end
 
-class VoucherHandler
-  def initialize
-    @vouchers = []
-  end
-
-  def [](index)
-    @vouchers[index]
-  end
-
-  def add(voucher)
-    @vouchers << voucher
-  end
-
-  def use(index)
-    @vouchers.delete_at(index)
-  end
-
-  def empty?
-    @vouchers.empty?
-  end
-
-  def amount
-    @vouchers.size
-  end
-end
-
 class Voucher
   attr_reader :value
 
@@ -86,6 +59,10 @@ class Voucher
 
   def can_use?(order)
     order.total_amount - @value >= 0
+  end
+
+  def self.zero
+    @@voucher ||= Voucher.new(0)
   end
 end
 
@@ -179,23 +156,16 @@ class Payment
     @payment_method = attributes.values_at(:payment_method)
   end
 
-  def pay(voucher_id: 0, paid_at: Time.now)
+  def pay(voucher: Voucher.zero, paid_at: Time.now)
     raise Exception.new unless @order.items.size > 0
-
-    customer = @order.customer
-
-    if customer.vouchers.empty?
-      @amount = @order.total_amount
-    elsif customer.vouchers[voucher_id].can_use?(@order)
-      @amount = @order.total_amount - customer.vouchers.use(voucher_id).value
-    else
-      raise Exception.new
-    end
 
     @authorization_number = Time.now.to_i
     @invoice = Invoice.new(billing_address: @order.address, shipping_address: @order.address, order: @order)
     @paid_at = paid_at
     @order.close(@paid_at)
+
+    @amount = @order.total_amount - voucher.value
+    @amount > 0 ? Voucher.zero : Voucher.new(@amount.abs)
   end
 
   def paid?
@@ -233,7 +203,7 @@ payment.pay
 
 if payment.paid?
   ShippingLabel.create_from(payment).each do |label|
-    #puts "membership? #{payment.order.customer.memberships.has_active_membership?('Netflix')}"
-    #puts "tax exempt? #{label.tax_exempt?}"
+    puts "membership? #{payment.order.customer.memberships.has_active_membership?('Netflix')}"
+    puts "tax exempt? #{label.tax_exempt?}"
   end
 end
