@@ -1,16 +1,29 @@
 {
-  "name": "chat",
-  "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
-  },
+  "homepage": "https://create-react-app-redux.now.sh",
   "scripts": {
+    "deploy": "now && now alias",
     "start": "react-scripts start",
+    "now-start": "serve -s ./build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "precommit": "pretty-quick --staged"
+  },
+  "devDependencies": {
+    "prettier": "1.13.7",
+    "react-scripts": "1.1.4"
+  },
+  "dependencies": {
+    "connected-react-router": "4.3.0",
+    "react": "16.4.1",
+    "react-dom": "16.4.1",
+    "react-redux": "5.0.7",
+    "react-router": "4.3.1",
+    "react-router-dom": "4.3.1",
+    "redux": "4.0.0",
+    "redux-saga": "^0.16.0",
+    "sanitize.css": "6.0.0",
+    "serve": "9.2.0"
   }
 }
