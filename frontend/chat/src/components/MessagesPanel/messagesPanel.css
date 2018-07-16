@@ -1,0 +1,18 @@
+.base {
+  min-height: 300px;
+  overflow: auto;
+  margin: 0;
+  padding-bottom: 20px;
+  background: url('../../images/background.jpg');
+  height: calc(100vh - 160px);
+}
+
+.lastMessagePlaceholder {
+  visibility: hidden;
+}
+
+@media screen and (min-width: 700px) {
+  .base {
+    height: calc(80vh - 110px);
+  }
+}
