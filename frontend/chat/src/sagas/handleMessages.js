@@ -1,22 +1,27 @@
-import { takeEvery, put, call } from 'redux-saga/effects'
-import { ADD_MESSAGE, send, startSending, doneSending, onFail, finishSending } from '../modules/messages'
+import { takeEvery, put, call, select } from 'redux-saga/effects'
+import { ADD_MESSAGE, startSending, doneSending, onFail } from '../modules/messages'
+import { changeMessage } from '../modules/chats'
 import SendLocal from '../service/local';
+import uuid from 'uuid';
 
-function* newMessageSage() {
-  yield put(startSending());
+const delay = (ms) => new Promise(res => setTimeout(res, ms))
 
+function* newMessageSaga() {
+  const {chats} = yield select()
+  const message = { text: chats.message, id: uuid(), room: null }
   try {
-    const payload = yield call(SendLocal)
-    yield put(send(payload))
+    yield put(startSending(message))
+    const payload = yield call(SendLocal, message)
+    yield delay(250)
+    yield put(doneSending(payload))
+    yield put(changeMessage(''))
   } catch (e){
     yield put(onFail())
-  } finally {
-    yield put(doneSending())
   }
 }
 
 const handleMessages = function* handleMessage() {
-  yield takeEvery(ADD_MESSAGE, newMessageSage)
+  yield takeEvery(ADD_MESSAGE, newMessageSaga)
 }
 
 export default handleMessages
