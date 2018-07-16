@@ -14,7 +14,7 @@ describe('chatActions', () => {
   it('should send message when click button', () => {
     const sendFunc = jest.fn()
     const wrapper = shallow(
-      <ChatActions onSubmitMessage={() => sendFunc()} message="mock" />
+      <ChatActions onSubmitMessage={sendFunc} message="mock" />
     );
     wrapper.find('.sendBtn').simulate('click')
     expect(sendFunc).toHaveBeenCalled()
@@ -22,7 +22,7 @@ describe('chatActions', () => {
   it('should not send empty message', () => {
     const sendFunc = jest.fn()
     const wrapper = shallow(
-      <ChatActions onSubmitMessage={() => sendFunc()} message="" />
+      <ChatActions onSubmitMessage={sendFunc} message="" />
     );
     wrapper.find('.sendBtn').simulate('click')
     expect(sendFunc).not.toHaveBeenCalled()
@@ -30,10 +30,9 @@ describe('chatActions', () => {
   it('should send with enter key', () => {
     const sendFunc = jest.fn()
     const wrapper = shallow(
-      <ChatActions onSubmitMessage={() => sendFunc()} message="mock" />
+      <ChatActions onSubmitMessage={sendFunc} message="mock" />
     );
-    wrapper.find('.sendBtn').simulate('keypress', {key: 'Enter'})
+    wrapper.find('.textField').simulate('keypress', {key: 'Enter'})
     expect(sendFunc).toHaveBeenCalled()
-    
   })
 })
