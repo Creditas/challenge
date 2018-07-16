@@ -15,6 +15,7 @@ const ChatActions = ({ onSubmitMessage, onMessageTyping, message }) => (
           autoFocus
           fullWidth
           onChange={(ev) => onMessageTyping(ev.target.value)}
+          onKeyPress={(ev) => ev.key === 'Enter' && onSubmitMessage(message)}
         />
       </Grid>
       <Grid 
