@@ -9,7 +9,7 @@ Bem, já conhecendo a estrutura e como o desafio pedia, foi adotado o padrão de
 ```
 element :button, '//button'
 
-def method
+def do_something
   button.click
 end
 ```
