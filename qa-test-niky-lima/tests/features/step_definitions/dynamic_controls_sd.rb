@@ -12,7 +12,7 @@ Então('o checkbox deverá estar invisível') do
   dynamic_ctrls_page.wait_until_checkbox_invisible
 end
 
-Então("o checkbox deverá estar visível") do
+Então('o checkbox deverá estar visível') do
   dynamic_ctrls_page.wait_until_checkbox_visible
 end
 
