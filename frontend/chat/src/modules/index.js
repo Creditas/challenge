@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
-import counter from './counter'
+import messages from './messages'
+import chats from './chats'
 
 export default combineReducers({
-  counter
+  messages,
+  chats,
 })
