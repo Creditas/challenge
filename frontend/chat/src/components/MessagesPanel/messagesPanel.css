@@ -4,6 +4,7 @@
   margin: 0;
   padding-bottom: 20px;
   background: url('../../images/background.jpg');
+  background-color: #dcd5cb;
   height: calc(100vh - 160px);
 }
 
