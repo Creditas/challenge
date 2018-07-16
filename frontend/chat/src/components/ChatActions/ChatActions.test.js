@@ -27,4 +27,13 @@ describe('chatActions', () => {
     wrapper.find('.sendBtn').simulate('click')
     expect(sendFunc).not.toHaveBeenCalled()
   })
+  it('should send with enter key', () => {
+    const sendFunc = jest.fn()
+    const wrapper = shallow(
+      <ChatActions onSubmitMessage={() => sendFunc()} message="mock" />
+    );
+    wrapper.find('.sendBtn').simulate('keypress', {key: 'Enter'})
+    expect(sendFunc).toHaveBeenCalled()
+    
+  })
 })
