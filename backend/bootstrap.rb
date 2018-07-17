@@ -99,6 +99,64 @@ class Membership
   # you can customize this class by yourself
 end
 
+class Email
+  attr_reader :to, :from
+
+  def initialize(to:, from:)
+    @to, @from = to, from
+  end
+
+  def send(messages:)
+    puts  " To: #{@to}, From: #{@from},  #{messages}"
+  end
+end
+
+=begin
+Esta parte da solução visa usar os desing pattern GOF para manipula
+os comportamentos do fluxo de pagamento e regras de envio.
+
+Na visão do problema iniicialmente estarei usando o pattern Stategy
+para escolher o fluxo de pagamento em tempo de execução.
+=end
+
+#1) Stategy
+
+class BookPaymentFlow
+    attr_reader :payment
+
+    def initialize(payment: )
+      @payment = payment
+    end
+
+    def process()
+
+    end
+end
+
+class ServiceSubscriptionPaymentFlow
+    attr_reader :payment
+
+    def initialize(payment: )
+      @payment = payment
+    end
+
+    def process(payment:)
+
+    end
+end
+
+class DigitalMediaPaymentFlow
+    attr_reader :payment
+
+    def initialize(payment: )
+      @payment = payment
+    end
+
+    def process()
+
+    end
+end
+
 # Book Example (build new payments if you need to properly test it)
 foolano = Customer.new
 book = Product.new(name: 'Awesome book', type: :book)
