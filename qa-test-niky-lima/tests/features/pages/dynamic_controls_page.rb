@@ -8,7 +8,7 @@ class DynamicControlsPage < SitePrism::Page
   element :p_message, :xpath, '//*[@id="message"]'
 
   def access_dynamic_controls_page
-    visit(Settings.get_url("dynamic_controls"))
+    visit(Settings.get_url('dynamic_controls'))
   end
 
   def click_dynamic_button

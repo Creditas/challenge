@@ -6,7 +6,7 @@ class WindowsPage < SitePrism::Page
   element :new_window_heading, :xpath, '//div/h3'
 
   def access_windows_page
-    visit(Settings.get_url("windows"))
+    visit(Settings.get_url('windows'))
   end
 
   def click_on_link
