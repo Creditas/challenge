@@ -99,64 +99,6 @@ class Membership
   # you can customize this class by yourself
 end
 
-class Email
-  attr_reader :to, :from
-
-  def initialize(to:, from:)
-    @to, @from = to, from
-  end
-
-  def send(messages:)
-    puts  " To: #{@to}, From: #{@from},  #{messages}"
-  end
-end
-
-=begin
-Esta parte da solução visa usar os desing pattern GOF para manipula
-os comportamentos do fluxo de pagamento e regras de envio.
-
-Na visão do problema iniicialmente estarei usando o pattern Stategy
-para escolher o fluxo de pagamento em tempo de execução.
-=end
-
-#1) Stategy
-
-class BookPaymentFlow
-    attr_reader :payment
-
-    def initialize(payment: )
-      @payment = payment
-    end
-
-    def process()
-
-    end
-end
-
-class ServiceSubscriptionPaymentFlow
-    attr_reader :payment
-
-    def initialize(payment: )
-      @payment = payment
-    end
-
-    def process(payment:)
-
-    end
-end
-
-class DigitalMediaPaymentFlow
-    attr_reader :payment
-
-    def initialize(payment: )
-      @payment = payment
-    end
-
-    def process()
-
-    end
-end
-
 # Book Example (build new payments if you need to properly test it)
 foolano = Customer.new
 book = Product.new(name: 'Awesome book', type: :book)
@@ -169,3 +111,67 @@ p payment_book.paid? # < true
 p payment_book.order.items.first.product.type
 
 # now, how to deal with shipping rules then?
+
+=begin
+Esta parte da solução visa usar os desing pattern GOF para manipula
+os comportamentos do fluxo de pagamento e regras de envio.
+
+Na visão do problema iniicialmente estarei usando o pattern Stategy
+para escolher o fluxo de pagamento em tempo de execução.
+=end
+
+#1) Stategy - Classes que possuiram comportamentos
+class BookPaymentFlow
+    def process(payment:)
+      puts "It book"
+    end
+end
+
+class ServiceSubscriptionPaymentFlow
+    def process(payment:)
+      puts "It services subscription"
+    end
+end
+
+class PhysicalItemPaymentFlow
+    def process(payment:)
+      puts "It physical item"
+    end
+end
+
+class DigitalMediaPaymentFlow
+    def process(payment:)
+      puts "It Digital Media"
+    end
+end
+
+#3) Factory - PaymentFlow que irá executar o fluxo de pagamento dependendo do tipo de item do pedido
+class PaymentFlow
+    attr_reader :payment, :flow
+
+    def initialize(payment:)
+      @payment = payment
+      @flows = {book_flow: BookPaymentFlow.new, physical_item_flow: PhysicalItemPaymentFlow.new}
+    end
+
+    def execute()
+      flow = @flows[:physical_item_flow]
+      flow.process(payment: @payment)
+    end
+end
+
+#4) Estrutura para realizar operações com email
+class Email
+  attr_reader :to, :from
+
+  def initialize(to:, from:)
+    @to, @from = to, from
+  end
+
+  def send(messages:)
+    puts  " To: #{@to}, From: #{@from},  #{messages}"
+  end
+end
+
+payment_flow = PaymentFlow.new(payment: payment_book)
+payment_flow.execute()
