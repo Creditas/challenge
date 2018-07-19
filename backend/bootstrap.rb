@@ -110,14 +110,14 @@ end
 # Book Example (build new payments if you need to properly test it)
 address = Address.new(zipcode: "00000-000")
 foolano = Customer.new(address: address, email: "foolano@gmail.com")
-book = Product.new(name: 'Awesome book', type: :book)
+book = Product.new(name: 'Awesome book', type: :digital_media)
 book_order = Order.new(foolano)
 book_order.add_product(book)
 
 payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+#p payment_book.paid? # < true
+#p payment_book.order.items.first.product.type
 
 # now, how to deal with shipping rules then?
 
@@ -136,7 +136,7 @@ class Voucher
   attr_reader :value
 
   def initialize(value:)
-    @value = values
+    @value = value
   end
 end
 
@@ -186,7 +186,7 @@ end
 #Stategy  - Classes que possuiram comportamentos de fluxo de pagamento por tipo de serviço
 class PhysicalItemPaymentFlow
     def process(payment:)
-      PhysicalItemShippingLabel.new.print(payment.order)
+      PhysicalItemShippingLabel.new.print(order: payment.order)
 
       "It physical item"
     end
@@ -194,11 +194,11 @@ end
 
 class ServiceSubscriptionPaymentFlow
     def process(payment:)
-      ServiceSubscriptionRepository.new.enable_signing(payment: payment.order)
+      ServiceSubscriptionRepository.new.enable_signing(order: payment.order)
 
       address_email = payment.order.customer.email
-      email = Email.new(to: "ecommerce@ecommer.com", from: address)
-      email.send(message: "Sua assinatura foi ativada")
+      email = Email.new(to: "ecommerce@ecommer.com", from: address_email)
+      email.send(messages: "Sua assinatura foi ativada")
 
       "It services subscription"
     end
@@ -214,13 +214,13 @@ end
 
 class DigitalMediaPaymentFlow
     def process(payment:)
-      DigitalMediaPaymentFlow.new.apply_voucher(order: payment.order, voucher: Voucher.new(value: 10))
+      DigitalMediaRepository.new.apply_voucher(order: payment.order, voucher: Voucher.new(value: 10))
 
       address_email = payment.order.customer.email
-      email = Email.new(to: "ecommerce@ecommer.com", from: address)
-      email.send(message: "Voucher de desconto de R$ 10 ao comprador associado ao pagamento")
+      email = Email.new(to: "ecommerce@ecommer.com", from: address_email)
+      email.send(messages: "Voucher de desconto de R$ 10 ao comprador associado ao pagamento")
 
-      "It Digital Media"
+      "It digital media"
     end
 end
 
@@ -248,5 +248,5 @@ class PaymentFlow
     end
 end
 
-#payment_flow = PaymentFlow.new(payment: payment_book)
+payment_flow = PaymentFlow.new(payment: payment_book)
 #p payment_flow.execute()
