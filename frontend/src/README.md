@@ -1,6 +1,14 @@
 ## Notas de Desenvolvimento
 
-### Abrindo o projeto
+### Setup do projeto
+
+Executar os seguintes comandos para gerar as dependências do projeto (*node_modules*) através do NPM:
+
+* *npm init -y*
+* *npm install webpack --save* (local) ou *npm install -g webpack* (global)
+* *npm install --save-dev babel-loader babel-core babel-preset-env*
+
+### Executando o projeto
 
 * Abra o arquivo *index.html* no browser de sua preferência.
 * O projeto foi testado nos browsers *Google Chrome* e *Mozilla Firefox*.
