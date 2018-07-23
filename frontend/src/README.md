@@ -2,11 +2,9 @@
 
 ### Setup do projeto
 
-Executar os seguintes comandos para gerar as dependências do projeto (*node_modules*) através do NPM:
+O comando a seguir irá instalar as dependências necessárias para o projeto (*package.json*) através do NPM:
 
-* *npm init -y*
-* *npm install webpack --save* (local) ou *npm install -g webpack* (global)
-* *npm install --save-dev babel-loader babel-core babel-preset-env*
+* *npm install*
 
 ### Executando o projeto
 
@@ -20,7 +18,7 @@ no arquivo */src/App.js*.
 
 ### Estrutura e ferramentas utilizadas no projeto
 
-* OOP em "ES6 modules" - facilita a legibilidade do código;
+* OOP em "ES6 modules" - facilita a escalabilidade da aplicação;
 * Webpack - compila, minifica, e permite a utilização de módulos;
 * Babel - transpila o código de ES6 para ES5 permitindo maior portabilidade.
 

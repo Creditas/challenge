@@ -4,6 +4,8 @@ module.exports = {
     path: `${__dirname}/dist`,
     filename: 'bundle.js'
   },
+  mode: 'production',
+  watch: true,
   module: {
     rules: [
       {
