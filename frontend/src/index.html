@@ -1,27 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
 
     <title>Chat</title>
     <link rel="stylesheet" href="./styles.css" type="text/css" media="all">
-  </head>
+</head>
+<body>
 
-  <body>
-    <h1>Chat</h1>
+<div class="chat-container">
+    <div class="chat-bar"></div>
+</div>
 
-    <div class="messages">
-      <ul class="message-list" id="listChat"></ul>
-
-      <div class="message-input">
-        <input type="text" id="inputMessage"/>
-        <button type="button" id="btnSendMessage">Enviar</button>
-      </div>
-    </div>
-
-    <script src="__js/Message.js" type="text/javascript"></script>
-    <script src="__js/Chat.js" type="text/javascript"></script>
-    <script src="__js/App.js" type="text/javascript"></script>
-  </body>
+<script src="dist/bundle.js"></script>
+</body>
 </html>
