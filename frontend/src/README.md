@@ -19,13 +19,15 @@ no arquivo */src/App.js*.
 
 ### Estrutura e ferramentas utilizadas no projeto
 
-* OOP em "ES6 modules" - facilita a escalabilidade da aplicação;
+* OOP em "ES6 modules" - facilita a legibilidade e escalabilidade da aplicação;
 * Webpack - compila, minifica, e permite a utilização de módulos;
 * Babel - transpila o código de ES6 para ES5 permitindo maior portabilidade.
+* Css e style loaders - permitem que o webpack faça o mesmo tratamento nos arquivos CSS.
 
 ### Possíveis melhorias
 
 * Adição de novo chat através da interface.
 * Fechamento de um chat existente através da interface.
+* Integração com bibliotecas de lint como o ESLint.
 * Integração com bibliotecas de testes unitários como o Jasmine.
 * Integração com pré-processadores CSS como o SASS.

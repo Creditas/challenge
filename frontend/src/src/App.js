@@ -3,6 +3,7 @@
 import DOMHandler from "./modules/DOMHandler";
 import ChatContainer from "./modules/ChatContainer";
 import Chat from "./modules/Chat";
+import styles from "./styles.css";
 
 const App = (function () {
 
