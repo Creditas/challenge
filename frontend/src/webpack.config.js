@@ -1,22 +1,27 @@
 module.exports = {
-  entry: `${__dirname}/src/App.js`,
+  entry: `./src/App.js`,
   output: {
-    path: `${__dirname}/dist`,
-    filename: 'bundle.js'
+    filename: './dist/bundle.js'
   },
   mode: 'production',
   watch: true,
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['env']
-          }
+    {
+      test: /\.css$/,
+      use: [
+        { loader: "style-loader" },
+        { loader: "css-loader" }
+      ]
+    },{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['env']
         }
-      }]
-    }
+      }
+    }]
   }
+}

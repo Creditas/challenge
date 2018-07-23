@@ -12,6 +12,9 @@ export class ChatContainer {
 
             if (chat.getId() !== chats[0].getId()) {
                 DOMHandler.hideElement(chat.getChatElement());
+            } else {
+                DOMHandler.activateButton(chat.getMenuButton(), 'chat-bar-item');
+                chat.getInputMessage().focus();
             }
         }
     };

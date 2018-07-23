@@ -8,8 +8,9 @@ O comando a seguir irá instalar as dependências necessárias para o projeto (*
 
 ### Executando o projeto
 
-* Abra o arquivo *index.html* no browser de sua preferência.
-* O projeto foi testado nos browsers *Google Chrome* e *Mozilla Firefox*.
+* *npm run start*
+* Abra o endereço *http://localhost:8080/* no browser de sua preferência.
+* Obs: projeto foi testado nos browsers *Google Chrome* e *Mozilla Firefox*.
 
 ### Adicionando um novo Chat
 
@@ -26,6 +27,5 @@ no arquivo */src/App.js*.
 
 * Adição de novo chat através da interface.
 * Fechamento de um chat existente através da interface.
-* Focus no input do chat em destaque.
 * Integração com bibliotecas de testes unitários como o Jasmine.
 * Integração com pré-processadores CSS como o SASS.

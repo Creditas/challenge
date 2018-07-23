@@ -42,6 +42,10 @@ class Chat {
         return this.menuButton;
     }
 
+    getInputMessage() {
+      return this.inputMessage;
+    }
+
     addMessage() {
         const message = new Message(this.inputMessage);
         const messageText = message.getMessage();
@@ -72,7 +76,8 @@ class Chat {
         this.menuButton.addEventListener("click", function () {
             DOMHandler.activateButton(this.getMenuButton(), 'chat-bar-item');
             DOMHandler.activateContent(this.getId(), 'chat');
-        }.bind(this))
+            this.inputMessage.focus();
+        }.bind(this));
     }
 }
 
