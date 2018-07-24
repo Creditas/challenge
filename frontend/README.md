@@ -20,7 +20,7 @@ no arquivo */src/App.js*.
 ### Estrutura e ferramentas utilizadas no projeto
 
 * OOP em "ES6 modules" - facilita a legibilidade e escalabilidade da aplicação;
-* Webpack - compila, minifica, e permite a utilização de módulos;
+* Webpack - compila, minifica, e permite a utilização de módulos no JS;
 * Babel - transpila o código de ES6 para ES5 permitindo maior portabilidade.
 * Css e style loaders - permitem que o webpack faça o mesmo tratamento nos arquivos CSS.
 
