@@ -1,7 +1,7 @@
 import DOMHandler from "./DOMHandler";
 import Message from "./Message";
 
-class Chat {
+const Chat = class {
     constructor(id) {
         this.id = id;
         this.buildChatElement();

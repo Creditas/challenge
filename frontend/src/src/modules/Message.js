@@ -1,4 +1,4 @@
-export class Message {
+const Message = class {
     constructor(messageNode){
         this.messageNode = messageNode;
         this.message = messageNode.value;

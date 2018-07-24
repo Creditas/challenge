@@ -1,6 +1,6 @@
 import DOMHandler from "./DOMHandler";
 
-export class ChatContainer {
+const ChatContainer = class {
     constructor(containerNode) {
         this.container = containerNode;
         this.menu = containerNode.firstChild.nextSibling;

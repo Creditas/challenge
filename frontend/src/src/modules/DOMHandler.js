@@ -1,4 +1,4 @@
-export class DOMHandler {
+const DOMHandler = class {
     constructor() {
     }
 

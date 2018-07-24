@@ -2,13 +2,13 @@
   "name": "src",
   "version": "1.0.0",
   "description": "",
-  "main": "App.js",
+  "main": "./src/App.js",
   "scripts": {
     "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "j.otavioms@gmail.com",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.3",
