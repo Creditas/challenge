@@ -1,32 +1,34 @@
-## Teste frontend - Creditas
+## Notas de Desenvolvimento
 
-Esse é um teste focado em design de código, e conhecimento de orientação a 
-objeto. O objetivo é avaliar sua experiênica em escrever código de fácil 
-manutenção, baixo acoplamento, e alta coesão.
+### Setup do projeto
 
-### Apresentação do problema
+O comando a seguir irá instalar as dependências necessárias para o projeto (*package.json*) através do NPM:
 
-O arquivo `index.html` contém o esqueleto de uma aplicação de chat totalmente 
-*bare-bones*: uma `<ul>` com uma lista de mensagens enviadas, e um `<button>` + `<input>` 
-para envio de novas mensagens.
+* *npm install*
 
-A feature inicial de nossa aplicação é bastante simples: o usuário deve poder 
-entrar uma mensagem na caixa de texto e, ao apertar o botão "Enviar" (ou 
-pressionar <kbd>Enter</kbd>), a mensagem deverá aparecer na lista de mensagens.
+### Executando o projeto
 
-Isoladamente essa é uma feature simples de implementar, mas queremos que você 
-leve em conta a evolução futura do software. Imagine que o app irá crescer em 
-features, e adicionar coisas como:
-* envio de mensagens via ajax, com as respostas vindo via `long-polling`
-* chat em realtime via WebRTC
-* ter vários chats visíveis ao mesmo tempo, adicionadas dinamicamente com base nas ações do usuário
+* *npm run start*
+* Abra o endereço *http://localhost:8080/* no browser de sua preferência.
+* Obs: projeto foi testado nos browsers *Google Chrome* e *Mozilla Firefox*.
 
-Você deve pensar num design de código que suporte esses casos de uso sem 
-grandes modificações.
+### Adicionando um novo Chat
 
-### Avaliação
+Para adicionar um novo chat basta incluir um novo objeto `Chat` na constante `chats`
+no arquivo */src/App.js*.
 
-Para nos enviar seu código, você pode:
-* Fazer um fork desse repositório, e nos mandar uma pull-request
-* Nos dar acesso a um repositório privado seu (github, bitbucket, gitlab...)
-* Nos enviar um `git bundle` do seu repositório para o e-mail challenge@creditas.com.br
+### Estrutura e ferramentas utilizadas no projeto
+
+* OOP em "ES6 modules" - facilita a legibilidade e escalabilidade da aplicação;
+* Webpack - compila, minifica, e permite a utilização de módulos;
+* Babel - transpila o código de ES6 para ES5 permitindo maior portabilidade.
+* Css e style loaders - permitem que o webpack faça o mesmo tratamento nos arquivos CSS.
+
+### Possíveis melhorias
+
+* Aumento do limite de caracteres na mensagem mediante formatação dos dados na tela.
+* Adição de novo chat através da interface.
+* Fechamento de um chat existente através da interface.
+* Integração com bibliotecas de lint como o ESLint.
+* Integração com bibliotecas de testes unitários como o Jasmine.
+* Integração com pré-processadores CSS como o SASS.
