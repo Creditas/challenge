@@ -61,7 +61,7 @@ Crie um teste que cria um post através da API. Valide que o post foi criado atr
 
 # Apresentação
 
-O objetivo deste teste é validar se as funcionalidades básicas das features estão de acordo com as especificações técnicas e funcionais. Para isso, foram desenvolvidos casos de teste para validar e verificar as funções de: adicionar e remover um checkbox, validar uma nova aba aberta e uma solicição POST.
+O objetivo deste teste é validar se as funcionalidades básicas das features estão de acordo com as especificações técnicas e funcionais. Para isso, foram desenvolvidos casos de teste para validar e verificar as funções de: adicionar e remover um checkbox, validar uma nova aba aberta e uma solicitação POST.
 
 Foi criado também uma feature com especificações sobre o login do site da Creditas.
 
