@@ -1,0 +1,61 @@
+<% include partials/header %>
+
+<div class="row">
+    <div class="container">
+        <h1 class="text-center">Registro de Usu&aacute;rio</h1>
+        <div class="ui main text container segment">
+            <form class="ui form" method="POST" action="/register">
+              
+                <div class="field">
+                    <label for="username">Login:</label>
+                    <input type="text" name="register[username]" id="register[username]" placeholder="ex: localiza.sp">
+                </div>
+
+                <div class="field">
+                    <label for="password">Senha:</label>
+                    <input type="password" name="register[password]" id="register[password]" placeholder="Senha">
+                </div>
+
+                <div class="field">
+                    <label for="passwordCheck">Confirma&ccedil;&atilde;o de Senha:</label>
+                    <input type="password" name="register[passwordCheck]" id="register[passwordCheck]" placeholder="Confirme a Senha">
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <input class="btn btn-success" type="submit" value="Registrar">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <a class="btn btn-danger float-right" href="/login">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<% include partials/footer %>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        function request(url, data) {
+            $.post(url, data, function(response,status) {
+                if (status == "success") {
+                    if (response) {
+                        alert("usuario ja existe!")
+                    }                    
+                }
+            });
+        }
+
+        $("input[id^='register[username]']").on("focusout", function(){
+            var username = $(this).val();
+            var url = "checkUser";
+            var data = { username : $(this).val() };
+            request(url, data)
+        });
+    });
+
+</script>

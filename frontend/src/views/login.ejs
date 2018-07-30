@@ -1,0 +1,36 @@
+<% include partials/header %>
+
+<div class="row">
+    <div class="container">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card text-center border-dark mb-3">
+                <div class="card-header">
+                    Creditas
+                </div>
+                <div class="card-body text-dark">
+                    <form method="POST" action="/login">
+
+                        <div class="form-group row">
+                            <label for="username" class="col-sm-2 col-form-label col-form-label-sm">Usu&aacute;rio</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-control-sm" id="username" name="username" aria-describedby="usernameHelp" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-2 col-form-label col-form-label-sm">Senha</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control form-control-sm" id="password" name="password" aria-describedby="passwordHelp" placeholder="">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-sm btn-outline-primary btn-space col-lg-12">Logar</button>
+                        <a class="btn btn-sm btn-outline-secondary btn-space col-lg-12" href="/register">Registrar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include partials/footer %>
