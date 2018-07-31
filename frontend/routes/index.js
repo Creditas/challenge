@@ -14,7 +14,7 @@ router.post("/sendMessage", functions.isLoggedIn, function(req, res) {
 
 	console.log(req.body);
 
-	res.send({})
+	res.send({ text : "aloha"})
 
 	// userReport.create({ infos: req.body, userId: req.user._id, ticket: result }, function (err, newReport) {
 	// 	if (err) {

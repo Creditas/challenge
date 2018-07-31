@@ -1,14 +1,16 @@
 import ReactDOM from 'react-dom'
-import React from 'react'
-import { Component } from 'react'
-import { Router, Route, browserHistory, IndexRoute  } from 'react-router'
+import React, { Component } from 'react'
+import MessageBox from './components/MessageBox'
 
 class App extends Component {
-   render() {
-     return (
-       <h1>hello</h1>
-     )
-   }
-}
+	render() {
+		return (
+			<div>
+			<h1>hello</h1>
+			<MessageBox />
+			</div>
+			)
+		}
+	}
 
-ReactDOM.render(<App />, document.getElementById('root'))
+	ReactDOM.render(<App />, document.getElementById('root'))

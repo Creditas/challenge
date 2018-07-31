@@ -26,6 +26,7 @@ app.use(express.static("public"));
 
 // inicializa o urlencoder para fazer o parse do corpo das requisicoes para dentro de req
 app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser.json());
 
 // inicializa o sanitizer para evitar xss (js injection)
 app.use(expressSanitizer());

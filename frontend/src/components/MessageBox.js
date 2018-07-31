@@ -1,8 +1,11 @@
-'use strict';
+// const axios = require('axios');
+import ReactDOM from 'react-dom'
+import React, { Component } from 'react'
+import axios from 'axios'
+import qs from 'qs'
+import 'babel-polyfill'
 
-const axios = require('axios');
-
-class MessageBox extends React.Component {
+class MessageBox extends Component {
   constructor(props) {
     super(props);
     this.state = { items: [], text: '', created: ''};
@@ -73,25 +76,18 @@ class MessageBox extends React.Component {
 
   async createGist(message) {
 
-    const headers = new Headers();
-    headers.append("Content-Type", "application/json");
-
-    const options = {
-      method: "POST",
-      headers,
-      body: JSON.stringify(message)
-    }
-
-    const request = new Request("/sendMessage", options);
-    const response = await fetch(request);
-    const status = await response.status;
-
-    console.log(status)
-
+    await axios.post('/sendMessage', qs.stringify(message))
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
+
 }
 
-class MessageList extends React.Component {
+class MessageList extends Component {
   render() {
     return React.createElement(
       "ul",
@@ -106,5 +102,7 @@ class MessageList extends React.Component {
 }
 
 
-const msgBoxDom = document.querySelector('#message_box_container');
-ReactDOM.render(React.createElement(MessageBox, null), msgBoxDom);
+export default MessageBox
+
+// const msgBoxDom = document.querySelector('#message_box_container');
+// ReactDOM.render(React.createElement(MessageBox, null), msgBoxDom);
