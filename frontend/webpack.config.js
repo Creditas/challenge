@@ -8,17 +8,22 @@ module.exports = {
     // messageBox: './src/messageBox.js'
   },
   output: {
-    filename: 'public/build/bundle.js',
-    sourceMapFilename: 'public/build/bundle.map'
+    // path: path.resolve(__dirname, "dist"),
+    // filename: 'bundle.js',
+    // sourceMapFilename: 'bundle.map',
+    // publicPath: "/public/",
+
+    path: __dirname + '/public/javascript',
+    filename: 'bundle.js'
   },
   devtool: '#source-map',
   module: {
     rules: [{
-      test: /\.jsx?$/,
-      exclude: /(node_modules)/,
+      test: /\.(js|jsx)?(\.erb)?$/,
+      exclude: /node_modules/,
       loader: 'babel-loader',
       options: {
-        presets: ['react', 'es2015']
+        presets: ["es2015", "stage-0", "react"]
       }
     }]
   }

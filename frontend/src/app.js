@@ -1,4 +1,7 @@
-import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import React from 'react'
+import { Component } from 'react'
+import { Router, Route, browserHistory, IndexRoute  } from 'react-router'
 
 class App extends Component {
    render() {
