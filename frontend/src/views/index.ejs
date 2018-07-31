@@ -1,15 +1,18 @@
 <% include partials/header %>
 
-<h1>Chat</h1>
-
-<div class="messages">
-  <ul class="message-list"></ul>
-
-  <div class="message-input">
-    <input type="text" />
-    <button type="button">Enviar</button>
-  </div>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-4">
+			<div id="menu_box_container"></div>
+		</div>
+		<div class="col-lg-8">
+			<div id="message_box_container" class="row"></div>
+		</div>
+	</div>
 </div>
 
 <% include partials/footer %>
 
+<!-- Load our React component. -->
+<script src="/javascript/react-components/messageBox.js"></script>
+<!-- <script src="/javascript/react-components/menuBox.js"></script> -->

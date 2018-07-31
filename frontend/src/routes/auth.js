@@ -9,7 +9,10 @@ var user = require("../models/user");
 
 router.get("/", function (req, res) {
     // res.render("index");
-    res.render("landing", { currentUser: req.user });
+    if (!req.user)
+        res.render("landing", { currentUser: req.user });
+    else 
+        res.render("index")
 });
 
 // REGISTER
