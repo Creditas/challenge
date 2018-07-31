@@ -1,5 +1,7 @@
 'use strict';
 
+const axios = require('axios');
+
 class MessageBox extends React.Component {
   constructor(props) {
     super(props);
