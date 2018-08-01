@@ -14,16 +14,10 @@ router.post("/sendMessage", functions.isLoggedIn, function(req, res) {
 
 	console.log(req.body);
 
+	// salva msg para depois lista-la nos chats do usuario
+
 	res.send({ text : "aloha"})
 
-	// userReport.create({ infos: req.body, userId: req.user._id, ticket: result }, function (err, newReport) {
-	// 	if (err) {
-	// 		res.send("ops: " + err);
-	// 	}
-	// 	else {
-	// 		res.redirect("/reports");
-	// 	}
-	// });
 });
 
 module.exports = router;

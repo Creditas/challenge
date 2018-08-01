@@ -39,8 +39,8 @@ class MessageBox extends Component {
       React.createElement("button",{ className : "btn btn-outline-primary"},"Enviar")),
     formContent = React.createElement("div", {className : "input-group"}, textareaMessage, sendButton);
 
-    return React.createElement("div", { className : "messages col-lg-12" },
-      React.createElement("div", { className : "card border-dark mb-3"},
+    return React.createElement("div", { className : "messages" },
+      React.createElement("div", { className : "card border-dark"},
         React.createElement("div",{ className : "card-header"},React.createElement("h3", { className : "card-title" }, "Chat")), // card-header
         React.createElement("div",{ className : "card-body"},
           React.createElement(MessageList, { items: this.state.items }),
@@ -92,11 +92,10 @@ class MessageList extends Component {
     return React.createElement(
       "ul",
       { className : "message-list"},
-      this.props.items.map(item => React.createElement(
-        "li",
-        { key: item.id },
-        item.text
-        ))
+      this.props.items.map(item => React.createElement("li", {},
+        React.createElement("p", { key: item.id }, item.text)
+        )
+      )
       );
   }
 }

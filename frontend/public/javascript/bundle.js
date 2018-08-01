@@ -33218,11 +33218,6 @@ var App = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
-				_react2.default.createElement(
-					'h1',
-					null,
-					'hello'
-				),
 				_react2.default.createElement(_MessageBox2.default, null)
 			);
 		}
@@ -33321,7 +33316,7 @@ var MessageBox = function (_Component) {
           sendButton = _react2.default.createElement("div", { className: "input-group-append" }, _react2.default.createElement("button", { className: "btn btn-outline-primary" }, "Enviar")),
           formContent = _react2.default.createElement("div", { className: "input-group" }, textareaMessage, sendButton);
 
-      return _react2.default.createElement("div", { className: "messages col-lg-12" }, _react2.default.createElement("div", { className: "card border-dark mb-3" }, _react2.default.createElement("div", { className: "card-header" }, _react2.default.createElement("h3", { className: "card-title" }, "Chat")), // card-header
+      return _react2.default.createElement("div", { className: "messages" }, _react2.default.createElement("div", { className: "card border-dark" }, _react2.default.createElement("div", { className: "card-header" }, _react2.default.createElement("h3", { className: "card-title" }, "Chat")), // card-header
       _react2.default.createElement("div", { className: "card-body" }, _react2.default.createElement(MessageList, { items: this.state.items }), _react2.default.createElement("p", { className: "card-text text-muted" }, createdMessage) // created
       ), // card-body
       _react2.default.createElement("div", { className: "message-input card-footer bg-transparent" }, _react2.default.createElement("form", { onSubmit: this.handleSubmit, method: "POST" }, formContent) // form
@@ -33401,7 +33396,7 @@ var MessageList = function (_Component2) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement("ul", { className: "message-list" }, this.props.items.map(function (item) {
-        return _react2.default.createElement("li", { key: item.id }, item.text);
+        return _react2.default.createElement("li", {}, _react2.default.createElement("p", { key: item.id }, item.text));
       }));
     }
   }]);
