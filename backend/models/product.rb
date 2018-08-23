@@ -39,3 +39,9 @@ class DigitalProduct < Product
     super(name: name, type: :digital)
   end
 end
+
+class SubscriptionProduct < Product
+  def initialize(name:)
+    super(name: name, type: :subscription)
+  end
+end

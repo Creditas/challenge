@@ -19,10 +19,14 @@ class Order
   def close(closed_at = Time.now)
     @closed_at = closed_at
     
-    @items.each(&:process)
+    @items.each { |item| item.process(customer) }
   end
 
   def shipping_labels
     @items.select(&:shippable?).collect(&:shipping_label)
+  end
+
+  def memberships
+    @items.collect(&:membership)
   end
 end

@@ -10,5 +10,8 @@ class Catalog
   def self.build_digital_product(name:)
     DigitalProduct.new(name: name)
   end
-end
 
+  def self.build_subscription_product(name:)
+    SubscriptionProduct.new(name: name)
+  end
+end

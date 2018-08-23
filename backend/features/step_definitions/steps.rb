@@ -21,6 +21,11 @@ Given("that he ordered a digital {string} with the price of {float}") do |item, 
   @order.add_item(@product, price)
 end
 
+Given("that he ordered a monthly subscription with the price of {float}") do |price|
+  @product = Catalog.build_subscription_product(name: "Assinatura")
+  @order.add_item(@product, price)
+end
+
 When("the order is paid with a credit card") do
   @payment = Payment.new(order: @order, payment_method: CreditCard.fetch_by_hashed("8432094380243-43293240432"))
   @payment.pay
@@ -54,4 +59,10 @@ Then("it gives a discount voucher of {int} to the user to use in a new purchase"
   expect(@customer.vouchers.count).to eq(1)
   @voucher = @customer.vouchers.first
   expect(@voucher.value).to eq(10)
+end
+
+Then("it activates the membership") do
+  expect(@order.memberships.count).to eq(1)
+  @membership = @order.memberships.first
+  expect(@membership.active?).to be_truthy
 end
