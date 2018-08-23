@@ -9,7 +9,7 @@ class Order
   end
 
   def add_item(product, price)
-    @items << OrderItem.new(order: self, product: product, price: price)
+    @items << AbstractOrderItem.build(order: self, product: product, price: price)
   end
 
   def total_amount
