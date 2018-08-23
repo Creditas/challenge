@@ -1,3 +1,6 @@
+SHIPPING_LABEL_WITH_TAX_INFORMATION = "Kevin\nCEP: 45678-979\nItem isento de impostos conforme disposto na Constituição Art. 150, VI, d."
+SHIPPING_LABEL = "Kevin\nCEP: 45678-979"
+
 Given("that there is a customer called {string}") do |name|
   @customer = Customer.new(name: name)
 end
@@ -38,11 +41,11 @@ Then("it generates an invoice with the order information") do
 end
 
 Then("it generates a shipping label with the customer address and a tax free notification") do
-  expect(@order.shipping_labels.first).to eq("Kevin\nCEP: 45678-979\nItem isento de impostos conforme disposto na Constituição Art. 150, VI, d.")
+  expect(@order.shipping_labels.first).to eq(SHIPPING_LABEL_WITH_TAX_INFORMATION)
 end
 
 Then("it generates a shipping label with the customer address") do
-  expect(@order.shipping_labels.first).to eq("Kevin\nCEP: 45678-979")
+  expect(@order.shipping_labels.first).to eq(SHIPPING_LABEL)
 end
 
 Then("it sends to the user an e-mail notification with the order information") do
@@ -65,4 +68,9 @@ Then("it activates the membership") do
   expect(@order.memberships.count).to eq(1)
   @membership = @order.memberships.first
   expect(@membership.active?).to be_truthy
+end
+
+Then("it generates two shipping labels, one only with the address and the other also with the tax free notification") do
+  expect(@order.shipping_labels.first).to eq(SHIPPING_LABEL)
+  expect(@order.shipping_labels[1]).to eq(SHIPPING_LABEL_WITH_TAX_INFORMATION)
 end
