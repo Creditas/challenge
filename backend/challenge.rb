@@ -1,3 +1,4 @@
+require './models/catalog'
 require './models/payment'
 require './models/invoice'
 require './models/order'
