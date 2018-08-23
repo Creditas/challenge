@@ -26,3 +26,19 @@ end
 Then("it should generate a shipping label with the customer address") do
   expect(@order.shipping_label).to eq("Kevin\nCEP: 45678-979")
 end
+
+Then("it should send to the user an e-mail notification with the order information") do
+  expect(@customer.email_notifications.count).to eq(1)
+  @email_notification = @customer.email_notifications.first
+  expect(@email_notification.to_address).to eq(@order.email_address)
+end
+
+Then("it should not generate a shipping label") do
+  expect(@order.shipping_label).to be_nil
+end
+
+Then("it gives a discount voucher of {int} to the user to use in a new purchase") do |value|
+  expect(@customer.vouchers.count).to eq(1)
+  @voucher = @customer.vouchers.first
+  expect(@voucher.value).to eq(10)
+end

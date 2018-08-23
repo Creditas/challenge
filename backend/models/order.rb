@@ -1,10 +1,11 @@
 class Order
-  attr_reader :customer, :items, :payment, :address, :closed_at, :shipping_label
+  attr_reader :customer, :items, :payment, :address, :closed_at, :shipping_label, :email_address
 
   def initialize(customer, overrides = {})
     @customer = customer
     @items = []
     @address = overrides.fetch(:address) { Address.new(zipcode: '45678-979') }
+    @email_address = overrides.fetch(:email_address) { customer.email_address}
   end
 
   def add_item(product, price)
@@ -22,8 +23,13 @@ class Order
   end
 
   def process_shipping
-    @shipping_label = "#{customer.name}\nCEP: #{address.zipcode}"
-    @shipping_label += "\nItem isento de impostos conforme disposto na Constituição Art. 150, VI, d." if @items.first.product.type == :book
-    @shipping_label
+    type = @items.first.product.type
+    if type != :song
+      @shipping_label = "#{customer.name}\nCEP: #{address.zipcode}"
+      @shipping_label += "\nItem isento de impostos conforme disposto na Constituição Art. 150, VI, d." if type == :book
+    else
+      @customer.notify!(@items.first, "Song")
+      @customer.vouchers << Voucher.new(value: 10)
+    end
   end
 end
