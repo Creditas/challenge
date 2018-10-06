@@ -2,7 +2,7 @@ import { ADD_ROOM, ADDED_ROOM, LOADING_ROOM } from '../constants/actionTypes';
 import RoomMock from '../models/Room.mock';
 
 const initialState = {
-  list: RoomMock,
+  list: [RoomMock],
   errors: []
 };
 

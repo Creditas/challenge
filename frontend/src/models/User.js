@@ -1,6 +1,6 @@
 class User {
   constructor({ name = '', role = 'user' }) {
-    this.id = new Date().getTime();
+    this.id = new Date().valueOf();
     this.name = name;
     this.role = role;
   }

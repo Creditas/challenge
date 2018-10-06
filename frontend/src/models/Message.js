@@ -1,10 +1,10 @@
 class Message {
   constructor({
-    id = new Date().getTime(),
+    id = new Date().valueOf(),
     content = '',
-    userId = () => {
+    userId = (() => {
       throw new Error('Every message requires an User ID.');
-    }
+    })()
   }) {
     this.id = id;
     this.content = content;

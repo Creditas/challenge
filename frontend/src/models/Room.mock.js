@@ -1,5 +1,6 @@
 import User from './User';
 import Message from './Message';
+import Room from './Room';
 
 const MockedUSer = new User({
   name: 'Romulo Bordezani',
@@ -8,19 +9,22 @@ const MockedUSer = new User({
 
 const userId = MockedUSer.get().id;
 
-const MockedMessage = new Message({
+const MockedMessage = {
   content: 'One mocked message',
   userId
-});
+};
 
-const RoomMock = [
-  MockedMessage,
-  MockedMessage,
-  MockedMessage,
-  MockedMessage,
-  MockedMessage,
-  MockedMessage,
-  MockedMessage
-];
+const RoomMock = new Room({
+  id: 883838383838,
+  messages: [
+    new Message(MockedMessage),
+    new Message(MockedMessage),
+    new Message(MockedMessage),
+    new Message(MockedMessage),
+    new Message(MockedMessage),
+    new Message(MockedMessage),
+    new Message(MockedMessage)
+  ]
+});
 
 export default RoomMock;
