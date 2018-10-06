@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Room from '../../components/Room';
+
+// eslint-disable-next-line
 class App extends Component {
+  // eslint-disable-next-line
   constructor(props) {
     super(props);
-    this.state = {
-      clear: 'clear'
-    };
   }
 
   render() {
-    const { clear } = this.state;
-    return <div> Redux App {clear} </div>;
+    return <Room />;
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    address: state.address
+  };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   null
 )(App);

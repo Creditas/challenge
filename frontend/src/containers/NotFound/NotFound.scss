@@ -1,6 +1,8 @@
 .not-found-wrapper {
   padding: 20px;
   color: #8e8e8e;
+  max-width: 300px;
+  margin: 0 auto;
   &__icon {
     width: 100%;
     height: auto;
@@ -9,5 +11,6 @@
     width: 26px;
     height: auto;
     vertical-align: middle;
+    margin-left: 5px;
   }
 }
