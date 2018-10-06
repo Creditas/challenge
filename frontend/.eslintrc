@@ -1,0 +1,32 @@
+{
+  "extends": [
+    "airbnb",
+    "prettier",
+    "prettier/react"
+  ],
+  "plugins": ["jest", "prettier"],
+  "rules": {
+    "jsx-a11y/label-has-for": 0,
+    "jsx-a11y/label-has-associated-control": 0,
+    "react/forbid-prop-types": 0,
+    "prettier/prettier": "error",
+    "no-underscore-dangle": 0,
+    "arrow-body-style": 0,
+    "spaced-comment": ["error", "always", {
+      "line": {
+        "markers": ["/"],
+        "exceptions": ["-", "+"]
+      },
+      "block": {
+        "markers": ["!"],
+        "exceptions": ["*"],
+        "balanced": true
+      }
+    }]
+  },
+  "parser": "babel-eslint",
+  "env": {
+    "jest/globals": true
+  },
+  "globals": { "fetch": false }
+}
