@@ -1,0 +1,12 @@
+:global {
+  @import "normalize";
+  @import "fonts";
+  @import "colors";
+  @import "form";
+  @import "breakpoints";
+
+  body{
+    background: #f2f2f2;
+  }
+
+}

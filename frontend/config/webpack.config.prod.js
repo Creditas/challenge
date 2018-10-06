@@ -248,7 +248,7 @@ module.exports = {
             options: {
               formatter: require.resolve('react-dev-utils/eslintFormatter'),
               eslintPath: require.resolve('eslint'),
-              
+
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -281,7 +281,7 @@ module.exports = {
               customize: require.resolve(
                 'babel-preset-react-app/webpack-overrides'
               ),
-              
+
               plugins: [
                 [
                   require.resolve('babel-plugin-named-asset-import'),
@@ -319,7 +319,7 @@ module.exports = {
               cacheDirectory: true,
               // Save disk space when time isn't as important
               cacheCompression: true,
-              
+
               // If an error happens in a package, it's possible to be
               // because it was compiled. Thus, we don't want the browser
               // debugger to show the original code. Instead, the code
@@ -337,6 +337,7 @@ module.exports = {
             exclude: cssModuleRegex,
             loader: getStyleLoaders({
               importLoaders: 1,
+              modules: true,
               sourceMap: shouldUseSourceMap,
             }),
             // Don't consider CSS imports dead code even if the
@@ -367,6 +368,7 @@ module.exports = {
             loader: getStyleLoaders(
               {
                 importLoaders: 2,
+                modules: true,
                 sourceMap: shouldUseSourceMap,
               },
               'sass-loader'
