@@ -1,0 +1,10 @@
+{
+  "name": "ttatt",
+  "version": "1.0.0",
+  "description": "Chat with WebRTC",
+  "main": "index.js",
+  "repository": "https://github.com/romulobordezani/challenge",
+  "author": "romulobordezani",
+  "license": "MIT",
+  "private": false
+}
