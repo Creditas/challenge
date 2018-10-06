@@ -10,7 +10,10 @@
     "babel-jest": "23.6.0",
     "babel-loader": "8.0.4",
     "babel-plugin-named-asset-import": "^0.2.2",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react-app": "^5.0.3",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
     "bfj": "6.1.1",
     "case-sensitive-paths-webpack-plugin": "2.1.2",
     "chalk": "2.4.1",
@@ -59,7 +62,9 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "prettify": "node_modules/.bin/prettier --print-width 120 \"{server,src}/**/*.js\" --write",
+    "lint": "node_modules/.bin/eslint \"{server,src}/**/*.js\""
   },
   "eslintConfig": {
     "extends": "react-app"
