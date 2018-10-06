@@ -1,0 +1,13 @@
+.not-found-wrapper {
+  padding: 20px;
+  color: #8e8e8e;
+  &__icon {
+    width: 100%;
+    height: auto;
+  }
+  &__smile {
+    width: 26px;
+    height: auto;
+    vertical-align: middle;
+  }
+}
