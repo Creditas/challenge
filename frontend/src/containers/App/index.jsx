@@ -3,31 +3,41 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Room from '../../components/Room';
+import { getRoom, sendMessage } from '../../actions/rooms';
 
-// eslint-disable-next-line
 class App extends Component {
-  // eslint-disable-next-line
-  constructor(props) {
-    super(props);
+  componentWillMount() {
+    const { handleAddRoom: addInitialRoom } = this.props;
+    addInitialRoom();
+    addInitialRoom();
   }
 
   render() {
-    const { rooms } = this.props;
-    return rooms.map(room => <Room data={room} />);
+    const { roomList, handleSendMessage } = this.props;
+    return roomList.map(room => (
+      <Room key={room.id} data={room} handleSendMessage={handleSendMessage} />
+    ));
   }
 }
 
 App.propTypes = {
-  rooms: PropTypes.arrayOf().isRequired
+  roomList: PropTypes.array.isRequired,
+  handleAddRoom: PropTypes.func.isRequired,
+  handleSendMessage: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    rooms: state.rooms.list
+    roomList: state.rooms.list
   };
+};
+
+const mapDispatchToProps = {
+  handleAddRoom: getRoom,
+  handleSendMessage: sendMessage
 };
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(App);

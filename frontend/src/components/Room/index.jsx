@@ -9,8 +9,8 @@ const Room = props => {
   return (
     <div className={styles.room}>
       Room ID: {props.data.id}
-      {props.data.messages.map(message => <Message data={message} /> )}
-      <Sender />
+      {props.data.messages.map(message => <Message key={message.id} data={message} /> )}
+      <Sender handleSendMessage={props.handleSendMessage} roomId={props.data.id}/>
     </div>
   );
 };

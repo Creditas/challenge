@@ -1,5 +1,10 @@
 // ROOMS
+export const GET_ROOM = 'GET_ROOM';
 export const ADD_ROOM = 'ADD_ROOM';
-export const ADDED_ROOM = 'ADDED_ROOM';
 export const LOADING_ROOM = 'LOADING_ROOM';
 export const ERROR_ADDING_ROOM = 'ERROR_ADDING_ROOM';
+
+// MESSAGES
+export const SEND_MESSAGE = 'SEND_MESSAGE';
+export const ADD_MESSAGE = 'ADD_MESSAGE';
+export const ERROR_ADDING_MESSAGE = 'ERROR_ADDING_MESSAGE';

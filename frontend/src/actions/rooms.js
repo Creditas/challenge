@@ -1,4 +1,4 @@
-import { ADD_ROOM } from '../constants/actionTypes';
+import { GET_ROOM, SEND_MESSAGE } from '../constants/actionTypes';
 
-export const addRoom = room => ({ type: ADD_ROOM, room });
-export const addRoom_ = room => ({ type: ADD_ROOM, room }); // TODO remove it
+export const getRoom = room => ({ type: GET_ROOM, room });
+export const sendMessage = (room, message) => ({ type: SEND_MESSAGE, room, message });
