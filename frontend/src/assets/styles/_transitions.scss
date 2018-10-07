@@ -1,0 +1,23 @@
+.fade-enter {
+  opacity: 0.01;
+  border: 5px solid red;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 900ms ease-out;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 900ms ease-out;
+}
+
+.fade-enter-done {
+  opacity: 1;
+  border: 5px solid green;
+}

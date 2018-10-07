@@ -41,7 +41,7 @@ class Sender extends Component {
           spacing={24}
           style={{ flexGrow: 1 }}
         >
-          <Grid item xs={8} justify="center">
+          <Grid item xs={8}>
             <TextField
               required
               id="outlined-required"
@@ -49,11 +49,10 @@ class Sender extends Component {
               value={message}
               margin="dense"
               variant="outlined"
-              autoComplete={false}
               onChange={this.handleMessageChange}
             />
           </Grid>
-          <Grid item xs={4} justify="center">
+          <Grid item xs={4}>
             <Button type="submit" variant="contained" color="primary" size="small">
               <SendIcon />
             </Button>
