@@ -1,0 +1,9 @@
+@import "../../assets/styles/colors";
+
+.room {
+  box-shadow: 0 4px 9px -1px rgba(0,0,0,0.53);
+  background: $white;
+  max-width: 70%;
+  margin: 20px auto;
+  padding: 20px;
+}

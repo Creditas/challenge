@@ -1,6 +1,8 @@
+import guid from '../helpers/guid';
+
 class Message {
   constructor({
-    id = new Date().valueOf(),
+    id = guid(),
     content = '',
     userId = (() => {
       throw new Error('Every message requires an User ID.');

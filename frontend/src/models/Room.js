@@ -1,5 +1,7 @@
+import guid from '../helpers/guid';
+
 class Room {
-  constructor({ id = new Date().valueOf(), messages = [] }) {
+  constructor({ id = guid(), messages = [] }) {
     this.id = id;
     this.messages = messages;
   }
@@ -7,7 +9,7 @@ class Room {
   get() {
     return {
       id: this.id,
-      messages: this.messagesmessages
+      messages: this.messages
     };
   }
 

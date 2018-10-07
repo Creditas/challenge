@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Room from '../../components/Room';
 
@@ -11,13 +12,18 @@ class App extends Component {
   }
 
   render() {
-    return <Room />;
+    const { rooms } = this.props;
+    return rooms.map(room => <Room data={room} />);
   }
 }
 
+App.propTypes = {
+  rooms: PropTypes.arrayOf().isRequired
+};
+
 const mapStateToProps = state => {
   return {
-    address: state.address
+    rooms: state.rooms.list
   };
 };
 

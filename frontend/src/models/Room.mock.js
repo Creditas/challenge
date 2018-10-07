@@ -1,6 +1,7 @@
 import User from './User';
 import Message from './Message';
 import Room from './Room';
+import guid from '../helpers/guid';
 
 const MockedUSer = new User({
   name: 'Romulo Bordezani',
@@ -15,7 +16,7 @@ const MockedMessage = {
 };
 
 const RoomMock = new Room({
-  id: 883838383838,
+  id: guid(),
   messages: [
     new Message(MockedMessage),
     new Message(MockedMessage),
