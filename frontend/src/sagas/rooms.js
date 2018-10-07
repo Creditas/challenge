@@ -4,7 +4,7 @@ import Message from '../interfaces/Message';
 import Room from '../interfaces/Room';
 
 import {
-  GET_ROOM,
+  CREATE_NEW_ROOM,
   ADD_ROOM,
   LOADING_ROOM,
   ERROR_ADDING_ROOM,
@@ -32,6 +32,9 @@ function* addInitialRoom() {
 
 function* sendMessage(action) {
   try {
+    /*
+      *** envio de mensagens via ajax via long-polling > could be achieved with an ASYNC axios yeld call here ***
+    */
     yield put({
       type: ADD_MESSAGE,
       payload: {
@@ -48,6 +51,6 @@ function* sendMessage(action) {
 }
 
 export default function* watcherSaga() {
-  yield takeLatest(GET_ROOM, addInitialRoom);
+  yield takeLatest(CREATE_NEW_ROOM, addInitialRoom);
   yield takeLatest(SEND_MESSAGE, sendMessage);
 }

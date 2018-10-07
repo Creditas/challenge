@@ -1,9 +1,24 @@
-@import "../../assets/styles/colors";
-
 .room {
-  box-shadow: 0 4px 9px -1px rgba(0,0,0,0.53);
-  background: $white;
-  max-width: 70%;
+
+  min-width: 300px;
+  max-height: 300px;
   margin: 20px auto;
   padding: 20px;
+  position: relative;
+
+  &__header {
+    font-size: 0.8em;
+  }
+
+  &__message-container {
+    overflow-y: auto;
+    height: 70%;
+  }
+
+  &__sender {
+    position: absolute;
+    min-width: 300px;
+    bottom: 20px;
+  }
+
 }

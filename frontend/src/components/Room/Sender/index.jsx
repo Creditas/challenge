@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import SendIcon from '@material-ui/icons/Send';
+import Grid from '@material-ui/core/Grid';
 
 class Sender extends Component {
   constructor(props) {
@@ -13,7 +17,7 @@ class Sender extends Component {
     event.preventDefault();
     const { handleSendMessage, roomId } = this.props;
     const { message } = this.state;
-    handleSendMessage(roomId, message); // TODO add validation to prevent empty submission
+    handleSendMessage(roomId, message);
     this.setState({
       message: ''
     });
@@ -28,17 +32,33 @@ class Sender extends Component {
   render() {
     const { message } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          placeholder="Mensagem...."
-          value={message}
-          onChange={this.handleMessageChange}
-        />
-        <button type="submit">
-          Enviar
-          {/* TODO add 118n */}
-        </button>
+      <form onSubmit={this.handleSubmit} autoComplete="off">
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          spacing={24}
+          style={{ flexGrow: 1 }}
+        >
+          <Grid item xs={8} justify="center">
+            <TextField
+              required
+              id="outlined-required"
+              label="Mensagem"
+              value={message}
+              margin="dense"
+              variant="outlined"
+              autoComplete={false}
+              onChange={this.handleMessageChange}
+            />
+          </Grid>
+          <Grid item xs={4} justify="center">
+            <Button type="submit" variant="contained" color="primary" size="small">
+              <SendIcon />
+            </Button>
+          </Grid>
+        </Grid>
       </form>
     );
   }

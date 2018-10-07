@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Paper from '@material-ui/core/Paper';
+
 import Message from './Message';
 import Sender from './Sender';
 
@@ -11,15 +13,20 @@ class Room extends Component {
     const { handleSendMessage, data } = this.props;
     const { id, messages } = data;
     return (
-      <div className={styles.room}>
-        Room ID: {id}
-        <ul>
+      <Paper className={styles.room}>
+        <div className={styles.room__header}>
+          <span>Room ID: </span>
+          {id.substring(0, 7)}
+        </div>
+        <div className={styles['room__message-container']}>
           {messages.map(message => (
             <Message key={message.id} data={message} />
           ))}
-        </ul>
-        <Sender handleSendMessage={handleSendMessage} roomId={id} />
-      </div>
+        </div>
+        <div className={styles.room__sender}>
+          <Sender handleSendMessage={handleSendMessage} roomId={id} />
+        </div>
+      </Paper>
     );
   }
 }

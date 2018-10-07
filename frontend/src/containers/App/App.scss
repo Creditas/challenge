@@ -1,14 +1,16 @@
-.addresses-wrapper{
+@import "../../assets/styles/breakpoints";
+
+.rooms-wrapper{
 
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: start;
-  margin-top: 185px;
   height: 100%;
 
-  @media (max-width: 420px) {
+  @include breakpoint($small) {
     flex-direction: column;
+    margin-bottom: 85px;
   }
 
 }

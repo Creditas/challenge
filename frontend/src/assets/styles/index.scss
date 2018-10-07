@@ -2,11 +2,15 @@
   @import "normalize";
   @import "fonts";
   @import "colors";
-  @import "form";
   @import "breakpoints";
 
   body{
-    background: #f2f2f2;
+    background: #23db99 url("../images/app-bg.png") no-repeat right top;
+    background-size: 40%;
+
+    #root {
+      height: 100%;
+    }
   }
 
 }

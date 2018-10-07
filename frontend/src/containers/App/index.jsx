@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 import Room from '../../components/Room';
-import { getRoom, sendMessage, addNewRoom } from '../../actions/rooms';
+import { sendMessage, addNewRoom } from '../../actions/rooms';
+import AddNewHomeButton from '../../components/AddNewHomeButton';
+import themeConfig from '../../theme';
+
+import styles from './App.scss';
 
 class App extends Component {
   componentWillMount() {
@@ -14,14 +19,14 @@ class App extends Component {
   render() {
     const { roomList, handleSendMessage, handleAddNewRoom } = this.props;
     return (
-      <React.Fragment>
-        {roomList.map(room => (
-          <Room key={room.id} data={room} handleSendMessage={handleSendMessage} />
-        ))}
-        <button type="button" onClick={handleAddNewRoom}>
-          Novo Chat {/* TODO add 118n */}
-        </button>
-      </React.Fragment>
+      <MuiThemeProvider theme={createMuiTheme(themeConfig)}>
+        <div className={styles['rooms-wrapper']}>
+          {roomList.map(room => (
+            <Room key={room.id} data={room} handleSendMessage={handleSendMessage} />
+          ))}
+          <AddNewHomeButton handleAddNewRoom={handleAddNewRoom} />
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
@@ -40,7 +45,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  handleAddRoom: getRoom,
+  handleAddRoom: addNewRoom,
   handleSendMessage: sendMessage,
   handleAddNewRoom: addNewRoom
 };

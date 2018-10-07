@@ -1,5 +1,5 @@
 // ROOMS
-export const GET_ROOM = 'GET_ROOM';
+export const CREATE_NEW_ROOM = 'CREATE_NEW_ROOM';
 export const ADD_ROOM = 'ADD_ROOM';
 export const LOADING_ROOM = 'LOADING_ROOM';
 export const ERROR_ADDING_ROOM = 'ERROR_ADDING_ROOM';
