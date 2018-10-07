@@ -6,15 +6,6 @@ const initialState = {
   loading: true
 };
 
-/* eslint-disable */
-function insertItem(array, action) {
-  return [
-    ...array.slice(0, action.index),
-    action.item,
-    ...array.slice(action.index)
-  ]
-}
-
 const room = (state = initialState, action) => {
   switch (action.type) {
     case LOADING_ROOM: {
@@ -26,7 +17,7 @@ const room = (state = initialState, action) => {
     }
 
     case ADD_ROOM: {
-      const updatedRoomList = state.list;
+      const updatedRoomList = state.list.slice(0);
       updatedRoomList.push(action.payload);
       return {
         ...state,
@@ -36,12 +27,16 @@ const room = (state = initialState, action) => {
     }
 
     case ADD_MESSAGE: {
-      const updatedMessageList = state.list.slice(0);
-      updatedMessageList[0].messages.push(action.payload); // Todo find the right Room instead of 0
-      console.log(updatedMessageList[0].messages, action.payload);
+      const roomToAddMessage = state.list.findIndex(roomItem => {
+        return roomItem.id === action.payload.roomId;
+      });
+
+      const roomListCloned = state.list.slice(0);
+      roomListCloned[roomToAddMessage].messages.push(action.payload.message);
+
       return {
         ...state,
-        list: updatedMessageList
+        list: roomListCloned
       };
     }
 

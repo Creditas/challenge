@@ -2,11 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Sender extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: ''
+    };
+  }
+
   handleSubmit = event => {
     event.preventDefault();
     const { handleSendMessage, roomId } = this.props;
     const { message } = this.state;
-    handleSendMessage(roomId, message);
+    handleSendMessage(roomId, message); // TODO add validation to prevent empty submission
+    this.setState({
+      message: ''
+    });
   };
 
   handleMessageChange = event => {
@@ -16,10 +26,19 @@ class Sender extends Component {
   };
 
   render() {
+    const { message } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="Mensagem...." onChange={this.handleMessageChange} />
-        <button type="submit">Enviar</button>
+        <input
+          type="text"
+          placeholder="Mensagem...."
+          value={message}
+          onChange={this.handleMessageChange}
+        />
+        <button type="submit">
+          Enviar
+          {/* TODO add 118n */}
+        </button>
       </form>
     );
   }

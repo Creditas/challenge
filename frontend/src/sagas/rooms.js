@@ -13,7 +13,7 @@ import {
   ERROR_ADDING_MESSAGE
 } from '../constants/actionTypes';
 
-// Todo replace this User layer for something coming from outside on Redux store
+// Todo replace this User's layer for something else coming from outside via Redux store
 const MockedUSer = new User({
   name: 'Romulo Bordezani',
   role: 'user'
@@ -34,10 +34,13 @@ function* sendMessage(action) {
   try {
     yield put({
       type: ADD_MESSAGE,
-      payload: new Message({
-        content: action.message,
-        userId
-      })
+      payload: {
+        message: new Message({
+          content: action.message,
+          userId
+        }),
+        roomId: action.roomId
+      }
     });
   } catch (error) {
     yield put({ type: ERROR_ADDING_MESSAGE, error });
