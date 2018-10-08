@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import Grow from '@material-ui/core/Grow';
 
-import Message from './Message';
-import Sender from './Sender';
+import Message from '../Message';
+import Sender from '../Sender';
 
-import styles from './room.scss';
+import styles from './Room.scss';
 
 class Room extends Component {
   constructor(props) {
@@ -16,17 +16,14 @@ class Room extends Component {
 
   addNewMessage = (roomId, message) => {
     const { handleSendMessage } = this.props;
-    handleSendMessage(roomId, message);
-    setTimeout(() => {
-      this.messageWrapperRef.current.scrollTop = this.messageWrapperRef.current.scrollHeight;
-    }, 100); // Timeout needed to wait until the dom have the final height of the new message
+    handleSendMessage(roomId, message, this.messageWrapperRef);
   };
 
   render() {
     const { data } = this.props;
     const { id, messages } = data;
     return (
-      <Grow in>
+      <Grow in timeout={1000}>
         <Paper className={styles.room}>
           <div className={styles.room__header}>
             <span>Room ID: </span>

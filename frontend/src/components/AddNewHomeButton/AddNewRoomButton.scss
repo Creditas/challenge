@@ -1,5 +1,12 @@
+@import "../../assets/styles/breakpoints";
+
 .new-room-button{
   position: fixed;
   right: 20px;
   bottom: 20px;
+
+  @include breakpoint($small-key-on) {
+    display: none;
+  }
+
 }

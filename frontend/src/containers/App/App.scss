@@ -6,7 +6,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: start;
-  height: 100%;
 
   @include breakpoint($small) {
     margin-bottom: 85px;

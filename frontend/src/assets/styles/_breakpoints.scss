@@ -9,6 +9,7 @@ $viewportIncrement: 1px;
 $tiny: 320px; /* tiny screens like iPhone 4, Galaxy S% and so on... */
 $iPhone6: 375px; /* iPhone 6 only... */
 $small: (max-width 480px) (orientation portrait); /* Anything smaller than a Nokia N9, commonly High Resolution devices */
+$small-key-on: (max-width 480px)(max-height 479px); /* Anything smaller than a Nokia N9, commonly High Resolution devices */
 $medium: 768px; /* Ipads and smallers */
 $medium-hd: ( min-width $medium + $viewportIncrement ) (orientation portrait); /* Large screens on Tablets, at least an ipad Pro */
 $large: 1024px;

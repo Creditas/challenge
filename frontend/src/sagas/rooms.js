@@ -1,3 +1,4 @@
+// /* eslint-env browser */
 import { takeLatest, put } from 'redux-saga/effects';
 import User from '../interfaces/User';
 import Message from '../interfaces/Message';
@@ -21,8 +22,11 @@ const MockedUSer = new User({
 
 const userId = MockedUSer.get().id;
 
-function* addInitialRoom() {
+function* addRoom() {
   try {
+    setTimeout(() => {
+      window.scrollTo(0, document.documentElement.scrollHeight);
+    }, 100);
     yield put({ type: LOADING_ROOM });
     yield put({ type: ADD_ROOM, payload: new Room({}) });
   } catch (error) {
@@ -35,6 +39,12 @@ function* sendMessage(action) {
     /*
       *** envio de mensagens via ajax via long-polling > could be achieved with an ASYNC axios yeld call here ***
     */
+
+    setTimeout(() => {
+      /* eslint-disable-next-line */
+      action.messageWrapperRef.current.scrollTop = action.messageWrapperRef.current.scrollHeight;
+    }, 100); // Timeout needed to wait until the dom have the final height of the new message
+
     yield put({
       type: ADD_MESSAGE,
       payload: {
@@ -51,6 +61,6 @@ function* sendMessage(action) {
 }
 
 export default function* watcherSaga() {
-  yield takeLatest(CREATE_NEW_ROOM, addInitialRoom);
+  yield takeLatest(CREATE_NEW_ROOM, addRoom);
   yield takeLatest(SEND_MESSAGE, sendMessage);
 }
