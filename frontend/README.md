@@ -1,6 +1,6 @@
 ## tête-à-tête
 
-A simple Chat App using WebRTC
+A simple Chat App made with React and Redux
 
 ### How to start
 ````
@@ -12,6 +12,24 @@ yarn install
 
 ````
 yarn start
+````
+
+### How to test
+
+````
+yarn test
+````
+
+### How to lint
+
+````
+yarn run lint
+````
+
+### How to prettify
+
+````
+yarn run prettify
 ````
 
 This project used *Create React App* as Boilerplate, original documentation about it at: [README_cra](README_cra.md)

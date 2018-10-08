@@ -38,6 +38,7 @@
     "eslint-plugin-react": "7.11.1",
     "file-loader": "2.0.0",
     "fs-extra": "7.0.0",
+    "gh-pages": "^2.0.1",
     "history": "^4.7.2",
     "html-webpack-plugin": "4.0.0-alpha.2",
     "identity-obj-proxy": "3.0.0",
@@ -75,8 +76,10 @@
     "workbox-webpack-plugin": "3.6.2"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "start": "REACT_APP_ENVIRONMENT=dev node scripts/start.js",
+    "build": "REACT_APP_ENVIRONMENT=production node scripts/build.js",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "test": "node scripts/test.js",
     "prettify": "node_modules/.bin/prettier --print-width 120 \"{server,src}/**/*.js\" --write",
     "lint": "node_modules/.bin/eslint \"{server,src}/**/*.js\""
