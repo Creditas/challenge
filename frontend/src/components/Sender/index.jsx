@@ -53,7 +53,13 @@ class Sender extends Component {
             />
           </Grid>
           <Grid item xs={4}>
-            <Button type="submit" variant="contained" color="primary" size="small">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              size="small"
+              aria-label="Send"
+            >
               <SendIcon />
             </Button>
           </Grid>
