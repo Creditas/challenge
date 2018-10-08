@@ -2,6 +2,7 @@
   "name": "ttatt",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://romulobordezani.github.io/challenge",
   "dependencies": {
     "@babel/core": "7.1.0",
     "@material-ui/core": "^3.1.2",
