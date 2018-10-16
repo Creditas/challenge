@@ -1,0 +1,24 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Esse é um teste focado em design de código, e conhecimento de orientação a  objeto. O objetivo é avaliar sua experiênica em escrever código de fácil  manutenção, baixo acoplamento, e alta coesão.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "browser-sync": "^2.26.3",
+    "gulp-babel": "^8.0.0-beta.2",
+    "gulp-browserify": "^0.5.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-util": "^3.0.8"
+  },
+  "dependencies": {
+    "gulp": "^3.9.1"
+  }
+}
