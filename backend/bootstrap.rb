@@ -2,16 +2,6 @@
 PROJECT_ROOT = File.expand_path(File.dirname(__FILE__))
 Dir.glob(File.join(PROJECT_ROOT, "lib", "**", "*.rb")).each { |file| require file }
 
-class Invoice
-  attr_reader :billing_address, :shipping_address, :order
-
-  def initialize(attributes = {})
-    @billing_address = attributes.values_at(:billing_address)
-    @shipping_address = attributes.values_at(:shipping_address)
-    @order = attributes.values_at(:order)
-  end
-end
-
 class Order
   attr_reader :customer, :items, :payment, :address, :closed_at
 
