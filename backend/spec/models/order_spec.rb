@@ -16,7 +16,7 @@ RSpec.describe Order do
 
       order = described_class.new(customer)
 
-      expect(order.items).to be_empty
+      expect(order.items).to match_array([])
     end
 
     it "sets @order_item_class to defined value if it is present in args" do
@@ -139,6 +139,36 @@ RSpec.describe Order do
   end
 
   describe "#close" do
+    it "process each order item" do
+      customer = double("Customer", address: double("Address"))
+      item_factory = class_double(OrderItem::Factory)
+
+      order = described_class.new(customer, item_factory: item_factory)
+
+      product1 = double("Product")
+      order_item1 = double("OrderItem")
+      allow(order_item1).to receive(:process)
+      allow(item_factory).to receive(:build)
+        .with(order: order, product: product1, quantity: nil)
+        .and_return(order_item1)
+
+      order.add_product(product1)
+
+      product2 = double("Product")
+      order_item2 = double("OrderItem")
+      allow(order_item2).to receive(:process)
+      allow(item_factory).to receive(:build)
+        .with(order: order, product: product2, quantity: nil)
+        .and_return(order_item2)
+
+      order.add_product(product2)
+
+      order.close
+
+      expect(order_item1).to have_received(:process)
+      expect(order_item2).to have_received(:process)
+    end
+
     it "sets #closed_at to defined value if argument is passed" do
       customer = double("Customer", address: double("Address"))
       closed_at = Time.new(2018, 10, 21, 20, 30)

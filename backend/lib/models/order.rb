@@ -20,6 +20,7 @@ class Order
   end
 
   def close(closed_at = Time.now)
+    @items.each { |item| item.process }
     @closed_at = closed_at
   end
 end

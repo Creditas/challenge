@@ -7,8 +7,12 @@ task :original_book_example do
   # Book Example (build new payments if you need to properly test it)
 
   address = Address.new(zipcode: '12345-678')
-  foolano = Customer.new(address: address)
-  book = Product::BasicProduct.new(name: 'Awesome book', type: :book, price: 15)
+  foolano = Customer.new(
+    name: "Jimmy",
+    email: "jimmy@jimmy.org",
+    address: address
+  )
+  book = Product::PhysicalBook.new(name: 'Awesome book', price: 15)
   book_order = Order.new(foolano)
   book_order.add_product(book)
 

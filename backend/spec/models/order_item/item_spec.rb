@@ -1,6 +1,15 @@
 require "spec_helper"
 
 RSpec.describe OrderItem::Item do
+  it "is not processed until further action is taken" do
+    order = double("Order")
+    product = double("Product")
+
+    order_item = described_class.new(order: order, product: product)
+
+    expect(order_item.processed?).to be false
+  end
+
   describe "#initialize" do
     it "sets #order" do
       order = double("Order")
@@ -42,6 +51,15 @@ RSpec.describe OrderItem::Item do
 
       expect(order_item.quantity).to eq(default_quantity)
     end
+
+    it "initializes item as not processed" do
+      order = double("Order")
+      product = double("Product")
+
+      order_item = described_class.new(order: order, product: product)
+
+      expect(order_item.processed?).to be false
+    end
   end
 
   describe "#total" do
@@ -56,6 +74,40 @@ RSpec.describe OrderItem::Item do
                         quantity: quantity)
 
       expect(order_item.total).to eq(quantity * product.price)
+    end
+  end
+
+  describe "#process" do
+    it "sets item as processed" do
+      order = double("Order")
+      product = double("Product")
+
+      order_item = described_class.new(order: order, product: product)
+      order_item.process
+
+      expect(order_item.processed?).to be true
+    end
+  end
+
+  describe "#processed?" do
+    it "returns true if item has been processed" do
+      order = double("Order")
+      product = double("Product")
+
+      order_item = described_class.new(order: order, product: product)
+      order_item.process
+
+      expect(order_item.processed?).to be true
+    end
+
+    it "returns false if item has not been processed" do
+      order = double("Order")
+      product = double("Product")
+
+      order_item = described_class.new(order: order, product: product)
+      order_item.process
+
+      expect(order_item.processed?).to be true
     end
   end
 end
