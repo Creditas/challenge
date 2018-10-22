@@ -2,14 +2,6 @@
 PROJECT_ROOT = File.expand_path(File.dirname(__FILE__))
 Dir.glob(File.join(PROJECT_ROOT, "lib", "**", "*.rb")).each { |file| require file }
 
-class Address
-  attr_reader :zipcode
-
-  def initialize(zipcode:)
-    @zipcode = zipcode
-  end
-end
-
 class CreditCard
   def self.fetch_by_hashed(code)
     CreditCard.new
