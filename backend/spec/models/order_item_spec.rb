@@ -19,19 +19,43 @@ RSpec.describe OrderItem do
 
       expect(order_item.product).to eq(product)
     end
+
+    it "sets #quantity to defined value if present in args" do
+      order = double("Order")
+      product = double("Product")
+      quantity = 3
+
+      order_item = described_class
+                   .new(order: order,
+                        product: product,
+                        quantity: quantity)
+
+      expect(order_item.quantity).to eq(quantity)
+    end
+
+    it "sets #quantity to default value if not present in args" do
+      order = double("Order")
+      product = double("Product")
+      default_quantity = 1
+
+      order_item = described_class.new(order: order, product: product)
+
+      expect(order_item.quantity).to eq(default_quantity)
+    end
   end
 
   describe "#total" do
     it "returns the order item total value" do
-      # The original OrderItem class implementation returns the hard-coded value
-      # of 10 (integer) for the #total attribute (each item worths 10)
-
       order = double("Order")
-      product = double("Product")
+      product = double("Product", price: 35.0)
+      quantity = 5
 
-      order_item = described_class.new(order: order, product: product)
+      order_item = described_class
+                   .new(order: order,
+                        product: product,
+                        quantity: quantity)
 
-      expect(order_item.total).to eq(10)
+      expect(order_item.total).to eq(quantity * product.price)
     end
   end
 end

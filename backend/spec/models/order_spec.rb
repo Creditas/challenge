@@ -57,22 +57,42 @@ RSpec.describe Order do
   end
 
   describe "#add_product" do
-    it "creates a new order item" do
+    it "creates a new order item with quantity if specified" do
       customer = double("Customer", address: double("Address"))
       product = double("Product")
+      quantity = 5
       order_item = double("OrderItem")
       item_class = class_double(OrderItem)
 
       order = described_class.new(customer, item_class: item_class)
 
       allow(item_class).to receive(:new)
-        .with(order: order, product: product)
+        .with(order: order, product: product, quantity: quantity)
+        .and_return(order_item)
+
+      order.add_product(product, quantity: quantity)
+
+      expect(item_class).to have_received(:new)
+        .with(order: order, product: product, quantity: quantity)
+    end
+
+    it "creates a new order item with nil quantity if not specified" do
+      customer = double("Customer", address: double("Address"))
+      product = double("Product")
+      quantity = 5
+      order_item = double("OrderItem")
+      item_class = class_double(OrderItem)
+
+      order = described_class.new(customer, item_class: item_class)
+
+      allow(item_class).to receive(:new)
+        .with(order: order, product: product, quantity: nil)
         .and_return(order_item)
 
       order.add_product(product)
 
       expect(item_class).to have_received(:new)
-        .with(order: order, product: product)
+        .with(order: order, product: product, quantity: nil)
     end
 
     it "adds created order item to order#items" do
@@ -84,7 +104,7 @@ RSpec.describe Order do
       order = described_class.new(customer, item_class: item_class)
 
       allow(item_class).to receive(:new)
-        .with(order: order, product: product)
+        .with(order: order, product: product, quantity: nil)
         .and_return(order_item)
 
       order.add_product(product)
@@ -105,13 +125,14 @@ RSpec.describe Order do
     it "returns the total amount (sum) of all order items" do
       customer = double("Customer", address: double("Address"))
       product = double("Product")
+      order_item = double("OrderItem", total: 10)
+
+      allow(OrderItem).to receive(:new).with(any_args).and_return(order_item)
 
       order = described_class.new(customer)
       3.times { order.add_product(product) }
 
-      # The original OrderItem class implementation returns the hard-coded value
-      # of 10 (integer) for the #total attribute (each item worths 10)
-      expect(order.total_amount).to eq(30)
+      expect(order.total_amount).to eq(3 * order_item.total)
     end
   end
 

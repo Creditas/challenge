@@ -8,8 +8,11 @@ class Order
     @address = overrides.fetch(:address) { customer.address }
   end
 
-  def add_product(product)
-    @items << @order_item_class.new(order: self, product: product)
+  def add_product(product, quantity: nil)
+    @items << @order_item_class
+              .new(order: self,
+                   product: product,
+                   quantity: quantity)
   end
 
   def total_amount
