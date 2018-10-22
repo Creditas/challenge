@@ -5,7 +5,7 @@ class Order
     @customer = customer
     @items = []
     @order_item_class = overrides.fetch(:item_class) { OrderItem }
-    @address = overrides.fetch(:address) { Address.new(zipcode: '45678-979') }
+    @address = overrides.fetch(:address) { customer.address }
   end
 
   def add_product(product)

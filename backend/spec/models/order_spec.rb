@@ -4,7 +4,7 @@ require "timecop"
 RSpec.describe Order do
   describe "#initialize" do
     it "sets #customer" do
-      customer = double("Customer")
+      customer = double("Customer", address: double("Address"))
 
       order = described_class.new(customer)
 
@@ -12,7 +12,7 @@ RSpec.describe Order do
     end
 
     it "initializes #items attribute" do
-      customer = double("Customer")
+      customer = double("Customer", address: double("Address"))
 
       order = described_class.new(customer)
 
@@ -20,7 +20,7 @@ RSpec.describe Order do
     end
 
     it "sets @order_item_class to defined value if it is present in args" do
-      customer = double("Customer")
+      customer = double("Customer", address: double("Address"))
       item_class = Hash
 
       order = described_class.new(customer, item_class: item_class)
@@ -29,7 +29,7 @@ RSpec.describe Order do
     end
 
     it "sets @order_item_class to default value if not present in args" do
-      customer = double("Customer")
+      customer = double("Customer", address: double("Address"))
       default_order_item_class = OrderItem
 
       order = described_class.new(customer)
@@ -39,7 +39,7 @@ RSpec.describe Order do
     end
 
     it "sets #address to defined value if it is present in args" do
-      customer = double("Customer")
+      customer = double("Customer", address: double("Address"))
       address = double("Address")
 
       order = described_class.new(customer, address: address)
@@ -47,18 +47,18 @@ RSpec.describe Order do
       expect(order.address).to eq(address)
     end
 
-    it "sets #address to default value if not present in args" do
-      customer = double("Customer")
+    it "sets #address to customer address if not present in args" do
+      customer = double("Customer", address: double("Address"))
 
       order = described_class.new(customer)
 
-      expect(order.address).to be_instance_of(Address)
+      expect(order.address).to eq(customer.address)
     end
   end
 
   describe "#add_product" do
     it "creates a new order item" do
-      customer = double("Customer")
+      customer = double("Customer", address: double("Address"))
       product = double("Product")
       order_item = double("OrderItem")
       item_class = class_double(OrderItem)
@@ -76,7 +76,7 @@ RSpec.describe Order do
     end
 
     it "adds created order item to order#items" do
-      customer = double("Customer")
+      customer = double("Customer", address: double("Address"))
       product = double("Product")
       order_item = double("OrderItem")
       item_class = class_double(OrderItem)
@@ -95,7 +95,7 @@ RSpec.describe Order do
 
   describe "#total_amount" do
     it "returns 0 if order has no items" do
-      customer = double("Customer")
+      customer = double("Customer", address: double("Address"))
 
       order = described_class.new(customer)
 
@@ -103,7 +103,7 @@ RSpec.describe Order do
     end
 
     it "returns the total amount (sum) of all order items" do
-      customer = double("Customer")
+      customer = double("Customer", address: double("Address"))
       product = double("Product")
 
       order = described_class.new(customer)
@@ -117,7 +117,7 @@ RSpec.describe Order do
 
   describe "#close" do
     it "sets #closed_at to defined value if argument is passed" do
-      customer = double("Customer")
+      customer = double("Customer", address: double("Address"))
       closed_at = Time.new(2018, 10, 21, 20, 30)
 
       order = described_class.new(customer)
@@ -128,7 +128,7 @@ RSpec.describe Order do
 
     it "sets #closed_at to current time if argument is not passed" do
       Timecop.freeze(Time.new(2018, 10, 21, 21, 30))
-      customer = double("Customer")
+      customer = double("Customer", address: double("Address"))
 
       order = described_class.new(customer)
       order.close
