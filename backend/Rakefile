@@ -8,7 +8,7 @@ task :original_book_example do
 
   address = Address.new(zipcode: '12345-678')
   foolano = Customer.new(address: address)
-  book = Product.new(name: 'Awesome book', type: :book, price: 15)
+  book = Product::BasicProduct.new(name: 'Awesome book', type: :book, price: 15)
   book_order = Order.new(foolano)
   book_order.add_product(book)
 
