@@ -2,19 +2,6 @@
 PROJECT_ROOT = File.expand_path(File.dirname(__FILE__))
 Dir.glob(File.join(PROJECT_ROOT, "lib", "**", "*.rb")).each { |file| require file }
 
-class OrderItem
-  attr_reader :order, :product
-
-  def initialize(order:, product:)
-    @order = order
-    @product = product
-  end
-
-  def total
-    10
-  end
-end
-
 class Product
   # use type to distinguish each kind of product: physical, book, digital, membership, etc.
   attr_reader :name, :type
