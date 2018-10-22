@@ -4,15 +4,15 @@ class Order
   def initialize(customer, overrides = {})
     @customer = customer
     @items = []
-    @order_item_class = overrides.fetch(:item_class) { OrderItem }
+    @item_factory = overrides.fetch(:item_factory) { OrderItem::Factory }
     @address = overrides.fetch(:address) { customer.address }
   end
 
   def add_product(product, quantity: nil)
-    @items << @order_item_class
-              .new(order: self,
-                   product: product,
-                   quantity: quantity)
+    @items << @item_factory
+              .build(order: self,
+                     product: product,
+                     quantity: quantity)
   end
 
   def total_amount

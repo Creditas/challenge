@@ -21,21 +21,21 @@ RSpec.describe Order do
 
     it "sets @order_item_class to defined value if it is present in args" do
       customer = double("Customer", address: double("Address"))
-      item_class = Hash
+      item_factory = Hash
 
-      order = described_class.new(customer, item_class: item_class)
+      order = described_class.new(customer, item_factory: item_factory)
 
-      expect(order.instance_variable_get(:@order_item_class)).to eq(item_class)
+      expect(order.instance_variable_get(:@item_factory)).to eq(item_factory)
     end
 
     it "sets @order_item_class to default value if not present in args" do
       customer = double("Customer", address: double("Address"))
-      default_order_item_class = OrderItem
+      default_item_factory = OrderItem::Factory
 
       order = described_class.new(customer)
 
-      expect(order.instance_variable_get(:@order_item_class))
-        .to eq(default_order_item_class)
+      expect(order.instance_variable_get(:@item_factory))
+        .to eq(default_item_factory)
     end
 
     it "sets #address to defined value if it is present in args" do
@@ -62,17 +62,17 @@ RSpec.describe Order do
       product = double("Product")
       quantity = 5
       order_item = double("OrderItem")
-      item_class = class_double(OrderItem)
+      item_factory = class_double(OrderItem::Factory)
 
-      order = described_class.new(customer, item_class: item_class)
+      order = described_class.new(customer, item_factory: item_factory)
 
-      allow(item_class).to receive(:new)
+      allow(item_factory).to receive(:build)
         .with(order: order, product: product, quantity: quantity)
         .and_return(order_item)
 
       order.add_product(product, quantity: quantity)
 
-      expect(item_class).to have_received(:new)
+      expect(item_factory).to have_received(:build)
         .with(order: order, product: product, quantity: quantity)
     end
 
@@ -81,17 +81,17 @@ RSpec.describe Order do
       product = double("Product")
       quantity = 5
       order_item = double("OrderItem")
-      item_class = class_double(OrderItem)
+      item_factory = class_double(OrderItem::Factory)
 
-      order = described_class.new(customer, item_class: item_class)
+      order = described_class.new(customer, item_factory: item_factory)
 
-      allow(item_class).to receive(:new)
+      allow(item_factory).to receive(:build)
         .with(order: order, product: product, quantity: nil)
         .and_return(order_item)
 
       order.add_product(product)
 
-      expect(item_class).to have_received(:new)
+      expect(item_factory).to have_received(:build)
         .with(order: order, product: product, quantity: nil)
     end
 
@@ -99,11 +99,11 @@ RSpec.describe Order do
       customer = double("Customer", address: double("Address"))
       product = double("Product")
       order_item = double("OrderItem")
-      item_class = class_double(OrderItem)
+      item_factory = class_double(OrderItem::Factory)
 
-      order = described_class.new(customer, item_class: item_class)
+      order = described_class.new(customer, item_factory: item_factory)
 
-      allow(item_class).to receive(:new)
+      allow(item_factory).to receive(:build)
         .with(order: order, product: product, quantity: nil)
         .and_return(order_item)
 
@@ -126,10 +126,12 @@ RSpec.describe Order do
       customer = double("Customer", address: double("Address"))
       product = double("Product")
       order_item = double("OrderItem", total: 10)
+      item_factory = class_double(OrderItem::Factory)
 
-      allow(OrderItem).to receive(:new).with(any_args).and_return(order_item)
+      allow(item_factory).to receive(:build)
+        .with(any_args).and_return(order_item)
 
-      order = described_class.new(customer)
+      order = described_class.new(customer, item_factory: item_factory)
       3.times { order.add_product(product) }
 
       expect(order.total_amount).to eq(3 * order_item.total)

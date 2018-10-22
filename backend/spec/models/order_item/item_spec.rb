@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe OrderItem do
+RSpec.describe OrderItem::Item do
   describe "#initialize" do
     it "sets #order" do
       order = double("Order")
