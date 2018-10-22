@@ -2,12 +2,6 @@
 PROJECT_ROOT = File.expand_path(File.dirname(__FILE__))
 Dir.glob(File.join(PROJECT_ROOT, "lib", "**", "*.rb")).each { |file| require file }
 
-class CreditCard
-  def self.fetch_by_hashed(code)
-    CreditCard.new
-  end
-end
-
 class Customer
   # you can customize this class by yourself
 end
