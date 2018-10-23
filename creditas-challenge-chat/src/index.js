@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import './index.css'
 import App from './App'
-import registerServiceWorker from './registerServiceWorker'
+// import registerServiceWorker from './registerServiceWorker'
 import reducers from './reducers'
 import watchAll from './sagas'
 import setupSocket from './sockets'
@@ -28,4 +28,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 )
-registerServiceWorker()
+// registerServiceWorker()
