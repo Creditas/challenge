@@ -8,6 +8,8 @@ module OrderItem
     def self.map_product_to_item(product)
       if product.is_a?(Product::PhysicalProduct)
         OrderItem::PhysicalItem
+      elsif product.is_a?(Product::Membership)
+        OrderItem::Membership
       else
         raise "#{product.class} is not mapped to an Order Item class"
       end
