@@ -31,6 +31,29 @@ Nesta etapa de preparação, o projeto está estruturado e pronto para ser
 modificado e, caso necessário, refatorado, para implementar as lógicas de
 negócio.
 
+## Implementação
+
+Após a extração das classes em arquivos individuais, foi possível implementar as
+regras de negócios estabelecidas no desafio.
+
+Decidi usar herança para modelar os produtos e items de pedido, agrupando os
+items nos *namespaces* `Product` and `OrderItem` respectivamente. Para gerar
+*order items* associados aos *products*, criei usei o *factory pattern*.
+
+Implementei as lógicas de negócio gradativamente, uma por vez, atualizando os
+modelos envolvidos conforme a evolução do projeto. O progresso está documentado
+nas *commit messages*.
+
+Para os testes unitários, o conceito de testes DAMP ao invés do DRY (considero o
+"jeito" DAMP de testar mais fácil de manter e mais legível). Decidi escrever
+testes de integração (apenas *happy paths*) para garantir que todas as classes
+interoperam entre si de forma correta. Estes testes simulam um fluxo de compra
+para cada tipo de produto e garantem que o protótipo, até certo ponto, é
+funcional.
+
+Detalhes mais específicos da solução estão documentados nas *commit messages*
+(podem ser visualizadas executando o comando `git log` no diretório do projeto).
+
 ## Instruções para Execução
 
 Utilizei o Ruby v2.5.3 para fazer o desafio.
