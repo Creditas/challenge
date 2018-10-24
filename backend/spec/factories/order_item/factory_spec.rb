@@ -26,6 +26,18 @@ RSpec.describe OrderItem::Factory do
       expect(order_item).to be_instance_of(OrderItem::Membership)
     end
 
+    class DigitalSong < Product::DigitalMedia
+    end
+
+    it "returns an OrderItem::Membership if product is membeship" do
+      order = double("Order")
+      product = DigitalSong.new(name: "All I Want", price: 1.99)
+
+      order_item = described_class.build(order: order, product: product)
+
+      expect(order_item).to be_instance_of(OrderItem::DigitalMedia)
+    end
+
     it "raises an error if product class is not expected" do
       order = double("Order")
       product = Hash.new

@@ -139,7 +139,18 @@ RSpec.describe Order do
   end
 
   describe "#close" do
+    it "associates a payment to ther order" do
+      payment = double("Payment")
+      customer = double("Customer", address: double("Address"))
+
+      order = described_class.new(customer)
+      order.close(payment)
+
+      expect(order.payment).to be(payment)
+    end
+
     it "process each order item" do
+      payment = double("Payment")
       customer = double("Customer", address: double("Address"))
       item_factory = class_double(OrderItem::Factory)
 
@@ -163,28 +174,30 @@ RSpec.describe Order do
 
       order.add_product(product2)
 
-      order.close
+      order.close(payment)
 
       expect(order_item1).to have_received(:process)
       expect(order_item2).to have_received(:process)
     end
 
     it "sets #closed_at to defined value if argument is passed" do
+      payment = double("Payment")
       customer = double("Customer", address: double("Address"))
       closed_at = Time.new(2018, 10, 21, 20, 30)
 
       order = described_class.new(customer)
-      order.close(closed_at)
+      order.close(payment, closed_at)
 
       expect(order.closed_at).to eq(closed_at)
     end
 
     it "sets #closed_at to current time if argument is not passed" do
       Timecop.freeze(Time.new(2018, 10, 21, 21, 30))
+      payment = double("Payment")
       customer = double("Customer", address: double("Address"))
 
       order = described_class.new(customer)
-      order.close
+      order.close(payment)
 
       expect(order.closed_at).to eq(Time.now)
     end

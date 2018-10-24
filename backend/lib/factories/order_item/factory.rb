@@ -10,6 +10,8 @@ module OrderItem
         OrderItem::PhysicalItem
       elsif product.is_a?(Product::Membership)
         OrderItem::Membership
+      elsif product.is_a?(Product::DigitalMedia)
+        OrderItem::DigitalMedia
       else
         raise "#{product.class} is not mapped to an Order Item class"
       end

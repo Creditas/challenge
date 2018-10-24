@@ -19,7 +19,8 @@ class Order
     @items.map(&:total).inject(0, :+)
   end
 
-  def close(closed_at = Time.now)
+  def close(payment, closed_at = Time.now)
+    @payment = payment
     @items.each { |item| item.process }
     @closed_at = closed_at
   end

@@ -115,16 +115,16 @@ RSpec.describe Payment do
     end
 
     it "closes the order associated to the payment" do
-      order = instance_double(Order, total_amount: 200.0, address: "address")
       paid_at = Time.new(2018, 10, 21, 17, 30)
+      order = instance_double(Order, total_amount: 200.0, address: "address")
 
-      allow(order).to receive(:close).with(paid_at).and_return(paid_at)
       allow(Invoice).to receive(:new).with(any_args)
 
       payment = described_class.new(order: order)
+      allow(order).to receive(:close).with(payment, paid_at)
       payment.pay(paid_at)
 
-      expect(order).to have_received(:close).with(paid_at)
+      expect(order).to have_received(:close).with(payment, paid_at)
     end
   end
 
