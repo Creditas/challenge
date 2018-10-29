@@ -1,6 +1,8 @@
 require 'test/unit'
 require 'mocha/test_unit'
+require_relative '../../src/shipping_methods/shipping_method'
 require_relative '../../src/shipping_methods/digital_shipping'
+require_relative '../../src/voucher'
 
 class DigitalShippingTest < Test::Unit::TestCase
 
@@ -20,6 +22,7 @@ class DigitalShippingTest < Test::Unit::TestCase
         expected_mail += "Subject: Thanks for your purchase, Cindi Beisley!\n"
         expected_mail += "Body: Hello, Cindi Beisley. \n"
         expected_mail += "Your order: \n"
+        expected_mail += "Utilize o cupom 10OFF para obter $ 10 de desconto."
         expected_mail += "\nRegards,"
         
         assert_equal(expected_mail, @shipping.get_mail_message)
@@ -49,6 +52,7 @@ class DigitalShippingTest < Test::Unit::TestCase
         expected_mail += "Price: $ 9\n"
         expected_mail += "--------------\n"
         expected_mail += "Order total: $ 24\n"
+        expected_mail += "Utilize o cupom 10OFF para obter $ 10 de desconto."
         expected_mail += "\nRegards,"
         
         shipping = DigitalShipping.new(@customer, item_list)
