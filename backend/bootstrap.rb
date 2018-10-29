@@ -1,14 +1,39 @@
 require './load'
 
-customer = Customer.new(name: "Zachery Tissell", address: Address.new(zipcode: '6816'), email: "zachery@email.com")
+customer = Customer.new(
+  name: 'Zachery Tissell',
+  address: Address.new(zipcode: '6816'),
+  email: 'zachery@email.com'
+)
 
-book_product = Product.new(name: 'Homo deus', type: :book, price: 47, attributes: {})
-physical_product = Product.new(name: 'Smartband Tway', type: :physical, price: 189, attributes: {})
-digital_product = Product.new(name: 'Exile On Main Street', type: :digital, price: 10, attributes: {
-    :full_name => "Album: Exile On Main Street (1972)",
-    :artist => "The Rolling Stones"
-})
-membership_product = Product.new(name: 'Wine Club', type: :membership, price: 120, attributes: {})
+book_product = Product.new(
+  name: 'Homo deus',
+  type: :book,
+  price: 47,
+  attributes: {}
+)
+
+physical_product = Product.new(
+  name: 'Smartband Tway',
+  type: :physical,
+  price: 189,
+  attributes: {}
+)
+
+digital_product = Product.new(
+  name: 'Exile On Main Street',
+  type: :digital,
+  price: 10, attributes: {
+    :full_name => 'Album: Exile On Main Street (1972)',
+    :artist => 'The Rolling Stones'
+  }
+)
+membership_product = Product.new(
+  name: 'Wine Club',
+  type: :membership,
+  price: 120,
+  attributes: {}
+)
 
 order = Order.new(customer)
 order.add_product(book_product)

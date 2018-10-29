@@ -41,4 +41,3 @@ class PaymentTest < Test::Unit::TestCase
     mock_order
   end
 end
-
