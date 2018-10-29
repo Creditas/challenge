@@ -16,7 +16,7 @@ class PhysicalShippingTest < Test::Unit::TestCase
     end
 
     def test_can_print_shipping_label
-        expectedlabel = "Allison Born\n5338 Springview Lane\n"
-        assert_equal(expectedlabel, @shipping.dispatch)
+        expected_label = "Allison Born\n5338 Springview Lane\n"
+        assert_equal(expected_label, @shipping.dispatch)
     end
 end

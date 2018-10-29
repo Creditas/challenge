@@ -16,8 +16,8 @@ class BookShippingTest < Test::Unit::TestCase
     end
 
     def test_can_print_shipping_label
-        expectedlabel = "Daryl Gellan\n23 Green Ridge Parkway\n"
-        expectedlabel += "Item isento de impostos conforme disposto na Constituição Art. 150, VI, d."
-        assert_equal(expectedlabel, @shipping.dispatch)
+        expected_label = "Daryl Gellan\n23 Green Ridge Parkway\n"
+        expected_label += "Item isento de impostos conforme disposto na Constituição Art. 150, VI, d."
+        assert_equal(expected_label, @shipping.dispatch)
     end
 end

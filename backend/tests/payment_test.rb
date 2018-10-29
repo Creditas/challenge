@@ -7,7 +7,7 @@ class PaymentTest < Test::Unit::TestCase
 
   def setup
     @basic_payment = Payment.new({
-        :authorization_number => '123'
+      :authorization_number => '123'
     })
   end
 
@@ -23,7 +23,7 @@ class PaymentTest < Test::Unit::TestCase
     timestamp = Time.now
     
     payment = Payment.new({
-        :order => get_mock_order(timestamp)
+      :order => get_mock_order(timestamp)
     })
 
     assert_false(payment.paid?)
@@ -34,11 +34,11 @@ class PaymentTest < Test::Unit::TestCase
   end
 
   def get_mock_order(timestamp)
-    mockOrder = mock()
-    mockOrder.expects(:total_amount).once.returns(30)
-    mockOrder.expects(:address).twice.returns(true)
-    mockOrder.expects(:close).with(timestamp).returns(true)
-    return mockOrder
+    mock_order = mock()
+    mock_order.expects(:total_amount).once.returns(30)
+    mock_order.expects(:address).twice.returns(true)
+    mock_order.expects(:close).with(timestamp).returns(true)
+    mock_order
   end
 end
 
