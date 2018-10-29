@@ -1,15 +1,13 @@
 require_relative '../membership'
+require_relative './mailable'
 
 class MembershipShipping < ShippingMethod
+
+    include Mailable
 
     def dispatch
         send_email_notification
         activate_membership
-    end
-
-    def send_email_notification
-        mail = get_mail_message
-        # MailTransport.send(mail) <~ Sends an e-mail
     end
 
     def get_mail_message
