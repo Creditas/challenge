@@ -1,4 +1,3 @@
-require_relative './shipping_methods/shipping_method'
 require_relative './shipping_methods/physical_shipping'
 require_relative './shipping_methods/book_shipping'
 require_relative './shipping_methods/digital_shipping'
