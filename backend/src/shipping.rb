@@ -24,6 +24,22 @@ class Shipping
             :membership => MembershipShipping
         }
 
-        return shipping_method_mapping.values_at(product_type).first.new(@order.customer)
+        shipping_method = shipping_method_mapping.values_at(product_type).first
+
+        shipping_method.new(@order.customer, get_item_list)
+    end
+
+    def get_item_list
+        list = ""
+        total = 0
+        @order.items.each do |order_item|
+            if order_item.product.type == :digital
+                list += order_item.product.to_s
+                total += order_item.product.price
+            end
+        end
+        list = "Order total: $ " + total.to_s + "\n"
+
+        list
     end
 end

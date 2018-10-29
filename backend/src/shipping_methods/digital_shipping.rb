@@ -13,16 +13,11 @@ class DigitalShipping < ShippingMethod
     def get_mail_message
         mail = "To: " + @customer.email + "\n"
         mail += "Subject: Thanks for your purchase, " + @customer.name + "!\n"
-        mail += "Body: Hello, " + @customer.name + ". "
-        mail += "Your order: "
-        mail += item_list
+        mail += "Body: Hello, " + @customer.name + ". \n"
+        mail += "Your order: \n"
+        mail += @item_list
         mail += "\nRegards,"
 
         mail
     end
-    
-    def item_list
-        ''
-    end
-
 end

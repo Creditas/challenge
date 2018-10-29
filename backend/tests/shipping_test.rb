@@ -6,8 +6,12 @@ class ShippingTest < Test::Unit::TestCase
     
     def setup
         mockCustomer = mock()
+        mockProduct = mock()
         @mockOrder = mock()
+        
         @mockOrder.stubs(:customer).returns(mockCustomer)
+        @mockOrder.stubs(:items).returns(mockProduct)
+        mockProduct.stubs(:each).returns(nil)
     end
 
     def test_can_create_shipping
