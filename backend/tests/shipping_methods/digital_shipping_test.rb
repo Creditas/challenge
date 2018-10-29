@@ -8,7 +8,7 @@ class DigitalShippingTest < Test::Unit::TestCase
 
     def setup
         voucher = mock()
-        voucher.stubs(:to_s).returns("Utilize o cupom 10OFF para obter $ 10 de desconto.")
+        voucher.stubs(:to_s).returns("You can use the coupon 10OFF to get $ 10 off on your next purchase.")
         @customer = mock()
         @customer.stubs(:name).returns("Cindi Beisley")
         @customer.stubs(:email).returns("cbeisleye@eventbrite.com")
@@ -30,7 +30,7 @@ class DigitalShippingTest < Test::Unit::TestCase
         expected_mail += "Subject: Thanks for your purchase, Cindi Beisley!\n"
         expected_mail += "Body: Hello, Cindi Beisley. \n"
         expected_mail += "Your order: \n"
-        expected_mail += "Utilize o cupom 10OFF para obter $ 10 de desconto."
+        expected_mail += "You can use the coupon 10OFF to get $ 10 off on your next purchase."
         expected_mail += "\nRegards,"
         
         assert_equal(expected_mail, @shipping.get_mail_message)
@@ -60,7 +60,7 @@ class DigitalShippingTest < Test::Unit::TestCase
         expected_mail += "Price: $ 9\n"
         expected_mail += "--------------\n"
         expected_mail += "Order total: $ 24\n"
-        expected_mail += "Utilize o cupom 10OFF para obter $ 10 de desconto."
+        expected_mail += "You can use the coupon 10OFF to get $ 10 off on your next purchase."
         expected_mail += "\nRegards,"
         
         shipping = DigitalShipping.new(@customer, item_list)

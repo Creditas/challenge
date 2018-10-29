@@ -14,7 +14,7 @@ class VoucherTest < Test::Unit::TestCase
   end
 
   def test_can_get_voucher_string
-    expected = "Utilize o cupom 10OFF para obter $ 10 de desconto."
+    expected = "You can use the coupon 10OFF to get $ 10 off on your next purchase."
     assert_equal(expected, @voucher.to_s)
   end
   

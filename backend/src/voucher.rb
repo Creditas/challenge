@@ -7,7 +7,7 @@ class Voucher
     end
 
     def to_s
-        "Utilize o cupom " + generate_voucher_code + " para obter $ " + @discount_value + " de desconto."
+        "You can use the coupon " + generate_voucher_code + " to get $ " + @discount_value + " off on your next purchase."        
     end
 
     def generate_voucher_code
