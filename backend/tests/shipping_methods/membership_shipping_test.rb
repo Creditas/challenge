@@ -8,6 +8,7 @@ class MembershipShippingTest < Test::Unit::TestCase
         customer = mock()
         customer.stubs(:name).returns("Daryl Gellan")
         customer.stubs(:email).returns("jhamments5@bloglines.com")
+        customer.stubs(:membership=).returns(true)
         @shipping = MembershipShipping.new(customer)
     end
 

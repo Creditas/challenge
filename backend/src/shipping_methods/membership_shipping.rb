@@ -6,8 +6,8 @@ class MembershipShipping < ShippingMethod
     include Mailable
 
     def dispatch
-        send_email_notification
         activate_membership
+        send_email_notification
     end
 
     def get_mail_message
@@ -21,7 +21,9 @@ class MembershipShipping < ShippingMethod
     end
 
     def activate_membership
-        membership = Membership.new(@customer)
+        membership = Membership.new()
+        @customer.membership= membership
+        
         membership.active!
     end
 end

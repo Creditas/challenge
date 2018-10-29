@@ -1,7 +1,6 @@
 class Membership
   
-  def initialize(customer)
-    @customer = customer
+  def initialize()
     @active = false
   end
 
