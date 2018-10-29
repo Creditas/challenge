@@ -36,7 +36,7 @@ class IntegrationTest < Test::Unit::TestCase
                 expected_result = "Zachery Tissell\n2 Riverside Lane\n"
             end
             if (order_item.product.type == :digital)
-                expected_result = "To: zachery@email.com\nSubject: Thanks for your purchase, Zachery Tissell!\nBody: Hello, Zachery Tissell. \nYour order: \nOrder total: $ 10\nUtilize o cupom 10OFF para obter $ 10 de desconto.\nRegards,"
+                expected_result = "To: zachery@email.com\nSubject: Thanks for your purchase, Zachery Tissell!\nBody: Hello, Zachery Tissell. \nYour order: \nAlbum: Exile On Main Street (1972)\nThe Rolling Stones\nPrice: $ 10\n--------------\nOrder total: $ 10\nUtilize o cupom 10OFF para obter $ 10 de desconto.\nRegards,"
                 assert_instance_of(Voucher, @customer.voucher)
                 assert_equal("10", @customer.voucher.discount_value)
             end

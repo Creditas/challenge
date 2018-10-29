@@ -40,7 +40,7 @@ class Shipping
                 total += order_item.product.price
             end
         end
-        list = "Order total: $ " + total.to_s + "\n"
+        list += "Order total: $ " + total.to_s + "\n"
 
         list
     end
