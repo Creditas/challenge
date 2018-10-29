@@ -7,14 +7,22 @@ require_relative '../../src/voucher'
 class DigitalShippingTest < Test::Unit::TestCase
 
     def setup
+        voucher = mock()
+        voucher.stubs(:to_s).returns("Utilize o cupom 10OFF para obter $ 10 de desconto.")
         @customer = mock()
         @customer.stubs(:name).returns("Cindi Beisley")
         @customer.stubs(:email).returns("cbeisleye@eventbrite.com")
+        @customer.stubs(:voucher=).returns(nil)
+        @customer.stubs(:voucher).returns(voucher)
         @shipping = DigitalShipping.new(@customer)
     end
 
-    def test_can_create_Digital_shipping        
+    def test_can_create_Digital_shipping
         assert_instance_of(DigitalShipping, @shipping)
+    end
+
+    def test_can_create_voucher
+        assert_instance_of(Voucher, @shipping.create_voucher)
     end
 
     def test_can_create_notification_without_items

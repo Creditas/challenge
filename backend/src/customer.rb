@@ -14,4 +14,12 @@ class Customer
   def membership
     @membership
   end
+
+  def voucher= voucher
+    @voucher = voucher
+  end
+
+  def voucher
+    @voucher
+  end
 end

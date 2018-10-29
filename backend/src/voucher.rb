@@ -1,4 +1,5 @@
 class Voucher
+    attr_reader :discount_value
     
     def initialize(customer, discount_value)
         @customer = customer
