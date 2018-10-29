@@ -23,7 +23,7 @@ class MembershipShippingTest < Test::Unit::TestCase
         expected_mail += "You can use your subscription right now clicking on the link below. "
         expected_mail += "Regards,"
         
-        assert_equal(expected_mail, @shipping.get_mail_message)
+        assert_equal(expected_mail, @shipping.mail_message)
     end
 
     def test_can_activate_membership

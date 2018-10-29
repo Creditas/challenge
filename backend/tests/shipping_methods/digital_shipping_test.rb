@@ -33,7 +33,7 @@ class DigitalShippingTest < Test::Unit::TestCase
         expected_mail += "You can use the coupon 10OFF to get $ 10 off on your next purchase."
         expected_mail += "\nRegards,"
         
-        assert_equal(expected_mail, @shipping.get_mail_message)
+        assert_equal(expected_mail, @shipping.mail_message)
     end
 
     def test_can_create_notification_with_items         
@@ -64,7 +64,7 @@ class DigitalShippingTest < Test::Unit::TestCase
         expected_mail += "\nRegards,"
         
         shipping = DigitalShipping.new(@customer, item_list)
-        assert_equal(expected_mail, shipping.get_mail_message)
+        assert_equal(expected_mail, shipping.mail_message)
     end
     
 end

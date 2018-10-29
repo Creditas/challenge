@@ -1,6 +1,5 @@
 class Membership
-  
-  def initialize()
+  def initialize
     @active = false
   end
 

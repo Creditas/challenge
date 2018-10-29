@@ -12,7 +12,7 @@ class Product
   def to_s
     info = attributes.fetch(:full_name) + "\n"
     info += attributes.fetch(:artist) + "\n"
-    info += "Price: $ " + @price.to_s + "\n"
+    info += "Price: $ #{@price}\n"
     info += "--------------\n"
 
     info

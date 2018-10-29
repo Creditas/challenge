@@ -41,14 +41,15 @@ order.add_product(physical_product)
 order.add_product(digital_product)
 order.add_product(membership_product)
 
-payment = Payment.new(order: order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+credit_card = CreditCard.fetch_by_hashed('43567890-987654367')
+payment = Payment.new(order: order, payment_method: credit_card)
 payment.pay
 
 shipping = Shipping.new(order)
 shipping.ship
 
 shipping.order.items.each do |order_item|
-    print "Shipping log for Product " + order_item.product.name + ":\n"
-    print order_item.shipping_log
-    print "\n\n"
+  print 'Shipping log for Product ' + order_item.product.name + ':\n'
+  print order_item.shipping_log
+  print "\n\n"
 end
