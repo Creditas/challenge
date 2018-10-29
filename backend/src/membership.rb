@@ -1,3 +1,15 @@
 class Membership
-  # you can customize this class by yourself
+  
+  def initialize(customer)
+    @customer = customer
+    @active = false
+  end
+
+  def active!
+    @active = true
+  end
+
+  def active?
+    @active
+  end
 end
