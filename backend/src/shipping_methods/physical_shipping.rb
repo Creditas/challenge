@@ -12,7 +12,7 @@ class PhysicalShipping < ShippingMethod
 
     def print_shipping_label
         label = @customer.name + "\n"
-        label += @customer.address + "\n"
+        label += @customer.address.to_s + "\n"
         label += label_observations
 
         label
