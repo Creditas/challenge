@@ -2,7 +2,7 @@ require './load'
 
 # Book Example (build new payments if you need to properly test it)
 foolano = Customer.new(name: "Zachery Tissell", address: Address.new(zipcode: '6816'))
-book = Product.new(name: 'Awesome book', type: :book)
+book = Product.new(name: 'Awesome book', type: :book, price: 15, attributes: {})
 book_order = Order.new(foolano)
 book_order.add_product(book)
 
