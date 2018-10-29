@@ -1,0 +1,2 @@
+class MembershipShipping < ShippingMethod
+end

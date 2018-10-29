@@ -1,0 +1,2 @@
+class PhysicalShipping < ShippingMethod
+end

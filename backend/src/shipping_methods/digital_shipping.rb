@@ -1,0 +1,2 @@
+class DigitalShipping < ShippingMethod
+end
