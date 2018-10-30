@@ -4,7 +4,7 @@ require_relative './shipping_methods/digital_shipping'
 require_relative './shipping_methods/membership_shipping'
 
 class ShippingFactory
-  def self.create(product_type, customer, item_list)
+  def instance(product_type, customer, item_list)
     shipping_method_mapping = {
       :book => BookShipping,
       :physical => PhysicalShipping,

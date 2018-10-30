@@ -6,21 +6,22 @@ class ShippingFactoryTest < Test::Unit::TestCase
     
     def setup
         @mock_customer = mock()
+        @factory = ShippingFactory.new
     end
 
     def test_can_get_shipping_method_for_books
-        assert_instance_of(BookShipping, ShippingFactory.create(:book, @mock_customer, ''))
+        assert_instance_of(BookShipping, @factory.instance(:book, @mock_customer, ''))
     end
 
     def test_can_get_shipping_method_for_physical_item
-        assert_instance_of(PhysicalShipping, ShippingFactory.create(:physical, @mock_customer, ''))
+        assert_instance_of(PhysicalShipping, @factory.instance(:physical, @mock_customer, ''))
     end
 
     def test_can_get_shipping_method_for_digital_item
-        assert_instance_of(DigitalShipping, ShippingFactory.create(:digital, @mock_customer, ''))
+        assert_instance_of(DigitalShipping, @factory.instance(:digital, @mock_customer, ''))
     end
 
     def test_can_get_shipping_method_for_digital_service
-        assert_instance_of(MembershipShipping, ShippingFactory.create(:membership, @mock_customer, ''))
+        assert_instance_of(MembershipShipping, @factory.instance(:membership, @mock_customer, ''))
     end
 end
