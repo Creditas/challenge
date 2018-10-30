@@ -10,7 +10,6 @@ class Shipping
 
   def ship
     @order.items.each do |order_item|
-      
       shipping_method =  @factory.instance(order_item.product.type, @order.customer, item_list)
       order_item.shipped!
       order_item.shipping_log = shipping_method.dispatch
