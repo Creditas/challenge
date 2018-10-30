@@ -9,10 +9,7 @@ class Shipping
 
   def ship
     @order.items.each do |order_item|
-      shipping_method = ShippingFactory.create(
-        order_item.product.type,
-        @order.customer,
-        item_list)
+      shipping_method = ShippingFactory.create(order_item.product.type, @order.customer, item_list)
       order_item.shipped!
       order_item.shipping_log = shipping_method.dispatch
     end
