@@ -13,7 +13,7 @@ class Payment
 
     @amount = order.total_amount
     @authorization_number = Time.now.to_i
-    @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
+    @invoice = Invoice.new(order, order.customer)
     @paid_at = paid_at
 
     set_status(:complete)

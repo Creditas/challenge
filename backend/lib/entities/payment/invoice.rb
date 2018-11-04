@@ -1,9 +1,10 @@
 class Invoice
-  attr_reader :billing_address, :shipping_address, :order
+  attr_reader :order, :customer, :billing_address, :shipping_address
 
-  def initialize(attributes = {})
-    @billing_address = attributes.values_at(:billing_address)
-    @shipping_address = attributes.values_at(:shipping_address)
-    @order = attributes.values_at(:order)
+  def initialize(order, customer)
+    @order = order
+    @customer = customer
+    @billing_address = customer.billing_address
+    @shipping_address = customer.shipping_address
   end
 end
