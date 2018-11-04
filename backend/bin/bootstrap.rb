@@ -9,10 +9,10 @@ book = Product.new(name: 'The Hitchhiker''s Guide to the Galaxy', type: :book, p
 music = Product.new(name: 'Stairway to Heaven', type: :digital, price: 5.00)
 
 order = Order.new(customer)
-order.add_product(shirt)
-order.add_product(netflix)
-order.add_product(book)
-order.add_product(music)
+order.add_product(shirt, 2)
+order.add_product(netflix, 1)
+order.add_product(book, 1)
+order.add_product(music, 1)
 
 payment = Payment.new(order: order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 

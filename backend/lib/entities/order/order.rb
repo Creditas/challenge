@@ -7,8 +7,8 @@ class Order
     @order_item_class = overrides.fetch(:item_class) { OrderItem }
   end
 
-  def add_product(product)
-    @items << @order_item_class.new(order: self, product: product)
+  def add_product(product, quantity)
+    @items << @order_item_class.new(order: self, product: product, quantity: quantity)
   end
 
   def set_payment(payment)
