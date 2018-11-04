@@ -1,4 +1,8 @@
+require 'observer'
+
 class Payment
+  include Observable
+
   attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at, :status
 
   def initialize(attributes = {})
@@ -17,13 +21,22 @@ class Payment
     @paid_at = paid_at
 
     set_status(:complete)
-  end
 
-  def set_status(status)
-    @status = status
+    notify
   end
 
   def paid?
     !paid_at.nil?
+  end
+
+private
+
+  def notify()
+    changed
+    notify_observers(invoice)
+  end
+
+  def set_status(status)
+    @status = status
   end
 end
