@@ -1,15 +1,25 @@
 require './lib/challenge' 
 
 address = Address.new(zipcode: '45678-979')
+customer = Customer.new(address, address, 'customer@email.com')
 
-# Book Example (build new payments if you need to properly test it)
-foolano = Customer.new(address, address, 'customer@email.com')
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
+shirt = Product.new(name: 'Flowered t-shirt', type: :physical, price: 35.00)
+netflix = Product.new(name: 'Familiar plan', type: :membership, price: 29.90)
+book = Product.new(name: 'The Hitchhiker''s Guide to the Galaxy', type: :book, price: 120.00)
+music = Product.new(name: 'Stairway to Heaven', type: :digital, price: 5.00)
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
-# now, how to deal with shipping rules then?
+order = Order.new(customer)
+order.add_product(shirt)
+order.add_product(netflix)
+order.add_product(book)
+order.add_product(music)
+
+payment = Payment.new(order: order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+
+dispatcher = Dispatcher.new(payment)
+#add dispatchers
+
+payment.pay
+
+p payment.paid? # < true
+p payment.order.items.first.product.type
