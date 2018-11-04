@@ -12,13 +12,19 @@ class Order
     @items << @order_item_class.new(order: self, product: product)
   end
 
+  def set_payment(payment)
+    @payment = payment
+
+    close(payment.paid_at)
+  end
+
   def total_amount
     @items.map(&:total).inject(:+)
   end
 
+private
+
   def close(closed_at = Time.now)
     @closed_at = closed_at
   end
-
-  # remember: you can create new methods inside those classes to help you create a better design
 end
