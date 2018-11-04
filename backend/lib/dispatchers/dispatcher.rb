@@ -7,6 +7,8 @@
 # that was bought and another to send additional information for a specific type of product.
 #
 # Dispatchers must implement the method 'dispatch' that receives an Invoice.
+#
+# As a plus, this class could potentially summarise the result of all dispatchers fired so we can do something with it.
 
 class Dispatcher
   attr_reader :dispatchers
