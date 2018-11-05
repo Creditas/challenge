@@ -20,7 +20,10 @@ class Dispatcher
 
   def dispatch_all(payment)
     # Since the dispatchers are independent, we could fire this calls in paralel
-    dispatchers.each { |dispatcher| dispatcher.dispatch(payment.invoice) }
+    dispatchers.each { |dispatcher| 
+      p "Calling: #{dispatcher.class}"
+      dispatcher.dispatch(payment.invoice) 
+    }
   end
 
   def add_dispatcher(dispatcher)

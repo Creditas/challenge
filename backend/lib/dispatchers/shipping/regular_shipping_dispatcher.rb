@@ -5,7 +5,7 @@ class RegularShippingDispatcher < ShippingDispatcher
   end
 
   def get_shipping(invoice)
-    @shipping = BookShipping.new(invoice)
+    @shipping = RegularShipping.new(invoice)
     @invoice = invoice
 
     load_items
@@ -20,7 +20,7 @@ private
   end
 
   def add_physical_product(item)
-    if item.product.type == :book
+    if item.product.type == :physical
       shipping.add_item(ShippingItem.new(item.product, item.quantity))
     end
   end
