@@ -19,6 +19,7 @@ payment = Payment.new(order: order, payment_method: CreditCard.fetch_by_hashed('
 dispatcher = Dispatcher.new(payment)
 dispatcher.add_dispatcher(BookShippingDispatcher.new)
 dispatcher.add_dispatcher(RegularShippingDispatcher.new)
+dispatcher.add_dispatcher(MembershipDispatcher.new)
 
 payment.pay
 

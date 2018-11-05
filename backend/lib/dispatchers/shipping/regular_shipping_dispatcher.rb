@@ -13,11 +13,11 @@ class RegularShippingDispatcher < ShippingDispatcher
     shipping
   end
 
+private
+
   def load_items
     invoice.order.items.each { |item| add_physical_product(item) }
   end
-
-private
 
   def add_physical_product(item)
     if item.product.type == :book
