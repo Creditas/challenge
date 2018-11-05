@@ -14,7 +14,7 @@ class MembershipDispatcher
   end
 
   def send_email_on_activation(membership)
-    p "Send Notification"
+    Notification.new(invoice.customer, build_email).send
   end
 
 private
@@ -39,5 +39,6 @@ private
   end
 
   def build_email
+    "--Email containing all membership products--"
   end
 end

@@ -26,9 +26,11 @@ private
   end
 
   def send_email
-    p "Send Digital Media Notification"
+    Notification.new(invoice.customer, build_email).send
+    VoucherNotification.new(invoice.customer, Voucher.new(10)).send
   end
 
   def build_email
+    "--Email containing all digita media products--"
   end
 end
