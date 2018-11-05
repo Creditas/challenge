@@ -18,9 +18,9 @@ class Dispatcher
     payment.add_observer(self, :dispatch_all)
   end
 
-  def dispatch_all(invoice)
+  def dispatch_all(payment)
     # Since the dispatchers are independent, we could fire this calls in paralel
-    dispatchers.each { |dispatcher| dispatcher.dispatch(invoice) }
+    dispatchers.each { |dispatcher| dispatcher.dispatch(payment.invoice) }
   end
 
   def add_dispatcher(dispatcher)

@@ -33,7 +33,7 @@ private
 
   def notify()
     changed
-    notify_observers(invoice)
+    notify_observers(self)
   end
 
   def set_status(status)
