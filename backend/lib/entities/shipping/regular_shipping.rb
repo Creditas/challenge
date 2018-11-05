@@ -1,6 +1,7 @@
 class RegularShipping < Shipping
   def initialize(invoice)
     @invoice = invoice
+    @items = []
   end
 
   def label
