@@ -17,7 +17,8 @@ order.add_product(music, 1)
 payment = Payment.new(order: order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 
 dispatcher = Dispatcher.new(payment)
-#add dispatchers
+dispatcher.add_dispatcher(BookShippingDispatcher.new)
+dispatcher.add_dispatcher(RegularShippingDispatcher.new)
 
 payment.pay
 
