@@ -7,7 +7,7 @@ class Shipping
 
   def ship
     #do shipment process
-    p label
+    p "#{label}"
   end
 
   def add_item(shipping_item)

@@ -23,6 +23,3 @@ dispatcher.add_dispatcher(MembershipDispatcher.new)
 dispatcher.add_dispatcher(DigitalMediaDispatcher.new)
 
 payment.pay
-
-p payment.paid? # < true
-p payment.order.items.first.product.type
