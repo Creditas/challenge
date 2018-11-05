@@ -25,8 +25,8 @@ private
 
   def add_membership_product(item)
     if item.product.type == :membership
-      membershipProduct = MembershipProduct.new(item.product)
-      membership = Membership.new(membershipProduct, invoice.customer, invoice)
+      membership_product = MembershipProduct.new(item.product)
+      membership = Membership.new(membership_product, invoice.customer, invoice)
 
       membership.add_observer(self, :send_email_on_activation)
 

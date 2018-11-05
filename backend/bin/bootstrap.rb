@@ -20,6 +20,7 @@ dispatcher = Dispatcher.new(payment)
 dispatcher.add_dispatcher(BookShippingDispatcher.new)
 dispatcher.add_dispatcher(RegularShippingDispatcher.new)
 dispatcher.add_dispatcher(MembershipDispatcher.new)
+dispatcher.add_dispatcher(DigitalMediaDispatcher.new)
 
 payment.pay
 
