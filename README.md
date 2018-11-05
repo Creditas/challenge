@@ -10,7 +10,7 @@ A primeira coisa que fiz foi mover todas as classes que estavam em `bootstrap.rb
 
 - **bin**: Contém os executáveis do projeto, sendo apenas o `bootstrap.rb` neste caso.
 - **doc**: Toda documentação relacionada ao projeto, com exceção do README.
-- **lib**: Biblioteca em sí, onde ficam todas as Entidades e Dispatchers contendo a lógica da aplicação.
+- **lib**: Biblioteca em si, onde ficam todas as Entidades e Dispatchers contendo a lógica da aplicação.
 
 Além disso, removi todos os outros arquivos que não estavam relacionados ao desafio. Menos é mais! :)
 
@@ -26,7 +26,7 @@ Na finalização do pedido, o `Payment` costumava alterar a data de fechamento (
 - O `Payment` passou a atualizar a `Order` usando o `set_payment`, sem se preocupar com o que está acontecendo ali dentro.
 - O `set_payment` é a primeira coisa que o `Payment` faz na sua finalização porque caso alguma validação da `Order` falhe, a finalização como um todo falharia.
 
-Além disso, criei um `status` para o `Payment` para que qualquer entidade consiga determinar o seu estado sem precisar se aprofundar em detalhes de implementação (anteriormente teríamos que verificar se o campo paid_at estava preenchido).
+Além disso, criei um `status` para o `Payment` para que qualquer entidade consiga determinar o seu estado sem precisar se aprofundar em detalhes de implementação (anteriormente teriamos que verificar se o campo paid_at estava preenchido).
 
 **Movendo Address para dentro do Customer**
 
@@ -43,8 +43,8 @@ Também adicionei o e-mail no `Customer` para ser usado pelo `Notification` post
 Criei novas entidades para suportar os diferentes fluxos de pagamento, elas são:
 
 - **Voucher**: Informações relevantes ao voucher que é gerado ao comprar um produto digital.
-- **Shipping**: Aqui temos uma classe abstrata chamada `Shipping` que contém uma `Lista de Items` a ser enviados, uma `Shipping label` que será impressa e um método `Ship()` que executa a ação em sí. O `Shipping` também expõe o método `label` para que as classes concretas implementem a sua forma de construir a `ShippingLabel`.
-- **Notification**: Contém as informações necessárias para enviar uma notificação e implementa o método `send` para fazer o envio. Também criamos o `VoucherNotification` para que os detalhes da montagem do e-mail do `Voucher` não ficassem disperços em outras entidades.
+- **Shipping**: Aqui temos uma classe abstrata chamada `Shipping` que contém uma `Lista de Items` a ser enviados, uma `Shipping label` que será impressa e um método `Ship()` que executa a ação em si. O `Shipping` também expõe o método `label` para que as classes concretas implementem a sua forma de construir a `ShippingLabel`.
+- **Notification**: Contém as informações necessárias para enviar uma notificação e implementa o método `send` para fazer o envio. Também criamos o `VoucherNotification` para que os detalhes da montagem do e-mail do `Voucher` não ficassem dispersos em outras entidades.
 - **Membership**: Contém um produto/cliente associado e implementa o método `activate` para que aquela assinatura seja ativada. Também tem um `status`, por onde conseguimos determinar o estado daquela assinatura.
 
 ## Fluxo de pagamento e regras de envio
@@ -68,7 +68,7 @@ Para que o dispatcher escute o evento de pagamento, ele deve ser adicionado no `
 
 **Concluindo**
 
-Essa solução me pareceu mais atraente porque as entidades ficam totalmente isoladas entre sí. 
+Essa solução me pareceu mais atraente porque as entidades ficam totalmente isoladas entre si. 
 
 - O `Payment` não sabe o que está sendo executado após a sua finalização
 - O `Shipping`, `Membership` e `Notification` não sabem que um pagamento foi finalizado
