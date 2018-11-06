@@ -18,7 +18,7 @@ class Order
   end
 
   def total_amount
-    @items.map(&:total).inject(:+)
+    @items.map(&:total).inject(:+) || 0
   end
 
 private

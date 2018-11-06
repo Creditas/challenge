@@ -6,10 +6,10 @@ class Membership
   attr_reader :product, :customer, :invoice, :activated_at, :status
 
   def initialize(product, customer, invoice)
-    @Product = product
-    @Customer = customer
-    @Invoice = invoice
-    @Status = :pending
+    @product = product
+    @customer = customer
+    @invoice = invoice
+    @status = :pending
   end
 
   def activate(activated_at = Time.now)
