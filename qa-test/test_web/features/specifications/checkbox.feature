@@ -1,4 +1,5 @@
 #language: pt
+@checkbox
 Funcionalidade: Adionar e remover o checkbox
 
   Contexto:

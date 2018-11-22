@@ -6,4 +6,8 @@ module Pages
   def checkbox_page
     @checkbox_page = CheckboxPage.new
   end
+
+  def nova_aba
+    @nova_aba = NovaAbaPage.new
+  end
 end
