@@ -3,4 +3,7 @@ Dir[File.join(File.dirname(__FILE__),
 
 # Modulos para chamar as classes instanciadas
 module Pages
+  def checkbox_page
+    @checkbox_page = CheckboxPage.new
+  end
 end
