@@ -1,5 +1,6 @@
 .header {
-    padding: 2em 0;
+    padding: 1.25em 0;
+    background: rgba(255, 255, 255, .95);
     .container {
         display: flex;
         align-items: center;
@@ -12,5 +13,6 @@
     &__title {
         font-weight: 500;
         margin-top: -.2em;
+        color: $deepblue;
     }
 }

@@ -1,4 +1,5 @@
 .home {
+    background: rgba(0, 0, 0, .15);
     &__content {
         display: flex;
         height: calc(100vh - 128px);
@@ -24,6 +25,22 @@
         }
         p {
             font-size: 1.15em;
+        }
+    }
+    &__artcredit {
+        background: rgba(255, 255, 255, .85);
+        font-weight: 500;
+        font-size: 1em;
+        display: flex;
+        align-items: center;
+        position: fixed;
+        bottom: 1em;
+        left: 1em;
+        padding: .5em;
+        @include border-radius(.3em);
+        a {
+            margin-left: .2em;
+            color: $deepblue;
         }
     }
 }
