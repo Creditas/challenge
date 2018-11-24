@@ -1,0 +1,29 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #263238;
+    background: url("https://lh3.googleusercontent.com/sjsN4p0R1WhZWiov3o4a2ovY3HxlFeVD180FAXg2MsgkVf9aAg8J1Qz4NE9-41lSSd0YZgIRuVfkexYVTdkE49mcCU8khBFCqU3Qfw=w0");
+}
+
+.container {
+    max-width: 1680px;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+// Media Queries
+
+@media screen and (min-width: 1481px) {
+    .container {
+        padding: 0 45px;
+    }
+}
+
+@media screen and (max-width: 1480px) {
+    .container {
+        padding: 0 30px;
+    }
+}

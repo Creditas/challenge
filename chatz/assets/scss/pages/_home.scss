@@ -1,0 +1,29 @@
+.home {
+    &__content {
+        display: flex;
+        height: calc(100vh - 128px);
+        justify-content: center;
+        align-items: center;
+        .card {
+            margin-top: -128px;
+            width: 50%;
+        }
+    }
+    &__btn {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid $linecolor;
+        padding: 1em;
+        color: inherit;
+        &:hover {
+            background: #efe5e5;
+        }
+        img {
+            width: 2.5em;
+            margin-right: 1em;
+        }
+        p {
+            font-size: 1.15em;
+        }
+    }
+}

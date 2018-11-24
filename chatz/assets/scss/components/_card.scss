@@ -1,0 +1,6 @@
+.card {
+    background: $cardbg;
+    display: inline-block;
+    @include border-radius(.25em);
+    @include box-shadow(-0.1em 0.1em .9em 0.15em rgba(0, 0, 0, 0.14));
+}

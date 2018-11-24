@@ -1,0 +1,16 @@
+.header {
+    padding: 2em 0;
+    .container {
+        display: flex;
+        align-items: center;
+    }
+    &__logo {
+        width: 4em;
+        height: auto;
+        margin-right: 1em;
+    }
+    &__title {
+        font-weight: 500;
+        margin-top: -.2em;
+    }
+}

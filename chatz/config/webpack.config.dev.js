@@ -73,6 +73,10 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
   return loaders;
 };
 
+function resolveRootDir(dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
@@ -150,6 +154,8 @@ module.exports = {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
+      'styles': resolveRootDir('/assets/scss/'),
+      '@': resolveRootDir('/src/'),
     },
     plugins: [
       // Adds support for installing with Plug'n'Play, leading to faster installs and adding
