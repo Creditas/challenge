@@ -9,7 +9,7 @@ import create from '@/images/group.svg'
 
 class Home extends Component {
 	constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
 			artistName: '',
@@ -82,7 +82,7 @@ class Home extends Component {
 							<img src={create} />
 							<p>Criar uma sala</p>
 						</Link>
-						<Link to="/room/" className="home__btn">
+						<Link to="/room/666" className="home__btn">
 							<img src={enter} />
 							<p>Entrar em uma sala</p>
 						</Link>

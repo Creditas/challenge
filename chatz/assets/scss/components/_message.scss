@@ -1,0 +1,27 @@
+.message {
+	margin-bottom: .8em;
+	&__bubble {
+		display: inline-block;
+		@include border-radius(.25em);
+		padding: .5em;
+		max-width: 100%;
+		word-wrap: break-word;
+	}
+	&__name {
+		margin-bottom: .8em;
+		font-weight: 500;
+	}
+	&--mine {
+		text-align: right;
+		.message__bubble {
+			background: rgba(156, 172, 172, 0.2);
+			text-align: left;
+		}
+	}
+	&--theirs {
+		.message__bubble {
+			background: $deepblue;
+			color: $white;
+		}
+	}
+}

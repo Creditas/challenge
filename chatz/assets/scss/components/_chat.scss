@@ -1,0 +1,69 @@
+.chat {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	margin: .5em;
+	flex-basis: 30%;
+	@include border-radius(.3em);
+	@include box-shadow(0 .15em .8em rgba(156, 172, 172, 0.5));
+	background: $white;
+	max-width: 100%;
+	max-height: calc(100vh - 12em);
+	overflow: auto;
+
+	&::-webkit-scrollbar-track {
+		background-color: $linecolor;
+	}
+
+	&::-webkit-scrollbar {
+		width: 12px;
+		background-color: $linecolor;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		@include border-radius(.45em);
+		@include box-shadow(inset 0 0 6px rgba(0,0,0,.3));
+		background-color: lighten($deepblue, 5%);
+	}
+
+
+	&__messages {
+		padding: 1.5em;
+	}
+	&__typingarea {
+		display: flex;
+		align-items: flex-start;
+		border-top: 1px solid $linecolor;
+		.submit-btn {
+			position: relative;
+			outline: none;
+			cursor: pointer;
+			background: transparent;
+			border: none;
+			width: 5em;
+			height: 5em;
+			img {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-top: -1em;
+				margin-left: -.8em;
+				width: 2em;
+			}
+			&:hover {
+				img {
+					zoom: 1.25;
+				}
+			}
+		}
+		.input-msg {
+			padding: 1.5em;
+			border: none;
+			font-size: 1em;
+			width: calc(100% - 4em);
+			&:focus {
+				outline: none;
+			}
+		}
+	}
+}

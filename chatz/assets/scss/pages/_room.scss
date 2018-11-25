@@ -1,0 +1,11 @@
+.room {
+	height: 100vh;
+	.content {
+		display: flex;
+		justify-content: space-evenly;
+		align-items: flex-start;
+		flex-flow: row wrap;
+		padding-top: 1.5em;
+		padding-bottom: 1.5em;
+	}
+}
