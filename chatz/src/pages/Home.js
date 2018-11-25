@@ -89,8 +89,8 @@ class Home extends Component {
 					</Card>
 				</div>
 
-				<h5 className="home__artcredit">Artist:
-				<a href={this.state.artistUrl} target="_blank">{ this.state.artistName }</a></h5>
+				<div className="home__artcredit">Artist:
+				<a href={this.state.artistUrl} target="_blank">{ this.state.artistName }</a></div>
 			</div>
 		)
 	}

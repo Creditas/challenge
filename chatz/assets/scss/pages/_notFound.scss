@@ -1,0 +1,40 @@
+.not-found {
+	display: flex;
+	align-content: center;
+	align-items: center;
+	height: 100vh;
+	background-size: cover;
+	background-position: center;
+	&__content {
+		color: $white;
+		text-align: center;
+		margin-top: -10em;
+		h4 {
+			font-size: 2.5em;
+			margin-bottom: .4em;
+			text-shadow: .1em .1em .4em $black;
+			span {
+				font-size: 5em;
+				display: block;
+			}
+		}
+		p {
+			text-shadow: .1em .1em .4em $black;
+			font-size: 1.25em;
+		}
+	}
+	.goBack {
+		background: $deepblue;
+		cursor: pointer;
+		color: $white;
+		@include border-radius(.5em);
+		@include box-shadow(0 .15em .8em rgba(0, 0, 0, 0.5));
+		padding: .6em .8em;
+		display: inline-block;
+		margin-top: 2em;
+		font-size: 1.2em;
+		&:hover {
+			background: lighten($deepblue, 5%);
+		}
+	}
+}
