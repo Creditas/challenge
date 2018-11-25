@@ -2,8 +2,8 @@
     padding: 1.25em 0;
     background: rgba(255, 255, 255, .95);
     a {
-        display: flex;
-        align-items: center;
+        display: inline-flex;
+		align-items: center;
     }
     &__logo {
         width: 4em;
