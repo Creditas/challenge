@@ -20,13 +20,14 @@ class Home extends Component {
 	slideImages = (arr) => {
 		let count = 0
 		const images = JSON.parse(arr)
-		if (images) {
+		const homeElem = document.querySelector('.home')
+		if (images && homeElem) {
 			setInterval(() => {
 				count += 1
 				if(count >= images.length) {
 					count = 0
 				}
-				document.querySelector('.home').style.backgroundImage = `url(${images[count]})`
+				homeElem.style.backgroundImage = `url(${images[count]})`
 			}, 10000)
 		} else {
 			console.error('"images" variable is null or undefined.')
