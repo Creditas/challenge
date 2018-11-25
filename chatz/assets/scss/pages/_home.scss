@@ -1,5 +1,11 @@
 .home {
-    background: rgba(0, 0, 0, .15);
+    background-image: url('./images/default.jpg');
+    background-color: #33504F;
+    @include transition(background-image 2s ease-in-out);
+    background-repeat: repeat-y;
+    background-size: contain;
+    background-position: center;
+    height: 100vh;
     &__content {
         display: flex;
         height: calc(100vh - 128px);
@@ -17,7 +23,7 @@
         padding: 1em;
         color: inherit;
         &:hover {
-            background: #efe5e5;
+            background: #e8dddd;
         }
         img {
             width: 2.5em;
