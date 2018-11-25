@@ -8,6 +8,15 @@ import enter from '@/images/enter.svg'
 import create from '@/images/group.svg'
 
 class Home extends Component {
+	constructor(props) {
+    super(props);
+
+    this.state = {
+			artistName: '',
+			artistUrl: ''
+    }
+	}
+
 	slideImages = (arr) => {
 		let count = 0
 		const images = JSON.parse(arr)
@@ -26,8 +35,14 @@ class Home extends Component {
 
 	componentDidMount() {
 		const imageCollection = localStorage.getItem('imageCollection')
+		const artistName = localStorage.getItem('artistName')
+		const artistUrl = localStorage.getItem('artistUrl')
 		if (imageCollection && imageCollection !== null) {
 			this.slideImages(imageCollection)
+			this.setState({
+				artistName,
+				artistUrl
+			})
 		} else {
 			fetch('https://cors.io/?https://www.behance.net/v2/projects/27198827?api_key=8fVWyPdLzJwgectbQq6BOtLCEpnMpF5r')
 			.then((response) => {
@@ -35,8 +50,18 @@ class Home extends Component {
 					if (data.http_code === 200) {
 						const images = []
 						const modules = data.project.modules
+						const artistName = data.project.owners[0].display_name
+						const artistUrl = data.project.owners[0].url
 						modules.map(e => images.push(e.sizes.original))
+
 						localStorage.setItem("imageCollection", JSON.stringify(images))
+						localStorage.setItem("artistName", artistName)
+						localStorage.setItem("artistUrl", artistUrl)
+
+						this.setState({
+							artistName,
+							artistUrl
+						})
 
 						this.slideImages(localStorage.getItem('imageCollection'))
 					}
@@ -64,7 +89,7 @@ class Home extends Component {
 				</div>
 
 				<h5 className="home__artcredit">Artist:
-				<a href="https://www.behance.net/sarahedith" target="_blank">Sarah Edith</a></h5>
+				<a href={this.state.artistUrl} target="_blank">{ this.state.artistName }</a></h5>
 			</div>
 		)
 	}
