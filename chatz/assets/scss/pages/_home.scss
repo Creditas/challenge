@@ -19,7 +19,8 @@
     &__btn {
         display: flex;
         align-items: center;
-        border-bottom: 1px solid $linecolor;
+		border-bottom: 1px solid $linecolor;
+		@include noselect;
         padding: 1em;
         color: inherit;
         &:hover {

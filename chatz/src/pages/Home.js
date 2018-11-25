@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 
 import Card from '../components/Card'
 import Header from '../components/Header'
@@ -13,8 +12,12 @@ class Home extends Component {
 
     this.state = {
 			artistName: '',
-			artistUrl: ''
-    }
+			artistUrl: '',
+			roomHash: '',
+			userName: '',
+		}
+
+		this.actionBtn = this.actionBtn.bind(this)
 	}
 
 	slideImages = (arr) => {
@@ -34,7 +37,23 @@ class Home extends Component {
 		}
 	}
 
+	generateHash = () => {
+		this.setState({
+			roomHash: Math.floor(Math.random() * 0xFFFFFF).toString(16)
+		})
+	}
+
+	actionBtn = action => event => {
+		event.preventDefault()
+		const username = prompt('Digite seu nome:')
+		const hash = this.state.roomHash
+		const actionType = event.target.getAttribute('data-action')
+		console.log(action)
+		this.props.history.push(`/room/${hash}`)
+	}
+
 	componentDidMount() {
+		this.generateHash()
 		const imageCollection = localStorage.getItem('imageCollection')
 		const artistName = localStorage.getItem('artistName')
 		const artistUrl = localStorage.getItem('artistUrl')
@@ -78,14 +97,15 @@ class Home extends Component {
 				<Header />
 				<div className="container home__content">
 					<Card>
-						<Link to="/room/32" className="home__btn">
+						<a href="" onClick={this.actionBtn('create')} className="home__btn">
 							<img src={create} />
 							<p>Criar uma sala</p>
-						</Link>
-						<Link to="/room/666" className="home__btn">
+						</a>
+
+						<a href="" onClick={this.actionBtn('enter')} className="home__btn">
 							<img src={enter} />
 							<p>Entrar em uma sala</p>
-						</Link>
+						</a>
 					</Card>
 				</div>
 

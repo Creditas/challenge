@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
-// import PropTypes from 'prop-types'
 
 class Message extends Component {
-	// message message--mine
-	// const msgOwner = this.props.owner ? this.props.owner : null
-
 	render() {
 		return (
 			<div className={ `message message--${this.props.owner}`}>

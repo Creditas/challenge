@@ -7,7 +7,7 @@
 	@include border-radius(.3em);
 	@include box-shadow(0 .15em .8em rgba(156, 172, 172, 0.5));
 	background: $white;
-	max-width: 100%;
+	max-width: 45%;
 	max-height: calc(100vh - 12em);
 	overflow: auto;
 
