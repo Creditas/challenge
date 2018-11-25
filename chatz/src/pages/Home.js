@@ -8,24 +8,44 @@ import enter from '@/images/enter.svg'
 import create from '@/images/group.svg'
 
 class Home extends Component {
-	componentDidMount() {
-		fetch('https://cors.io/?https://www.behance.net/v2/projects/27198827?api_key=8fVWyPdLzJwgectbQq6BOtLCEpnMpF5r')
-		.then((response) => {
-			response.json().then(data => {
-				if (data.http_code === 200) {
-					const images = []
-					const modules = data.project.modules
-					modules.map(e => images.push(e.sizes.original))
-					let randomImage = images[Math.floor(Math.random() * images.length)]
-					
-					setTimeout(() => {
-						document.querySelector('.home').style.backgroundImage = `url(${randomImage})`
-					}, 1500)
+	slideImages = (arr) => {
+		let count = 0
+		const images = JSON.parse(arr)
+		if (images) {
+			setInterval(() => {
+				count += 1
+				if(count >= images.length) {
+					count = 0
 				}
-			})
-		})
-		.catch(error => console.error(error))
+				document.querySelector('.home').style.backgroundImage = `url(${images[count]})`
+			}, 10000)
+		} else {
+			console.error('"images" variable is null or undefined.')
+		}
 	}
+
+	componentDidMount() {
+		const imageCollection = localStorage.getItem('imageCollection')
+		if (imageCollection && imageCollection !== null) {
+			this.slideImages(imageCollection)
+		} else {
+			fetch('https://cors.io/?https://www.behance.net/v2/projects/27198827?api_key=8fVWyPdLzJwgectbQq6BOtLCEpnMpF5r')
+			.then((response) => {
+				response.json().then(data => {
+					if (data.http_code === 200) {
+						const images = []
+						const modules = data.project.modules
+						modules.map(e => images.push(e.sizes.original))
+						localStorage.setItem("imageCollection", JSON.stringify(images))
+
+						this.slideImages(localStorage.getItem('imageCollection'))
+					}
+				})
+			})
+			.catch(error => console.error(error))
+		}
+	}
+
 	render() {
 		return (
 			<div className="home">
