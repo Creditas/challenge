@@ -5,6 +5,7 @@ export default {
 		const messages = store.getState().chatlog.messages || []
 		const username = store.getState().username
 		const history = messages
+
 		history.push({
 			sender,
 			message,
@@ -17,6 +18,11 @@ export default {
 				roomID: hash,
 				messages: history
 			}
+		}
+	},
+	clear() {
+		return {
+			type: 'CLEAR'
 		}
 	}
 }

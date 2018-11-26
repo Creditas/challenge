@@ -1,7 +1,7 @@
 .home {
     background-image: url('./images/default.jpg');
     background-color: #33504F;
-    @include transition(background-image 3s ease-in-out);
+    @include transition(background-image 2s ease-in-out);
     background-repeat: repeat-y;
     background-size: contain;
     background-position: center;

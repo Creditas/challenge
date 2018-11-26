@@ -4,6 +4,7 @@ import Message from '../components/Message'
 import SendBtn from '@/images/send-button.svg'
 import store from '@/store'
 import logChat from '@/actions/logChat'
+import setUser from '@/actions/setUsername'
 
 class Chat extends Component {
 	constructor(props) {
@@ -27,11 +28,16 @@ class Chat extends Component {
 	send = (event) => {
 		event.preventDefault()
 		const message = this.state.message
-		const messages = store.getState().chatlog.messages
 		const hash = window.location.hash
-		document.querySelector('.input-msg').value = ''
 
-		store.dispatch(logChat.message(message, hash, 'mine'))
+		this.autoScroll()
+
+		if (message.length !== 0) {
+			store.dispatch(logChat.message(message, hash, 'mine'))
+		}
+
+		document.querySelector('.input-msg').value = ''
+		this.setState({ message: '' })
 	}
 
 	logMessages = () => {
@@ -40,6 +46,13 @@ class Chat extends Component {
 				messages: store.getState().chatlog.messages
 			})
 		})
+	}
+
+	autoScroll = () => {
+		const elem = document.querySelector('.chat__messages')
+		setTimeout(() => {
+			elem.scrollTop = elem.scrollHeight
+		}, 100)
 	}
 
 	renderMessages = () => {

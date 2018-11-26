@@ -2,11 +2,17 @@ import React, { Component } from 'react'
 
 import Card from '../components/Card'
 import Header from '../components/Header'
+import { connect } from 'react-redux'
 import store from '@/store'
-import logChat from '@/actions/logChat'
-
+import setUser from '@/actions/setUsername'
 import enter from '@/images/enter.svg'
 import create from '@/images/group.svg'
+
+const mapStateToProps = state => {
+  return {
+    username: state.username
+  }
+}
 
 class Home extends Component {
 	constructor(props) {
@@ -40,24 +46,54 @@ class Home extends Component {
 	}
 
 	generateHash = () => {
-		this.setState({
-			roomHash: Math.floor(Math.random() * 0xFFFFFF).toString(16)
-		})
+		return Math.floor(Math.random() * 0xFFFFFF).toString(16)
+	}
+
+	setUsername = () => {
+		let username = this.props.username
+		username = username.length !== 0 ? username: prompt('Digite seu nome:')
+
+		if (username) {
+			store.dispatch(setUser.username(username))
+			return true
+		} else if (username !== null) {
+			store.dispatch(setUser.username('Anônimo'))
+			return true
+		}
+
+		return false
 	}
 
 	actionBtn = action => event => {
 		event.preventDefault()
-		const username = prompt('Digite seu nome:')
-		const hash = this.state.roomHash
-		console.log(action)
+		if (this.setUsername()) {
+			if (action === 'create') {
+				this.props.history.push(`/room/#${this.generateHash()}`)
+			} else if (action === 'enter') {
+				let roomID = prompt('Digite o ID da sala:')
+				this.props.history.push(`/room/#${roomID}`)
+			}
+		} else {
+			event.preventDefault()
+		}
 
-		logChat.message(hash)
-		this.props.history.push(`/room/#${hash}`)
+		// this.props.router.push(`/login?redirect=${redirect}`);
+		// if (this.setUsername()) {
+		// 	this.generateHash()
+		// 	if (action === 'enter') {
+		// 		let roomID = prompt('Digite o ID da sala:')
+		// 		if (roomID) {
+		// 			this.setState({ roomHash: roomID })
+		// 		} else {
+		// 			event.preventDefault()
+		// 		}
+		// 	}
+		// } else {
+		// 	event.preventDefault()
+		// }
 	}
 
 	componentDidMount() {
-		this.generateHash()
-		console.log(store.getState())
 		const imageCollection = localStorage.getItem('imageCollection')
 		const artistName = localStorage.getItem('artistName')
 		const artistUrl = localStorage.getItem('artistUrl')
@@ -96,6 +132,8 @@ class Home extends Component {
 	}
 
 	render() {
+		// const hash = this.state.roomHash
+		// console.log(hash)
 		return (
 			<div className="home">
 				<Header />
@@ -109,7 +147,7 @@ class Home extends Component {
 						<a href="#" onClick={this.actionBtn('enter')} className="home__btn">
 							<img src={enter} alt="" />
 							<p>Entrar em uma sala</p>
-						</a>
+							</a>
 					</Card>
 				</div>
 
@@ -120,4 +158,6 @@ class Home extends Component {
 	}
 }
 
-export default Home
+export default connect(
+  mapStateToProps
+)(Home)
