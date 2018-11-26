@@ -24,4 +24,12 @@
 			color: $white;
 		}
 	}
+	&--admin {
+		.message__bubble {
+			width: 100%;
+			background: $deepblue;
+			color: $white;
+			font-size: 1.15em;
+		}
+	}
 }

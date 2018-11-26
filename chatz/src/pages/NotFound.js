@@ -49,7 +49,7 @@ class NotFound extends Component {
 						</h4>
 						<p>Bilbo não está no Condado...</p>
 
-						<a className="goBack" onClick={this.goBack}>VOLTAR</a>
+						<a href="#" className="goBack" onClick={this.goBack}>VOLTAR</a>
 					</div>
 				</div>
 

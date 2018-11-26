@@ -2,13 +2,16 @@ import React, { Component } from 'react'
 
 import Message from '../components/Message'
 import SendBtn from '@/images/send-button.svg'
+import store from '@/store'
+import logChat from '@/actions/logChat'
 
 class Chat extends Component {
 	constructor(props) {
     super(props)
 
     this.state = {
-			message: ''
+			message: '',
+			messages: []
 		}
 
 		this.message = this.message.bind(this)
@@ -24,28 +27,52 @@ class Chat extends Component {
 	send = (event) => {
 		event.preventDefault()
 		const message = this.state.message
+		const messages = store.getState().chatlog.messages
+		const hash = window.location.hash
 		document.querySelector('.input-msg').value = ''
-		console.log(message)
+
+		store.dispatch(logChat.message(message, hash, 'mine'))
+	}
+
+	logMessages = () => {
+		store.subscribe(() => {
+			this.setState({
+				messages: store.getState().chatlog.messages
+			})
+		})
+	}
+
+	renderMessages = () => {
+		const listMessage = this.state.messages
+		return (
+			listMessage.map((e, key) => {
+				return (
+					<Message name={e.username} owner={e.sender} message={e.message} key={key} />
+				)
+			})
+		)
+	}
+
+	componentDidMount() {
+		this.logMessages()
 	}
 
 	render() {
-			return (
-					<div className="chat">
-							<div className="chat__messages">
-								<Message name="Andreolle" owner="mine" message="Bláblá" />
-								<Message name="Pedro" owner="theirs" message="loremjshdj hjashdkjahskdjhaskdjhaskdjahsdkjashdjkasdasdas" />
-								<Message name="Andreolle" owner="mine" message="Bláblá" />
-								<Message name="Pedro" owner="theirs" message="asdasdasda" />
-							</div>
-
-							<form className="chat__typingarea" onSubmit={this.send}>
-								<input type="text" className="input-msg" onChange={this.message} placeholder="Digite uma mensagem..." />
-								<button type="submit" className="submit-btn">
-									<img src={SendBtn} />
-								</button>
-							</form>
+		return (
+			<div className="chat">
+					<div className="chat__messages">
+						<Message name="" owner="admin" message={`Convide um amigo para entrar usando a ID: ${window.location.hash}`} />
+						{this.renderMessages()}
 					</div>
-			)
+
+					<form className="chat__typingarea" onSubmit={this.send}>
+						<input type="text" className="input-msg" onChange={this.message} placeholder="Digite uma mensagem..." />
+						<button type="submit" className="submit-btn">
+							<img src={SendBtn} alt="enviar" />
+						</button>
+					</form>
+			</div>
+		)
 	}
 }
 

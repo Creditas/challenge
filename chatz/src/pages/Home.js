@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import Card from '../components/Card'
 import Header from '../components/Header'
+import store from '@/store'
+import logChat from '@/actions/logChat'
 
 import enter from '@/images/enter.svg'
 import create from '@/images/group.svg'
@@ -47,13 +49,15 @@ class Home extends Component {
 		event.preventDefault()
 		const username = prompt('Digite seu nome:')
 		const hash = this.state.roomHash
-		const actionType = event.target.getAttribute('data-action')
 		console.log(action)
-		this.props.history.push(`/room/${hash}`)
+
+		logChat.message(hash)
+		this.props.history.push(`/room/#${hash}`)
 	}
 
 	componentDidMount() {
 		this.generateHash()
+		console.log(store.getState())
 		const imageCollection = localStorage.getItem('imageCollection')
 		const artistName = localStorage.getItem('artistName')
 		const artistUrl = localStorage.getItem('artistUrl')
@@ -97,13 +101,13 @@ class Home extends Component {
 				<Header />
 				<div className="container home__content">
 					<Card>
-						<a href="" onClick={this.actionBtn('create')} className="home__btn">
-							<img src={create} />
+						<a href="#" onClick={this.actionBtn('create')} className="home__btn">
+							<img src={create} alt="" />
 							<p>Criar uma sala</p>
 						</a>
 
-						<a href="" onClick={this.actionBtn('enter')} className="home__btn">
-							<img src={enter} />
+						<a href="#" onClick={this.actionBtn('enter')} className="home__btn">
+							<img src={enter} alt="" />
 							<p>Entrar em uma sala</p>
 						</a>
 					</Card>
