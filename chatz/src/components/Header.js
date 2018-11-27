@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import logo from '@/images/chat.svg'
+import logo from '@/images/chatz.svg'
 import { Link } from 'react-router-dom'
 
 class Header extends Component {

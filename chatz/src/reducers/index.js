@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import chatlog from './chatlog'
+import room from './room'
 import username from './username'
 
 export default combineReducers({
-	chatlog,
+	room,
 	username
 })

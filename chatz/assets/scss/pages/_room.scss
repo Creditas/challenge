@@ -5,7 +5,29 @@
 		justify-content: space-evenly;
 		align-items: flex-start;
 		flex-flow: row wrap;
-		padding-top: 1.5em;
 		padding-bottom: 1.5em;
+	}
+	.action-content {
+		display: flex;
+		justify-content: flex-end;
+		padding-top: 1.5em;
+		padding-bottom: 1em;
+		.newChat-btn {
+			display: flex;
+			align-items: center;
+			@include border-radius(.3em);
+			font-size: 1.15em;
+			padding: .5em;
+			color: $white;
+			background: $deepblue;
+			cursor: pointer;
+			img {
+				width: 1.25em;
+				margin-right: .5em;
+			}
+			&:hover {
+				background: lighten($deepblue, 10%)
+			}
+		}
 	}
 }

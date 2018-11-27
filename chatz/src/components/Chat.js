@@ -2,9 +2,16 @@ import React, { Component } from 'react'
 
 import Message from '../components/Message'
 import SendBtn from '@/images/send-button.svg'
+import { connect } from 'react-redux'
 import store from '@/store'
 import logChat from '@/actions/logChat'
-import setUser from '@/actions/setUsername'
+
+const mapStateToProps = state => {
+  return {
+		username: state.username,
+		chat: state.room
+  }
+}
 
 class Chat extends Component {
 	constructor(props) {
@@ -12,11 +19,13 @@ class Chat extends Component {
 
     this.state = {
 			message: '',
-			messages: []
+			chatLog: []
 		}
 
 		this.message = this.message.bind(this)
-    this.send = this.send.bind(this)
+		this.send = this.send.bind(this)
+		this.renderMessages = this.renderMessages.bind(this)
+		this.logMessages = this.logMessages.bind(this)
 	}
 
 	message = (e) => {
@@ -28,23 +37,25 @@ class Chat extends Component {
 	send = (event) => {
 		event.preventDefault()
 		const message = this.state.message
-		const hash = window.location.hash
-
+		const username = this.props.username
+		const id = this.props.chatID
 		this.autoScroll()
 
 		if (message.length !== 0) {
-			store.dispatch(logChat.message(message, hash, 'mine'))
+			store.dispatch(logChat.message(message, username, 'mine', id))
+			this.logMessages(id)
 		}
 
-		document.querySelector('.input-msg').value = ''
+		event.target.querySelector('input').value = ''
 		this.setState({ message: '' })
 	}
 
-	logMessages = () => {
-		store.subscribe(() => {
-			this.setState({
-				messages: store.getState().chatlog.messages
-			})
+	logMessages = (id) => {
+		const rooms = store.getState().room
+		const findRoom = rooms.find(e => e.id == id)
+
+		this.setState({
+			chatLog: findRoom
 		})
 	}
 
@@ -56,25 +67,26 @@ class Chat extends Component {
 	}
 
 	renderMessages = () => {
-		const listMessage = this.state.messages
-		return (
-			listMessage.map((e, key) => {
-				return (
-					<Message name={e.username} owner={e.sender} message={e.message} key={key} />
-				)
-			})
-		)
-	}
+		const chatLog = this.state.chatLog.messages
 
-	componentDidMount() {
-		this.logMessages()
+		if (chatLog) {
+			return (
+				chatLog.map((e, key) => {
+					return (
+						<Message name={e.username} owner={e.sender} message={e.message} key={key} />
+					)
+				})
+			)
+		}
+
+
 	}
 
 	render() {
 		return (
 			<div className="chat">
 					<div className="chat__messages">
-						<Message name="" owner="admin" message={`Convide um amigo para entrar usando a ID: ${window.location.hash}`} />
+						<Message name="" owner="admin" message={`Convide um amigo para entrar usando a ID: ${this.props.chatID}`} />
 						{this.renderMessages()}
 					</div>
 
@@ -89,4 +101,6 @@ class Chat extends Component {
 	}
 }
 
-export default Chat
+export default connect(
+  mapStateToProps
+)(Chat)

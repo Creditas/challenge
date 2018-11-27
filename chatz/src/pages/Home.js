@@ -7,6 +7,7 @@ import store from '@/store'
 import setUser from '@/actions/setUsername'
 import enter from '@/images/enter.svg'
 import create from '@/images/group.svg'
+import logChat from '@/actions/logChat'
 
 const mapStateToProps = state => {
   return {
@@ -46,7 +47,8 @@ class Home extends Component {
 	}
 
 	generateHash = () => {
-		return Math.floor(Math.random() * 0xFFFFFF).toString(16)
+		const hash = Math.floor(Math.random() * 0xFFFFFF).toString(16)
+		store.dispatch(logChat.createRoom(hash))
 	}
 
 	setUsername = () => {
@@ -68,7 +70,8 @@ class Home extends Component {
 		event.preventDefault()
 		if (this.setUsername()) {
 			if (action === 'create') {
-				this.props.history.push(`/room/#${this.generateHash()}`)
+				this.generateHash()
+				this.props.history.push(`/room/`)
 			} else if (action === 'enter') {
 				let roomID = prompt('Digite o ID da sala:')
 				this.props.history.push(`/room/#${roomID}`)
@@ -76,21 +79,6 @@ class Home extends Component {
 		} else {
 			event.preventDefault()
 		}
-
-		// this.props.router.push(`/login?redirect=${redirect}`);
-		// if (this.setUsername()) {
-		// 	this.generateHash()
-		// 	if (action === 'enter') {
-		// 		let roomID = prompt('Digite o ID da sala:')
-		// 		if (roomID) {
-		// 			this.setState({ roomHash: roomID })
-		// 		} else {
-		// 			event.preventDefault()
-		// 		}
-		// 	}
-		// } else {
-		// 	event.preventDefault()
-		// }
 	}
 
 	componentDidMount() {
@@ -132,8 +120,6 @@ class Home extends Component {
 	}
 
 	render() {
-		// const hash = this.state.roomHash
-		// console.log(hash)
 		return (
 			<div className="home">
 				<Header />

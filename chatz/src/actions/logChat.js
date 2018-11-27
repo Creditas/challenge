@@ -1,25 +1,40 @@
-import store from '@/store'
+
+const rooms = []
 
 export default {
-	message(message, hash, sender) {
-		const messages = store.getState().chatlog.messages || []
-		const username = store.getState().username
-		const history = messages
-
-		history.push({
-			sender,
-			message,
-			username
-		})
-
+	createRoom(id) {
 		return {
-			type: 'POST_MESSAGE',
+			type: 'CREATE_ROOM',
 			payload: {
-				roomID: hash,
-				messages: history
+				messages: [],
+				id
 			}
 		}
 	},
+
+	message(message, username, sender, id) {
+		const msg = {
+			sender,
+			message,
+			username
+		}
+
+		const findRoom = rooms.find(e => e.id == id)
+		if (findRoom) {
+			findRoom.messages.push(msg)
+		} else {
+			rooms.push({
+				id,
+				messages: [msg]
+			})
+		}
+
+		return {
+			type: 'POST_MESSAGE',
+			payload: rooms
+		}
+	},
+
 	clear() {
 		return {
 			type: 'CLEAR'
