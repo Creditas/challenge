@@ -1,0 +1,35 @@
+.menu {
+	margin-bottom: 1em;
+}
+
+.messages {
+	// width: 20em;
+}
+
+.message-list {
+	min-height: 10em;
+	background-color: #f3f3f3;
+	padding: 0.5em;
+}
+
+.message-list li {
+	float: right;
+	display: inline-block;
+	padding: .25em .4em;
+	line-height: 1;
+	vertical-align: baseline;
+	border-radius: .25rem;
+	background-color: #7ef9d7;
+	min-height: 10%;
+	height: auto;
+	width: 65%;
+	min-width: 65%;
+	max-width: 65%;
+	margin: 0.25em 0 0.25em 0;
+}
+
+.message-list li p {
+	font-size: 75%;
+	font-weight: 700;
+	word-break: break-all;	
+}
