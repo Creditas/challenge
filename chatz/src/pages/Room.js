@@ -9,17 +9,52 @@ import chat from '@/images/chat.svg'
 
 const mapStateToProps = state => {
   return {
-		username: state.username,
-		chat: state.room
+		username: state.username
   }
 }
 class Room extends Component {
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			activeChats: store.getState().rooms
+		}
+
+		this.renderChat = this.renderChat.bind(this)
+	}
+
 	componentWillUnmount() {
 		store.dispatch(logChat.clear())
 	}
 
 	newChat = () => {
-		alert('aaaaaaaaa')
+		const chatID = prompt('Digite o ID da sala:')
+		if (chatID) {
+			store.dispatch(logChat.createRoom(chatID))
+		} else {
+			return false
+		}
+	}
+
+	componentDidMount() {
+		const self = this
+		store.subscribe(() => {
+			self.setState({
+				activeChats: store.getState().rooms
+			})
+		})
+	}
+
+	renderChat = () => {
+		const state = store.getState()
+		console.log(state, '<----')
+		return (
+			this.state.activeChats.map(e => {
+				return (
+					<Chat chatID={e.id} key={e.id} />
+				)
+			})
+		)
 	}
 
 	render() {
@@ -34,7 +69,9 @@ class Room extends Component {
 				</div>
 
 				<div className="container content">
-					<Chat chatID={this.props.chat.id} />
+					{
+						this.renderChat()
+					}
 				</div>
 			</div>
 		)

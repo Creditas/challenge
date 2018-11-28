@@ -8,8 +8,7 @@ import logChat from '@/actions/logChat'
 
 const mapStateToProps = state => {
   return {
-		username: state.username,
-		chat: state.room
+		username: state.username
   }
 }
 
@@ -51,11 +50,11 @@ class Chat extends Component {
 	}
 
 	logMessages = (id) => {
-		const rooms = store.getState().room
+		const rooms = store.getState().rooms
 		const findRoom = rooms.find(e => e.id === id)
 
 		this.setState({
-			chatLog: findRoom
+			chatLog: findRoom.messages
 		})
 	}
 
@@ -67,7 +66,7 @@ class Chat extends Component {
 	}
 
 	renderMessages = () => {
-		const chatLog = this.state.chatLog.messages
+		const chatLog = this.state.chatLog
 
 		if (chatLog) {
 			return (

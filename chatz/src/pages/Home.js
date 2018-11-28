@@ -74,7 +74,8 @@ class Home extends Component {
 				this.props.history.push(`/room/`)
 			} else if (action === 'enter') {
 				let roomID = prompt('Digite o ID da sala:')
-				this.props.history.push(`/room/#${roomID}`)
+				store.dispatch(logChat.createRoom(roomID))
+				this.props.history.push(`/room/`)
 			}
 		} else {
 			event.preventDefault()
