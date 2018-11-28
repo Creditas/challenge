@@ -52,7 +52,7 @@ class Chat extends Component {
 
 	logMessages = (id) => {
 		const rooms = store.getState().room
-		const findRoom = rooms.find(e => e.id == id)
+		const findRoom = rooms.find(e => e.id === id)
 
 		this.setState({
 			chatLog: findRoom

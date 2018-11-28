@@ -34,13 +34,7 @@ class Room extends Component {
 				</div>
 
 				<div className="container content">
-					{/* <Chat chatID={this.props.chat.id} /> */}
-					<Chat chatID="1" />
-					<Chat chatID="2" />
-					<Chat chatID="3" />
-					<Chat chatID="4" />
-					<Chat chatID="5" />
-					<Chat chatID="6" />
+					<Chat chatID={this.props.chat.id} />
 				</div>
 			</div>
 		)
