@@ -1,25 +1,27 @@
 
-const rooms = []
+import store from '@/store'
 
 export default {
 	createRoom(id) {
 		return {
 			type: 'CREATE_ROOM',
 			payload: {
-				messages: [],
-				id
+				id,
+				messages: []
 			}
 		}
 	},
 
 	message(message, username, sender, id) {
+		const rooms = store.getState().rooms
 		const msg = {
 			sender,
 			message,
 			username
 		}
 
-		const findRoom = rooms.find(e => e.id == id)
+		const findRoom = rooms.find(e => e.id === id)
+
 		if (findRoom) {
 			findRoom.messages.push(msg)
 		} else {

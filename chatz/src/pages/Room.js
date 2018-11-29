@@ -45,9 +45,12 @@ class Room extends Component {
 		})
 	}
 
+	componentDidUpdate() {
+		console.log(store.getState())
+	}
+
 	renderChat = () => {
 		const state = store.getState()
-		console.log(state, '<----')
 		return (
 			this.state.activeChats.map(e => {
 				return (

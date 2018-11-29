@@ -1,13 +1,11 @@
-const initialState = []
-
-export default (state = initialState, action = {}) => {
+export default (state = [], action) => {
 	switch (action.type) {
 		case 'POST_MESSAGE':
 			return action.payload
 		case 'CREATE_ROOM':
 			return [...state, action.payload]
 		case 'CLEAR':
-			return initialState
+			return []
 		default:
 			return state
 	}
