@@ -41,7 +41,7 @@ class Chat extends Component {
 		this.autoScroll()
 
 		if (message.length !== 0) {
-			store.dispatch(logChat.message(message, username, 'mine', id))
+			store.dispatch(logChat.message(message, username, id))
 			this.logMessages(id)
 		}
 

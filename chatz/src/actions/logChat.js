@@ -12,10 +12,9 @@ export default {
 		}
 	},
 
-	message(message, username, sender, id) {
+	message(message, username, id) {
 		const rooms = store.getState().rooms
 		const msg = {
-			sender,
 			message,
 			username
 		}
