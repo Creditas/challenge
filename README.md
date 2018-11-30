@@ -31,7 +31,10 @@ tendo assim fácil acesso a cada histórico de mensagens a partir de um Identifi
 ```
 
 Para a receber requisições ajax via long-polling, cada usuário terá consigo a sua versão da conversa até o recebimento da próxima
-mensagem, onde será feito um merge das duas versões adicionando a `messages` a nova mensagem e mantendo as anteriores.
+mensagem, onde será feito um merge das duas versões adicionando a `messages` a nova mensagem. 
+
+No browser cliente, a mensagem receberá uma classe Css para indicar visualmente quem é o remetente da mensagem, 
+Se a mensagem tiver o nome de remetente diferente ao que o receptor receberá a classe `--theirs` caso contrário será `--mine`. 
 
 ## Para rodar o projeto localmente
 
