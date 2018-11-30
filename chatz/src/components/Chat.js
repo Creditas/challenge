@@ -67,12 +67,17 @@ class Chat extends Component {
 
 	renderMessages = () => {
 		const chatLog = this.state.chatLog
+		const myName = this.props.username
+
+		const whoIam = (sender) => {
+			return sender === myName ? 'mine' : 'theirs'
+		}
 
 		if (chatLog) {
 			return (
 				chatLog.map((e, key) => {
 					return (
-						<Message name={e.username} owner={e.sender} message={e.message} key={key} />
+						<Message name={e.username} owner={whoIam(e.username)} message={e.message} key={key} />
 					)
 				})
 			)
@@ -83,7 +88,7 @@ class Chat extends Component {
 		return (
 			<div className="chat">
 					<div className="chat__messages">
-						<Message name="" owner="admin" message={`Convide um amigo para entrar usando a ID: ${this.props.chatID}`} />
+						<Message name="" owner="admin" message={`Sala: ${this.props.chatID}`} />
 						{this.renderMessages()}
 					</div>
 

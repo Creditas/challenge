@@ -12,6 +12,7 @@ const mapStateToProps = state => {
 		username: state.username
   }
 }
+
 class Room extends Component {
 	constructor(props) {
 		super(props)
@@ -38,15 +39,12 @@ class Room extends Component {
 
 	componentDidMount() {
 		const self = this
+
 		store.subscribe(() => {
 			self.setState({
 				activeChats: store.getState().rooms
 			})
 		})
-	}
-
-	componentDidUpdate() {
-		console.log(store.getState())
 	}
 
 	renderChat = () => {
