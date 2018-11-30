@@ -9,6 +9,16 @@
 	background: $white;
 	max-width: 45%;
 
+	@media screen and (max-width: 1450px) {
+		max-width: 48%;
+		flex-basis: 48%;
+	}
+
+	@media screen and (max-width: 900px) {
+		max-width: 100%;
+		flex-basis: 100%;
+	}
+
 	&__messages {
 		padding: 1.5em;
 		padding-bottom: 0;

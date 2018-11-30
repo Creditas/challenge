@@ -13,7 +13,16 @@
         align-items: center;
         .card {
             margin-top: -128px;
-            width: 50%;
+			width: 50%;
+
+			@media screen and (max-width: 1050px) {
+				width: 80%;
+			}
+
+			@media screen and (max-width: 640px) {
+				width: 100%;
+				font-size: 0.85em;
+			}
         }
     }
     &__btn {

@@ -59,9 +59,9 @@ class Chat extends Component {
 	}
 
 	autoScroll = () => {
-		const elem = document.querySelector('.chat__messages')
+		const elem = document.querySelectorAll('.chat__messages')
 		setTimeout(() => {
-			elem.scrollTop = elem.scrollHeight
+			elem.forEach(e => e.scrollTop = e.scrollHeight)
 		}, 100)
 	}
 
