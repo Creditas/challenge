@@ -14,4 +14,4 @@ class DigitalProduct(Product):
 
     @property
     def notification(self):
-        return 'Congratulations! You received a 10\% discount on digital products.', EMAIL
+        return 'Congratulations! You received a 10%% discount on digital products.', EMAIL

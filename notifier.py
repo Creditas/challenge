@@ -11,7 +11,7 @@ class Notifier:
 
     def add(self, notification, _type):
         notifier = self.informations.get(_type)
-        if not notifier
+        if not notifier:
             raise ValueError('Notifier type not supported')
         notifier.add(notification)
 

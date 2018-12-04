@@ -6,7 +6,7 @@ class DataModel:
         ''' Create a new model in database and return a class instance. '''
         return cls(data_id)
 
-    def update(data):
+    def update(self, data):
         ''' Update informations related to the instance in database. '''
         self._data = data
 

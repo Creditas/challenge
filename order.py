@@ -1,8 +1,8 @@
-from urllib.parse import urlencode
+# from urllib.parse import urlencode
 
 from data_model import DataModel
 from product import product_factory
-from notifier import Notifier
+from customer import Customer
 
 
 def calculate_shipping(self, address, product):
@@ -41,7 +41,7 @@ class Order(DataModel):
 
     def __init__(self, order_id):
         ''' Get in database all informations (data) related to the order_id (customer and products). '''
-        self.customer = Customer(custumer_data_id)
+        self.customer = Customer(customer_data_id)
         self._products_id = product_ids
 
     def notify(self, notifier):

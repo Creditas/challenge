@@ -1,3 +1,4 @@
+from order import Order
 
 
 class Customer:

@@ -1,13 +1,10 @@
 from data_model import DataModel
+from order import Order
+from notifier import Notifier
 
 
 CARD = 'credit_card'
 BANK_TRANSFER = 'bank_transfer'
-
-_PROCESSORS = {
-    CARD: credit_card,
-    BANK_TRANSFER: bank_transfer
-}
 
 
 def card(order):
@@ -18,8 +15,14 @@ def bank_transfer(order):
     pass
 
 
+_PROCESSORS = {
+    CARD: card,
+    BANK_TRANSFER: bank_transfer
+}
+
+
 class Payment(DataModel):
-    
+
     ''' I could create a factory class to each payment method but seems not be complex. '''
 
     def __init__(self, payment_id):
@@ -32,7 +35,6 @@ class Payment(DataModel):
         processor = _PROCESSORS.get(method)
         if not processor:
             raise ValueError('Payment method not supported.')
-        self.invoice = processor(order)
-        self.order.notify(notifier)
+        self.invoice = processor(self.order)
+        self.order.notify(self.notifier)
         self.notifier.process()
-            
