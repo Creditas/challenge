@@ -18,3 +18,7 @@ class Customer(DataModel):
         elif products:
             order.update({'products': products})
         return order
+
+    def enable_service(self, service_id):
+        ''' Enable service for a user, check if the customer paid for it and activate the account. '''
+        pass

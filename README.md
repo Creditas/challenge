@@ -18,3 +18,10 @@ customer = Customer('customer-id')
 order = customer.get_order(products=['product-id-1', 'product-id-2', 'product-id-3'])
 Payment.create({'order': order}).pay(CARD)
 ````
+
+Para habilitar um serviço premium a um usuário basta realizar as etapas abaixo:
+
+````
+from customer import Customer
+Customer('customer-id').enable_service('service-id')
+````
