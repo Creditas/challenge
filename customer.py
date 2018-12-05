@@ -1,7 +1,8 @@
+from data_model import DataModel
 from order import Order
 
 
-class Customer:
+class Customer(DataModel):
     @property
     def address(self):
         return dict(zip_code=self._data.get('zip_code'), address=self._data['address'])
