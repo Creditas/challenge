@@ -23,6 +23,10 @@ class Product(DataModel):
         return self._data.get('weight')
 
     @property
+    def name(self):
+        return self._data['name']
+
+    @property
     def price(self):
         ''' Return the cost of product including tax and discount. '''
         raise NotImplementedError()
