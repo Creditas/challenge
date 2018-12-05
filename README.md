@@ -1,4 +1,4 @@
-#Creditas challenge
+# Creditas challenge
 
 
 Utilizando da orientação a objeto e funçāo factory foi possivel simplificar o código para realizar uma compra, delegando responsabilidades específica para cada classe, dessa forma existe um flow único de compra, independente do tipo de produto. Realizei o refactory ignorando implementações que integram com microserviços como o pagamento e o shipping cost, tendo em vista que eu poderia mudar tudo quebrei a API não tendo compatibilidade com a antiga.
