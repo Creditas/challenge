@@ -15,9 +15,25 @@
       <ul class="message-list"></ul>
 
       <div class="message-input">
-        <input type="text" />
-        <button type="button">Enviar</button>
+        <form class="message-form">
+            <input name="messageInput" type="text">
+            <button type="submit">Enviar</button>
+        </form>
       </div>
     </div>
+    
+    <script src="./js/models/MessageList.js"></script>
+    <script src="./js/controllers/MessageListController.js"></script>
+    <script src="./js/controllers/MessageFormController.js"></script>
+    
+    <script src="./js/App.js"></script>
+    
+    <script>
+        // Instanciando aplicação
+        const app = new App()
+        
+        // Inicializando aplicação
+        app.start()
+    </script>
   </body>
 </html>
