@@ -11,3 +11,8 @@ class Order():
 
     def generate_shipping_labels(self) -> List[ShippingLabel]:
         return list(map(lambda i: ShippingLabel(i), self.products))
+
+    def pay(self):
+        order_amount = sum(list(map(lambda i: i.price, self.products)))
+
+        self.customer.wallet -= order_amount
