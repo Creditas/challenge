@@ -3,6 +3,7 @@ from enum import Enum
 
 class ProductKind(Enum):
     physic = 'physic'
+    digital = 'digital'
 
 
 class Product():
