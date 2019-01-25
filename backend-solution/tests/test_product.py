@@ -19,6 +19,8 @@ class TestProduct(TestCase):
     def test_check_physic_products(self):
         assert ProductKind.is_physic(ProductKind.physic) is True, \
             'A physic product is physic'
+        assert ProductKind.is_physic(ProductKind.book) is True, \
+            'A book product is physic'
         assert ProductKind.is_physic(ProductKind.digital) is False, \
             'A digital product is not physic'
 

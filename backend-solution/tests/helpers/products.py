@@ -12,3 +12,9 @@ digital_product = Product(
     kind=ProductKind.digital,
     price=200
 )
+
+book_product = Product(
+    name='book_product',
+    kind=ProductKind.book,
+    price=50
+)
