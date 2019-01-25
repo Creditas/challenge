@@ -11,6 +11,8 @@ class TestCustomer(TestCase):
 
         assert customer.name == 'macabeus', 'Should set the same as "macabeus"'
         assert customer.wallet == 100, 'Should set the wallet as 100'
+        assert len(customer.email_messages) == 0, \
+            'Should not have any email messages'
 
 
 if __name__ == '__main__':

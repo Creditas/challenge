@@ -23,7 +23,7 @@ class TestOrder(TestCase):
         assert len(shipping_labels) == len(order.products), \
             'Should has the same amount of shipping label as has the products'
 
-    def test_pay(self):
+    def test_pay_physic_and_digital_products(self):
         initial_wallet = 500
         customer = Customer(
             name='macabeus',
@@ -40,6 +40,27 @@ class TestOrder(TestCase):
         assert customer.wallet == \
             initial_wallet - physic_product.price - digital_product.price, \
             'Should cash the wallet'
+        assert customer.email_messages[0] == 'discount voucher R$ 10', \
+            'Should receive a voucher because purchased a digital product'
+
+    def test_pay_physic_product(self):
+        initial_wallet = 500
+        customer = Customer(
+            name='macabeus',
+            wallet=initial_wallet
+        )
+
+        order_one_product = Order(
+            products=[physic_product],
+            customer=customer
+        )
+
+        order_one_product.pay()
+
+        assert customer.wallet == initial_wallet - physic_product.price, \
+            'Should cash the wallet'
+        assert len(customer.email_messages) == 0, \
+            'Should not send any email'
 
 
 if __name__ == '__main__':
