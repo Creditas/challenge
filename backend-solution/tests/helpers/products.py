@@ -6,3 +6,9 @@ physic_product = Product(
     kind=ProductKind.physic,
     price=100
 )
+
+digital_product = Product(
+    name='digital_product',
+    kind=ProductKind.digital,
+    price=200
+)

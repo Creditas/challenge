@@ -16,6 +16,12 @@ class TestProduct(TestCase):
             'Should set the product type as "physic"'
         assert product.price == 100, 'Should set the price as 100'
 
+    def test_check_physic_products(self):
+        assert ProductKind.is_physic(ProductKind.physic) is True, \
+            'A physic product is physic'
+        assert ProductKind.is_physic(ProductKind.digital) is False, \
+            'A digital product is not physic'
+
 
 if __name__ == '__main__':
     main()
