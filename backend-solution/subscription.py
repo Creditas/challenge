@@ -11,6 +11,11 @@ class Singleton(type):
 class Subscription():
     def __init__(self, name: str):
         self.name = name
+        self.customers_active = []
+
+    def active_customer(self, customer):
+        self.customers_active.append(customer)
+        customer.send_email('active subscription {}'.format(self.name))
 
 
 class Subscriptions(metaclass=Singleton):

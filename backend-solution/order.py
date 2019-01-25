@@ -2,6 +2,7 @@ from typing import List
 from product import Product, ProductKind
 from customer import Customer
 from shipping_label import ShippingLabel
+from subscription import Subscriptions
 
 
 class Order():
@@ -19,6 +20,11 @@ class Order():
 
         if should_send_discount_voucher:
             self.customer.send_email('discount voucher R$ 10')
+
+        for product in self.products:
+            if product.kind == ProductKind.subscription:
+                sub = Subscriptions().get(product.name)
+                sub.active_customer(self.customer)
 
         order_amount = sum(list(map(lambda i: i.price, self.products)))
 
