@@ -10,7 +10,7 @@ Para o fluxo dos pagamentos criei uma classe abstrata **Product** e com base nel
 
 Cada produto implementa a sua forma de pagamento e regras de envio. O `shipping label` é gerado atráves da classe **ShippinLabel** e as notificações são feitas atráves da classe **NotificationService**. Estas classes pertencem a agregação **Shipping**.
 
-Para os produtos **Digital** e **Membership** quando é realizado um pagamento é adicionado um evento (**DigitalProductPaidEvent** e **MembershipProductPaidEvent** respectivamente) informando que aquele produto foi pago para o pedido em questão. Este evento é adicionado a uma lista de eventos para ao fim do processo de pagamento serem executados. A classe responsável por manter esses eventos e executa-los é a **OrderPaymentEventContainer** (Em uma aplicação da vida real este container deve ser thread-safe). Existe um controle para que um evento não seja adicionado mais de uma vez para o mesmo pedido.
+Quando é realizado um pagamento de um produto é adicionado um evento informando que aquele produto foi pago para o pedido em questão. Este evento é adicionado a uma lista de eventos para ao fim do processo de pagamento serem executados. A classe responsável por manter esses eventos e executa-los é a **OrderPaymentEventContainer** (Em uma aplicação da vida real este container deve ser thread-safe). Existe um controle para que um evento não seja adicionado mais de uma vez para o mesmo pedido.
 
 A service **PaymentService** é responsável por orquestrar os pagamentos para um pedido.
 
