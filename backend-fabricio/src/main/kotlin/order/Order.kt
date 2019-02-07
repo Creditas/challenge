@@ -4,18 +4,13 @@ import main.BusinessException
 import shipping.ShippingLabel
 import java.util.*
 
-class Order(val customer: Customer, val address: Address) {
+class Order(val customer: Customer) {
     private val internalItems = mutableListOf<OrderItem>()
-    private val shippingLabels = mutableListOf<ShippingLabel>()
     val id: UUID = UUID.randomUUID()
     val items : List<OrderItem> =  internalItems
 
     var payment: Payment? = null
         private set
-
-    fun addShippingLabel(shippingLabel: ShippingLabel) {
-        shippingLabels.add(shippingLabel)
-    }
 
     fun addProduct(product: Product, quantity: Int) {
         validateIfProductAlreadyAdded(product)

@@ -1,5 +1,6 @@
 package order
 
+//In real-life this container must be thread-safe
 class OrderPaymentEventContainer {
 
     companion object {
@@ -16,19 +17,12 @@ class OrderPaymentEventContainer {
         }
 
         fun handleEvents() {
-
-            validateIfEventsIsEmpty()
-
-            events.forEach {
-                it.handle()
+            if(hasEvents) {
+                events.forEach {
+                    it.handle()
+                }
+                clearContainer()
             }
-
-            clearContainer()
-        }
-
-        private fun validateIfEventsIsEmpty() {
-            if (events.count() == 0)
-                throw Exception("There aren't events on list")
         }
 
         private fun eventIsNotOnList(orderPaymentEvent: OrderPaymentEvent): Boolean {

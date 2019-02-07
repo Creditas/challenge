@@ -2,7 +2,9 @@ package order
 
 enum class OrderPaymentEventType {
     MEMBERSHIP,
-    DIGITAL
+    DIGITAL,
+    BOOK,
+    PHYSICAL
 }
 
 abstract class OrderPaymentEvent(val eventType: OrderPaymentEventType, val order: Order) {
