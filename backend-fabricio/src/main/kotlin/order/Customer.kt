@@ -15,6 +15,6 @@ class Customer {
 
     private fun validateIfDiscountIsLessThanZero(discountVoucher: Double) {
         if (discountVoucher < 0)
-            throw BusinessException("Discount must be greater or than zero!")
+            throw BusinessException("Discount must be greater than zero!")
     }
 }
