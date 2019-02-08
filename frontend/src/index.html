@@ -9,15 +9,20 @@
   </head>
 
   <body>
-    <h1>Chat</h1>
-
-    <div class="messages">
-      <ul class="message-list"></ul>
-
-      <div class="message-input">
-        <input type="text" />
-        <button type="button">Enviar</button>
+    <div class="messages__container" >      
+      <div class="messages__title-container">
+          <h1>Chat</h1>
+      </div>
+      <ul class="messages__list"></ul>
+      <div class="messages__input-box">
+          <input class="messages__input" type="text"/>
+          <button class='send__message' type="button" id='sendMessage'>Enviar</button>
       </div>
     </div>
+    
+    <script src="./Chat.js"></script>
+    <script src="./Message.js"></script>
+    
+    
   </body>
 </html>
