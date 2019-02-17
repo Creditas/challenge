@@ -14,7 +14,7 @@ vscode.code-workspace
 .history
 
 ### Kotlin ###
-# Compiled class file
+# Compiled class filse
 *.class
 
 # Log file
@@ -39,3 +39,6 @@ vscode.code-workspace
 hs_err_pid*
 
 # End of https://www.gitignore.io/api/kotlin
+
+*.iml
+.idea
