@@ -1,32 +1,27 @@
-## Teste frontend - Creditas
+## Teste Frontend Creditas - Chat
+Chat desenvolvido com Socket.io e Express.JS.
 
-Esse é um teste focado em design de código, e conhecimento de orientação a 
-objeto. O objetivo é avaliar sua experiênica em escrever código de fácil 
-manutenção, baixo acoplamento, e alta coesão.
+### Pré Requisitos
+- [NPM/Node](https://nodejs.org/en/download/)
 
-### Apresentação do problema
+### Construido com
+- EJS
+- Express
+- Jquery
+- Socket.io
 
-O arquivo `index.html` contém o esqueleto de uma aplicação de chat totalmente 
-*bare-bones*: uma `<ul>` com uma lista de mensagens enviadas, e um `<button>` + `<input>` 
-para envio de novas mensagens.
+### Instalação
+Vá para branch creditas/teste-miguel
+```sh
+git checkout creditas/teste-miguel
+```
 
-A feature inicial de nossa aplicação é bastante simples: o usuário deve poder 
-entrar uma mensagem na caixa de texto e, ao apertar o botão "Enviar" (ou 
-pressionar <kbd>Enter</kbd>), a mensagem deverá aparecer na lista de mensagens.
+Faça a instalação das dependências de desenvolvimento
+```sh
+npm install
+```
 
-Isoladamente essa é uma feature simples de implementar, mas queremos que você 
-leve em conta a evolução futura do software. Imagine que o app irá crescer em 
-features, e adicionar coisas como:
-* envio de mensagens via ajax, com as respostas vindo via `long-polling`
-* chat em realtime via WebRTC
-* ter vários chats visíveis ao mesmo tempo, adicionadas dinamicamente com base nas ações do usuário
-
-Você deve pensar num design de código que suporte esses casos de uso sem 
-grandes modificações.
-
-### Avaliação
-
-Para nos enviar seu código, você pode:
-* Fazer um fork desse repositório e nos mandar uma pull-request
-* Dar acesso ao seu repositório privado no [Github](http://github.com) ou [Gitlab](http://gitlab.com) para `creditaschallenge`.
-* Enviar um `git bundle` do seu repositório para o e-mail challenge@creditas.com.br
+Rode a aplicação localmente
+```sh
+npm start
+```

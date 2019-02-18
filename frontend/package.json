@@ -1,0 +1,18 @@
+{
+  "name": "chat-live",
+  "version": "1.0.0",
+  "description": "Esse é um teste focado em design de código, e conhecimento de orientação a  objeto. O objetivo é avaliar sua experiênica em escrever código de fácil  manutenção, baixo acoplamento, e alta coesão.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Miguel",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.15.2",
+    "jquery": "^3.3.1",
+    "socket.io": "^2.2.0"
+  }
+}
