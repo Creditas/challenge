@@ -6,12 +6,12 @@
 # Introdução
 
   Pensando em melhorar o entedimento do código e facilitar novas codificações, eu alterei e criei novas classes.
-  Em um primeiro momento eu percebi que o atributo order constava em quase todas as classes, achei que isso estava deixando o código um pouco redundante, por isso mudei algumas classes baseado no modelo da figura modelo.png
+  Em um primeiro momento eu percebi que o atributo order constava em quase todas as classes, achei que isso estava deixando o código um pouco redundante, por isso mudei algumas classes baseado no modelo da figura  -> modelo.png
   
-  Eu separei as classes em arquivos 
+  Eu também  separei as classes em arquivos 
   
   
-  Mudei a classe ordem para que ela já tenha uma lista de produtos.Eu retirei a classe order_items do escopo.
+  Mudei a classe Order para que ela já tenha uma lista de produtos. Eu retirei a classe order_items do escopo, achei que operação de inserção de produtos ficou mais simples, desta forma.
   Retirei também o parâmetro order da classe invoice já que ela está associada a um pagamento e um pagamento já possui o atributo order
   Criei a classe Customer com um parâmetro do tipo MemberShip, pensei em fazer que clientes que possui algum tipo de filiação ganha-se um desconto no final da compra, hoje eu deixei padrão 10% e eu não criei mais um tipo de filiação, mas caso faça sentido para o negocio é só aplicar a logica da class produtos apra que cada tipo de filiação o cliente possua um desconto, ou qualquer outra vantagem.
   
@@ -38,10 +38,10 @@ Quando um novo tipo de produto for criado basta ir na classe produto e criar um 
 ***Tipo de produto***
     Eu criei os seguintes tipos
 - physical_item 
-        você deverá gerar um shipping label para o mesmo ser colocado na caixa do envio
+        gera um shipping label para o mesmo ser colocado na caixa do envio
 - comum_book
-    Você precisa gerar o shipping label com uma notificação de que trata-se de um item isento de impostos conforme disposto na Constituição Art. 150, VI, d.
+        gera o shipping label com uma notificação de que trata-se de um item isento de impostos conforme disposto na Constituição Art. 150, VI, d.
 - digital_signature
-    você precisa ativar a assinatura, e notificar o usuário através de e-mail sobre isto;
+        ativa a assinatura, e notificar o usuário através de e-mail sobre isto;
 - midia_digital
-    além de enviar a descrição da compra por e-mail ao comprador, conceder um voucher de desconto de R$ 10 ao comprador associado ao pagamento.
+        envia a descrição da compra por e-mail ao comprador, conceder um voucher de desconto de R$ 10 ao comprador associado ao pagamento.
