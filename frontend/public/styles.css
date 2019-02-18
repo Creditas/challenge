@@ -1,0 +1,148 @@
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+
+/* screen configs */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f4f4f4;
+  font-family: 'Roboto', sans-serif;
+}
+
+ul { list-style: none; } 
+
+h1, h2 {
+  color: #3c3c3e;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+time {
+  color: #fff;
+  cursor: default;
+  display: flex;
+  font-size: 0.7rem;
+  justify-content: flex-end;
+  margin-top: 3px;
+}
+
+time::before{
+  color: #f4f4f4;
+  content: "\f017";
+  display: inline-block;
+  font-family: FontAwesome;
+  margin-right: 4px;
+}
+
+/* pages */
+.messageArea {
+  display: none;
+}
+
+.usernameArea {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.usernameArea > div {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+/* chatbox */
+.chat {
+  background-color: #fff; 
+  border-radius: 1rem;
+  margin: auto;
+  max-width: 400px;
+  min-height: 400px;
+  padding: 10px 15px;
+}
+
+/* messages */
+.messages {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  justify-content: space-between;
+}
+
+.messageList {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.messageItem {
+  border-radius: 0.75rem;
+  margin: 20px 0;
+  padding: 20px;
+}
+
+.messageItem:last-child {
+  margin-bottom: 0;
+}
+
+.itemPrimary {
+  background-color: #f6f7f8;
+  color: #3c3c3e;
+}
+
+.itemSecondary {
+  background-color: #5ccad7;
+  color: #fff;
+}
+
+.info {
+  padding: 10px 0;
+  text-align: center;
+}
+
+/* form */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup {
+  display: flex;
+}
+
+.formGroup input {
+  border-radius: 2rem;
+  border: 1px solid #a5a5a5;
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.formGroup input:focus {
+  color: #495057;
+  background-color: #fff; 
+  border-color: #3d3d86;
+  outline: 0;
+  box-shadow: 0 0 0 .2rem rgba(61, 61, 134, 0.25);
+}
+
+.formGroup button {
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  transition: all 0.25s ease;
+}
+
+.formGroup button:hover {
+  background-color: #3d3d86;
+  color:white;
+}
