@@ -1,4 +1,4 @@
-package challenge
+package main.challange.domain
 
 data class Product(val name: String, val type: ProductType, val price: Double)
 
@@ -9,12 +9,11 @@ enum class ProductType {
     MEMBERSHIP
 }
 
+@Throws(Exception::class)
 fun ProductType.createOrderItemProcessorFromProductType() =
     when (this) {
         ProductType.PHYSICAL -> PhysicalItemProcessingStrategy()
         ProductType.BOOK -> BookItemProcessingStrategy()
         ProductType.DIGITAL -> DigitalItemProcessingStrategy()
         ProductType.MEMBERSHIP -> MembershipItemProcessingStrategy()
-
-        else -> throw Exception("The ProductType $this wanst registred for processing yet.")
     }

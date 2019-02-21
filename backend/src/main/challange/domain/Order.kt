@@ -1,8 +1,6 @@
-package challenge
+package main.challange.domain
 
 import java.util.*
-
-
 
 class Order(val customer: Customer, val address: Address) {
 
@@ -32,6 +30,8 @@ class Order(val customer: Customer, val address: Address) {
 
         payment = Payment(this, method)
 
+        processOrderItems()
+
         close()
     }
 
@@ -44,7 +44,7 @@ class Order(val customer: Customer, val address: Address) {
             val orderProcessor = it.product.type
                 .createOrderItemProcessorFromProductType()
 
-            orderProcessor.processOrderItem(it, payment);
+            orderProcessor.processOrderItem(it, payment)
         }
     }
 }

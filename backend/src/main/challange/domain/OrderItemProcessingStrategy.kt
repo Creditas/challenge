@@ -1,4 +1,4 @@
-package challenge
+package main.challange.domain
 
 /* rules
 * Se o pagamento for para um item físico, você deverá gerar um shipping label para o mesmo ser colocado na caixa do envio;
@@ -18,28 +18,34 @@ interface OrderItemProcessingStrategy {
 
 class PhysicalItemProcessingStrategy : OrderItemProcessingStrategy {
     override fun processOrderItem(orderItem: OrderItem, payment: Payment?) {
-        val shippingService: ShippingService = PhysicalShippingService(orderItem, payment)
+        val shippingService: ShippingService =
+            PhysicalShippingService(orderItem, payment)
         shippingService.ProcessShipping()
     }
 }
 
 class BookItemProcessingStrategy : OrderItemProcessingStrategy {
     override fun processOrderItem(orderItem: OrderItem, payment: Payment?) {
-        val shippingService: ShippingService = BookShippingService(orderItem, payment)
+        val shippingService: ShippingService =
+            BookShippingService(orderItem, payment)
+
         shippingService.ProcessShipping()
     }
 }
 
 class DigitalItemProcessingStrategy : OrderItemProcessingStrategy {
     override fun processOrderItem(orderItem: OrderItem, payment: Payment?) {
-        val shippingService: ShippingService = DigitalShippingService(orderItem, payment)
+        val shippingService: ShippingService =
+            DigitalShippingService(orderItem, payment)
+
         shippingService.ProcessShipping()
     }
 }
 
 class MembershipItemProcessingStrategy : OrderItemProcessingStrategy {
     override fun processOrderItem(orderItem: OrderItem, payment: Payment?) {
-        val subscriptionService: SubscriptionService = SubscriptionService(orderItem, payment)
+        val subscriptionService = SubscriptionService(orderItem, payment)
+
         subscriptionService.activateMembership()
     }
 }

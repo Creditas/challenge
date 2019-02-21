@@ -1,4 +1,4 @@
-package challenge
+package main.challange.domain
 
 import java.util.*
 

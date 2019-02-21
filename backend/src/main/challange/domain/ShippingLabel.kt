@@ -1,4 +1,4 @@
-package challenge
+package main.challange.domain
 
 data class ShippingNotification(val notification: String)
 
@@ -7,11 +7,11 @@ class ShippingLabel(val orderItem: OrderItem,
                     val shippingNotification: ShippingNotification? = null) {
 
     fun getLabel() : String {
-            var shippingMessage : String = "Shipping item ${this?.orderItem?.product.name} to " +
+        var shippingMessage: String = "Shipping item ${this.orderItem.product.name} to " +
                     "customer ${this.payment?.order?.customer?.email} at " +
-                    "address ${this?.payment?.invoice?.shippingAddress.toString()}"
+                "address ${this.payment?.invoice?.shippingAddress.toString()}"
 
-            this?.shippingNotification?.let {
+        this.shippingNotification?.let {
                 shippingMessage = shippingMessage.plus("- Notification: ${it}")
             }
 
