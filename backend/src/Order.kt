@@ -2,17 +2,7 @@ package challenge
 
 import java.util.*
 
-/* rules
-* Se o pagamento for para um item físico, você deverá gerar um shipping label para o mesmo ser colocado na caixa do envio;
-*
-Caso o pagamento seja uma assinatura de serviço, você precisa ativar a assinatura, e notificar o usuário através de e-mail sobre isto;
 
-Caso o pagamento seja um livro comum, você precisa gerar o shipping label com uma notificação de que trata-se de um item isento de impostos
-conforme disposto na Constituição Art. 150, VI, d.
-
-Caso o pagamento seja de alguma mídia digital (música, vídeo), além de enviar a descrição da compra por e-mail ao comprador,
-conceder um voucher de desconto de R$ 10 ao comprador associado ao pagamento.
-* */
 
 class Order(val customer: Customer, val address: Address) {
 
@@ -50,7 +40,12 @@ class Order(val customer: Customer, val address: Address) {
     }
 
     fun processOrderItems() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.items.forEach{
+            val orderProcessor = it.product.type
+                .createOrderItemProcessorFromProductType()
+
+            orderProcessor.processOrderItem(it, payment);
+        }
     }
 }
 
