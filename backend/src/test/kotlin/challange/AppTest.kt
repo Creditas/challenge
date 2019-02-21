@@ -3,6 +3,7 @@
  */
 package challange
 
+/*
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 
@@ -12,3 +13,4 @@ class AppTest {
         assertNotNull(classUnderTest.greeting, "app should have a greeting")
     }
 }
+*/

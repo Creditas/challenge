@@ -2,7 +2,7 @@ package challenge
 
 fun main(args: Array<String>) {
     val shoppingCart = seedShoppingCart()
-    val customer = Customer()
+    val customer = Customer("Pablo", "ruanmyv@gmail.com")
     val address = Address()
 
     val creditCard = CreditCard("43567890-987654367")
@@ -32,7 +32,7 @@ fun seedShoppingCart(): MutableMap<Product, Int> {
     val shirt = Product("Flowered t-shirt", ProductType.PHYSICAL, 35.00)
     items.put(shirt, 2)
 
-    val netflix = Product("Familiar plan", ProductType.MEMBERSHIP, 29.90)
+    val netflix = Product("Netflix Familiar plan", ProductType.MEMBERSHIP, 29.90)
     items.put(netflix, 1)
 
     val book = Product("The Hitchhiker's Guide to the Galaxy", ProductType.BOOK, 120.00)
