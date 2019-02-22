@@ -6,7 +6,7 @@ interface OrderItemProcessingStrategy {
 
 class PhysicalItemProcessingStrategy : OrderItemProcessingStrategy {
     override fun processOrderItem(orderItem: OrderItem, payment: Payment?) {
-        val shippingService: ShippingService =
+        val shippingService =
             PhysicalShippingService(orderItem, payment)
 
         shippingService.ProcessShipping()
@@ -15,7 +15,7 @@ class PhysicalItemProcessingStrategy : OrderItemProcessingStrategy {
 
 class BookItemProcessingStrategy : OrderItemProcessingStrategy {
     override fun processOrderItem(orderItem: OrderItem, payment: Payment?) {
-        val shippingService: ShippingService =
+        val shippingService =
             BookShippingService(orderItem, payment)
 
         shippingService.ProcessShipping()
@@ -24,7 +24,7 @@ class BookItemProcessingStrategy : OrderItemProcessingStrategy {
 
 class DigitalItemProcessingStrategy : OrderItemProcessingStrategy {
     override fun processOrderItem(orderItem: OrderItem, payment: Payment?) {
-        val shippingService: ShippingService =
+        val shippingService =
             DigitalShippingService(orderItem, payment)
 
         shippingService.ProcessShipping()

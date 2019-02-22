@@ -45,9 +45,15 @@ class DigitalShippingService(orderItem: OrderItem, payment: Payment?) : Shipping
     }
 
     override fun ProcessShipping() {
-        val shippingMessage: String = "Shipping item ${shippingLabel.orderItem.product} to " +
+        val discount = Discount(10.0)
+
+        shippingLabel.payment?.addDiscount(discount)
+
+        val shippingMessage: String = "Sending ${shippingLabel.orderItem.product} to " +
                 "customer ${shippingLabel.payment?.order?.customer} at " +
-                "address ${shippingLabel.payment?.invoice?.shippingAddress}"
+                "email ${shippingLabel.payment?.order?.customer?.email}. Also giving ${discount} " +
+                "dollars of discount." +
+                "\nFinal price: ${shippingLabel.payment?.amount} "
 
         println(shippingMessage)
     }
