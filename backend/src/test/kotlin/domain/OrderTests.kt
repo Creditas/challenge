@@ -28,5 +28,14 @@ object OrderTest : Spek({
                 order.addProduct(product, 1)
             }
         }
+
+        it("When adding a book should use ") {
+            val orderItem = OrderItem(product, 1)
+            order.addProduct(product, 1)
+
+            assertFailsWith<Exception> {
+                order.addProduct(product, 1)
+            }
+        }
     }
 })
