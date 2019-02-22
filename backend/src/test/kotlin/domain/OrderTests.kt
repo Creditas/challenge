@@ -11,31 +11,38 @@ object OrderTest : Spek({
             Order(customer, Address())
         }
 
-        val product by memoized { Product("Flowered t-shirt", ProductType.PHYSICAL, 35.00) }
+        val creditCard by memoized { CreditCard("43567890-987654367") }
+        val physicalProduct by memoized { Product("Flowered t-shirt", ProductType.PHYSICAL, 35.00) }
+        val bookProduct by memoized { Product("The Hitchhiker's Guide to the Galaxy", ProductType.BOOK, 120.00) }
 
-        it("Adding product to order") {
+        it("Adding physicalProduct to order") {
 
-            val orderItem = OrderItem(product, 1)
-            order.addProduct(product, 1)
+            val orderItem = OrderItem(physicalProduct, 1)
+            order.addProduct(physicalProduct, 1)
             assertTrue { order.items.contains(orderItem) }
         }
 
-        it("Adding existing product should throw error ") {
-            val orderItem = OrderItem(product, 1)
-            order.addProduct(product, 1)
+        it("Adding existing physicalProduct should throw error ") {
+            val orderItem = OrderItem(physicalProduct, 1)
+            order.addProduct(physicalProduct, 1)
 
             assertFailsWith<Exception> {
-                order.addProduct(product, 1)
+                order.addProduct(physicalProduct, 1)
             }
         }
 
-        it("When adding a book should use ") {
-            val orderItem = OrderItem(product, 1)
-            order.addProduct(product, 1)
+        /* it("When adding a book should use BookShippingService") {
+             //arrange
+             val mock = mock<ShippingService> ()
 
-            assertFailsWith<Exception> {
-                order.addProduct(product, 1)
-            }
-        }
+             //act
+             order.run {
+                 addProduct(bookProduct, 1)
+                 pay(creditCard)
+             }
+
+             //assert
+             verify(mock).ProcessShipping()
+         }*/
     }
 })
