@@ -45,8 +45,6 @@ $orders = array(
         )
     )
 );
-// $foolano = new Customer("Foolano da Silva","foolano@gmail.com");
-// $book = new Product('Awesome book', 'membership');
 
 foreach ($orders as $key => $order) {
     $order = new Order($orders[$key][0]);
