@@ -1,19 +1,23 @@
 # Marcelo Maekawa
 
 
-AÁıes
+A√ß√µes
 
 - HTML
- ï Tomei como premissa n„o alterar em NADA o arquivo .html 
+ 
+ ‚Ä¢ Tomei como premissa n√£o alterar em NADA o arquivo .html 
 
 - CSS
- ï "layout encavalado" que ocultava itens (mesmo scrolando) quando o height da janela era inferior ‡ 528px,
+ 
+ ‚Ä¢ "layout encavalado" que ocultava itens (mesmo scrolando) quando o height da janela era inferior √† 528px,
     >> Fix >> Mudando, na tag main, o height para auto e definindo um min-height corrigiu o problema.
 
 - JS
- ï N„o modulei os arquivos para tornar mais f·cil a leitura.
+ 
+ ‚Ä¢ N√£o modulei os arquivos para tornar mais f√°cil a leitura.
 
- ï Acredito n„o ter alcanÁado um baixo nÌvel de acoplamento. Dava pra fazer mais, admito, mas torÁo pra que isso n„o comprometa o meu resultado
+ ‚Ä¢ Acredito n√£o ter alcan√ßado um baixo n√≠vel de acoplamento. Dava pra fazer mais, admito, mas tor√ßo pra que isso n√£o comprometa o meu resultado
 
-- Testes
-ï implementei alguns testes
+- JEST
+
+ ‚Ä¢ implementei alguns testes
