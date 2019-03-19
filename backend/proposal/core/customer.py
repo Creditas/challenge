@@ -1,3 +1,5 @@
 class Customer:
-    # you can customize this class by yourself
-    pass
+    email = None
+
+    def __init__(self, email):
+        self.email = email
