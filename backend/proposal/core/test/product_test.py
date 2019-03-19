@@ -8,5 +8,8 @@ class TestProduct(unittest.TestCase):
         self.assertEqual(product.name, "test name")
         self.assertEqual(product.type, "book")
     
+    def test_creating_invalid_type(self):
+        self.assertRaises(ValueError, Product, "test name", "invalid type")
+    
 if __name__ == "__main__":
     unittest.main()
