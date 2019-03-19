@@ -4,7 +4,9 @@
 
 Foram mantidos os arquivos originais e criado uma pasta "proposal" onde este README está contido.
 
-Dentro da pasta **src** encontram-se as classes e na pasta **src/tests** os testes desenvolvidos.
+Dentro da pasta **core** encontram-se as classes e na pasta **core/tests** os testes desenvolvidos.
+
+Uma consideração que pode ser relevante: a ordem dos commits nesta proposta foi a ordem em que as partes foram desenvolvidas.
 
 ## Sobre o Processo de Gerar a Solução
 
@@ -42,7 +44,7 @@ Seguindo os princípios do TDD, primeiro foram criadas os testes e as classes va
 
 Para envio do email foi criado a classe `SendEmail` dentro da pasta `services`. Este é um callable object, fortemente inspirado no artigo [Enforcing Single Responsibility Principle in Python](https://sobolevn.me/2019/03/enforcing-srp). Não foi implementado o envio do email por fugir do escopo do desafio (pelo mesmo motivo não foi criado um teste para esta classe).
 
-A definição de qual OrderItem será utilizado ficou a cargo da `Order`.
+A definição de qual `OrderItem` será utilizado ficou a cargo da `Order`.
 
 Primeiramente, foi criado um teste que valida se os `OrderItems` corretos estão sendo criados quando se adiciona um produto.
 
@@ -93,10 +95,14 @@ def add_product(self, product):
 Como cada classe que herda de `OrderItem` possui a função `dispatch`, essa função é chamada quando a `Order` vai ser fechada.
 
 ```python
-def close(self, closed_at=time.time()):
+def dispatch_items(self):
     # Dispatching for each OrderItem
     for item in self.items:
         item.dispatch()
+
+def close(self, closed_at=time.time()):
+    # Dispatching items
+    self.dispatch_items()
     # Closing
     self.closed_at = closed_at
 ```
@@ -145,3 +151,9 @@ Existe um script na raíz da pasta `proposal` que executa todos os testes unitá
 ```bash
 ./run-tests.sh
 ```
+
+## Considerações Finais
+
+A vantagem da implementação realizada e que os `OrderItems` criados possuem uma função única que será chamada no fechamento da `Order`.
+Desta maneira, caso um novo tipo de produto apareça, basta criar um novo `OrderItem` que se responsabilizará por esse produto, implementando uma função `dispatch`.
+Criando um novo OrderItem, é necessário adicionar um retorno deste item dentro da `Order` e pronto, o sistema já sabe lidar com um novo tipo de produto.
