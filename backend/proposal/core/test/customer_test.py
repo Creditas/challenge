@@ -1,7 +1,7 @@
 import unittest
 from core.customer import Customer
 
-class TestInvoice(unittest.TestCase):
+class TestCustomer(unittest.TestCase):
     # Testing craeting customer
     def test_creation(self):
         customer = Customer("test@test.com")

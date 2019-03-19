@@ -8,11 +8,11 @@ from core.address import Address
 from core.payment import Payment
 from core.invoice import Invoice
 
-class TestOrderItem(unittest.TestCase):
-    # Testing if Invoice 
+class TestPayment(unittest.TestCase):
+    # Testing if Payment is created
     def test_creation(self):
         # Creating payment object
-        customer = Customer()
+        customer = Customer("test@test.com")
         order = Order(customer)
         payment = Payment({
             "order": order,
@@ -22,9 +22,10 @@ class TestOrderItem(unittest.TestCase):
         self.assertEqual(payment.order, order)
         self.assertEqual(payment.payment_method, "credit_card")
 
+    # Testing pay method
     def test_pay(self):
         # Creating payment object
-        customer = Customer()
+        customer = Customer("test@test.com")
         product = Product("test name", "book")
         order = Order(customer)
         order.add_product(product)

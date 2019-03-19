@@ -5,9 +5,9 @@ from core.customer import Customer
 from core.order_item import OrderItem
 
 class TestInvoice(unittest.TestCase):
-    # Testing if Invoice 
+    # Testing creating Invoice
     def test_creation(self):
-        order = Order(Customer())
+        order = Order(Customer("test@test.com"))
         invoice = Invoice({
             "billing_address": "Test",
             "shipping_address": "Test 2",

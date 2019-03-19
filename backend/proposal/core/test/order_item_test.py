@@ -5,9 +5,9 @@ from core.order import Order
 from core.customer import Customer
 
 class TestOrderItem(unittest.TestCase):
-    # Testing if Invoice 
+    # Testing if order item is created
     def test_creation(self):
-        order = Order(Customer())
+        order = Order(Customer("test@test.com"))
         product = Product("test name", "book")
         order_item = OrderItem(order, product)
         self.assertEqual(order_item.order, order)

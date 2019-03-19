@@ -9,7 +9,7 @@ from core.address import Address
 class TestOrderItem(unittest.TestCase):
     # Testing if Invoice 
     def test_creation(self):
-        customer = Customer()
+        customer = Customer("test@test.com")
         address = Address("01420001")
         order = Order(customer, { "address": address })
         self.assertEqual(order.customer, customer)
@@ -18,7 +18,7 @@ class TestOrderItem(unittest.TestCase):
     
     def test_add_product(self):
         product = Product("test name", "book")
-        order = Order(Customer())
+        order = Order(Customer("test@test.com"))
         # Adding product
         order.add_product(product)
         # Testing if product was added
@@ -27,14 +27,14 @@ class TestOrderItem(unittest.TestCase):
     def test_total_amount(self):
         product1 = Product("test name 1", "book")
         product2 = Product("test name 2", "book")
-        order = Order(Customer())
+        order = Order(Customer("test@test.com"))
         order.add_product(product1)
         order.add_product(product2)
         # Testing total amount of two product is 20 (10 + 10)
         self.assertEqual(order.total_amount(), 20)
 
     def test_close(self):
-        order = Order(Customer())
+        order = Order(Customer("test@test.com"))
         # Closing order
         now_time = time.time()
         order.close(now_time)
