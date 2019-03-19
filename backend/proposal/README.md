@@ -155,5 +155,7 @@ Existe um script na raíz da pasta `proposal` que executa todos os testes unitá
 ## Considerações Finais
 
 A vantagem da implementação realizada e que os `OrderItems` criados possuem uma função única que será chamada no fechamento da `Order`.
+
 Desta maneira, caso um novo tipo de produto apareça, basta criar um novo `OrderItem` que se responsabilizará por esse produto, implementando uma função `dispatch`.
+
 Criando um novo OrderItem, é necessário adicionar um retorno deste item dentro da `Order` e pronto, o sistema já sabe lidar com um novo tipo de produto.
