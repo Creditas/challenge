@@ -146,7 +146,7 @@ else:
 
 ## Como executar os testes
 
-Existe um script na raíz da pasta `proposal` que executa todos os testes unitários.
+Existe um script na raíz da pasta `proposal` que executa todos os testes unitários. Para executar, é apenas necessário Python 3.7+.
 
 ```bash
 ./run-tests.sh
