@@ -8,3 +8,7 @@ class OrderItem:
 
     def total(self):
         return 10
+    
+    # On this function, you can pass additionnal info to add on the shipping label
+    def generate_shipping_label(self, additional_info = ""):
+        return "Shipping Label\n{0}".format(additional_info)
