@@ -2,7 +2,11 @@ class Product:
     # use type to distinguish each kind of product: physical, book, digital, membership, etc.
     name = None
     type = None
-    AVAILABLE_TYPES=["physical", "book", "digital", "membership"]
+    PHYSICAL = "physical"
+    BOOK = "book"
+    DIGITAL = "digital"
+    MEMBERSHIP = "membership"
+    AVAILABLE_TYPES = [PHYSICAL, BOOK, DIGITAL, MEMBERSHIP]
 
     def __init__(self, name, type):
         self.name = name
