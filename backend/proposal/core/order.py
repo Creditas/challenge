@@ -41,10 +41,14 @@ class Order:
             total += item.total()
 
         return total
-
-    def close(self, closed_at=time.time()):
+    
+    def dispatch_items(self):
         # Dispatching for each OrderItem
         for item in self.items:
             item.dispatch()
+
+    def close(self, closed_at=time.time()):
+        # Dispatching items
+        self.dispatch_items()
         # Closing
         self.closed_at = closed_at
