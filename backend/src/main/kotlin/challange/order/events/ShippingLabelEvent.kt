@@ -4,9 +4,9 @@ class ShippingLabelEvent : Event<Invoice> {
 
         if(invoice is PhysicalInvoice ||
             invoice is BookInvoice) {
-            println("Geração de shipping label ${invoice.order}")
+            println("Geração de shipping label da nota ${invoice}")
 
-            println("Shipping label [${invoice.generateShippingLabel()}] gerada")
+            println("Shipping label [${invoice.generateShippingLabel()}] da nota ${invoice} gerada")
         }
     }
 

@@ -6,13 +6,14 @@ fun main(args : Array<String>) {
     EventManager.subscribe<Order>(OrderEvents.Consts.OrderPaidOut, DispatcherEvent())
 
     EventManager.subscribe<Invoice>(OrderEvents.Consts.CreatedInvoice, MembershipInvoiceNotificationEvent())
-    EventManager.subscribe<Invoice>(OrderEvents.Consts.CreatedInvoice, MembershipInvoiceEmailEvent())
 
-    EventManager.subscribe<Invoice>(OrderEvents.Consts.CreatedInvoice, DigitalInvoiceNotificationEvent())
+    EventManager.subscribe<Invoice>(OrderEvents.Consts.CreatedInvoice, InvoiceEmailEvent())
+
     EventManager.subscribe<Invoice>(OrderEvents.Consts.CreatedInvoice, GenerateCreditEvent())
 
     EventManager.subscribe<Invoice>(OrderEvents.Consts.CreatedInvoice, ShippingLabelEvent())
-	
+
+    println("Gerando pedido")
     val shirt = Product("Flowered t-shirt", ProductType.PHYSICAL, 35.00)
     val netflix = Product("Familiar plan", ProductType.MEMBERSHIP, 29.90)
     val book = Product("The Hitchhiker's Guide to the Galaxy", ProductType.BOOK, 120.00)
@@ -27,7 +28,9 @@ fun main(args : Array<String>) {
 
     order.pay(CreditCard("43567890-987654367"))
 
+    println("Pedido gerado")
+
     order.close()
 
-    Thread.sleep(1000*60)
+    Thread.sleep(1000*1)
 }

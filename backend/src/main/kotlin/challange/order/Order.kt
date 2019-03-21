@@ -1,4 +1,4 @@
-import java.util.Date
+import java.util.*
 
 class Order(val customer: Customer, val address: Address) {
     private val items = mutableListOf<OrderItem>()
@@ -9,6 +9,7 @@ class Order(val customer: Customer, val address: Address) {
     val totalAmount
         get() = items.sumByDouble { it.total }
     var invoices = mutableListOf<Invoice>()
+    var id: String = UUID.randomUUID().toString()
 
     fun addProduct(product: Product, quantity: Int) {
         var productAlreadyAdded = items.any { it.product == product }
@@ -42,5 +43,9 @@ class Order(val customer: Customer, val address: Address) {
 
             EventManager.publish(OrderEvents.Consts.CreatedInvoice, invoice)
         }
+    }
+
+    override fun toString(): String {
+        return "${this.javaClass}.${id}"
     }
 }

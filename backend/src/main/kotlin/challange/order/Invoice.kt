@@ -1,7 +1,10 @@
+import java.util.*
+
 abstract class Invoice(val order: Order, val orderItem: List<OrderItem>) {
 
     abstract fun generateShippingLabel(): String
 
+    var id: String = UUID.randomUUID().toString()
     val billingAddress: Address = order.address
     val shippingAddress: Address = order.address
 
@@ -13,5 +16,9 @@ abstract class Invoice(val order: Order, val orderItem: List<OrderItem>) {
                 ProductType.MEMBERSHIP -> MembershipInvoice(order, orderItem)
                 ProductType.PHYSICAL -> PhysicalInvoice(order, orderItem)
             }
+    }
+
+    override fun toString(): String {
+        return "${this.javaClass}.${id}"
     }
 }

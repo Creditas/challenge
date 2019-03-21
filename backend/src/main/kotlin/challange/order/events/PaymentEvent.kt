@@ -5,7 +5,7 @@ class PaymentEvent : Event<Order> {
 
         order.payment?.paidOut()
 
-        println("Pedido ${order} a pago")
+        println("Pedido ${order} pago")
     }
 
 }
