@@ -2,6 +2,7 @@ package challenge
 
 import java.lang.Exception
 import java.util.*
+import kotlin.collections.HashMap
 
 class Order(val customer: Customer, val address: Address) {
     private val items = mutableListOf<OrderItem>()
@@ -35,6 +36,16 @@ class Order(val customer: Customer, val address: Address) {
     fun deliver () {
         if (items.count() == 0)
             throw Exception("Empty order can not be deliver!")
+
+        var shipingRules :Map<ProductType, Shipping> = HashMap(hashMapOf(
+                ProductType.PHYSICAL to ShippingPhysicalItem(),
+                ProductType.MEMBERSHIP to ShippingServiceSubscription(),
+                ProductType.BOOK to ShippingBook(),
+                ProductType.DIGITAL to ShippingDigitalMedia()
+        ))
+
+
+
 
 
     }
@@ -78,32 +89,33 @@ class Address (val zipCode : String)
 class Customer(val email: String)
 
 data class Voucher (val value: Double) {
-    fun toDicount() {
-        if (value <= 10)
+    fun toDicount() : Double {
+        if (value <= 10.0)
             throw Exception("It is not possible to discount a value less than or equal to R$ 10")
 
-        return valeu - 10.0
+        return value - 10.0
     }
 }
 
 class Email (val to: String, val from: String) {
     fun send(messages: String) {
-       println("To: ${@to}, From: ${@from},  ${messages}")
+       println("To: ${to}, From: ${from},  ${messages}")
     }
 }
 
 interface ShippingLabel {
     fun generate(address: Address)
+}
 
-class PhysicalItemLabel(): ShippingLabel {
-    fun generate(address: Address) {
-        println("Print address of customer, field zipcode: ${address.zipcode}")
+class PhysicalItemLabel: ShippingLabel {
+    override fun generate(address: Address) {
+        println("Print address of customer, field zipcode: ${address.zipCode}")
     }
 }
 
-class BookLabel(): ShippingLabel {
-    fun generate(address: Address) {
-        println("Print address of customer, field zipcode: ${address.zipcode}")
+class BookLabelLabel: ShippingLabel {
+    override fun generate(address: Address) {
+        println("Print address of customer, field zipcode: ${address.zipCode}")
         println("Tax exempt as provided in the Constitution Art. 150, VI, d")
     }
 }
@@ -113,7 +125,7 @@ interface Shipping {
 }
 
 class ShippingPhysicalItem:Shipping {
-    fun submit(customer: Customer, address: Address) :String {
+    override fun submit(customer: Customer, address: Address) :String {
         var shippingLabel = PhysicalItemLabel()
         shippingLabel.generate(address)
         return "It physical item"
@@ -121,36 +133,51 @@ class ShippingPhysicalItem:Shipping {
 }
 
 class ShippingServiceSubscription : Shipping {
-    fun submit(customer: Customer, address: Address) :String {
-        email = Email(to= "ecommerce@ecommer.com", from= customer.email)
+    override fun submit(customer: Customer, address: Address) :String {
+        var email = Email(to= "ecommerce@ecommer.com", from= customer.email)
         email.send("Your subscription has been activated")
         return "It services subscription"
     }
 }
 
-
 class ShippingBook:Shipping {
-    fun submit(customer: Customer, address: Address) :String {
+    override fun submit(customer: Customer, address: Address) :String {
         var shippingLabel = BookLabelLabel()
         shippingLabel.generate(address)
         return "It book"
     }
 }
 
-
 class ShippingDigitalMedia:Shipping {
-    fun submit(customer: Customer, address: Address) :String {
-        applyVoucher(20)
-        email = Email(to= "ecommerce@ecommer.com", from= customer.email)
+    override fun submit(customer: Customer, address: Address) :String {
+        applyVoucher(20.0)
+        var email = Email(to= "ecommerce@ecommer.com", from= customer.email)
         email.send("Your subscription has been activated")
         return "It digital media"
     }
 
-    private applyVoucher(value: Double) {
+    private fun applyVoucher(value: Double) {
         var voucher = Voucher(value)
         voucher.toDicount()
     }
 }
+
+class ShippingRules {
+
+    val shippings:Map<ProductType, Shipping> = HashMap(hashMapOf(
+            ProductType.PHYSICAL to ShippingPhysicalItem(),
+            ProductType.MEMBERSHIP to ShippingServiceSubscription(),
+            ProductType.BOOK to ShippingBook(),
+            ProductType.DIGITAL to ShippingDigitalMedia()
+    ))
+
+
+
+
+
+}
+
+
 
 fun main(args : Array<String>) {
     val shirt = Product("Flowered t-shirt", ProductType.PHYSICAL, 35.00)
