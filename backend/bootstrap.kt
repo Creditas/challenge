@@ -32,6 +32,13 @@ class Order(val customer: Customer, val address: Address) {
         close()
     }
 
+    fun deliver () {
+        if (items.count() == 0)
+            throw Exception("Empty order can not be deliver!")
+
+
+    }
+
     private fun close() {
         closedAt = Date()
     }
@@ -66,12 +73,11 @@ enum class ProductType {
     MEMBERSHIP
 }
 
-class Address
+class Address (val zipCode : String)
 
-class Customer
+class Customer(val email: String)
 
 data class Voucher (val value: Double) {
-
     fun toDicount(val value: Double) {
         if (value <= 10)
             throw Exception("It is not possible to discount a value less than or equal to \$ 10")
@@ -80,7 +86,28 @@ data class Voucher (val value: Double) {
     }
 }
 
+class Email (val to: String, val from: String) {
+    fun send(messages: String) {
+       println("To: ${@to}, From: ${@from},  ${messages}")
+    }
+}
 
+interface ShippingLabel {
+    fun generate()
+}
+
+class PhysicalItemLabel: ShippingLabel {
+    fun generate(address: Address) {
+        println("Print address of customer, field zipcode: ${address.zipcode}")
+    }
+}
+
+class BookLabel:  ShippingLabel {
+    fun generate(address: Address) {
+        println("Print address of customer, field zipcode: ${address.zipcode}")
+        println("Tax exempt as provided in the Constitution Art. 150, VI, d")
+    }
+}
 
 fun main(args : Array<String>) {
     val shirt = Product("Flowered t-shirt", ProductType.PHYSICAL, 35.00)
@@ -88,7 +115,7 @@ fun main(args : Array<String>) {
     val book = Product("The Hitchhiker's Guide to the Galaxy", ProductType.BOOK, 120.00)
     val music = Product("Stairway to Heaven", ProductType.DIGITAL, 5.00)
 
-    val order = Order(Customer(), Address())
+    val order = Order(Customer(email= "foolano@gmail.com"), Address(zipCode= "00000-000"))
 
     order.addProduct(shirt, 2)
     order.addProduct(netflix, 1)
@@ -97,4 +124,6 @@ fun main(args : Array<String>) {
 
     order.pay(CreditCard("43567890-987654367"))
     // now, how to deal with shipping rules then?
+    order.deliver()
+
 }
