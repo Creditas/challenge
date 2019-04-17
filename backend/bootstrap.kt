@@ -78,9 +78,9 @@ class Address (val zipCode : String)
 class Customer(val email: String)
 
 data class Voucher (val value: Double) {
-    fun toDicount(val value: Double) {
+    fun toDicount() {
         if (value <= 10)
-            throw Exception("It is not possible to discount a value less than or equal to \$ 10")
+            throw Exception("It is not possible to discount a value less than or equal to R$ 10")
 
         return valeu - 10.0
     }
@@ -93,19 +93,62 @@ class Email (val to: String, val from: String) {
 }
 
 interface ShippingLabel {
-    fun generate()
-}
+    fun generate(address: Address)
 
-class PhysicalItemLabel: ShippingLabel {
+class PhysicalItemLabel(): ShippingLabel {
     fun generate(address: Address) {
         println("Print address of customer, field zipcode: ${address.zipcode}")
     }
 }
 
-class BookLabel:  ShippingLabel {
+class BookLabel(): ShippingLabel {
     fun generate(address: Address) {
         println("Print address of customer, field zipcode: ${address.zipcode}")
         println("Tax exempt as provided in the Constitution Art. 150, VI, d")
+    }
+}
+
+interface Shipping {
+    fun submit(customer: Customer, address: Address) : String
+}
+
+class ShippingPhysicalItem:Shipping {
+    fun submit(customer: Customer, address: Address) :String {
+        var shippingLabel = PhysicalItemLabel()
+        shippingLabel.generate(address)
+        return "It physical item"
+    }
+}
+
+class ShippingServiceSubscription : Shipping {
+    fun submit(customer: Customer, address: Address) :String {
+        email = Email(to= "ecommerce@ecommer.com", from= customer.email)
+        email.send("Your subscription has been activated")
+        return "It services subscription"
+    }
+}
+
+
+class ShippingBook:Shipping {
+    fun submit(customer: Customer, address: Address) :String {
+        var shippingLabel = BookLabelLabel()
+        shippingLabel.generate(address)
+        return "It book"
+    }
+}
+
+
+class ShippingDigitalMedia:Shipping {
+    fun submit(customer: Customer, address: Address) :String {
+        applyVoucher(20)
+        email = Email(to= "ecommerce@ecommer.com", from= customer.email)
+        email.send("Your subscription has been activated")
+        return "It digital media"
+    }
+
+    private applyVoucher(value: Double) {
+        var voucher = Voucher(value)
+        voucher.toDicount()
     }
 }
 
@@ -125,5 +168,4 @@ fun main(args : Array<String>) {
     order.pay(CreditCard("43567890-987654367"))
     // now, how to deal with shipping rules then?
     order.deliver()
-
 }
