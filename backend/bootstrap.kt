@@ -71,10 +71,13 @@ class Address
 class Customer
 
 data class Voucher (val value: Double) {
-    if (value <= 10)
-        throw Exception("It is not possible to discount a value less than or equal to \$ 10")
 
-    val discount get() = valeu - 10.0
+    fun toDicount(val value: Double) {
+        if (value <= 10)
+            throw Exception("It is not possible to discount a value less than or equal to \$ 10")
+
+        return valeu - 10.0
+    }
 }
 
 
