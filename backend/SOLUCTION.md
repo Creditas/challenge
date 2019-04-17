@@ -1,11 +1,11 @@
-## Solução do desafio
+# Solução do desafio
 
 Para resolver o problema implementando o design utilizei as linguagem Ruby e Kotlin, pois acredito que podemos ver soluções para ambas linguagens.
 
 Para resolver o problema de chamar várias implementações, pensei em utilizar o padrão Stratege (Usando Ruby fiz com progração dinamica), 
 pois é um design pattner abto para tratar vários comportamentos utlizando a mesma assinatura de método.
 
-# Kotlin:
+## Kotlin:
 
 Classes criadas:
 
@@ -25,14 +25,14 @@ A classe GeneratorShippingLabel também é usada como um orquestradora assim eu 
 
 Para este problema pensei no conceito de reaproveitamento de código e nos principios da responsabilidade única, principio do aberto e fechado e segragação de interface, além dos conceitos de oritentação objetos (reuso, polimorfismo).
 
-# Ruby:
+## Ruby:
 
 Para Ruby usei a mesma estrutura só que com alguns nomes pouco diferentes devido ser a primeira implentação.
 Pensei nos mesmos conceitos utilizando em Kotlin.
 
 Observação: Também criei classes de testes para as verificar a chamadas dos métodos.
 
-# Tecnologias:
+## Tecnologias:
 
 JVM versão Java 8 com Junit para testes.
 Ruby versão 2.5 com Rspec para testes.
