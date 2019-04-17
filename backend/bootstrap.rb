@@ -93,6 +93,13 @@ end
 
 class Customer
   # you can customize this class by yourself
+
+  attr_reader :address, :email
+
+  def initialize(address:, email:)
+    @address, @email = address, email
+  end
+
 end
 
 class Membership
@@ -100,8 +107,9 @@ class Membership
 end
 
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
+address = Address.new(zipcode: "00000-000")
+foolano = Customer.new(address: address, email: "foolano@gmail.com")
+book = Product.new(name: 'Awesome book', type: :digital_media)
 book_order = Order.new(foolano)
 book_order.add_product(book)
 
