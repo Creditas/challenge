@@ -4,9 +4,6 @@ import java.lang.Exception
 import java.util.*
 import kotlin.collections.HashMap
 
-import org.junit.Test
-
-
 class Order(val customer: Customer, val address: Address) {
     private val items = mutableListOf<OrderItem>()
     var closedAt: Date? = null
@@ -40,10 +37,10 @@ class Order(val customer: Customer, val address: Address) {
         if (items.count() == 0)
             throw Exception("Empty order can not be deliver!")
 
-        var shipingRules = ShippingRules()
+        var shippingRules = ShippingRules()
 
         items.forEach {
-            shipingRules.shippings.get(it.product.productType).submit(customer, address)
+           println(shippingRules.shippings.get(it.product.type)?.submit(customer, address))
         }
     }
 
@@ -86,7 +83,7 @@ class Address (val zipCode : String)
 class Customer(val email: String)
 
 data class Voucher (val value: Double) {
-    fun toDicount() : Double {
+    fun toDiscount() : Double {
         if (value <= 10.0)
             throw Exception("It is not possible to discount a value less than or equal to R$ 10")
 
@@ -110,11 +107,15 @@ class PhysicalItemLabel: ShippingLabel {
     }
 }
 
-class BookLabelLabel: ShippingLabel {
+class BookLabel: ShippingLabel {
     override fun generate(address: Address) {
         println("Print address of customer, field zipcode: ${address.zipCode}")
         println("Tax exempt as provided in the Constitution Art. 150, VI, d")
     }
+}
+
+class GeneratorShippingLabel {
+    val labels: Map<String, ShippingLabel> = HashMap(hashMapOf("PHYSICAL" to PhysicalItemLabel(), "BOOK" to BookLabel()))
 }
 
 interface Shipping {
@@ -123,8 +124,7 @@ interface Shipping {
 
 class ShippingPhysicalItem:Shipping {
     override fun submit(customer: Customer, address: Address) :String {
-        var shippingLabel = PhysicalItemLabel()
-        shippingLabel.generate(address)
+        GeneratorShippingLabel().labels["PHYSICAL"]?.generate(address)
         return "It physical item"
     }
 }
@@ -139,8 +139,7 @@ class ShippingServiceSubscription : Shipping {
 
 class ShippingBook:Shipping {
     override fun submit(customer: Customer, address: Address) :String {
-        var shippingLabel = BookLabelLabel()
-        shippingLabel.generate(address)
+        GeneratorShippingLabel().labels["BOOK"]?.generate(address)
         return "It book"
     }
 }
@@ -155,7 +154,7 @@ class ShippingDigitalMedia:Shipping {
 
     private fun applyVoucher(value: Double) {
         var voucher = Voucher(value)
-        voucher.toDicount()
+        voucher.toDiscount()
     }
 }
 
@@ -167,75 +166,6 @@ class ShippingRules {
             ProductType.DIGITAL to ShippingDigitalMedia()
     ))
 }
-
-class BootStapTest : Test() {
-
-    @org.junit.Test
-    fun test_payment_flow_for_book() {
-        address = Address.new(zipcode: "00000-000")
-        foolano = Customer.new(address: address, email: "foolano@gmail.com")
-        book = Product.new(name: 'Awesome book', type: :book)
-        book_order  Order.new(foolgiano)
-        book_order.add_product(book)
-
-        ShippingRules sh
-
-        payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-
-        payment_flow = PaymentFlow.new(payment: payment_book)
-        result = payment_flow.execute
-
-        assert_equal "It book", result
-    }
-
-    fun test_payment_flow_for_physical_item
-    address = Address(zipcode= "00000-000")
-    foolano = Customer.new(email = "foolano@gmail.com")
-    physical_item = Product.new(name: 'Video Game', type: :physical_item)
-    physical_item_order = Order.new(foolano)
-    physical_item_order.add_product(physical_item)
-
-    payment_physical_item = Payment.new(order: physical_item_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-
-    payment_flow = PaymentFlow.new(payment: payment_physical_item)
-    result = payment_flow.execute
-
-    assert_equal "It physical item", result
-    end
-
-    def test_payment_flow_for_service_subscription
-    address = Address.new(zipcode: "00000-000")
-    foolano = Customer.new(address: address, email: "foolano@gmail.com")
-    service_subscription = Product.new(name: 'Credito Gold', type: :service_subscription)
-    service_subscription_order = Order.new(foolano)
-    service_subscription_order.add_product(service_subscription)
-
-    payment_service_subscription = Payment.new(order: service_subscription_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-
-    payment_flow = PaymentFlow.new(payment: payment_service_subscription)
-    result = payment_flow.execute
-
-    assert_equal "It services subscription", result
-    end
-
-    def test_payment_flow_for_ddigital_mediaigital_media
-    address = Address.new(zipcode: "00000-000")
-    foolano = Customer.new(address: address, email: "foolano@gmail.com")
-    digital_media = Product.new(name: 'Credito Gold', type: :digital_media)
-    digital_media_order = Order.new(foolano)
-    digital_media_order.add_product(digital_media)
-
-    payment_digital_media = Payment.new(order: digital_media_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-
-    payment_flow = PaymentFlow.new(payment: payment_digital_media)
-    result = payment_flow.execute
-
-    assert_equal "It digital media", result
-    end
-
-
-}
-
 
 fun main(args : Array<String>) {
     val shirt = Product("Flowered t-shirt", ProductType.PHYSICAL, 35.00)
