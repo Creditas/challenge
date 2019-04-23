@@ -75,3 +75,21 @@ export const defaultPage = `
   </div>
 </form>
 `
+
+export const simplePage = `
+    <form class="form" data-testid="form">
+    <div class="field">
+      <label for="parcelas">Número de parcelas</label>
+      <select name="parcelas" id="parcelas" required>
+        <option value="24">24</option>
+        <option value="36">36</option>
+        <option value="48">48</option>
+      </select>
+    </div>
+      <label for="valor-garantia">Valor da Garantia</label>
+      <input id="valor-garantia" required value='R$ 123.455,00'/>
+      <label for="valor-emprestimo">Valor da Garantia</label>
+      <input id="valor-emprestimo" required value='R$ 123.455,00'/>
+      <button type="button"></button>
+    </form>
+  `
