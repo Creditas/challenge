@@ -1,47 +1,43 @@
-## Desafio para Backend Software Engineer
+Iniciei o projeto quebrando em um backlog de itens macro para iniciar.
 
-Você está revisando as decisões de design de um software que processa Pedidos online. Por estes pedidos, são realizados pagamentos que recebem tratamentos a depender as situações específicas de cada um como segue:
+- Montar ambiente kotlin
+- Entender kotlin e ferramentas
+- Quebrar tarefas do projeto
 
-  - Se o pagamento for para um item físico, você deverá gerar um `shipping label` para o mesmo ser colocado na caixa do envio;
-  - Caso o pagamento seja uma assinatura de serviço, você precisa ativar a assinatura, e notificar o usuário através de e-mail sobre isto;
-  - Caso o pagamento seja um livro comum, você precisa gerar o `shipping label` com uma notificação de que trata-se de um item isento de impostos conforme disposto na Constituição Art. 150, VI, d.
-  - Caso o pagamento seja de alguma mídia digital (música, vídeo), além de enviar a descrição da compra por e-mail ao comprador, conceder um voucher de desconto de R$ 10 ao comprador associado ao pagamento.
+### Setup de ambiente  
+Sobre o ambiente, decidi utilizar docker para não precisar fazer setup 
+local no pc. Procurei como montar dockerfile, realizar build de um jar 
+utilizando uma aplicação de hello word em primeria instância.
 
-__O que é necessário fazer?__
+Como não tenho muita experiência com kotling e o java pipeline pivotei 
+a ideia inicial e fui desenvolver direto pelo IntelliJ e com amiente 
+configurado diretamente no windows.
 
-Você ficou designado a prototipar como poderá ser feita a nova versão deste fluxo de pagamento/regras de envio, pois a versão atual é frágil, **encadeada em if/else, switch/case**, exigindo modificações grandes a cada nova regra de envio/processamento inserida ou removida.
+### Entendo kotlin
 
-Crie as classes, métodos e suas respectivas chamadas (a seu critério) para que você consiga tratar os cenários acima.
+Busquei tanto na documentação como em artigos entender o funcionamento da
+linguagem, tipagem, trabalho com listas e api. Também utilizei alguns fontes 
+e artigos espeficios sobre desenvolvimento com Design Patters utilizando kotlin.
 
-**Não é necessário** criar as implementações para envio de e-mails, imprimir o _shipping label_, etc. Para estes casos (email, shipping label) crie apenas as chamadas de métodos, para indicar que ali seria o local aonde o envio ocorreria.
+### Quebrando tarefas do projeto
 
-Como a proposta **não requer um código final funcionando**, não há a necessidade de implementar os testes de unidade. Entretanto, levaremos isso como _bonus points_. É permitido o uso de libs para facilitar a implementação dos testes.
+Criei um board direto pelo github para controlar a lista de itens a serem 
+realizados ao estilo kanban. Defini quebrar em tarefas menores que possam 
+ser realizadas em no máximo alguns pomodoros.
 
-__O que está sob avaliação?__
+### Enontrando o dominio
+Comecei a analisar as regras de negócio procurando por alguns padrões que 
+ditariam os dominíos e quais soluções possiveis. Na minha opinão se mostrou 
+necessário utilizar os padrões 'strategy' e 'factory', assim possibilitando 
+isolar a criação dos strategies e adicionar novos strategies em caso de novas
+mudanças. Nesse processo procurei por exemplos de designs patterns e outras
+soluções em kotlin.
 
-Sua capacidade de analisar, projetar e codificar uma solução guiando-se com **Design Orientado a Objetos** e **Princípios de Orientação a Objetos**.
+### Testando
+Após algum tempo entendendo o combo intellij, kotlin, gralde e também tentando
+me adequar ao estilo de desnvolvimento mais imutável, demorei um pouco mais do
+estimei e a cobertura de testes ficou fraca. 
 
-Sinta-se à vontade para modificar/refatorar quaisquer aspectos das classes/métodos do arquivo `bootstrap` caso julgue necessário.
-
-Por favor, inclua suas considerações da atividade em um arquivo de texto ou markdown.
-
-__O que não vale?__
- - Frameworks :] (aliás, nem precisa)
- - Metaprogramação/Reflection
-
-__Qual linguagem?__
-Ruby, Python ou Kotlin
-
-__Tempo__
-Estima-se 4 a 8 horas para este desafio, entretanto não há um limite.
-
-__Apresentação__
-  - Código
-  - Explicação da solução (em arquivo separado em Markdown/Plain Text)
-
-__Avaliação__
-
-Para nos enviar seu código, você pode:
-
- - Fazer um fork desse repositório, e nos mandar uma pull-request.
- - Dar acesso ao seu repositório privado no [Gitlab](http://gitlab.com) para `creditaschallenge`.
+### Finalizando
+Agora estou finalizando o projeto, no final foram gastas em torno de 14 horas de projeto,
+incluindo aprendizado, analise e codando. Grato pelo desafio e aprendizado!
