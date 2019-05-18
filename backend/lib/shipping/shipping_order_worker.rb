@@ -1,7 +1,11 @@
+require_relative './shipping_item'
 module Shipping
   class ShippingOrderWorker
     def self.perform(order)
-      #set shipping method for each item
+      items = order.items
+      items.each do |item|
+        Shipping::ShippingItem.new(item).dispatch
+      end
     end
   end
 end
