@@ -1,4 +1,8 @@
 require_relative './shipping_book'
+require_relative './shipping_physical'
+require_relative './shipping_digital'
+require_relative './shipping_membership'
+
 module Shipping
   class ShippingItem
     def initialize(item)
@@ -16,8 +20,8 @@ module Shipping
       shipping_method_by_product = {
         physical: Shipping::ShippingPhysical,
         book: Shipping::ShippingBook,
-        digital: 'Shipping::ShippingDigital',
-        membership: 'Shipping::ShippingMembership',
+        digital: Shipping::ShippingDigital,
+        membership: Shipping::ShippingMembership,
       }
       shipping_method_by_product.fetch(type.to_sym)
     end
