@@ -1,12 +1,4 @@
-require_relative "lib/payment"
-require_relative "lib/invoice"
-require_relative "lib/order"
-require_relative "lib/order_item"
-require_relative "lib/product"
-require_relative "lib/address"
-require_relative "lib/credit_card"
-require_relative "lib/customer"
-require_relative "lib/membership"
+require_relative 'lib/config/load'
 
 # Book Example (build new payments if you need to properly test it)
 foolano = Customer.new
