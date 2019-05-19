@@ -12,8 +12,5 @@ book_order.add_product(physical)
 book_order.add_product(digital)
 book_order.add_product(membership)
 
-
-
-
 payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 payment_book.pay
