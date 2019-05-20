@@ -1,4 +1,4 @@
-require_relative './shipping/shipping_order_worker'
+require_relative './workers/shipping_order_worker'
 
 class Order
   attr_reader :customer, :items, :payment, :address, :closed_at
@@ -20,7 +20,7 @@ class Order
 
   def close(closed_at = Time.now)
     @closed_at = closed_at
-    Shipping::ShippingOrderWorker.perform(self)
+    Workers::ShippingOrderWorker.perform(self)
   end
 
   # remember: you can create new methods inside those classes to help you create a better design

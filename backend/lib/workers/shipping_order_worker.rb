@@ -1,5 +1,5 @@
-require_relative './shipping_item'
-module Shipping
+require_relative '../shipping/shipping_item'
+module Workers
   class ShippingOrderWorker
     def self.perform(order)
       items = order.items
