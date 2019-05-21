@@ -1,3 +1,5 @@
 class Membership
-  # you can customize this class by yourself
+  def active!
+    p 'Active membership'
+  end
 end
