@@ -1,3 +1,7 @@
 class Customer
-  # you can customize this class by yourself
+  attr_accessor :name
+
+  def initialize(name)
+    @name = name
+  end
 end

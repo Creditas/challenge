@@ -24,7 +24,7 @@ module Printer
     end
 
     def shipping_label_body
-      @shipping_label += "\t #{@customer} \n"
+      @shipping_label += "\t #{@customer.name} \n"
       @shipping_label += "\t #{@address.zipcode} \n"
       @opts.each do |key, value|
         @shipping_label += "\t #{key}: #{value} \n"

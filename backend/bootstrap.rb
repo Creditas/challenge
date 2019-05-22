@@ -1,7 +1,7 @@
 require_relative 'lib/config/load'
 
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
+foolano = Customer.new( 'Foolano')
 book = Product.new(name: 'Awesome book', type: :book)
 physical = Product.new(name: 'Notebook', type: :physical)
 digital = Product.new(name: 'Audio Book', type: :digital)

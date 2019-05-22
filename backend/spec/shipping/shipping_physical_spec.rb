@@ -4,13 +4,13 @@ require_relative '../../lib/config/load'
 describe Shipping::ShippingPhysical do
   describe "Shipping::ShippingItem" do
     before do
-      foolano = Customer.new
+      foolano = Customer.new( 'Foolano')
       @book = Product.new(name: 'Awesome book', type: :book)
       @physical = Product.new(name: 'Notebook', type: :physical)
       @digital = Product.new(name: 'Audio Book', type: :digital)
       @membership = Product.new(name: 'Subscription Book', type: :membership)
       @order = Order.new(foolano)
-      @order.add_product(@book)
+      @order.add_product(@physical)
 
     end
 
