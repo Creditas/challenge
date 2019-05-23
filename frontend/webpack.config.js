@@ -14,6 +14,7 @@ module.exports = {
       title: 'Creditas Challenge',
       hash: true,
       myPageHeader: 'Creditas Challenge',
+      favicon: 'public/favicon.ico',
       template: 'public/index.html',
       filename: 'index.html',
       files: {
@@ -22,11 +23,9 @@ module.exports = {
     })
   ],
   module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
-    ]
+    rules: [{
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader']
+    }]
   }
 }
