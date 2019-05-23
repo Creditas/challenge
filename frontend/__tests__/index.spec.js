@@ -22,15 +22,14 @@
   Jest: "global" coverage threshold for functions (80%) not met: 9.52%
 --> */
 
-import CreditasChallenge, {
-  checkFormValidity,
-  getFormValues,
-  toStringFormValues,
-  Send,
-  Submit
-} from '../src/index'
+import CreditasChallenge from '../src/index'
 
-function initializeAppMock () {
+import {
+  checkFormValidity,
+  checkValueIntegrity
+} from '../src/helpers'
+
+function initializeAppMock() {
   document.body.innerHTML = `
     <form class="form" data-testid="form">
       <label for="valor-garantia">Valor da Garantia</label>
@@ -40,7 +39,7 @@ function initializeAppMock () {
   `
 }
 
-function clean () {
+function clean() {
   document.body.innerHTML = ''
 }
 
@@ -53,24 +52,66 @@ describe('Creditas Challenge', () => {
     clean()
   })
 
-  describe('Method: checkFormValidity', () => {
-    it('should return true when form has valid', () => {
+  describe('Method: Submit', () => {
+    it('should add event listener to submit data form', () => {
+      const container = document.querySelector('.form')
+      CreditasChallenge.Submit(container)
+    })
+  })
+
+  describe('Method: amount', () => {
+    it('should return a correct value according time and loan values', () => {
+      const time = 24
+      const loan = 15150
+      expect(CreditasChallenge.amount(time, loan)).toBe(16834.68)
+    })
+  })
+
+  describe('Method: quota', () => {
+    it('should return a correct value according time and loan values', () => {
+      const time = 24
+      const amount = 2666.88
+      expect(CreditasChallenge.quota(amount, time)).toBe(111.12)
+    })
+  })
+
+  describe('Method: toggleValue', () => {
+    it('should return a correct value according time and loan values', () => {
+      const type = ['emprestimo', 'garantia']
+      const amount = 3000
+      expect(CreditasChallenge.toggleValue(type[0], amount)).toBe(2400)
+      expect(CreditasChallenge.toggleValue(type[1], amount)).toBe(3000)
+    })
+  })
+
+  // describe('Method: Submit', () => {
+  //   it('should add event listener to submit data form', () => {
+  //     const container = document.querySelector('.form')
+  //     CreditasChallenge.Submit(container)
+  //   })
+  // })
+
+  describe('HELPERS: check Integrity of functions', () => {
+    it('checkValueIntegrity: should return true if the value is between min and max', () => {
+      const value = 2666.88
+      expect(checkValueIntegrity(value, 1000, 3000)).toBeTruthy()
+    })
+
+    it('checkValueIntegrity: should return false if the value is not between min and max', () => {
+      const value = 2666.88
+      expect(checkValueIntegrity(value, 3000, 5000)).toBeFalsy()
+    })
+
+    it('checkFormValidity: should return true when form has valid', () => {
       const form = document.querySelector('.form')
       const input = document.querySelector('input')
       input.value = 10
       expect(checkFormValidity(form)).toBeTruthy()
     })
 
-    it('should return false when form has not valid', () => {
+    it('checkFormValidity: should return false when form has not valid', () => {
       const form = document.querySelector('.form')
       expect(checkFormValidity(form)).toBeFalsy()
-    })
-  })
-
-  describe('Method: Submit', () => {
-    it('should add event listener to submit data form', () => {
-      const container = document.querySelector('.form')
-      Submit(container)
     })
   })
 })
