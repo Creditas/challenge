@@ -36,15 +36,15 @@ class CreditasChallenge {
     this.handleInputChange(el.warrantyInput, el.warrantyRange, el.warrantyRange.min, el.warrantyRange.max)
     this.handleInputChange(el.loanInput, el.loanRange, el.loanRange.min, el.loanRange.max)
 
-    el.rateValue.innerHTML = commonValues.juros + '%'
+    el.rateValue.innerHTML = this.commonValues.juros + '%'
   }
 
   toggleValue(typeInput, val) {
-    return typeInput === 'emprestimo' ? val * commonValues.valorEmprestimo : val
+    return typeInput === 'emprestimo' ? val * this.commonValues.valorEmprestimo : val
   }
 
   amount(prazo, emprestimo) {
-    return ((commonValues.iof / 100) + (commonValues.juros / 100) + (prazo / 1000) + 1) * emprestimo
+    return ((this.commonValues.iof / 100) + (this.commonValues.juros / 100) + (prazo / 1000) + 1) * emprestimo
   }
 
   quota(total, prazo) {
