@@ -13,15 +13,17 @@ import {
 
 import './styles.css'
 
-document.addEventListener('DOMContentLoaded', () => {
-  CreditasChallenge.initialize()
-})
-export default class CreditasChallenge {
-  static initialize() {
+class CreditasChallenge {
+  constructor(options, common) {
+    this.optionValues = options
+    this.commonValues = common
+    this.initialize()
+  }
+  initialize() {
     this.registerEvents()
   }
 
-  static registerEvents() {
+  registerEvents() {
     this.Submit(el.form)
     this.changeValuesAccordingForm()
     this.getSelectOptions('garantia', el.warrantySelect)
@@ -37,19 +39,19 @@ export default class CreditasChallenge {
     el.rateValue.innerHTML = commonValues.juros + '%'
   }
 
-  static toggleValue(typeInput, val) {
+  toggleValue(typeInput, val) {
     return typeInput === 'emprestimo' ? val * commonValues.valorEmprestimo : val
   }
 
-  static amount(prazo, emprestimo) {
+  amount(prazo, emprestimo) {
     return ((commonValues.iof / 100) + (commonValues.juros / 100) + (prazo / 1000) + 1) * emprestimo
   }
 
-  static quota(total, prazo) {
+  quota(total, prazo) {
     return (total / prazo)
   }
 
-  static setRangeValues(min, max, rangeType) {
+  setRangeValues(min, max, rangeType) {
     const minV = document.getElementById(`min-${rangeType}`)
     const maxV = document.getElementById(`max-${rangeType}`)
     const rangeValue = document.getElementById(`valor-${rangeType}-range`)
@@ -65,11 +67,11 @@ export default class CreditasChallenge {
     rangeInput.value = valorMin
   }
 
-  static getSelectOptions(fieldID, warrantySelect) {
+  getSelectOptions(fieldID, warrantySelect) {
     const select = document.getElementById(fieldID)
     const nodeIndex = warrantySelect.value || 'Veículo'
-    const nodeList = optionValues[nodeIndex]
-    const list = fieldID === 'garantia' ? Object.getOwnPropertyNames(optionValues) : nodeList.prazo
+    const nodeList = this.optionValues[nodeIndex]
+    const list = fieldID === 'garantia' ? Object.getOwnPropertyNames(this.optionValues) : nodeList.prazo
     for (let i of list) {
       select.options[select.options.length] = new Option(i, i)
     }
@@ -78,7 +80,7 @@ export default class CreditasChallenge {
     this.setRangeValues(nodeList.valorMin, nodeList.valorMin, 'emprestimo')
   }
 
-  static getFormValues(formElement) {
+  getFormValues(formElement) {
     return Object.values(formElement.elements)
       .filter(element => ['SELECT', 'INPUT'].includes(element.nodeName))
       .map(element => ({
@@ -87,7 +89,7 @@ export default class CreditasChallenge {
       }))
   }
 
-  static toStringFormValues(values) {
+  toStringFormValues(values) {
     const total = this.amount(el.timeSelect.value, el.loanInput.value)
 
     const stringReturned = `Confirmação\n${values
@@ -98,7 +100,7 @@ export default class CreditasChallenge {
     return stringReturned
   }
 
-  static Send(values) {
+  Send(values) {
     return new Promise((resolve, reject) => {
       try {
         resolve(this.toStringFormValues(values))
@@ -108,7 +110,7 @@ export default class CreditasChallenge {
     })
   }
 
-  static Submit(formElement) {
+  Submit(formElement) {
     formElement.addEventListener('submit', (event) => {
       event.preventDefault()
       checkFormValidity(formElement) && (
@@ -119,7 +121,7 @@ export default class CreditasChallenge {
     })
   }
 
-  static handleInputChange(input, range, min, max) {
+  handleInputChange(input, range, min, max) {
     input.addEventListener('input', (e) => {
       if (checkValueIntegrity(e.target.value, min, max)) {
         range.value = input.value
@@ -132,11 +134,11 @@ export default class CreditasChallenge {
     })
   }
 
-  static getAmount() {
+  getAmount() {
     return this.amount(el.timeSelect.value, el.loanInput.value)
   }
 
-  static handleRangeChange(range, input) {
+  handleRangeChange(range, input) {
     range.addEventListener('input', (e) => {
       input.value = e.target.value
       range === el.warrantyRange && this.setRangeValues(range.min, e.target.value, 'emprestimo')
@@ -144,12 +146,12 @@ export default class CreditasChallenge {
     this.getResult()
   }
 
-  static getResult() {
+  getResult() {
     el.totalValue.innerHTML = `${toCurrency(this.getAmount())}`
     el.quotaValue.innerHTML = toCurrency(this.quota(this.getAmount(), el.timeSelect.value))
   }
 
-  static populateSelect() {
+  populateSelect() {
     el.warrantySelect.addEventListener('change', () => {
       let select = el.timeSelect
       select.options.length = 0
@@ -157,9 +159,11 @@ export default class CreditasChallenge {
     })
   }
 
-  static changeValuesAccordingForm() {
+  changeValuesAccordingForm() {
     el.form.addEventListener('input', () => {
       this.getResult()
     })
   }
 }
+
+module.exports = new CreditasChallenge(optionValues, commonValues)
