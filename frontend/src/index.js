@@ -20,7 +20,9 @@ class CreditasChallenge {
     this.initialize()
   }
   initialize() {
-    this.registerEvents()
+    document.addEventListener('DOMContentLoaded', () => {
+      this.registerEvents()
+    })
   }
 
   registerEvents() {
