@@ -11,4 +11,9 @@ esse processador suporta.
 * **process()**: método que executa as regras específicas para aquele produto.
 
 
+```kotlin
+public class Hello1 
+{ public static void Main() 
+{ System.Console.WriteLine("Hello, World!"); } }
 
+```
