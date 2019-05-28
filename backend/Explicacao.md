@@ -35,7 +35,7 @@ class BookItemProcessor : ShippingOrderProcessor{
 
 ```
 
-__ShippingOrderProcessorFactory
+**__ShippingOrderProcessorFactory**
 
  recebe uma lista de processadores e no método build, intera a lista chamando
 o método **supports** de cada processador. O método build retorna o  primeiro processador a retornar
