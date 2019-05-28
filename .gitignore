@@ -18,6 +18,7 @@ workspace.xml
 /js/js.translator/testData/out/
 /js/js.translator/testData/out-min/
 .gradle/
+.output/**
 build/
 !**/src/**/build
 !**/test/**/build
