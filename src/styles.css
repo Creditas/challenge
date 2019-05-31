@@ -1,0 +1,327 @@
+/*Definindo cores*/
+:root {
+  --mountain-meadow: #1eb98a;
+  --green-yellow: #bcf236;
+  --concrete: #f2f2f2;
+  --dove-gray: #616161;
+  --boulder: #777;
+  --emperor: #515151;
+  --nobel: #b7b7b7;
+  --alabaster: #fcfcfc;
+  --white: #fff;
+  --silver: #ccc;
+  --tom-thumb: #2a492f;
+  --black: #000000;
+  --black-trans:rgba(0,0,0,0.4);
+  --boulder-white:#aaaaaa;
+  --black-bordo:#212121;
+}
+/* Atributos padrões da pagina */
+/* Atibutos global*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'ubuntu';
+}
+/* Atributos do corpo da pagina */
+html, body {
+  height: 100%;
+}
+/* Background body */
+body {
+  background-color: var(--concrete);
+}
+
+/* Atributos do painel modal */
+.modal{
+  display: flex;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: var(--black-trans);
+}
+/*Modal content*/
+.modal-content {
+  background-color: var(--white);
+  margin: auto;
+  padding: 20px;
+  border: 1px solid var(--boulder);
+  width: 600px;
+}
+/* Button Close */
+.close{
+  color: var(--boulder-white);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+/* Mudando cor do button close*/
+.close:hover{
+  color: var(--black);
+  text-decoration: none;
+  cursor: pointer;
+}
+/* text_modal */
+.text_modal{
+  margin-top: 20px;
+  text-align: center;
+}
+/* Definindo atributos do titulo*/
+.text_modal p{
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+  color: var(--mountain-meadow);
+}
+/* Definindo atributos das div's que esta dentro do text_modal*/
+.text_modal div{
+  float: left;
+  width: 50%;
+  margin-top: 30px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+/* Defindo atributos dos titulos da garantia*/
+.espec_veiculo p:nth-child(1), .espec_imovel p:nth-child(1){
+  font-size: 16px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+/* Definindo atributos das especificações */
+.espec_veiculo p, .espec_imovel p{
+  font-size: 14px;
+  margin-top: 5px;
+  font-weight: 500;
+  color: var(--dove-gray);
+}
+/* Informações */
+.info{
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: bold;
+  color: var(--boulder)
+}
+/* footer */
+.modal footer{
+  text-align: center;
+  font-size: 10px;
+  color: var(--boulder);
+  font-weight: bold;
+}
+
+/* Atributos da barra superior*/
+.container {
+  height: 100%;
+}
+/*header*/
+.header {
+  background-color: var(--mountain-meadow);
+  padding: 20px 0;
+}
+/* Atributos do header container*/
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+/* Atributos da Logo */
+.logo {
+  height: 1em;
+}
+/* Help */
+.help {
+  text-decoration: none;
+  color: var(--concrete);
+}
+/* Main */
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 80px);
+  padding: 0 10px;
+}
+/* Atributos do titulo principal */
+.main__title {
+  color: var(--dove-gray);
+  margin-bottom: 50px;
+  max-width: 600px;
+  line-height: 34px;
+  text-align: center;
+}
+
+/*Atributos do formulario que recebe os valores*/
+.form {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 50px;
+}
+/*Field Group*/
+.field-group {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.field-group .field:first-child {
+  margin-right: 30px;
+}
+/* Atributos dos Labels */
+.field label {
+  color: var(--dove-gray);
+  font-weight: bold;
+  font-size: .8rem;
+  margin-bottom: 5px;
+}
+/* Atributos dos Selects */
+.field select {
+  border:none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -ms-appearance: none;
+  background-color: red;
+}
+
+/* Atributos dos selects e ranges*/
+.field select, .field input[type="text"] {
+  color: var(--emperor);
+  border: 1px solid var(--nobel);
+  background-color: var(--alabaster);
+  border-radius: 4px;
+  padding: 10px 5px;
+  width: 150px;
+}
+/* Definindo os atributos do input texts */
+.field input[type='text']{
+  border: 1px solid var(--mountain-meadow);
+}
+/* Form Fields*/
+.form__fields {
+  max-width: 400px;
+  min-width: 400px;
+}
+/* Atibuto dos ranges*/
+.range {
+  transform: translateY(11px);
+}
+/* Valores min e max dos ranges*/
+.range__values {
+  display: flex;
+  justify-content: space-between;
+}
+/* Atributos dos span do range__values*/
+.range__values span {
+  font-size: .6rem;
+  font-weight: 100;
+}
+/* Atributo do range*/
+.field input[type="range"] {
+  transform: translateY(5px);
+}
+/* Atributo do footer*/
+.footer {
+  font-size: .6rem;
+  font-weight: 100;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Formulario do resultado */
+.form__result {
+  background-color: var(--white);
+  border-radius: 4px;
+  box-shadow: 0px -5px 2px -1px var(--silver);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 35%;
+}
+/* Atributos da tag h4*/
+.form__result h4 {
+  color: var(--boulder);
+  font-size: .7rem;
+  text-align: center;
+  margin-bottom: 3px;
+}
+/* Atributos da tag p*/
+.form__result p {
+  font-size: .7rem;
+  font-weight: 100;
+  text-align: center;
+}
+/* Atributos valor total*/
+.quota__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* Atributos do h4, do valor total*/
+.quota__container h4 {
+  font-weight: 200;
+  font-size: 18px;
+}
+/* Atributos da tag strong*/
+.quota strong {
+  font-size: 21px;
+  color: var(--dove-gray);
+}
+/* Atributos da tag span*/
+.quota span {
+  font-size: 28px;
+  color: var(--mountain-meadow);
+  font-weight: bold;
+}
+/* Atributos do button resultado*/
+.button {
+  background-color: var(--green-yellow);
+  border: none;
+  padding: 10px 0;
+  width: 100%;
+  color: var(--tom-thumb);
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+/* Atributos responsivos*/
+@media screen and (max-width: 630px) {
+  .main {
+    height: auto;
+    margin: 30px 0;
+  }
+
+  .form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form > div {
+    width: 100%;
+  }
+
+  .form .form__fields {
+    min-width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .form .form__result {
+    width: 200px;
+    height: 250px;
+  }
+}
