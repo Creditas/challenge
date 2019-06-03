@@ -1,0 +1,8 @@
+@import './setup/root.css';
+
+@import './page/header.css';
+@import './page/container.css';
+@import './page/form.css';
+@import './page/footer.css';
+
+@import './setup/queries.css';

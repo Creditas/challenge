@@ -17,7 +17,7 @@ module.exports = {
       template: 'public/index.html',
       filename: 'index.html',
       files: {
-        css: ['style.css']
+        css: ['css/index.css']
       }
     })
   ],

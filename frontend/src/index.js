@@ -1,4 +1,6 @@
-import './styles.css'
+import { data, utils } from './lib'
+
+import './css/index.css'
 
 export const checkFormValidity = formElement => formElement.checkValidity()
 
@@ -11,20 +13,18 @@ export const getFormValues = formElement =>
     }))
 
 export const toStringFormValues = values => {
-  const match = matchString => value => value.field === matchString
-  const IOF = 6.38 / 100
-  const INTEREST_RATE = 2.34 / 100
-  const TIME = values.find(match('parcelas')).value / 1000
-  const VEHICLE_LOAN_AMOUNT = values.find(match('valor-emprestimo')).value
+  const total = utils.currencyFormat(getAmount())
 
-  return `Confirmação\n${values
-    .map(value => `Campo: ${value.field}, Valor: ${value.value}`)
-    .join('\n')}`.concat(
-      `\nTotal ${(IOF + INTEREST_RATE + TIME + 1) * VEHICLE_LOAN_AMOUNT}`
-    )
+  return `
+    Confirmação\n
+    ${values
+    .map(({ field, value }) => `Campo: ${field}, Valor: ${value}`)
+    .join('\n')}`
+    .concat(`\nTotal ${total}
+  `)
 }
 
-export function Send(values) {
+export function Send (values) {
   return new Promise((resolve, reject) => {
     try {
       resolve(toStringFormValues(values))
@@ -34,56 +34,165 @@ export function Send(values) {
   })
 }
 
-export function Submit(formElement) {
+export function Submit (formElement) {
   formElement.addEventListener('submit', function (event) {
     event.preventDefault()
     if (checkFormValidity(formElement)) {
       Send(getFormValues(formElement))
         .then(result => confirm(result, 'Your form submited success'))
-        .catch(error => Alert('Your form submited error', error))
+        .catch(error => alert('Your form submited error', error))
     }
   })
 }
 
-export function handleChangeRangeVehicleUnderWarranty(
+export function handleChangeRangeVehicleUnderWarranty (
   warrantyRangeElement,
   vehicleWarrantyElement
 ) {
-  const MIN_VALUE = 12000.0
+  vehicleWarrantyElement.value = utils.currencyFormat(warrantyRangeElement.value)
+
   warrantyRangeElement.addEventListener('change', function (event) {
-    vehicleWarrantyElement.value =
-      (Number(MIN_VALUE) * Number(event.target.value)) / 100 + Number(MIN_VALUE)
+    const {
+      vehicle: {
+        min_loan: minLoan
+      }
+    } = data.warrantyOptions
+
+    updateRangeFields(minLoan, event.target.value, 'loan')
+
+    vehicleWarrantyElement.value = utils.currencyFormat(warrantyRangeElement.value)
   })
 }
 
-export function handleChangeVehicleLoanAmount(
+export function handleChangeVehicleLoanAmount (
   loanAmountRangeElement,
   loanAmountElement
 ) {
-  const MIN_VALUE = 30000.0
-  loanAmountRangeElement.addEventListener('change', function (event) {
-    loanAmountElement.value =
-      (Number(MIN_VALUE) * Number(event.target.value)) / 100 + Number(MIN_VALUE)
+  loanAmountElement.value = utils.currencyFormat(loanAmountRangeElement.value)
+  loanAmountRangeElement.addEventListener('input', function (event) {
+    loanAmountElement.value = utils.currencyFormat(event.target.value)
+  })
+}
+
+export function handleWarrantySelect (
+  warrantyElement,
+  installmentElement
+) {
+  warrantyElement.addEventListener('change', function (event) {
+    const { value: warrantyValue } = warrantyElement
+    const { installments: installmentsValues } = data.warrantyOptions[warrantyValue]
+
+    installmentElement.options.length = 0
+
+    for (let index in installmentsValues) {
+      installmentElement.options[installmentElement.options.length] =
+        new Option(installmentsValues[index], index)
+    }
+
+    const { min_loan: min, max_loan: max } = data.warrantyOptions[warrantyValue]
+
+    updateRangeFields(min, max, 'warranty')
+    updateRangeFields(min, max, 'loan')
+  })
+}
+
+export const updateValues = (val, type) =>
+  type === 'loan'
+    ? val * data.defaultValues.LOAN
+    : val
+
+export function handleInput (input, range) {
+  input.addEventListener('input', (e) => {
+    range.value = input.value
+    input === data.elements.warranty.input && updateRangeFields(range.min, e.target.value, 'loan')
+  })
+}
+
+export function updateRangeFields (min, max, type) {
+  const {
+    range: {
+      element,
+      min_label: minLabel,
+      max_label: maxLabel
+    },
+    input
+  } = data.elements[type]
+
+  const valorMin = updateValues(min, type)
+  const valorMax = updateValues(max, type)
+
+  getTotal()
+
+  minLabel.innerHTML = utils.currencyFormat(valorMin)
+  maxLabel.innerHTML = utils.currencyFormat(valorMax)
+  element.min = valorMin
+  element.max = valorMax
+  element.value = valorMin
+  input.value = utils.currencyFormat(valorMin)
+}
+
+export const getAmount = () =>
+  utils.amount(data.elements.installment.value, data.elements.loan.input.value)
+
+export function getTotal () {
+  data.elements.default.total.innerHTML = utils.currencyFormat(getAmount())
+  data.elements.default.installments.innerHTML = utils.currencyFormat(utils.quota(getAmount(), data.elements.installment.value), false)
+}
+
+export function updateTotalValues () {
+  data.elements.form.addEventListener('input', () => {
+    getTotal()
   })
 }
 
 export default class CreditasChallenge {
-  static initialize() {
+  static initialize () {
     this.registerEvents()
   }
 
-  static registerEvents() {
-    Submit(document.querySelector('.form'))
+  static registerEvents () {
+    Submit(data.elements.form)
 
     handleChangeRangeVehicleUnderWarranty(
-      document.getElementById('valor-garantia-range'),
-      document.getElementById('valor-garantia')
+      data.elements.warranty.range.element,
+      data.elements.warranty.input
     )
 
     handleChangeVehicleLoanAmount(
-      document.getElementById('valor-emprestimo-range'),
-      document.getElementById('valor-emprestimo')
+      data.elements.loan.range.element,
+      data.elements.loan.input
     )
+
+    handleWarrantySelect(
+      data.elements.warranty.element,
+      data.elements.installment
+    )
+
+    updateRangeFields(
+      data.warrantyOptions.vehicle.min_loan,
+      data.warrantyOptions.vehicle.max_loan,
+      'warranty'
+    )
+
+    updateRangeFields(
+      data.warrantyOptions.vehicle.min_loan,
+      data.warrantyOptions.vehicle.max_loan,
+      'loan'
+    )
+
+    handleInput(
+      data.elements.warranty.input,
+      data.elements.warranty.range.element
+    )
+
+    handleInput(
+      data.elements.loan.input,
+      data.elements.loan.range.element
+    )
+
+    updateTotalValues()
+
+    data.elements.default.tax.innerHTML = `${data.defaultValues.TAX}%`
   }
 }
 

@@ -1,7 +1,7 @@
 {
   "name": "creditaschallenge",
   "version": "1.0.0",
-  "description": "",
+  "description": "Creditas Challenge - Front End",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -12,7 +12,7 @@
     "url": "git+https://gitlab.com/rafaellucio/creditaschallenge.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Felipe Sousa",
   "license": "ISC",
   "bugs": {
     "url": "https://gitlab.com/rafaellucio/creditaschallenge/issues"
@@ -26,7 +26,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-stage-0": "^7.0.0",
     "@types/jest": "^23.3.2",
-    "babel-jest": "^24.1.0",
+    "babel-jest": "^22.4.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-react-constant-elements": "^6.23.0",
     "babel-plugin-transform-react-inline-elements": "^6.22.0",
@@ -48,6 +48,7 @@
     "verbose": true,
     "clearMocks": true,
     "collectCoverage": true,
+    "testURL": "http://localhost/",
     "testEnvironment": "jest-environment-jsdom",
     "coverageThreshold": {
       "global": {
@@ -58,8 +59,7 @@
       }
     },
     "testMatch": [
-      "**/__tests__/**/*.js?(x)",
-      "**/?(*.)+(spec|test).js?(x)"
+      "**/__tests__/**/*.spec.js?(x)"
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/"

@@ -23,29 +23,21 @@
 --> */
 
 import {
-  getFormValues,
-  Send
+  checkFormValidity,
+  Submit
 } from '../src/index'
-import { page } from './mocks'
+
+import { simple } from './mocks'
+
+import { utils } from '../src/lib'
 
 function initializeAppMock () {
-  document.body.innerHTML = page
+  document.body.innerHTML = simple
 }
 
 function clean () {
   document.body.innerHTML = ''
 }
-
-const confirm = `
-  Confirmação
-  Campo: parcelas, Valor: 24
-  Campo: garantia, Valor: vehicle
-  Campo: valor-garantia, Valor: R$ 123.455,00
-  Campo: valor-garantia-range, Valor: 123455
-  Campo: valor-emprestimo, Valor: R$ 90.455,00
-  Campo: valor-emprestimo-range, Valor: 90455
-  Total R$100,513.60
-`
 
 describe('Creditas Challenge', () => {
   beforeEach(() => {
@@ -56,23 +48,51 @@ describe('Creditas Challenge', () => {
     clean()
   })
 
-  describe('Content::Methods', () => {
-    it('should return the all form values', () => {
+  describe('Utils::Validations', () => {
+    it('should return true when form has valid', () => {
       const form = document.querySelector('.form')
-      Send(getFormValues(form))
-        .then((result) => expect(result).toBe(confirm))
+      const input = document.querySelector('input')
+      input.value = 10
+      expect(checkFormValidity(form)).toBeTruthy()
     })
 
-    it('should get all form values', () => {
+    it('should return false when form has not valid', () => {
       const form = document.querySelector('.form')
-      expect(getFormValues(form)).toEqual([
-        { 'field': 'parcelas', 'value': '24' },
-        { 'field': 'garantia', 'value': 'vehicle' },
-        { 'field': 'valor-garantia', 'value': 'R$ 331.000,00' },
-        { 'field': 'valor-garantia-range', 'value': '331000' },
-        { 'field': 'valor-emprestimo', 'value': 'R$ 90.455,00' },
-        { 'field': 'valor-emprestimo-range', 'value': '90455' }
-      ])
+      expect(checkFormValidity(form)).toBeFalsy()
+    })
+
+    it('should add event listener to submit data form', () => {
+      const container = document.querySelector('.form')
+      Submit(container)
+    })
+  })
+
+  describe('Utils::Methods', () => {
+    it('should parse integer value to currency', () => {
+      const value = 438765235
+      expect(utils.currencyFormat(value)).toEqual('R$ 438,765,235.00')
+    })
+
+    it('should return the quota value', () => {
+      const total = 18000
+      const installments = 36
+      expect(utils.quota(total, installments)).toEqual(500)
+    })
+
+    it('should return the amount value', () => {
+      const loan = 'R$ 95.000,00'
+      const installments = '36'
+      expect(utils.amount(installments, loan)).toEqual(106.704)
+    })
+
+    it('should parse integer value to currency without BRL format', () => {
+      const value = 438765235
+      expect(utils.currencyFormat(value, false)).toEqual('438,765,235.00')
+    })
+
+    it('should parse currency value to number', () => {
+      const value = 'R$ 438'
+      expect(utils.parseCurrencyToNumber(value, true)).toEqual(438)
     })
   })
 })
