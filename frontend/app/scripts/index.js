@@ -11,7 +11,7 @@ import {
 
 import { elements } from './utils/data'
 
-const selectInstallments = () => {
+export const selectInstallments = () => {
   const { installments, loan } = elements
 
   installments.addEventListener('change', (e) => {
@@ -27,7 +27,7 @@ const updateSummary = (parcel, loanAmount) => {
   summary.quota.innerHTML = formattedValue(getInstallmentPrice(totalPrice, parcel))
 }
 
-const handleLoanAmount = () => {
+export const handleLoanAmount = () => {
   const { installments, loan, warranty, warning } = elements
   const { tax } = getLoanCondition
 
@@ -45,7 +45,7 @@ const handleLoanAmount = () => {
   })
 }
 
-const handleWarrantyAmount = () => {
+export const handleWarrantyAmount = () => {
   const { loan, warranty, warning } = elements
   const { tax } = getLoanCondition
 
@@ -75,7 +75,7 @@ export const handleWarranty = () => {
   })
 }
 
-const handleRange = () => {
+export const handleRange = () => {
   const { loan, warranty } = elements
   const { tax } = getLoanCondition
 

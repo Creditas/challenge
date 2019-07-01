@@ -1,11 +1,15 @@
 import {
   handleWarranty,
+  handleLoanAmount,
+  handleWarrantyAmount,
+  selectInstallments,
+  handleRange,
   submitForm,
 } from '../app/scripts/index'
 
 import { form } from './__mocks__'
 
-function initializeAppMock() {
+function initializeMock() {
   document.body.innerHTML = form
 }
 
@@ -15,7 +19,7 @@ function clean() {
 
 describe('Creditas Challenge', () => {
   beforeEach(() => {
-    initializeAppMock()
+    initializeMock()
   })
 
   afterEach(() => {
