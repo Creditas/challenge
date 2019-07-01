@@ -1,94 +1,123 @@
-
 import '../styles/main.css'
+import {
+  formattedValue,
+  getFormValues,
+  getInstallmentPrice,
+  getLoanCondition,
+  getTotalPrice,
+  getWarrancyData,
+  sendForm,
+} from './utils/helpers'
 
-export const checkFormValidity = formElement => formElement.checkValidity()
+import { elements } from './utils/data'
 
-export const getFormValues = formElement =>
-  Object.values(formElement.elements)
-    .filter(element => ['SELECT', 'INPUT'].includes(element.nodeName))
-    .map(element => ({
-      field: element.name,
-      value: element.value,
-    }))
+const selectInstallments = () => {
+  const { installments, loan } = elements
 
-export const toStringFormValues = values => {
-  const match = matchString => value => value.field === matchString
-  const IOF = 6.38 / 100
-  const INTEREST_RATE = 2.34 / 100
-  const TIME = values.find(match('parcelas')).value / 1000
-  const VEHICLE_LOAN_AMOUNT = values.find(match('valor-emprestimo')).value
-
-  return `Confirmação\n${values
-    .map(value => `Campo: ${value.field}, Valor: ${value.value}`)
-    .join('\n')}`.concat(
-    `\nTotal ${(IOF + INTEREST_RATE + TIME + 1) * VEHICLE_LOAN_AMOUNT}`
-  )
-}
-
-export function Send(values) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(toStringFormValues(values))
-    }
- catch (error) {
-      reject(error)
-    }
+  installments.addEventListener('change', (e) => {
+    updateSummary(e.target.value, loan.input.value)
   })
 }
 
-export function Submit(formElement) {
-  formElement.addEventListener('submit', function(event) {
-    event.preventDefault()
-    if (checkFormValidity(formElement)) {
-      Send(getFormValues(formElement))
-        .then(result => confirm(result, 'Your form submited success'))
-        .catch(error => Alert('Your form submited error', error))
+const updateSummary = (parcel, loanAmount) => {
+  const { summary } = elements
+  const totalPrice = getTotalPrice(parcel, loanAmount)
+
+  summary.total.innerHTML = formattedValue(totalPrice)
+  summary.quota.innerHTML = formattedValue(getInstallmentPrice(totalPrice, parcel))
+}
+
+const handleLoanAmount = () => {
+  const { installments, loan, warranty, warning } = elements
+  const { tax } = getLoanCondition
+
+  loan.input.addEventListener('blur', (e) => {
+    const installmentSelected = installments[installments.selectedIndex].value
+    const loanAmount = e.target.value
+
+    warning.innerHTML = ''
+
+    if (warranty.input.value < loanAmount * tax) {
+      warning.innerHTML = `Para obter um empréstimo de ${formattedValue(loanAmount)} sua garantia não pode ser inferior a ${formattedValue(loanAmount * tax)}`
     }
+
+    updateSummary(installmentSelected, loanAmount)
   })
 }
 
-export function handleChangeRangeVehicleUnderWarranty(
-  warrantyRangeElement,
-  vehicleWarrantyElement
-) {
-  const MIN_VALUE = 12000.0
-  warrantyRangeElement.addEventListener('change', function(event) {
-    vehicleWarrantyElement.value =
-      (Number(MIN_VALUE) * Number(event.target.value)) / 100 + Number(MIN_VALUE)
+const handleWarrantyAmount = () => {
+  const { loan, warranty, warning } = elements
+  const { tax } = getLoanCondition
+
+  warranty.input.addEventListener('blur', (e) => {
+    warning.innerHTML = ''
+    loan.input.value = formattedValue(e.target.value / tax)
   })
 }
 
-export function handleChangeVehicleLoanAmount(
-  loanAmountRangeElement,
-  loanAmountElement
-) {
-  const MIN_VALUE = 30000.0
-  loanAmountRangeElement.addEventListener('change', function(event) {
-    loanAmountElement.value =
-      (Number(MIN_VALUE) * Number(event.target.value)) / 100 + Number(MIN_VALUE)
+export const handleWarranty = () => {
+  const { installments, warranty } = elements
+  const { tax } = getLoanCondition
+  const installmentsEl = installments
+
+  warranty.element.addEventListener('change', (e) => {
+    const dataName = e.target.options[e.target.selectedIndex].dataset.name
+    const { installments, loan, minLoan } = getWarrancyData(dataName)
+
+    for (const i in installments) {
+      installmentsEl.options[i] = new Option(installments[i], installments[i])
+    }
+
+    warranty.input.value = tax * minLoan
+    loan.input.value = minLoan
+
+    updateSummary(installments[0], minLoan)
+  })
+}
+
+const handleRange = () => {
+  const { loan, warranty } = elements
+  const { tax } = getLoanCondition
+
+  warranty.range.element.addEventListener('change', (e) => {
+    const target = e.target.value
+
+    warranty.input.value = target
+    loan.input.value = target / tax
+  })
+
+  loan.range.element.addEventListener('change', (e) => {
+    const target = e.target.value
+
+    loan.input.value = target
+    warranty.input.value = target * tax
+  })
+}
+
+export const submitForm = () => {
+  const { installments, form, loan } = elements
+  const installmentSelected = installments[installments.selectedIndex].value
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    sendForm(getFormValues(e.target), installmentSelected, loan.input.value)
+      .then(result => confirm(result, 'Your form submited success'))
+      .catch(error => alert('Your form submited error', error))
   })
 }
 
 export default class CreditasChallenge {
   static initialize() {
-    this.registerEvents()
-  }
-
-  static registerEvents() {
-    Submit(document.querySelector('.form'))
-
-    handleChangeRangeVehicleUnderWarranty(
-      document.getElementById('valor-garantia-range'),
-      document.getElementById('valor-garantia')
-    )
-
-    handleChangeVehicleLoanAmount(
-      document.getElementById('valor-emprestimo-range'),
-      document.getElementById('valor-emprestimo')
-    )
+    handleWarranty()
+    handleLoanAmount()
+    handleWarrantyAmount()
+    selectInstallments()
+    handleRange()
+    submitForm()
   }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
   CreditasChallenge.initialize()
 })
