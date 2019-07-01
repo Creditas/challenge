@@ -1,0 +1,89 @@
+{
+	"extends": "standard",
+	"env": {
+	  "browser": true,
+	  "jest": true
+  },
+  "rules": {
+    "arrow-body-style": ["warn", "as-needed"],
+    "arrow-parens": "off",
+    "block-spacing": "warn",
+    "brace-style": [1, "stroustrup", { "allowSingleLine": true }],
+    "camelcase": "off",
+    "class-methods-use-this": "off",
+    "comma-dangle": [
+      "warn", {
+        "arrays": "always-multiline",
+        "imports": "always-multiline",
+        "objects": "always-multiline",
+        "functions": "only-multiline"
+      }
+    ],
+    "dot-notation": "warn",
+    "function-paren-newline": "off",
+    "generator-star-spacing": "off",
+    "global-require": "off",
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+    "max-len": "off",
+    "newline-per-chained-call": ["warn", { "ignoreChainWithDepth": 5 }],
+    "no-case-declarations": "warn",
+    "no-else-return": ["error", { "allowElseIf": true }],
+    "no-confusing-arrow": ["warn", { "allowParens": true }],
+    "no-mixed-spaces-and-tabs": ["warn", "smart-tabs"],
+    "no-multi-spaces": [
+      "warn", {
+        "exceptions": {
+          "VariableDeclarator": true,
+          "Property": false
+        }
+      }
+    ],
+    "no-nested-ternary": "warn",
+    "no-param-reassign": ["warn", { "props": false }],
+    "no-plusplus": "off",
+    "no-restricted-syntax": [
+      "error",
+      "DebuggerStatement",
+      "LabeledStatement",
+      "WithStatement"
+    ],
+    "no-return-assign": ["error", "except-parens"],
+    "no-template-curly-in-string": "warn",
+    "no-trailing-spaces": "warn",
+    "no-underscore-dangle": "off",
+    "no-unused-vars": "warn",
+    "object-curly-newline": "off",
+    "object-shorthand": ["warn", "always"],
+    "one-var": "warn",
+    "padded-blocks": "warn",
+    "prefer-const": "warn",
+    "prefer-destructuring": "warn",
+    "prefer-template": "warn",
+    "prefer-promise-reject-errors": "off",
+    "quotes": ["warn", "single", "avoid-escape"],
+    "require-jsdoc": "off",
+    "space-before-function-paren": [
+      "warn", {
+        "anonymous": "never",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "space-in-parens": "warn",
+    "spaced-comment": [
+      "warn",
+      "always", {
+        "exceptions": [
+          "-+"
+        ],
+        "markers": [
+          "eslint-disable",
+          "eslint-disable-line",
+          "eslint-disable-next-line",
+          "eslint-enable"
+        ]
+      }
+    ]
+  }
+}

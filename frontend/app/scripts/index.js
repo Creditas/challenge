@@ -1,4 +1,5 @@
-import './styles.css'
+
+import '../styles/main.css'
 
 export const checkFormValidity = formElement => formElement.checkValidity()
 
@@ -7,7 +8,7 @@ export const getFormValues = formElement =>
     .filter(element => ['SELECT', 'INPUT'].includes(element.nodeName))
     .map(element => ({
       field: element.name,
-      value: element.value
+      value: element.value,
     }))
 
 export const toStringFormValues = values => {
@@ -20,22 +21,23 @@ export const toStringFormValues = values => {
   return `Confirmação\n${values
     .map(value => `Campo: ${value.field}, Valor: ${value.value}`)
     .join('\n')}`.concat(
-      `\nTotal ${(IOF + INTEREST_RATE + TIME + 1) * VEHICLE_LOAN_AMOUNT}`
-    )
+    `\nTotal ${(IOF + INTEREST_RATE + TIME + 1) * VEHICLE_LOAN_AMOUNT}`
+  )
 }
 
 export function Send(values) {
   return new Promise((resolve, reject) => {
     try {
       resolve(toStringFormValues(values))
-    } catch (error) {
+    }
+ catch (error) {
       reject(error)
     }
   })
 }
 
 export function Submit(formElement) {
-  formElement.addEventListener('submit', function (event) {
+  formElement.addEventListener('submit', function(event) {
     event.preventDefault()
     if (checkFormValidity(formElement)) {
       Send(getFormValues(formElement))
@@ -50,7 +52,7 @@ export function handleChangeRangeVehicleUnderWarranty(
   vehicleWarrantyElement
 ) {
   const MIN_VALUE = 12000.0
-  warrantyRangeElement.addEventListener('change', function (event) {
+  warrantyRangeElement.addEventListener('change', function(event) {
     vehicleWarrantyElement.value =
       (Number(MIN_VALUE) * Number(event.target.value)) / 100 + Number(MIN_VALUE)
   })
@@ -61,7 +63,7 @@ export function handleChangeVehicleLoanAmount(
   loanAmountElement
 ) {
   const MIN_VALUE = 30000.0
-  loanAmountRangeElement.addEventListener('change', function (event) {
+  loanAmountRangeElement.addEventListener('change', function(event) {
     loanAmountElement.value =
       (Number(MIN_VALUE) * Number(event.target.value)) / 100 + Number(MIN_VALUE)
   })
@@ -87,6 +89,6 @@ export default class CreditasChallenge {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
   CreditasChallenge.initialize()
 })

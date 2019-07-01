@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node config/server.js",
     "test": "jest"
   },
   "repository": {
@@ -12,7 +12,7 @@
     "url": "git+git@github.com:Creditas/challenge.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Anderson Santana Costa",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Creditas/challenge/issues"
@@ -57,15 +57,11 @@
         "statements": -10
       }
     },
-    "testMatch": [
-      "**/__tests__/**/*.js?(x)",
-      "**/?(*.)+(spec|test).js?(x)"
-    ],
     "coveragePathIgnorePatterns": [
       "/node_modules/"
     ],
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
+      "app/scripts/**/*.{js,jsx}"
     ],
     "testPathIgnorePatterns": [
       "/node_modules/"
@@ -73,13 +69,17 @@
     "transformIgnorePatterns": [
       "/node_modules/"
     ],
-    "setupTestFrameworkScriptFile": "<rootDir>/config/setupTest.js",
+    "setupFilesAfterEnv": ["<rootDir>/test/__setup__/setupTest.js"],
     "transform": {
       "^.+\\.js$": "babel-jest"
     },
+    "testRegex": "/test/.*?\\.(test|spec)\\.js$",
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/__setup__/fileMock.js",
+      "\\.(css|scss)$": "<rootDir>/test/__setup__/styleMock.js"
     }
+  },
+  "dependencies": {
+    "eslint": "^6.0.1"
   }
 }

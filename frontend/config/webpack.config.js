@@ -3,11 +3,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'development',
-  entry: ['webpack/hot/dev-server', './src/index.js'],
+  entry: ['webpack/hot/dev-server', './app/scripts/index.js'],
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/',
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -17,16 +17,16 @@ module.exports = {
       template: 'public/index.html',
       filename: 'index.html',
       files: {
-        css: ['style.css']
-      }
-    })
+        css: ['./app/styles/main.css'],
+      },
+    }),
   ],
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
-    ]
-  }
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
 }
