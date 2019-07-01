@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'ubuntu';
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+  background-color: var(--concrete);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 80px);
+  padding: 0 10px;
+}
+
+.main__title {
+  color: var(--dove-gray);
+  margin-bottom: 50px;
+  max-width: 600px;
+  line-height: 34px;
+  text-align: center;
+}
+
+.warning {
+  color: var(--red-warning);
+  padding: 20px;
+  font-size: 13px;
+  text-align: center;
+}
+
+@media screen and (max-width: 630px) {
+  main {
+    height: auto;
+    margin: 30px 0;
+  }
+}
