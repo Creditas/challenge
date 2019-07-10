@@ -45,4 +45,18 @@ describe 'payment' do
 
     end
 
+    it 'activate the subscription and notify the user to email if payment is a service subscription' do
+        membership = Product.new(type: :membership, name: 'Awesome membership')
+        customer = Customer.new
+        membership_order = Order.new(customer)
+        credit_card = CreditCard.fetch_by_hashed('43567890-987654367')
+        subscribed = true
+
+        membership_order.add_product(membership)
+        payment_membership = Payment.new(order: membership_order, payment_method: credit_card)
+        payment_membership.pay
+
+        expect(payment_membership.result.subscription?).to be subscribed
+    end
+
 end

@@ -11,6 +11,7 @@ class Payment
     @result = Result.new
 
     result_for_physical
+    result_for_membership
     
     @amount = order.total_amount
     @authorization_number = Time.now.to_i
@@ -32,16 +33,30 @@ class Payment
       @result.generate_for_shipping
     end
   end
+  def type_membership?
+    order.items.first.product.type == :membership
+  end
+  def result_for_membership
+    if type_membership?
+      @result.generate_for_membership
+    end
+  end
 
 end
 
 class Result
+  attr_reader :membership
 
   def shipping_label?
     @label
   end
   def generate_for_shipping
     @label = true
+  end
+  def subscription?
+      true
+  end
+  def generate_for_membership
   end
 end
 
@@ -122,7 +137,6 @@ class Customer
 end
 
 class Membership
-  # you can customize this class by yourself
 end
 
 # Book Example (build new payments if you need to properly test it)
