@@ -3,15 +3,14 @@ class Payment
 
   def initialize(attributes = {})
     @authorization_number, @amount = attributes.values_at(:authorization_number, :amount)
-    @invoice, @order, @result = attributes.values_at(:invoice, :order, :result)
+    @invoice, @order = attributes.values_at(:invoice, :order)
     @payment_method = attributes.values_at(:payment_method)
   end
 
   def pay(paid_at = Time.now)
     @result = Result.new
-    if  order.items.first.product.type == :physical 
-      @result.generate_for_shipping
-    end
+
+    result_for_physical
     
     @amount = order.total_amount
     @authorization_number = Time.now.to_i
@@ -22,6 +21,16 @@ class Payment
 
   def paid?
     !paid_at.nil?
+  end
+
+  private
+  def type_physical?
+    order.items.first.product.type == :physical
+  end
+  def result_for_physical
+    if type_physical?
+      @result.generate_for_shipping
+    end
   end
 
 end
