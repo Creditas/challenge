@@ -115,7 +115,7 @@ describe 'payment' do
 
         expect(media_book.result.purchase_send).to be :description
     end
-    it 'send the description of the purchase by email if payment is media' do
+    it 'send the description of the purchase by email if payment is a media' do
         media = Product.new( type: :media, name: 'Awesome book')
         customer = Customer.new
         media_order = Order.new(customer)
@@ -128,7 +128,7 @@ describe 'payment' do
 
         expect(payment_media.result.purchase_sended?).to be sended
     end
-    it 'does not send the description of the purchase by email if payment is book' do
+    it 'does not send the description of the purchase by email if payment is a book' do
         book = Product.new( type: :book, name: 'Awesome book')
         customer = Customer.new
         book_order = Order.new(customer)
@@ -140,5 +140,31 @@ describe 'payment' do
         payment_book.pay
 
         expect(payment_book.result.purchase_sended?).to be not_sended
+    end
+    it 'apply a discount of $ 10 if payment is a media' do
+        media = Product.new( type: :media, name: 'Awesome book')
+        customer = Customer.new
+        media_order = Order.new(customer)
+        credit_card = CreditCard.fetch_by_hashed('43567890-987654367')
+        total = 0
+
+        media_order.add_product(media)
+        payment_media = Payment.new(order: media_order, payment_method: credit_card)
+        payment_media.pay
+
+        expect(payment_media.final_price).to be total
+    end
+    it 'does not apply a discount of $ 10 if payment is a book' do
+        book = Product.new( type: :book, name: 'Awesome book')
+        customer = Customer.new
+        book_order = Order.new(customer)
+        credit_card = CreditCard.fetch_by_hashed('43567890-987654367')
+        total = 10
+
+        book_order.add_product(book)
+        payment_book = Payment.new(order: book_order, payment_method: credit_card)
+        payment_book.pay
+
+        expect(payment_book.final_price).to be total
     end
 end

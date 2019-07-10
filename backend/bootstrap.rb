@@ -9,7 +9,8 @@ class Payment
 
   def pay(paid_at = Time.now)
     
-    @amount = order.total_amount
+    @discount = 0
+
     @authorization_number = Time.now.to_i
     @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
     @paid_at = paid_at
@@ -21,6 +22,10 @@ class Payment
     result_for_ordinarybook
     result_for_media
 
+    amount
+
+    calculate_final_price
+
     order.close(@paid_at)
   end
 
@@ -28,7 +33,19 @@ class Payment
     !paid_at.nil?
   end
 
+  def final_price
+    @final_price
+  end
+
   private
+
+  def amount 
+    @amount = order.total_amount
+  end
+
+  def calculate_final_price
+    @final_price =  @amount - @discount
+  end
 
   def type_physical?
     order.items.first.product.type == :physical
@@ -59,6 +76,7 @@ class Payment
   end
   def result_for_media
     if type_media?
+      @discount = 10
       @result.generate_for_media
     end
   end
