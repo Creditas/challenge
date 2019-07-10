@@ -56,6 +56,9 @@ class Result
   def subscription?
       true
   end
+  def subscription_email?
+    true
+  end
   def generate_for_membership
   end
 end

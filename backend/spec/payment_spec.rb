@@ -51,12 +51,14 @@ describe 'payment' do
         membership_order = Order.new(customer)
         credit_card = CreditCard.fetch_by_hashed('43567890-987654367')
         subscribed = true
+        sended = true
 
         membership_order.add_product(membership)
         payment_membership = Payment.new(order: membership_order, payment_method: credit_card)
         payment_membership.pay
 
         expect(payment_membership.result.subscription?).to be subscribed
+        expect(payment_membership.result.subscription_email?).to be sended
     end
 
 end
