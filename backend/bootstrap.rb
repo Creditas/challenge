@@ -57,6 +57,7 @@ end
 class Result
   def initialize
     @membership = Membership.new
+    @purchase = Purchase.new
   end
   def generate_for_shipping
     @label = true
@@ -80,7 +81,15 @@ class Result
     @notification = true
     @label = true
   end
+  def purchase
+    @purchase
+  end
+end
 
+class Purchase
+  def send
+    :description
+  end
 end
 
 class Membership

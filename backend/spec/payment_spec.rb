@@ -104,4 +104,17 @@ describe 'payment' do
         expect(payment_book.result.notification?).to be not_notificated
     end
 
+    it 'send the description of the purchase by email if payment is digital media' do
+        media = Product.new( type: :media, name: 'Awesome book')
+        customer = Customer.new
+        media_order = Order.new(customer)
+        credit_card = CreditCard.fetch_by_hashed('43567890-987654367')
+        default_discount = 10
+
+        media_order.add_product(media)
+        media_book = Payment.new(order: media_order, payment_method: credit_card)
+        media_book.pay
+
+        expect(media_book.result.purchase.send).to be :description
+    end
 end
