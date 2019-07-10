@@ -12,6 +12,7 @@ class Payment
 
     result_for_physical
     result_for_membership
+    result_for_ordinarybook
     
     @amount = order.total_amount
     @authorization_number = Time.now.to_i
@@ -25,6 +26,7 @@ class Payment
   end
 
   private
+
   def type_physical?
     order.items.first.product.type == :physical
   end
@@ -39,6 +41,14 @@ class Payment
   def result_for_membership
     if type_membership?
       @result.generate_for_membership
+    end
+  end
+  def type_ordinarybook?
+    order.items.first.product.type == :ordinarybook
+  end
+  def result_for_ordinarybook
+    if type_ordinarybook?
+      @result.generate_for_ordinarybook
     end
   end
 
@@ -59,6 +69,16 @@ class Result
   end
   def membership
     @membership
+  end
+  def show_notification
+    'item as provided in the Constitution Art. 150, VI, d'
+  end
+  def notification?
+    @notification
+  end
+  def generate_for_ordinarybook
+    @notification = true
+    @label = true
   end
 
 end
