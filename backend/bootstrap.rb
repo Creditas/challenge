@@ -8,16 +8,19 @@ class Payment
   end
 
   def pay(paid_at = Time.now)
-    @result = Result.new
-
-    result_for_physical
-    result_for_membership
-    result_for_ordinarybook
     
     @amount = order.total_amount
     @authorization_number = Time.now.to_i
     @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
     @paid_at = paid_at
+
+    @result = Result.new
+
+    result_for_physical
+    result_for_membership
+    result_for_ordinarybook
+    result_for_media
+
     order.close(@paid_at)
   end
 
@@ -51,13 +54,19 @@ class Payment
       @result.generate_for_ordinarybook
     end
   end
-
+  def type_media?
+    order.items.first.product.type == :media
+  end
+  def result_for_media
+    if type_media?
+      @result.generate_for_media
+    end
+  end
 end
 
 class Result
   def initialize
     @membership = Membership.new
-    @purchase = Purchase.new
   end
   def generate_for_shipping
     @label = true
@@ -81,8 +90,15 @@ class Result
     @notification = true
     @label = true
   end
-  def purchase
-    @purchase
+  def generate_for_media
+    purchase_send
+  end
+  def purchase_sended?
+    @purchase_send
+  end
+  def purchase_send
+    @purchase_send = true
+    Purchase.new.send
   end
 end
 
