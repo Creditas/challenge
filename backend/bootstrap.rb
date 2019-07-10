@@ -45,8 +45,6 @@ class Payment
 end
 
 class Result
-  attr_reader :membership
-
   def shipping_label?
     @label
   end
@@ -54,12 +52,14 @@ class Result
     @label = true
   end
   def subscription?
-      true
+    @subscription
   end
   def subscription_email?
-    true
+    @subscription_email
   end
   def generate_for_membership
+    @subscription = true
+    @subscription_email = true
   end
 end
 

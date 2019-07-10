@@ -60,5 +60,20 @@ describe 'payment' do
         expect(payment_membership.result.subscription?).to be subscribed
         expect(payment_membership.result.subscription_email?).to be sended
     end
+    it 'does not activate the subscription and does not notify the user to email if payment is a service subscription' do
+        book = Product.new(type: :book, name: 'Awesome membership')
+        customer = Customer.new
+        book_order = Order.new(customer)
+        credit_card = CreditCard.fetch_by_hashed('43567890-987654367')
+        not_subscribed = nil
+        not_sended = nil
+
+        book_order.add_product(book)
+        payment_book = Payment.new(order: book_order, payment_method: credit_card)
+        payment_book.pay
+
+        expect(payment_book.result.subscription?).to be not_subscribed
+        expect(payment_book.result.subscription_email?).to be not_sended
+    end
 
 end
