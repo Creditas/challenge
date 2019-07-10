@@ -38,9 +38,10 @@ end
 class Result
 
   def shipping_label?
-    true
+    @label
   end
   def generate_for_shipping
+    @label = true
   end
 end
 

@@ -30,4 +30,19 @@ describe 'payment' do
         expect(payment_physical.result.shipping_label?).to be generate
     end
 
+    it 'does not generate a shipping label if payment is for a non physical item' do
+        digital = Product.new(type: :digital, name: 'Awesome digital')
+        customer = Customer.new
+        digital_order = Order.new(customer)
+        credit_card = CreditCard.fetch_by_hashed('43567890-987654367')
+        not_generate = nil
+
+        digital_order.add_product(digital)
+        payment_digital = Payment.new(order: digital_order, payment_method: credit_card)
+        payment_digital.pay
+
+        expect(payment_digital.result.shipping_label?).to be not_generate
+
+    end
+
 end
