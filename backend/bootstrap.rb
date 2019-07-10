@@ -45,11 +45,28 @@ class Payment
 end
 
 class Result
-  def shipping_label?
-    @label
+  def initialize
+    @membership = Membership.new
   end
   def generate_for_shipping
     @label = true
+  end
+  def shipping_label?
+    @label
+  end
+  def generate_for_membership
+    @membership.subscribe
+  end
+  def membership
+    @membership
+  end
+
+end
+
+class Membership
+  def subscribe
+    @subscription = true
+    @subscription_email = true
   end
   def subscription?
     @subscription
@@ -57,12 +74,7 @@ class Result
   def subscription_email?
     @subscription_email
   end
-  def generate_for_membership
-    @subscription = true
-    @subscription_email = true
-  end
 end
-
 
 class Invoice
   attr_reader :billing_address, :shipping_address, :order
@@ -139,8 +151,7 @@ class Customer
   # you can customize this class by yourself
 end
 
-class Membership
-end
+
 
 # Book Example (build new payments if you need to properly test it)
 foolano = Customer.new

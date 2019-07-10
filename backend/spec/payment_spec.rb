@@ -57,8 +57,8 @@ describe 'payment' do
         payment_membership = Payment.new(order: membership_order, payment_method: credit_card)
         payment_membership.pay
 
-        expect(payment_membership.result.subscription?).to be subscribed
-        expect(payment_membership.result.subscription_email?).to be sended
+        expect(payment_membership.result.membership.subscription?).to be subscribed
+        expect(payment_membership.result.membership.subscription_email?).to be sended
     end
     it 'does not activate the subscription and does not notify the user to email if payment is a service subscription' do
         book = Product.new(type: :book, name: 'Awesome membership')
@@ -72,8 +72,8 @@ describe 'payment' do
         payment_book = Payment.new(order: book_order, payment_method: credit_card)
         payment_book.pay
 
-        expect(payment_book.result.subscription?).to be not_subscribed
-        expect(payment_book.result.subscription_email?).to be not_sended
+        expect(payment_book.result.membership.subscription?).to be not_subscribed
+        expect(payment_book.result.membership.subscription_email?).to be not_sended
     end
 
 end
