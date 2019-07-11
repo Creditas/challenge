@@ -124,6 +124,14 @@ end
 
 class Membership
 
+  def initialize(customer=nil)
+    @customer = customer
+  end
+
+  def email
+    @customer.email
+  end
+
   def subscribe_and_notification
     @subscription = true
     @subscription_email = true
@@ -208,7 +216,9 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  def email
+    :email
+  end
 end
 
 
