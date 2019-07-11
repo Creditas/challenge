@@ -11,7 +11,7 @@ class Payment
     
     @discount = 0
     @paid_at = paid_at
-    @result = Result.new
+    @result = Result.new(@order)
 
     result_for_physical
     result_for_membership
@@ -79,8 +79,12 @@ class Payment
 end
 
 class Result
-  def initialize
-    @membership = Membership.new
+  def initialize(order)
+    
+    @order = order
+    @customer = order.customer
+    @membership = Membership.new(@customer)
+
   end
   def generate_for_shipping
     @label = true
@@ -88,11 +92,12 @@ class Result
   def shipping_label?
     @label
   end
-  def generate_for_membership
-    @membership.subscribe_and_notification
-  end
+
   def membership
     @membership
+  end
+  def generate_for_membership
+    @membership.subscribe_and_notification
   end
   def show_notification
     'item as provided in the Constitution Art. 150, VI, d'
