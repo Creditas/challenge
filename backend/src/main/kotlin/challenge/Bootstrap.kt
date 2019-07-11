@@ -1,11 +1,7 @@
 package challenge
 
-import java.lang.Exception
-import java.util.*
-
 class Address
 class Customer
-
 
 
 fun main(args : Array<String>) {

@@ -1,3 +1,8 @@
+package challenge
+
+import java.util.Date
+
+
 class Order(val customer: Customer, val address: Address) {
     private val items = mutableListOf<OrderItem>()
     var closedAt: Date? = null
