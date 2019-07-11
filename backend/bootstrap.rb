@@ -1,5 +1,5 @@
 class Payment
-  attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at, :result
+  attr_reader :authorization_number, :invoice, :order, :payment_method, :paid_at, :result
 
   def initialize(attributes = {})
     @authorization_number, @amount = attributes.values_at(:authorization_number, :amount)
@@ -17,10 +17,10 @@ class Payment
     result_for_membership
     result_for_ordinarybook
     result_for_media
-
-    @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
-    
+   
     calculate_final_price
+    @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
+
 
     order.close(@paid_at)
   end
@@ -89,7 +89,7 @@ class Result
     @label
   end
   def generate_for_membership
-    @membership.subscribe
+    @membership.subscribe_and_notification
   end
   def membership
     @membership
@@ -123,7 +123,8 @@ class Purchase
 end
 
 class Membership
-  def subscribe
+
+  def subscribe_and_notification
     @subscription = true
     @subscription_email = true
   end
