@@ -1,8 +1,11 @@
 package challenge
 
-class Address
-class Customer
-
+import challenge.entity.Customer
+import challenge.entity.Order
+import challenge.entity.Product
+import challenge.enum.ProductType
+import challenge.model.Address
+import challenge.model.CreditCard
 
 fun main(args : Array<String>) {
     val shirt = Product("Flowered t-shirt", ProductType.PHYSICAL, 35.00)
@@ -19,4 +22,11 @@ fun main(args : Array<String>) {
 
     order.pay(CreditCard("43567890-987654367"))
     // now, how to deal with shipping rules then?
+
+    if (order.isPayed()) {
+        order.getOrderItems().forEach {
+            OrderRulesFactory().getInstance(it).process(order, it)
+        }
+    }
+
 }

@@ -1,11 +1,7 @@
-package challenge
+package challenge.entity
 
+import challenge.model.PaymentMethod
 import java.util.Date
-
-
-interface PaymentMethod
-
-data class CreditCard(val number: String) : PaymentMethod
 
 data class Payment(val order: Order, val paymentMethod: PaymentMethod) {
     val paidAt = Date()

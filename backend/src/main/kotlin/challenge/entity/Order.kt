@@ -1,7 +1,9 @@
-package challenge
+package challenge.entity
 
+import challenge.model.Address
+import challenge.model.OrderItem
+import challenge.model.PaymentMethod
 import java.util.Date
-
 
 class Order(val customer: Customer, val address: Address) {
     private val items = mutableListOf<OrderItem>()
@@ -13,11 +15,15 @@ class Order(val customer: Customer, val address: Address) {
         get() = items.sumByDouble { it.total }
 
     fun addProduct(product: Product, quantity: Int) {
-        var productAlreadyAdded = items.any { it.product == product }
+        val productAlreadyAdded = items.any { it.product == product }
         if (productAlreadyAdded)
             throw Exception("The product have already been added. Change the amount if you want more.")
 
         items.add(OrderItem(product, quantity))
+    }
+
+    fun getOrderItems(): List<OrderItem> {
+        return items.toList()
     }
 
     fun pay(method: PaymentMethod) {
@@ -35,13 +41,9 @@ class Order(val customer: Customer, val address: Address) {
     private fun close() {
         closedAt = Date()
     }
+
+    fun isPayed() = payment != null
+
 }
 
-data class OrderItem(val product: Product, val quantity: Int) {
-    val total get() = product.price * quantity
-}
 
-data class Invoice(val order: Order) {
-    val billingAddress: Address = order.address
-    val shippingAddress: Address = order.address
-}
