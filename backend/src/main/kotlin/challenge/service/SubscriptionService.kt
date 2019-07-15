@@ -6,7 +6,7 @@ import challenge.model.OrderItem
 
 class SubscriptionService private constructor() {
     companion object {
-        fun instance() = SubscriptionService()
+        val instance = SubscriptionService()
     }
 
     fun subscribe(order: Order, orderItem: OrderItem): Subscription {

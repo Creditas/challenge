@@ -7,7 +7,7 @@ import challenge.model.OrderItem
 
 class EmailService private constructor() {
     companion object {
-        fun instance() = EmailService()
+        val instance = EmailService()
     }
 
     fun sendPurchaseDescription(order: Order, orderItem: OrderItem) {

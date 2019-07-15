@@ -5,7 +5,7 @@ import challenge.model.OrderItem
 
 class PrinterService private constructor() {
     companion object {
-        fun instance() = PrinterService()
+        val instance = PrinterService()
     }
 
     fun printLabel(order: Order, orderItem: OrderItem) {

@@ -5,7 +5,7 @@ import challenge.entity.Order
 
 class DiscountService private constructor() {
     companion object {
-        fun instance() = DiscountService()
+        val instance = DiscountService()
     }
 
     fun grantDiscount(order: Order, quantity: Int): DiscountVoucher {
