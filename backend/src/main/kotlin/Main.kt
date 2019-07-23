@@ -11,7 +11,7 @@ fun main() {
     val book = Product("The Hitchhiker's Guide to the Galaxy", ProductType.BOOK, 120.00)
     val music = Product("Stairway to Heaven", ProductType.DIGITAL, 5.00)
 
-    val order = Order(Customer(), Address())
+    val order = Order(Customer("challenge@creditas.com.br"), Address())
 
     order.addProduct(shirt, 2)
     order.addProduct(netflix, 1)

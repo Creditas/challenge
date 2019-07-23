@@ -1,3 +1,3 @@
 package com.creditas.model
 
-class Customer
+class Customer(val emailTo : String)
