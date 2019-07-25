@@ -1,0 +1,25 @@
+{
+  "IOF": 6.38,
+  "taxaDeJuros": 2.34,
+  "maxEmprestimoDoGarantia": 80,
+  "garantia": [
+    {
+      "id": "veiculo",
+      "label": "Veículo",
+      "maxEmprestimo": 100000,
+      "minEmprestimo": 3000,
+      "minGarantia": 1000,
+      "maxGarantia": 3000000,
+      "prazos": [24, 36, 48]
+    },
+    {
+      "id": "imovel",
+      "label": "Imóvel",
+      "maxEmprestimo": 4500000,
+      "minEmprestimo": 30000,
+      "minGarantia": 1000,
+      "maxGarantia": 10000000,
+      "prazos": [120, 180, 240]
+    }
+  ]
+}
