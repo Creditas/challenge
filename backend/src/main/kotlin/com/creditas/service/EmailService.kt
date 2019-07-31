@@ -4,6 +4,6 @@ package com.creditas.service
 class EmailService {
 
     fun sendEmail(emailTo: String, emailTemplate : String, parameters : Map<String, String>) {
-        println("Email ${emailTemplate} sent!")
+        println("Email ${emailTemplate} sent to ${emailTo}!")
     }
 }
