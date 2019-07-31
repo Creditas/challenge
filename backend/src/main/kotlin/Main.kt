@@ -17,6 +17,7 @@ fun main() {
     order.addProduct(shirt, 2)
     order.addProduct(netflix, 1)
     order.addProduct(book, 1)
+    order.addProduct(book, 1)
     order.addProduct(music, 1)
 
     order.pay(CreditCard("43567890-987654367"))
