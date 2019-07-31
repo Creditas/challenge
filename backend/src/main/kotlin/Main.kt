@@ -4,6 +4,7 @@ import com.creditas.model.Order;
 import com.creditas.model.Customer;
 import com.creditas.model.Address;
 import com.creditas.model.CreditCard;
+import com.creditas.service.FulfillmentService
 
 fun main() {
     val shirt = Product("Flowered t-shirt", ProductType.PHYSICAL, 35.00)
@@ -20,4 +21,5 @@ fun main() {
 
     order.pay(CreditCard("43567890-987654367"))
     // now, how to deal with shipping rules then?
+    FulfillmentService().fulfill(order)
 }
