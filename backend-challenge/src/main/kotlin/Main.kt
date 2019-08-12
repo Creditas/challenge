@@ -2,7 +2,6 @@ import domain.address.Address
 import domain.customer.Customer
 import domain.order.Order
 import domain.payment.ProductType
-import domain.product.*
 import domain.product.Product.*
 import domain.shipment.ShipmentContext
 

@@ -3,12 +3,10 @@ package domain.order
 import domain.address.Address
 import domain.customer.Customer
 import domain.payment.ProductType
-import domain.product.Product
 import domain.product.Product.*
-import org.junit.Assert
-import org.junit.Assert.*
-import org.junit.Before
+import org.junit.Assert.assertEquals
 import org.junit.Test
+import kotlin.test.assertTrue
 
 class OrderTest {
 
