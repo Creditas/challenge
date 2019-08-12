@@ -2,11 +2,17 @@ package domain.order
 
 import domain.address.Address
 import domain.customer.Customer
+import domain.order.exceptions.OrderAlreadyPayed
+import domain.order.exceptions.PayEmptyOrderException
+import domain.payment.CreditCard
+import domain.payment.Payment
 import domain.payment.ProductType
 import domain.product.Product.*
+import domain.product.exceptions.ProductAlreadyAddedException
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
-import kotlin.test.assertTrue
+import java.util.*
 
 class OrderTest {
 
@@ -36,6 +42,8 @@ class OrderTest {
         )
     }
 
+    private val creditCard = CreditCard("43567890-987654367")
+
     @Test
     fun `should return total amount of order items`() {
         val expectedAmount = 22.0
@@ -57,5 +65,42 @@ class OrderTest {
         order.addProduct(spotify, 1)
 
         assertTrue(order.items.contains(orderItem))
+    }
+
+    @Test(expected = ProductAlreadyAddedException::class)
+    fun `should throw exception when product has already been added to items`() {
+        val spotify = Signature(
+                name = "Spotify Premium",
+                price = 16.90,
+                type = ProductType.MEMBERSHIP
+        )
+
+        val orderItem = OrderItem(spotify, 1)
+
+        order.addProduct(spotify, 1)
+        order.addProduct(spotify, 1)
+    }
+
+    @Test
+    fun `should pay order successfully and return payed order`() {
+        val expectedPayment = Payment(order, creditCard)
+        val payedOrder = order.pay(creditCard)
+
+        assertEquals(expectedPayment, payedOrder.payment)
+        assertEquals(Date(), payedOrder.closedAt)
+    }
+
+    @Test(expected = OrderAlreadyPayed::class)
+    fun `should throw exception when try to pay an already payed order`() {
+        val payedOrder = order.pay(creditCard)
+
+        payedOrder.pay(creditCard)
+    }
+
+    @Test(expected = PayEmptyOrderException::class)
+    fun `should throw exception when try to pay empty order`() {
+        order.items.removeAll(items)
+
+        order.pay(creditCard)
     }
 }

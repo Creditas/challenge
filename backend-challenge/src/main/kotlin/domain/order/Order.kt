@@ -2,9 +2,12 @@ package domain.order
 
 import domain.address.Address
 import domain.customer.Customer
+import domain.order.exceptions.OrderAlreadyPayed
+import domain.order.exceptions.PayEmptyOrderException
 import domain.payment.Payment
 import domain.payment.PaymentMethod
 import domain.product.Product
+import domain.product.exceptions.ProductAlreadyAddedException
 import java.util.*
 
 data class Order(
@@ -20,17 +23,17 @@ data class Order(
     fun addProduct(product: Product, quantity: Int) {
         val productAlreadyAdded = items.any { it.product == product }
         if (productAlreadyAdded)
-            throw Exception("The product have already been added. Change the amount if you want more.")
+            throw ProductAlreadyAddedException("The product have already been added. Change the amount if you want more.")
 
         items.add(OrderItem(product, quantity))
     }
 
     fun pay(method: PaymentMethod): Order {
         if (payment != null)
-            throw Exception("The order has already been paid!")
+            throw OrderAlreadyPayed("The order has already been paid!")
 
         if (items.count() == 0)
-            throw Exception("Empty order can not be paid!")
+            throw PayEmptyOrderException("Empty order can not be paid!")
 
         return this.copy(
                 payment = Payment(this, method),
