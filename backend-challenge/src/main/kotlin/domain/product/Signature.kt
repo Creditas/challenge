@@ -6,7 +6,7 @@ import domain.shipment.SignatureShipment
 data class Signature(
         val name: String,
         val type: ProductType = ProductType.MEMBERSHIP,
-        val price: Double,
+        override val price: Double,
         val isActivated: Boolean = false
 ) : Product() {
 

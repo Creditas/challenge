@@ -7,12 +7,13 @@ import domain.order.exceptions.PayEmptyOrderException
 import domain.payment.CreditCard
 import domain.payment.Payment
 import domain.payment.ProductType
-import domain.product.Product.*
+import domain.product.Digital
+import domain.product.Physical
+import domain.product.Signature
 import domain.product.exceptions.ProductAlreadyAddedException
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.*
 
 class OrderTest {
 
@@ -36,8 +37,6 @@ class OrderTest {
         Order(
                 customer = Customer(),
                 address = Address(),
-                closedAt = null,
-                payment = null,
                 items = items
         )
     }
@@ -75,8 +74,6 @@ class OrderTest {
                 type = ProductType.MEMBERSHIP
         )
 
-        val orderItem = OrderItem(spotify, 1)
-
         order.addProduct(spotify, 1)
         order.addProduct(spotify, 1)
     }
@@ -84,17 +81,16 @@ class OrderTest {
     @Test
     fun `should pay order successfully and return payed order`() {
         val expectedPayment = Payment(order, creditCard)
-        val payedOrder = order.pay(creditCard)
+        order.pay(creditCard)
 
-        assertEquals(expectedPayment, payedOrder.payment)
-        assertEquals(Date(), payedOrder.closedAt)
+        assertEquals(expectedPayment, order.payment)
+
     }
 
     @Test(expected = OrderAlreadyPayed::class)
     fun `should throw exception when try to pay an already payed order`() {
-        val payedOrder = order.pay(creditCard)
-
-        payedOrder.pay(creditCard)
+        order.pay(creditCard)
+        order.pay(creditCard)
     }
 
     @Test(expected = PayEmptyOrderException::class)

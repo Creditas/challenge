@@ -9,7 +9,7 @@ import domain.shipment.ShippingLabel
 data class Physical(
         val name: String,
         val type: ProductType = PHYSICAL,
-        val price: Double,
+        override val price: Double,
         val shippingLabel: ShippingLabel? = null
 ) : Product() {
 

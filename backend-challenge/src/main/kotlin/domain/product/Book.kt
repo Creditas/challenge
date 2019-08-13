@@ -8,7 +8,7 @@ import domain.shipment.ShippingLabel
 data class Book(
         val name: String,
         val type: ProductType,
-        val price: Double,
+        override val price: Double,
         val shippingLabel: ShippingLabel? = null
 ) : Product() {
     override fun shipmentStrategy(): ShipmentStrategy = BookShipment()

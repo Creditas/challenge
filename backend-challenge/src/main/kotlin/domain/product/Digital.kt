@@ -7,7 +7,7 @@ import domain.shipment.ShipmentStrategy
 data class Digital(
         val name: String,
         val type: ProductType = ProductType.DIGITAL,
-        val price: Double,
+        override val price: Double,
         val voucher: Double = 0.0
 ) : Product() {
 
