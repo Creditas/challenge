@@ -19,7 +19,7 @@ data class Order(
 ) {
 
     private var closedAt: Date? = null
-     var payment: Payment? by Delegates.observable<Payment?>(null) { _, _, _ ->
+    var payment: Payment? by Delegates.observable<Payment?>(null) { _, _, _ ->
         items.forEach { ShipmentContext.prepareProductToShipping(it.product) }
     }
 
