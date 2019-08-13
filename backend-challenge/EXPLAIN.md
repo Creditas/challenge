@@ -2,6 +2,8 @@
 
 Foi criado o modulo `backend-challenge` naquele contém toda a implementação do desafio.
 
+Dentro do módulo é possivel executar o comando `./gradlew test` para que todos os testes sejam executados.
+
 Primeiramente desacoplei as classes do arquivo `bootstrap.kt` sendo assim as classes ficaram separadas por features,
 e aumentando a coesão de cada classe.
 
