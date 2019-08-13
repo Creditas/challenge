@@ -20,7 +20,10 @@ Assim conseguimos eliminar condições para cada tipo de shipment.
 Como temos várias regras para determinados tipos de entrega dos produtos acabei decidindo por implementar o pattern `Strategy`,
 assim caso fosse necessário implementar um novo tipo de entrega teriamos apenas um ponto de alteração.
 
+**Order**
 
+Dentro da classe order implementei a feature do Kotlin Delegates, assim quando a variável payment tiver o seu estado alterado
+um laço será executado nos items do pedido, executando a entregada adequada para cada um.
 
 
     

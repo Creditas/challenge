@@ -14,6 +14,7 @@ import domain.product.exceptions.ProductAlreadyAddedException
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.util.*
 
 class OrderTest {
 
@@ -84,6 +85,7 @@ class OrderTest {
         order.pay(creditCard)
 
         assertEquals(expectedPayment, order.payment)
+        assertEquals(Date(), order.closedAt)
 
     }
 
