@@ -2,7 +2,7 @@ package domain.shipment
 
 import domain.product.Product
 
-interface Shipment {
+interface ShipmentStrategy {
 
     fun shipping(product: Product) : Product
 }

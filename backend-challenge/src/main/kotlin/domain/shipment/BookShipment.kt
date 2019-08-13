@@ -1,9 +1,9 @@
 package domain.shipment
 
+import domain.product.Book
 import domain.product.Product
-import domain.product.Product.*
 
-class BookShipment : Shipment {
+class BookShipment : ShipmentStrategy {
 
     override fun shipping(product: Product): Product {
         product as Book

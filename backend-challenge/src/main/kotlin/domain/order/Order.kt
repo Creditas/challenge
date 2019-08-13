@@ -8,15 +8,20 @@ import domain.payment.Payment
 import domain.payment.PaymentMethod
 import domain.product.Product
 import domain.product.exceptions.ProductAlreadyAddedException
+import domain.shipment.ShipmentContext
 import java.util.*
+import kotlin.properties.Delegates
 
 data class Order(
         val customer: Customer,
         val address: Address,
-        val closedAt: Date?,
-        val payment: Payment?,
         val items: MutableList<OrderItem> = mutableListOf()
 ) {
+
+    private var closedAt: Date? = null
+    private var payment: Payment? by Delegates.observable(null, { _, _, _ ->
+        items.forEach { ShipmentContext.prepareProductToShipping(it.product) }
+    })
 
     fun totalAmount() = items.sumByDouble { it.total }
 
@@ -28,16 +33,14 @@ data class Order(
         items.add(OrderItem(product, quantity))
     }
 
-    fun pay(method: PaymentMethod): Order {
+    fun pay(method: PaymentMethod) {
         if (payment != null)
             throw OrderAlreadyPayed("The order has already been paid!")
 
         if (items.count() == 0)
             throw PayEmptyOrderException("Empty order can not be paid!")
 
-        return this.copy(
-                payment = Payment(this, method),
-                closedAt = Date()
-        )
+        payment = Payment(this, method)
+        closedAt = Date()
     }
 }

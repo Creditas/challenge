@@ -1,7 +1,6 @@
 package domain.communication
 
-class EmailSender  {
+object EmailSender  {
 
     fun send(message: String) = print(message)
-
 }
