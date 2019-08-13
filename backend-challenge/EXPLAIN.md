@@ -1,5 +1,7 @@
 ##Resolução
 
+Foi criado o modulo `backend-challenge` naquele contém toda a implementação do desafio.
+
 Primeiramente desacoplei as classes do arquivo `bootstrap.kt` sendo assim as classes ficaram separadas por features,
 e aumentando a coesão de cada classe.
 
