@@ -1,5 +1,3 @@
-import './styles.css'
-
 export const checkFormValidity = formElement => formElement.checkValidity()
 
 export const getFormValues = formElement =>
