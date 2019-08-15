@@ -1,24 +1,9 @@
-// @media screen and (max-width: 630px) {
-
-//     .form {}
-
-//     .form>div {
-//         width: 100%;
-//     }
-
-//     .form .form__fields {
-//         min-width: 100%;
-//         margin-bottom: 30px;
-//     }
-
-// }
-
 .form {
     flex-direction: column;
     align-items: center;
     display: flex;
     justify-content: space-around;
-    margin-bottom: 50px;
+    margin-bottom: rem(50);
 
     @media screen and (min-width: 960px) {
         flex-direction: initial;
@@ -35,16 +20,16 @@
 
     &__fields {
         min-width: 100%;
-        margin-bottom: 30px;
+        margin-bottom: rem(30);
 
         @media screen and (min-width: 960px) {
-            max-width: 400px;
-            min-width: 400px;
+            max-width: rem(400);
+            min-width: rem(400);
         }
 
         &__group {
             display: flex;
-            margin-bottom: 30px;
+            margin-bottom: rem(30);
             flex-direction: column;
             justify-content: center;
 
@@ -64,8 +49,9 @@
                 }
 
                 &:first-child {
-                    margin-right: 30px;
-                    margin-bottom: 1em;
+                    margin-right: rem(30);
+                    margin-bottom: rem(16);
+
                     @media screen and (min-width: 960px) {
                         margin-bottom: initial;
                     }
@@ -74,8 +60,8 @@
                 &__label {
                     color: $dove-gray;
                     font-weight: bold;
-                    font-size: .8rem;
-                    margin-bottom: 5px;
+                    font-size: rem(12.8);
+                    margin-bottom: rem(5);
                 }
 
                 &__select {
@@ -92,8 +78,8 @@
                     border: 1px solid $nobel;
                     background-color: $alabaster;
                     border-radius: 4px;
-                    padding: 10px 5px;
-                    width: 150px;
+                    padding: rem(10) rem(5);
+                    width: rem(150);
                 }
 
                 &__range {
@@ -111,7 +97,7 @@
                         justify-content: space-between;
 
                         span {
-                            font-size: .6rem;
+                            font-size: rem(9.6);
                             font-weight: 100;
                         }
                     }
