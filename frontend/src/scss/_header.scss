@@ -1,21 +1,20 @@
 .header {
     background-color: $mountain-meadow;
-    padding: 20px 0;
-}
-
-.header__container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 80%;
-    margin: 0 auto;
-}
-
-.logo {
-    height: 1em;
-}
-
-.help {
-    text-decoration: none;
-    color: $concrete;
+    padding: rem(24) 0;
+    &__c {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 80%;
+        margin: 0 auto;
+        &__title {
+            &__logo {
+                height: rem(32);
+            }
+        }
+        &__help {
+            text-decoration: none;
+            color: $concrete;
+        }
+    }
 }

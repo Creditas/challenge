@@ -1,5 +1,6 @@
 @import './helpers/variables';
 @import './helpers/global';
+@import './helpers/font-size';
 
 @import './header';
 @import './form-input';
@@ -15,7 +16,7 @@
 
 .main {
     display: flex;
-    flex-direction: column;
+    flex-flow: row wrap;
     justify-content: center;
     align-items: center;
     height: calc(100% - 80px);
@@ -24,7 +25,7 @@
 
 .main__title {
     color: $dove-gray;
-    margin-bottom: 50px;
+    margin: rem(32) 0;
     max-width: 600px;
     line-height: 34px;
     text-align: center;
