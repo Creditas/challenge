@@ -99,7 +99,7 @@ class Membership
   # you can customize this class by yourself
 end
 
-# Book Example (build new payments if you need to properly test it)
+# Book Example (build new payments if you need to properly kotlin.test it)
 foolano = Customer.new
 book = Product.new(name: 'Awesome book', type: :book)
 book_order = Order.new(foolano)
