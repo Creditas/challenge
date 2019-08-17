@@ -1,3 +1,11 @@
 package main.kotlin.core.domain.product
 
-class Digital(name: String, price: Double) : Product(name, price)
+import main.kotlin.core.domain.shipping.DigitalShipping
+import main.kotlin.core.domain.shipping.ShippingStrategy
+import main.kotlin.core.domain.voucher.Voucher
+
+data class Digital(override val name: String,
+                   override val price: Double,
+                   val voucher: Voucher? = null) : Product(name, price) {
+    override fun ship(): ShippingStrategy = DigitalShipping()
+}

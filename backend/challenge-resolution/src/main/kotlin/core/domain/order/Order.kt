@@ -39,4 +39,8 @@ class Order(val customer: Customer, val address: Address) {
     private fun close() {
         closedAt = Date()
     }
+
+    fun shipItems() {
+        items.forEach{ it.product.ship() }
+    }
 }

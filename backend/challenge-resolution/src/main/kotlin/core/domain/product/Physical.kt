@@ -1,3 +1,11 @@
 package main.kotlin.core.domain.product
 
-class Physical(name: String, price: Double) : Product(name, price)
+import main.kotlin.core.domain.shipping.PhysicalShipping
+import main.kotlin.core.domain.shipping.ShippingStrategy
+
+data class Physical(override val name: String,
+                    override val price: Double,
+                    val customerName: String = "",
+                    val shippingLabel: String? = null) : Product(name, price) {
+    override fun ship(): ShippingStrategy = PhysicalShipping(customerName)
+}
