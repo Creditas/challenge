@@ -14,7 +14,7 @@
         width: 100%;
 
         @media screen and (min-width: 960px) {
-            width: initial;
+            width: rem(150);
         }
     }
 

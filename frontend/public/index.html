@@ -51,8 +51,8 @@
                     <div class="form__fields__group__field__range">
                       <input type="range" name="valor-garantia-range" id="valor-garantia-range" class="form__fields__group__field__range__input--range" min="0" max="100" value="20" step="10">
                       <div class="form__fields__group__field__range__values">
-                        <span class="form__fields__group__field__range__values__span">12.000</span>
-                        <span class="form__fields__group__field__range__values__span">24.000</span>
+                        <span class="form__fields__group__field__range__values__span form__fields__group__field__range__values__span__warranty--min">R$ 3.750,00</span>
+                        <span class="form__fields__group__field__range__values__span form__fields__group__field__range__values__span__warranty--max">R$ 125.000,00</span>
                       </div>
                     </div>
                   </div>
@@ -62,14 +62,14 @@
                 <div class="form__fields__group">
                   <div class="form__fields__group__field">
                     <label for="valor-emprestimo" class="form__fields__group__field__label">Valor do Empréstimo</label>
-                    <input type="text" required name="valor-emprestimo" id="valor-emprestimo" class="form__fields__group__field__input--text" value="57000">
+                    <input type="number" min="3000" max="100000" required name="valor-emprestimo" id="valor-emprestimo" class="form__fields__group__field__input--text" value="57000">
                   </div>
                   <div class="form__fields__group__field">
                     <div class="form__fields__group__field__range">
                       <input type="range" name="valor-emprestimo-range" id="valor-emprestimo-range" class="form__fields__group__field__range__input--range" min="0" max="100" value="90" step="10">
                       <div class="form__fields__group__field__range__values">
-                        <span class="form__fields__group__field__range__values__span">30.000</span>
-                        <span class="form__fields__group__field__range__values__span">60.000</span>
+                        <span class="form__fields__group__field__range__values__span form__fields__group__field__range__values__span__loan-value--min">30.000</span>
+                        <span class="form__fields__group__field__range__values__span form__fields__group__field__range__values__span__loan-value--max">60.000</span>
                       </div>
                     </div>
                   </div>
@@ -84,13 +84,13 @@
                   <span class="form__result__quota__value__number">465,00</span>
                 </div>
               </div>
-              <div class="form__result__amount__container">
-                <h4 class="form__result__h4">Total a pagar</h4>
-                <p class="form__result__p">R$ 11.112,00</p>
+              <div class="form__result__amount form__result__amount__container">
+                <h4 class="form__result__amount__label form__result__h4">Total a pagar</h4>
+                <p class="form__result__p form__result__amount__total">R$ 11.112,00</p>
               </div>
-              <div class="form__result__tax__container">
-                <h4 class="form__result__h4">Taxa de juros (mês)</h4>
-                <p class="form__result__p">111,12%</p>
+              <div class="form__result__tax form__result__tax__container">
+                <h4 class="form__result__tax__label form__result__h4">Taxa de juros (mês)</h4>
+                <p class="form__result__p form__result__tax__value">111,12%</p>
               </div>
               <button class="form__result__btn--submit">
                 Solicitar
