@@ -41,15 +41,21 @@
             font-size: rem(18);
         }
 
-        &__value__currency {
-            font-size: rem(21);
-            color: $dove-gray;
-        }
+        &__value {
+            display: flex;
+            justify-content: center;
 
-        &__value__number {
-            font-size: rem(28);
-            color: $mountain-meadow;
-            font-weight: bold;
+            &__currency {
+                font-size: rem(21);
+                color: $dove-gray;
+                align-self: flex-end;
+            }
+
+            &__number {
+                font-size: rem(28);
+                color: $mountain-meadow;
+                font-weight: bold;
+            }
         }
     }
 
