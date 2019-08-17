@@ -4,15 +4,14 @@ import main.kotlin.core.domain.address.Address
 import main.kotlin.core.domain.customer.Customer
 import main.kotlin.core.domain.order.Order
 import main.kotlin.core.domain.payment.CreditCard
-import main.kotlin.core.domain.product.Product
-import main.kotlin.core.domain.product.ProductType
+import main.kotlin.core.domain.product.*
 
 class Application
 fun main(){
-    val shirt = Product("Flowered t-shirt", ProductType.PHYSICAL, 35.00)
-    val netflix = Product("Familiar plan", ProductType.MEMBERSHIP, 29.90)
-    val book = Product("The Hitchhiker's Guide to the Galaxy", ProductType.BOOK, 120.00)
-    val music = Product("Stairway to Heaven", ProductType.DIGITAL, 5.00)
+    val shirt = Physical("Flowered t-shirt", 35.00)
+    val netflix = Membership("Familiar plan", 29.90)
+    val book = Book("The Hitchhiker's Guide to the Galaxy", 120.00)
+    val music = Digital("Stairway to Heaven", 5.00)
 
     val order = Order(Customer(), Address())
 
