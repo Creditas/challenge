@@ -1,64 +1,67 @@
-@media screen and (max-width: 630px) {
-    .form .form__result {
-      width: 200px;
-      height: 250px;
-    }
-}
-
 .form__result {
     background-color: $white;
-    border-radius: 4px;
-    box-shadow: 0px -5px 2px -1px $silver;
-    padding: 10px;
+    border-radius: rem(4);
+    box-shadow: 0px rem(-5) rem(2) rem(-1) $silver;
+    padding: rem(10);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     min-width: 35%;
-  }
-  
-  .form__result h4 {
-    color: $boulder;
-    font-size: .7rem;
-    text-align: center;
-    margin-bottom: 3px;
-  }
-  
-  .form__result p {
-    font-size: .7rem;
-    font-weight: 100;
-    text-align: center;
-  }
-  
-  .quota__container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .quota__container h4 {
-    font-weight: 200;
-    font-size: 18px;
-  }
-  
-  .quota strong {
-    font-size: 21px;
-    color: $dove-gray;
-  }
-  
-  .quota span {
-    font-size: 28px;
-    color: $mountain-meadow;
-    font-weight: bold;
-  }
-  
-  .button {
-    background-color: $green-yellow;
-    border: none;
-    padding: 10px 0;
-    width: 100%;
-    color: $tom-thumb;
-    border-radius: 20px;
-    text-transform: uppercase;
-    font-weight: bold;
-  }
+    width: rem(200);
+    height: rem(250);
+
+    @media screen and (min-width: 930px) {
+        width: initial;
+        height: initial;
+    }
+
+    &__h4 {
+        color: $boulder;
+        font-size: .7rem;
+        text-align: center;
+        margin-bottom: 3px;
+    }
+
+    &__p {
+        font-size: rem(11.2);
+        font-weight: 100;
+        text-align: center;
+    }
+
+    &__quota {
+        &__container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__label {
+            font-weight: 200;
+            font-size: rem(18);
+        }
+
+        &__value__currency {
+            font-size: rem(21);
+            color: $dove-gray;
+        }
+
+        &__value__number {
+            font-size: rem(28);
+            color: $mountain-meadow;
+            font-weight: bold;
+        }
+    }
+
+    &__btn--submit {
+        background-color: $green-yellow;
+        border: none;
+        padding: rem(10) 0;
+        width: 100%;
+        color: $tom-thumb;
+        border-radius: rem(20);
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+}

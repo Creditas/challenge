@@ -1,20 +1,28 @@
 .header {
     background-color: $mountain-meadow;
     padding: rem(24) 0;
-    &__c {
+    height: $header-height;
+
+    &__container {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 80%;
         margin: 0 auto;
-        &__title {
-            &__logo {
-                height: rem(32);
-            }
+    }
+
+    &__a {
+        display: flex;
+    }
+
+    &__title {
+        &__logo {
+            height: rem(32);
         }
-        &__help {
-            text-decoration: none;
-            color: $concrete;
-        }
+    }
+
+    &__help {
+        text-decoration: none;
+        color: $concrete;
     }
 }

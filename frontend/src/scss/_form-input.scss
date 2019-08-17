@@ -96,14 +96,17 @@
                         display: flex;
                         justify-content: space-between;
 
-                        span {
+                        &__span {
                             font-size: rem(9.6);
                             font-weight: 100;
+
+                            &:last-child {
+                                text-align: right;
+                            }
                         }
                     }
                 }
             }
         }
     }
-
 }
