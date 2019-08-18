@@ -111,27 +111,23 @@ export const Form = {
         let el_loan_rg = document.querySelector("#valor-emprestimo-range")
         let submit_btn = document.querySelector(".form__result__btn--submit")
         if (!wrt_is_valid) {
-            submit_btn.disabled = true
             el_loan.disabled = true
             el_loan_rg.disabled = true
             el_loan.classList.add("disabled")
-            submit_btn.classList.add("disabled")
         }
         else if (wrt_is_valid) {
-            submit_btn.disabled = false
             el_loan.disabled = false
             el_loan_rg.disabled = false
             el_loan.classList.remove("disabled")
-            submit_btn.classList.remove("disabled")
         }
 
         let loan_is_valid = validateLoan.validator(validateLoan.id, validateLoan.rules)
 
-        if (!loan_is_valid) {
+        if (!loan_is_valid || !wrt_is_valid) {
             submit_btn.disabled = true
             submit_btn.classList.add("disabled")
         }
-        else if (loan_is_valid) {
+        else if (loan_is_valid && wrt_is_valid) {
             submit_btn.disabled = false
             submit_btn.classList.remove("disabled")
         }
