@@ -13,7 +13,7 @@ fun main(){
     val book = Book("The Hitchhiker's Guide to the Galaxy", 120.00)
     val music = Digital("Stairway to Heaven", 5.00)
 
-    val order = Order(Customer(), Address())
+    val order = Order(Customer("John"), Address())
 
     order.addProduct(shirt, 2)
     order.addProduct(netflix, 1)

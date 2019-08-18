@@ -4,7 +4,11 @@ import main.kotlin.core.domain.address.Address
 import main.kotlin.core.domain.customer.Customer
 import main.kotlin.core.domain.payment.Payment
 import main.kotlin.core.domain.payment.PaymentMethod
+import main.kotlin.core.domain.product.Book
+import main.kotlin.core.domain.product.Digital
+import main.kotlin.core.domain.product.Physical
 import main.kotlin.core.domain.product.Product
+import main.kotlin.core.domain.voucher.Voucher
 import java.util.*
 
 class Order(val customer: Customer, val address: Address) {
@@ -41,6 +45,6 @@ class Order(val customer: Customer, val address: Address) {
     }
 
     fun shipItems() {
-        items.forEach{ it.product.ship() }
+        items.forEach{ it.product.ship(this.customer) }
     }
 }
