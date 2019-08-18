@@ -8,6 +8,7 @@ import main.kotlin.core.domain.product.Digital
 import main.kotlin.core.domain.product.Membership
 import main.kotlin.core.domain.product.Physical
 import main.kotlin.core.exception.ProductAlreadyAddedException
+import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -17,7 +18,7 @@ class OrderTest{
     val netflix = Membership("Familiar plan", 29.90)
     val book = Book("The Hitchhiker's Guide to the Galaxy", 120.00)
     val music = Digital("Stairway to Heaven", 5.00)
-    lateinit var order: Order;
+    lateinit var order: Order
 
     @Before
     fun setUp(){
@@ -41,4 +42,8 @@ class OrderTest{
         order.addProduct(shirt, 2)
     }
 
+    @After
+    fun clear(){
+        order = Order(Customer("John"), Address())
+    }
 }
