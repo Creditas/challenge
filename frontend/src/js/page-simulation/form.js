@@ -83,6 +83,28 @@ export const Form = {
             ]
         }
 
+        var validateLoan = {
+            id: "#valor-emprestimo",
+            validator: FormValidator.validateField,
+            rules: [
+                {
+                    name: "required",
+                    rule: "element.value.length === 0",
+                    errormessage: "Este campo é obrigatório"
+                },
+                {
+                    name: "minimum",
+                    rule: `element.value.length > 0 && element.value < ${MIN_LOAN}`,
+                    errormessage: `Com este valor de garantia o valor do empréstimo precisa ser maior que ${Helpers.toCurrency(MIN_LOAN)}`
+                },
+                {
+                    name: "maximum",
+                    rule: `element.value > ${MAX_LOAN}`,
+                    errormessage: `Com este valor de garantia o valor do empréstimo precisa ser menor que ${Helpers.toCurrency(MAX_LOAN)}`
+                }
+            ]
+        }
+
         document.querySelector("#valor-garantia").addEventListener("input", () => {
             validateWarranty.validator(validateWarranty.id, validateWarranty.rules)
         });
@@ -91,6 +113,16 @@ export const Form = {
         });
         document.querySelector("#valor-garantia").addEventListener("paste", () => {
             validateWarranty.validator(validateWarranty.id, validateWarranty.rules)
+        });
+
+        document.querySelector("#valor-emprestimo").addEventListener("input", () => {
+            validateLoan.validator(validateLoan.id, validateLoan.rules)
+        });
+        document.querySelector("#valor-emprestimo").addEventListener("blur", () => {
+            validateLoan.validator(validateLoan.id, validateLoan.rules)
+        });
+        document.querySelector("#valor-emprestimo").addEventListener("paste", () => {
+            validateLoan.validator(validateLoan.id, validateLoan.rules)
         });
     },
     handleChangeRangeWarranty: function (
