@@ -2,8 +2,8 @@ const IOF = 6.38 / 100
 const INTEREST_RATE = 2.34 / 100
 var MIN_WARRANTY = 3750.0
 var MAX_WARRANTY = 125000.0
-var MIN_LOAN = 37500.0
-var MAX_LOAN = 100000.0
+var MIN_LOAN = 3000.0
+var MAX_LOAN = 8000.0
 
 export const checkFormValidity = formElement => formElement.checkValidity()
 
@@ -61,7 +61,6 @@ export function handleChangeVehicleLoanAmount(
   loanAmountRangeElement,
   loanAmountElement
 ) {
-  const MIN_VALUE = MIN_LOAN
   loanAmountRangeElement.addEventListener('change', function (event) {
     loanAmountElement.value =
       Number(event.target.value) == 0 ? Number(MIN_LOAN) : ((Number(MAX_LOAN) / 100) * Number(event.target.value))
@@ -71,12 +70,12 @@ export function handleChangeVehicleLoanAmount(
 export function watchChangesOnInputsAndSelects() {
   document.querySelectorAll("input").forEach(el => {
     el.addEventListener("change", e => {
-      updateValues(e)
+      updateValues(e, updateResults)
     })
   })
   document.querySelectorAll("select").forEach(el => {
     el.addEventListener("change", e => {
-      updateValues(e)
+      updateValues(e, updateResults)
     })
   })
 }
@@ -101,8 +100,8 @@ export function calculateWarrantyMax(typeofLoan) {
   return typeofLoan == "imovel" ? (4500000 / 0.8) : (100000 / 0.8)
 }
 
-export function toCurrency (number) {
-  return number.toLocaleString('pt-br',{style: 'currency', currency: 'BRL', minimumFractionDigits: 2})
+export function toCurrency(number) {
+  return number.toLocaleString('pt-br', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 })
 }
 
 export function updateWarrantyRange() {
@@ -141,12 +140,28 @@ export function updateLoanRange() {
   }
 }
 
-export function updateTypeOfLoan(e) {
+export function updateValues(e, cb) {
   let typeofLoan = document.querySelector("#garantia").value
 
   MIN_WARRANTY = calculateWarrantyMin(typeofLoan)
   if (e.target.id == "garantia") {
     updateWarrantyRange()
+
+    if (typeofLoan == "veiculo") {
+      document.querySelector("#parcelas").innerHTML = `
+      <option value="24">24</option>
+      <option value="36">36</option>
+      <option value="48">48</option>
+      `
+    }
+
+    else if (typeofLoan == "imovel") {
+      document.querySelector("#parcelas").innerHTML = `
+      <option value="120">120</option>
+      <option value="180">180</option>
+      <option value="240">240</option>
+      `
+    }
   }
 
 
@@ -154,11 +169,6 @@ export function updateTypeOfLoan(e) {
   MAX_LOAN = calculateLoanMax(warranty)
 
   if (typeofLoan == "veiculo") {
-    document.querySelector("#parcelas").innerHTML = `
-    <option value="24">24</option>
-    <option value="36">36</option>
-    <option value="48">48</option>
-    `
 
     document.querySelector("#valor-emprestimo").setAttribute("min", 3000)
     document.querySelector("#valor-emprestimo").setAttribute("max", MAX_LOAN)
@@ -170,11 +180,6 @@ export function updateTypeOfLoan(e) {
     MAX_WARRANTY = 125000
   }
   else if (typeofLoan == "imovel") {
-    document.querySelector("#parcelas").innerHTML = `
-    <option value="120">120</option>
-    <option value="180">180</option>
-    <option value="240">240</option>
-    `
 
     document.querySelector("#valor-emprestimo").setAttribute("min", 30000)
     document.querySelector("#valor-emprestimo").setAttribute("max", MAX_LOAN)
@@ -193,22 +198,19 @@ export function updateTypeOfLoan(e) {
   MIN_WARRANTY = calculateWarrantyMin(typeofLoan)
   CreditasChallenge.registerEvents();
 
-  if (e.target.id == "garantia" || e.target.id == "valor-garantia" || e.target.id == "valor-garantia-range") {
-    updateLoanRange()
-  }
+  updateLoanRange()
+  cb()
 }
 
-export function updateValues(e) {
+export function updateResults() {
 
-  if (e.target.id == "garantia" || e.target.id == "valor-garantia" || e.target.id == "valor-garantia-range") {
-    updateTypeOfLoan(e)
-  }
-  
   let time = document.querySelector("#parcelas").value
   let loanValue = document.querySelector("#valor-emprestimo").value
-  let loanTotal = calculateLoanTotal(time,loanValue).toLocaleString('pt-br',{style: 'currency', currency: 'BRL', minimumFractionDigits: 2})
+  let loanTotal = toCurrency(calculateLoanTotal(time, loanValue))
+  let loanInstallments = calculateLoanInstallment(calculateLoanTotal(time, loanValue), time).toLocaleString("pt-br", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
   document.querySelector(".form__result__amount__total").innerHTML = loanTotal
+  document.querySelector(".form__result__quota__value__number").innerHTML = loanInstallments
 }
 
 export default class CreditasChallenge {
@@ -218,7 +220,6 @@ export default class CreditasChallenge {
 
   static registerEvents() {
 
-    watchChangesOnInputsAndSelects();
     Submit(document.querySelector('.form'))
 
     handleChangeRangeVehicleUnderWarranty(
@@ -230,6 +231,8 @@ export default class CreditasChallenge {
       document.getElementById('valor-emprestimo-range'),
       document.getElementById('valor-emprestimo')
     )
+
+    watchChangesOnInputsAndSelects();
   }
 }
 
