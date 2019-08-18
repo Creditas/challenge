@@ -81,7 +81,7 @@ export function watchChangesOnInputsAndSelects() {
 }
 
 export function calculateLoanTotal(time, loanValue) {
-  return (((IOF / 100) + (INTEREST_RATE / 100) + (time / 1000) + 1) * loanValue)
+  return ((IOF + INTEREST_RATE + (time / 1000) + 1) * loanValue)
 }
 
 export function calculateLoanInstallment(total, time) {
