@@ -1,7 +1,7 @@
 package main.kotlin.core.domain.shipping
 
 import main.kotlin.core.domain.customer.Customer
-import main.kotlin.core.domain.email.EmailSender
+import main.kotlin.core.notification.EmailSender
 import main.kotlin.core.domain.product.Membership
 import main.kotlin.core.domain.product.Product
 

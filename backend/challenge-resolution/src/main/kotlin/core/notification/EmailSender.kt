@@ -1,4 +1,4 @@
-package main.kotlin.core.domain.email
+package main.kotlin.core.notification
 
 import main.kotlin.core.domain.customer.Customer
 
