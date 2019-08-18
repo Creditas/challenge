@@ -280,7 +280,7 @@ export const Form = {
         )
 
         Form.updateLoanRange()
-        Form.watchValidators()
+        Form.validateAllFields()
 
         cb()
     },
