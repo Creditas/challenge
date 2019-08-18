@@ -1,5 +1,6 @@
 import { Helpers } from './helpers/helpers'
 import CreditasChallenge from './page-simulation'
+import { FormValidator } from './helpers/form-validator'
 
 var MIN_WARRANTY = 3750.0
 var MAX_WARRANTY = 125000.0
@@ -57,13 +58,47 @@ export const Form = {
                 Form.updateValues(e, Form.updateResults)
             })
         })
+        Form.watchValidators()
+    },
+    watchValidators: function() {
+        var validateWarranty = {
+            id: "#valor-garantia",
+            validator: FormValidator.validateField,
+            rules: [
+                {
+                    name: "required",
+                    rule: "element.value.length === 0",
+                    errormessage: "Este campo é obrigatório"
+                },
+                {
+                    name: "minimum",
+                    rule: `element.value.length > 0 && element.value < ${MIN_WARRANTY}`,
+                    errormessage: `Com este tipo de garantia o valor da garantia precisa ser maior que ${Helpers.toCurrency(MIN_WARRANTY)}`
+                },
+                {
+                    name: "maximum",
+                    rule: `element.value > ${MAX_WARRANTY}`,
+                    errormessage: `Com este tipo de garantia o valor da garantia precisa ser menor que ${Helpers.toCurrency(MAX_WARRANTY)}`
+                }
+            ]
+        }
+
+        document.querySelector("#valor-garantia").addEventListener("input", () => {
+            validateWarranty.validator(validateWarranty.id, validateWarranty.rules)
+        });
+        document.querySelector("#valor-garantia").addEventListener("blur", () => {
+            validateWarranty.validator(validateWarranty.id, validateWarranty.rules)
+        });
+        document.querySelector("#valor-garantia").addEventListener("paste", () => {
+            validateWarranty.validator(validateWarranty.id, validateWarranty.rules)
+        });
     },
     handleChangeRangeWarranty: function (
         warrantyRangeElement,
         WarrantyElement
     ) {
         warrantyRangeElement.addEventListener('change', function (event) {
-            Form.updateWarrantyValue(WarrantyElement, event.target)
+            Form.updateWarrantyValue(WarrantyElement, warrantyRangeElement)
         })
     },
     handleChangeLoanAmount: function (
@@ -71,7 +106,7 @@ export const Form = {
         loanAmountElement
     ) {
         loanAmountRangeElement.addEventListener('change', function (event) {
-            Form.updateLoanValue(loanAmountElement, event.target)
+            Form.updateLoanValue(loanAmountElement, loanAmountRangeElement)
         })
     },
     updateLoanValue: (loan_el, loan_range_el) => {
@@ -119,6 +154,7 @@ export const Form = {
         let typeofLoan = document.querySelector("#garantia").value
 
         MIN_WARRANTY = Helpers.calculateWarrantyMin(typeofLoan)
+        
         if (e.target.id == "garantia") {
             Form.updateWarrantyRange()
 
@@ -151,8 +187,8 @@ export const Form = {
             document.querySelector(".form__fields__group__field__range__values__span__loan-value--min").innerHTML = "R$ 3.000,00"
             document.querySelector(".form__fields__group__field__range__values__span__loan-value--max").innerHTML = (MAX_LOAN < 100000) ? Helpers.toCurrency(MAX_LOAN) : "R$ 100.000,00"
 
-            MIN_LOAN = 3000
-            MAX_WARRANTY = 125000
+            MIN_LOAN = 3000.0
+            MAX_WARRANTY = 125000.0
         }
         else if (typeofLoan == "imovel") {
 
@@ -162,8 +198,8 @@ export const Form = {
             document.querySelector(".form__fields__group__field__range__values__span__loan-value--min").innerHTML = "R$ 30.000,00"
             document.querySelector(".form__fields__group__field__range__values__span__loan-value--max").innerHTML = (MAX_LOAN < 4500000) ? Helpers.toCurrency(MAX_LOAN) : "R$ 4.500.000,00"
 
-            MIN_LOAN = 30000
-            MAX_WARRANTY = 5625000
+            MIN_LOAN = 30000.0
+            MAX_WARRANTY = 5625000.0
         }
 
         document.querySelector(".form__fields__group__field__range__values__span__warranty--min").innerHTML = Helpers.toCurrency(Helpers.calculateWarrantyMin(typeofLoan))
@@ -172,17 +208,14 @@ export const Form = {
 
         MIN_WARRANTY = Helpers.calculateWarrantyMin(typeofLoan)
 
-        Form.updateWarrantyValue(
-            document.getElementById('valor-garantia-range'),
-            document.getElementById('valor-garantia')
-        )
-
         Form.updateLoanValue(
             document.getElementById('valor-emprestimo-range'),
             document.getElementById('valor-emprestimo')
         )
 
         Form.updateLoanRange()
+        Form.watchValidators()
+
         cb()
     },
     updateResults: () => {
