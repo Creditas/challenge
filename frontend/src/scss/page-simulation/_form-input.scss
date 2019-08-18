@@ -10,6 +10,11 @@
     
   }
 
+  .disabled {
+      background-color: #f0f0f0 !important;
+      color: #AAAAAA !important;
+  }
+
 .form {
     flex-direction: column;
     align-items: center;

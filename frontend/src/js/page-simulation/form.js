@@ -60,7 +60,7 @@ export const Form = {
         })
         Form.watchValidators()
     },
-    watchValidators: function() {
+    validateAllFields: function() {
         var validateWarranty = {
             id: "#valor-garantia",
             validator: FormValidator.validateField,
@@ -105,24 +105,58 @@ export const Form = {
             ]
         }
 
+
+        let wrt_is_valid = validateWarranty.validator(validateWarranty.id, validateWarranty.rules)
+        let el_loan = document.querySelector("#valor-emprestimo")
+        let el_loan_rg = document.querySelector("#valor-emprestimo-range")
+        let submit_btn = document.querySelector(".form__result__btn--submit")
+        if (!wrt_is_valid) {
+            submit_btn.disabled = true
+            el_loan.disabled = true
+            el_loan_rg.disabled = true
+            el_loan.classList.add("disabled")
+            submit_btn.classList.add("disabled")
+        }
+        else if (wrt_is_valid) {
+            submit_btn.disabled = false
+            el_loan.disabled = false
+            el_loan_rg.disabled = false
+            el_loan.classList.remove("disabled")
+            submit_btn.classList.remove("disabled")
+        }
+
+        let loan_is_valid = validateLoan.validator(validateLoan.id, validateLoan.rules)
+
+        if (!loan_is_valid) {
+            submit_btn.disabled = true
+            submit_btn.classList.add("disabled")
+        }
+        else if (loan_is_valid) {
+            submit_btn.disabled = false
+            submit_btn.classList.remove("disabled")
+        }
+
+    },
+    watchValidators: function () {
+
         document.querySelector("#valor-garantia").addEventListener("input", () => {
-            validateWarranty.validator(validateWarranty.id, validateWarranty.rules)
+            Form.validateAllFields()
         });
         document.querySelector("#valor-garantia").addEventListener("blur", () => {
-            validateWarranty.validator(validateWarranty.id, validateWarranty.rules)
+            Form.validateAllFields()
         });
         document.querySelector("#valor-garantia").addEventListener("paste", () => {
-            validateWarranty.validator(validateWarranty.id, validateWarranty.rules)
+            Form.validateAllFields()
         });
 
         document.querySelector("#valor-emprestimo").addEventListener("input", () => {
-            validateLoan.validator(validateLoan.id, validateLoan.rules)
+            Form.validateAllFields()
         });
         document.querySelector("#valor-emprestimo").addEventListener("blur", () => {
-            validateLoan.validator(validateLoan.id, validateLoan.rules)
+            Form.validateAllFields()
         });
         document.querySelector("#valor-emprestimo").addEventListener("paste", () => {
-            validateLoan.validator(validateLoan.id, validateLoan.rules)
+            Form.validateAllFields()
         });
     },
     handleChangeRangeWarranty: function (
@@ -131,6 +165,7 @@ export const Form = {
     ) {
         warrantyRangeElement.addEventListener('change', function (event) {
             Form.updateWarrantyValue(WarrantyElement, warrantyRangeElement)
+            Form.validateAllFields()
         })
     },
     handleChangeLoanAmount: function (
@@ -139,6 +174,7 @@ export const Form = {
     ) {
         loanAmountRangeElement.addEventListener('change', function (event) {
             Form.updateLoanValue(loanAmountElement, loanAmountRangeElement)
+            Form.validateAllFields()
         })
     },
     updateLoanValue: (loan_el, loan_range_el) => {
@@ -164,6 +200,7 @@ export const Form = {
             warranty.value = MAX_WARRANTY
             warranty_rg.value = 100
         }
+        Form.validateAllFields()
     },
     updateLoanRange: () => {
         let loan = document.querySelector("#valor-emprestimo")
@@ -181,12 +218,13 @@ export const Form = {
             loan.value = MAX_LOAN
             loan_rg.value = 100
         }
+        Form.validateAllFields()
     },
     updateValues: (e, cb) => {
         let typeofLoan = document.querySelector("#garantia").value
 
         MIN_WARRANTY = Helpers.calculateWarrantyMin(typeofLoan)
-        
+
         if (e.target.id == "garantia") {
             Form.updateWarrantyRange()
 

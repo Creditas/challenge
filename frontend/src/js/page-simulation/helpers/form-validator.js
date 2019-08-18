@@ -1,8 +1,8 @@
 import { Helpers } from './helpers'
+import { Form } from '../form'
 
 export const FormValidator = {
     validateField: function (id, rules) {
-        console.log("here", id, rules)
         var min = 3750.0
         var max = 125000.0
         var element = document.querySelector(id)
@@ -12,7 +12,6 @@ export const FormValidator = {
         let error = "";
 
         rules.forEach(rule => {
-            console.log (eval(rule.rule))
             if (eval(rule.rule)) {
                 errors.push(rule.errormessage)
             }
@@ -23,7 +22,6 @@ export const FormValidator = {
             }
         })
 
-        console.log(errors)
         if (errors.length == 0) {
 
             if (element.closest(`div`).querySelector(`.errormessage`)) {
