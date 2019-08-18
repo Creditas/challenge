@@ -21,7 +21,7 @@ const styles = {
 
 module.exports = {
   mode: 'development',
-  entry: ['webpack/hot/dev-server', './src/index.js', './src/js/page-simulation.js'],
+  entry: ['webpack/hot/dev-server', './src/js/page-simulation/page-simulation.js'],
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
