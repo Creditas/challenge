@@ -3,13 +3,15 @@ package test
 import main.kotlin.core.domain.address.Address
 import main.kotlin.core.domain.customer.Customer
 import main.kotlin.core.domain.order.Order
+import main.kotlin.core.domain.payment.CreditCard
 import main.kotlin.core.domain.product.Book
 import main.kotlin.core.domain.product.Digital
 import main.kotlin.core.domain.product.Membership
 import main.kotlin.core.domain.product.Physical
+import main.kotlin.core.exception.OrderAlreadyPayException
+import main.kotlin.core.exception.OrderEmptyCanBePaidException
 import main.kotlin.core.exception.ProductAlreadyAddedException
 import org.junit.After
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
@@ -40,6 +42,26 @@ class OrderTest{
 
     private fun whenAProductIsAddedTwice() {
         order.addProduct(shirt, 2)
+    }
+
+    @Test(expected = OrderAlreadyPayException::class)
+    fun orderIsPayAndTriedToPayTwice(){
+        givenProducts()
+        whenAOrderIsPaid()
+        thenTryToPayItAgain()
+    }
+
+    private fun whenAOrderIsPaid() {
+        order.pay(CreditCard("2223334445556"))
+    }
+
+    private fun thenTryToPayItAgain() {
+        order.pay(CreditCard("2223334445556"))
+    }
+
+    @Test(expected = OrderEmptyCanBePaidException::class)
+    fun andEmptyOrderIsPay(){
+        whenAOrderIsPaid()
     }
 
     @After
