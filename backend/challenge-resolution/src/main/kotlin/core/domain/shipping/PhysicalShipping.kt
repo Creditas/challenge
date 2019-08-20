@@ -5,7 +5,7 @@ import main.kotlin.core.domain.product.Physical
 import main.kotlin.core.domain.product.Product
 
 class PhysicalShipping(val customer: Customer) : ShippingStrategy{
-    override fun ship(product: Product) = with(product as Physical) {
-        product.copy(shippingLabel = "For: ${customer.name}")
+    override fun shipping(product: Product) = with(product as Physical) {
+        this.copy(shippingLabel = ShippingLabel("For: ${customer.name}"))
     }
 }

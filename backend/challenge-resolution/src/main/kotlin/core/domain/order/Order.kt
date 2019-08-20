@@ -5,6 +5,7 @@ import main.kotlin.core.domain.customer.Customer
 import main.kotlin.core.domain.payment.Payment
 import main.kotlin.core.domain.payment.PaymentMethod
 import main.kotlin.core.domain.product.Product
+import main.kotlin.core.domain.shipping.Shipment
 import main.kotlin.core.exception.OrderAlreadyPayException
 import main.kotlin.core.exception.OrderEmptyCanBePaidException
 import main.kotlin.core.exception.ProductAlreadyAddedException
@@ -44,6 +45,6 @@ class Order(val customer: Customer, val address: Address) {
     }
 
     fun shipItems() {
-        items.forEach{ it.product.ship(this.customer) }
+        items.forEach{ Shipment.shipProduct(it.product, customer) }
     }
 }

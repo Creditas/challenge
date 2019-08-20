@@ -4,22 +4,22 @@ import main.kotlin.core.domain.address.Address
 import main.kotlin.core.domain.customer.Customer
 import main.kotlin.core.domain.order.Order
 import main.kotlin.core.domain.payment.CreditCard
-import main.kotlin.core.domain.product.Book
-import main.kotlin.core.domain.product.Digital
-import main.kotlin.core.domain.product.Membership
-import main.kotlin.core.domain.product.Physical
+import main.kotlin.core.domain.product.*
 import main.kotlin.core.exception.OrderAlreadyPayException
 import main.kotlin.core.exception.OrderEmptyCanBePaidException
 import main.kotlin.core.exception.ProductAlreadyAddedException
 import org.junit.After
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import java.time.Instant
+import java.util.*
 
 class OrderTest{
-    val shirt = Physical("Flowered t-shirt", 35.00)
-    val netflix = Membership("Familiar plan", 29.90)
-    val book = Book("The Hitchhiker's Guide to the Galaxy", 120.00)
-    val music = Digital("Stairway to Heaven", 5.00)
+    lateinit var shirt : Product
+    lateinit var netflix: Product
+    lateinit var book: Product
+    lateinit var music: Product
     lateinit var order: Order
 
     @Before
@@ -30,10 +30,18 @@ class OrderTest{
     @Test(expected = ProductAlreadyAddedException::class)
     fun productsAreBeingAddedToOrderAndProductIsAddedTwice(){
         givenProducts()
+        whenProductsAreAddedToOrder()
         whenAProductIsAddedTwice()
     }
 
     private fun givenProducts() {
+        shirt = Physical("Flowered t-shirt", 35.00)
+        netflix = Membership("Familiar plan", 29.90)
+        book = Book("The Hitchhiker's Guide to the Galaxy", 120.00)
+        music = Digital("Stairway to Heaven", 5.00)
+    }
+
+    private fun whenProductsAreAddedToOrder(){
         order.addProduct(shirt, 2)
         order.addProduct(netflix, 1)
         order.addProduct(book, 1)
@@ -47,6 +55,7 @@ class OrderTest{
     @Test(expected = OrderAlreadyPayException::class)
     fun orderIsPayAndTriedToPayTwice(){
         givenProducts()
+        whenProductsAreAddedToOrder()
         whenAOrderIsPaid()
         thenTryToPayItAgain()
     }
@@ -61,7 +70,31 @@ class OrderTest{
 
     @Test(expected = OrderEmptyCanBePaidException::class)
     fun andEmptyOrderIsPay(){
+        givenProducts()
         whenAOrderIsPaid()
+    }
+
+    @Test
+    fun productsAreAddedToOrderAndTotalAmountIsTheExpected(){
+        givenProducts()
+        whenProductsAreAddedToOrder()
+        thenTheTotalAmountIs(224.90)
+    }
+
+    private fun thenTheTotalAmountIs(amount: Double) {
+        Assert.assertEquals(amount, order.totalAmount, 0.001)
+    }
+
+    @Test
+    fun orderIsPaidAndThenIsProperlyClosed(){
+        givenProducts()
+        whenProductsAreAddedToOrder()
+        whenAOrderIsPaid()
+        thenTheOrderIsClosed()
+    }
+
+    private fun thenTheOrderIsClosed() {
+        Assert.assertEquals(Date.from(Instant.now()),order.closedAt!!)
     }
 
     @After

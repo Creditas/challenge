@@ -7,8 +7,9 @@ import main.kotlin.core.domain.product.Product
 import main.kotlin.core.domain.voucher.Voucher
 
 class DigitalShipping(val customer: Customer) : ShippingStrategy{
-    override fun ship(product: Product) = with(product as Digital) {
-        EmailSender.sendShippingNotification(customer)
-        product.copy(voucher = Voucher(10.0))
+    override fun shipping(product: Product) = with(product as Digital) {
+        EmailSender.sendShippingNotification(customer, this.name)
+        customer.addVoucher(Voucher(10.0))
+        this.copy()
     }
 }

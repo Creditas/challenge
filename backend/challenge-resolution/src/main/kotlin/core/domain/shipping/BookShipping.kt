@@ -4,7 +4,7 @@ import main.kotlin.core.domain.product.Book
 import main.kotlin.core.domain.product.Product
 
 class BookShipping : ShippingStrategy{
-    override fun ship(product: Product) = with(product as Book) {
-        product.copy(shippingLabel = "Tax-exempt item as provided in the Constitution Art. 150, VI, d")
+    override fun shipping(product: Product) = with(product as Book) {
+        this.copy(shippingLabel = ShippingLabel("Tax-exempt item as provided in the Constitution Art. 150, VI, d"))
     }
 }

@@ -6,8 +6,8 @@ import main.kotlin.core.domain.product.Membership
 import main.kotlin.core.domain.product.Product
 
 class MembershipShipping(val customer: Customer) : ShippingStrategy{
-    override fun ship(product: Product) = with(product as Membership) {
-        EmailSender.sendShippingNotification(customer)
-        product.copy(isActivated = true)
+    override fun shipping(product: Product) = with(product as Membership) {
+        EmailSender.sendMembershipSubscriptionNotification(customer)
+        this.copy(isActivated = true)
     }
 }
