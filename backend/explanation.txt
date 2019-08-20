@@ -5,7 +5,7 @@
 
 3-  Una vez separado todo en distintos files comencé con el refactor de la clase Product.
     Aplique herencia para esto, Product como clase abstracta de Digital, Physical, Membership y Book. Utilizando algunos de los features y bondades que otorga Kotlin
-    utilice data classes para esto para aprovechar la inmutabilidad de los objetos una vez creados.
+    utilice data classes para esto para aprovechar la inmutabilidad de los objetos una vez creados. Tambien elimine el enum ProductType, puesto que ya no es necesario
 
 5-  Una vez finalizado este refactor, agregue nuevos tests para corroborar el funcionamiento de los objetos "producto" y comenzar con la creacion de los metodos de ship
     para cada caso.
@@ -20,4 +20,4 @@
 
 6-  Luego reemplace las excepciones y las hice tipadas, para poder asi tener excepciones mas claras.
 
-7-  Realice un rebase a master para squashear todos los commits y que sea mas claro ver los cambios que realice. Seguido de esto hice pull request.
+7-  Seguido de esto hice el pull request.
