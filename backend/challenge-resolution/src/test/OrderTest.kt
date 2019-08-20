@@ -12,8 +12,6 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import java.time.Instant
-import java.util.*
 
 class OrderTest{
     lateinit var shirt : Product

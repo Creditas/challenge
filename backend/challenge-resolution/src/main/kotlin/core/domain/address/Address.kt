@@ -1,4 +1,3 @@
 package main.kotlin.core.domain.address
 
-class Address {
-}
+class Address
