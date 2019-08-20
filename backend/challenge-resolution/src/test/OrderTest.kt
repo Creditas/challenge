@@ -94,7 +94,7 @@ class OrderTest{
     }
 
     private fun thenTheOrderIsClosed() {
-        Assert.assertEquals(Date.from(Instant.now()),order.closedAt!!)
+        Assert.assertTrue(order.closedAt != null)
     }
 
     @After
