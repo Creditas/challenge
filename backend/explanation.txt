@@ -1,0 +1,23 @@
+1-  Como primer medida lo que hice fue realizar tests para comprobar que el codigo dado funcionara.
+    Lleve adelante TDD como metodo de desarrollo para la solucion de este challenge, por lo que lo inicial fueron los tests. Para esto utilice JUnit4
+
+2-  Una vez finalizado los tests, comence con el refactoring de bootstrap.kt. Primero separe todas las clases en files distintos
+
+3-  Una vez separado todo en distintos files comencé con el refactor de la clase Product.
+    Aplique herencia para esto, Product como clase abstracta de Digital, Physical, Membership y Book. Utilizando algunos de los features y bondades que otorga Kotlin
+    utilice data classes para esto para aprovechar la inmutabilidad de los objetos una vez creados.
+
+5-  Una vez finalizado este refactor, agregue nuevos tests para corroborar el funcionamiento de los objetos "producto" y comenzar con la creacion de los metodos de ship
+    para cada caso.
+
+4-  Luego comence a crear las clases para realizar el "Shipping" de los productos, debido a los distintos metodos de shipping, que depende de cada tipo de producto.
+    Para evitar cases, switches e if/else anidados lo que hice fue utilizar el patron de diseño Strategy. De modo tal que cada producto tiene su implementacion del
+    metodo "Ship"
+
+5-  Una vez finalizado con el patron strategy para realizar el shipping de los productos comence con algo de refactor. Reemplace los comentarios donde se suponia que
+    debia enviar los mails con notificaciones al cliente por llamadas a la clase "EmailSender", que se encarga de "enviar" los mails. Luego agregue al cliente
+    como parametro del metodo "ship", ya que en varios casos se necesita informacion del cliente para realizar el envio de emails.
+
+6-  Luego reemplace las excepciones y las hice tipadas, para poder asi tener excepciones mas claras.
+
+7-  Realice un rebase a master para squashear todos los commits y que sea mas claro ver los cambios que realice. Seguido de esto hice pull request.
