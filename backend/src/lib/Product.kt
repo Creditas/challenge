@@ -1,8 +1,5 @@
 package challenge
 
-import java.awt.print.Book
-import java.lang.Exception
-
 /**
  * I have an abstract class Product which has just the [name] and the [price]
  * These are the basic attributes that a product needs
@@ -22,7 +19,7 @@ data class DigitalProduct(override val name : String, override val price : Doubl
 
 class BookProduct(override val name : String, override val price : Double) : Product {
     override fun getDeliveryRule() : DeliveryRuleInterface {
-        return BookDeliveryRule("tax-exempt")
+        return BookDeliveryRule()
     }
 }
 

@@ -32,7 +32,7 @@ class DigitalDeliveryRule : DeliveryRuleInterface, NotifyDeliveryInterface, Gner
         val notification = SimpleNotification(
                 "Congratulations you won a Voucher of" + this.generateVoucher(10.0).toString()
         )
-        EmailNotificator(customer.email) .send(notification)
+        EmailNotificator(customer.email).send(notification)
     }
     override fun generateVoucher(value: Double) : Voucher {
         return Voucher(value)
@@ -56,9 +56,9 @@ class MembershipDeliveryRule : DeliveryRuleInterface, NotifyDeliveryInterface {
 /**
  * You may choose to [createShippingLabel] with a [description]
  */
-open class PhysicalDeliveryRule(protected open val description : String = "") : DeliveryRuleInterface, ShippableInterface {
+open class PhysicalDeliveryRule() : DeliveryRuleInterface, ShippableInterface {
     override fun deliver(product: Product, quantity: Int, order : Order) {
-        this.createShippingLabel(order, this.description)
+        this.createShippingLabel(order, "")
     }
 
     override fun createShippingLabel(order : Order, description : String) : ShippingLabel {
@@ -66,7 +66,7 @@ open class PhysicalDeliveryRule(protected open val description : String = "") : 
     }
 }
 
-class BookDeliveryRule(override val description : String) : PhysicalDeliveryRule(description) {
+class BookDeliveryRule() : PhysicalDeliveryRule() {
     override fun createShippingLabel(order : Order, description : String) : ShippingLabel {
         return super.createShippingLabel(order, "$description; tax-exempt")
     }
@@ -74,7 +74,7 @@ class BookDeliveryRule(override val description : String) : PhysicalDeliveryRule
 
 interface DeliveryRuleInterface {
     /**
-     * Process the delivery of a [quantity] of [product] to a [customer]
+     * Process the delivery of a [quantity] of [product] to a [order]
      */
     fun deliver(product : Product, quantity : Int, order : Order)
 }
