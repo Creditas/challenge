@@ -6,7 +6,7 @@ import com.creditas.backend.domain.exception.ProductAlreadyAddedException
 import java.util.*
 
 class Order(val customer: Customer, val address: Address) {
-    private val items = mutableListOf<OrderItem>()
+    val items = mutableListOf<OrderItem>()
     var closedAt: Date? = null
         private set
     var payment: Payment? = null

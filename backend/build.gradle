@@ -34,5 +34,5 @@ dependencies {
 
 application {
     // Define the main class for the application
-    mainClassName = 'backend.AppKt'
+    mainClassName = 'com.creditas.backend.AppKt'
 }

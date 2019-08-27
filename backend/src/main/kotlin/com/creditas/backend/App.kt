@@ -6,6 +6,7 @@ import com.creditas.backend.domain.Product
 import com.creditas.backend.domain.ProductType
 import com.creditas.backend.domain.Customer
 import com.creditas.backend.domain.Address
+import com.creditas.backend.shipping.facade.ArrangeShipping
 
 fun main(args : Array<String>) {
     val shirt = Product("Flowered t-shirt", ProductType.PHYSICAL, 35.00)
@@ -22,4 +23,5 @@ fun main(args : Array<String>) {
 
     order.pay(CreditCard("43567890-987654367"))
     // now, how to deal with shipping rules then?
+    ArrangeShipping().ship(order)
 }
