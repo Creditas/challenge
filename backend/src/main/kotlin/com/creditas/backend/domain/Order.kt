@@ -1,5 +1,7 @@
 package com.creditas.backend.domain
 
+import com.creditas.backend.domain.exception.OrderAlreadyPaidException
+import com.creditas.backend.domain.exception.ProductAlreadyAddedException
 import java.util.*
 
 class Order(val customer: Customer, val address: Address) {
@@ -14,14 +16,14 @@ class Order(val customer: Customer, val address: Address) {
     fun addProduct(product: Product, quantity: Int) {
         var productAlreadyAdded = items.any { it.product == product }
         if (productAlreadyAdded)
-            throw Exception("The product have already been added. Change the amount if you want more.")
+            throw ProductAlreadyAddedException("The product have already been added. Change the amount if you want more.")
 
         items.add(OrderItem(product, quantity))
     }
 
     fun pay(method: PaymentMethod) {
         if (payment != null)
-            throw Exception("The order has already been paid!")
+            throw OrderAlreadyPaidException("The order has already been paid!")
 
         if (items.count() == 0)
             throw Exception("Empty order can not be paid!")

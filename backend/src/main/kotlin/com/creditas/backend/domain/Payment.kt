@@ -1,5 +1,7 @@
 package com.creditas.backend.domain
 
+import java.util.*
+
 data class Payment(val order: Order, val paymentMethod: PaymentMethod) {
     val paidAt = Date()
     val authorizationNumber = paidAt.time
