@@ -1,3 +1,3 @@
 package com.creditas.backend.domain
 
-class Customer
+data class Customer(val email: String, var membership: Boolean = false)

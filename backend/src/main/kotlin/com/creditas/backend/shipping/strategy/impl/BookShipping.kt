@@ -6,8 +6,12 @@ import com.creditas.backend.shipping.strategy.Shipping
 
 class BookShipping(val shippingLabel : ShippingLabel) : Shipping {
 
+    companion object {
+        val LABEL_MESSAGE = "Item isento de impostos conforme disposto na Constituição Art. 150, VI, d"
+    }
+
     override fun ship(order: Order) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        shippingLabel.generate(order, LABEL_MESSAGE)
     }
 
 }

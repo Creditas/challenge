@@ -8,6 +8,11 @@ import com.creditas.backend.shipping.strategy.Shipping
 class SubscriptionShipping(val activateMembership: ActivateMembership, val sendEmail: SendEmail) : Shipping {
 
     override fun ship(order: Order) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        activateMembership.activate(order.customer)
+
+        if (order.customer.membership) {
+            println("Membership activated!")
+            sendEmail.send(order.customer.email, "Your Membership details!", "XYZ")
+        }
     }
 }

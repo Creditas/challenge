@@ -9,7 +9,7 @@ class OrderTest {
 
     @Test(expected = ProductAlreadyAddedException::class)
     fun testProductAlreadyAdded() {
-        val order = Order(Customer(), Address())
+        val order = Order(Customer("marcus.geekcode@gmail.com"), Address())
         val product = Product("Iron Man", ProductType.DIGITAL, 20.00)
         order.addProduct(product, 1)
         order.addProduct(product, 1)
@@ -17,7 +17,7 @@ class OrderTest {
 
     @Test(expected = OrderAlreadyPaidException::class)
     fun testOrderHasAlreadyBeenPaid() {
-        val order = Order(Customer(), Address())
+        val order = Order(Customer("marcus.geekcode@gmail.com"), Address())
         val product = Product("Iron Man", ProductType.DIGITAL, 20.00)
         order.addProduct(product, 1)
         order.pay(CreditCard("123"))
@@ -26,7 +26,7 @@ class OrderTest {
 
     @Test(expected = EmptyOrderException::class)
     fun testPaymentOfEmptyOrder() {
-        val order = Order(Customer(), Address())
+        val order = Order(Customer("marcus.geekcode@gmail.com"), Address())
         order.pay(CreditCard("123"))
     }
 

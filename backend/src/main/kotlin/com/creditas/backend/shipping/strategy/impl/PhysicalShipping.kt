@@ -6,7 +6,11 @@ import com.creditas.backend.shipping.strategy.Shipping
 
 class PhysicalShipping(val shippingLabel: ShippingLabel) : Shipping {
 
+    companion object {
+        val LABEL_MESSAGE = "Physical Label"
+    }
+
     override fun ship(order: Order) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        shippingLabel.generate(order, LABEL_MESSAGE)
     }
 }
