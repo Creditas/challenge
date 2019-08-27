@@ -1,5 +1,6 @@
 package com.creditas.backend.domain
 
+import com.creditas.backend.domain.exception.EmptyOrderException
 import com.creditas.backend.domain.exception.OrderAlreadyPaidException
 import com.creditas.backend.domain.exception.ProductAlreadyAddedException
 import java.util.*
@@ -26,7 +27,7 @@ class Order(val customer: Customer, val address: Address) {
             throw OrderAlreadyPaidException("The order has already been paid!")
 
         if (items.count() == 0)
-            throw Exception("Empty order can not be paid!")
+            throw EmptyOrderException("Empty order can not be paid!")
 
         payment = Payment(this, method)
 
