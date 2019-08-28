@@ -6,7 +6,7 @@ from customer import CreditCard
 from customer import Address
 
 
-class Payment:
+class Payment(Customer, OrderTotal):
     authorization_number = None
     amount = None
     invoice = None
@@ -14,16 +14,16 @@ class Payment:
     payment_method = None
     paid_at = None
 
-    def __init__(self):
+    def __init__(self, customer, order_total):
 
-        self.customer = Customer()
-        self.orderTotal = OrderTotal()
+        self.customer = customer.customerName
+        self.orderTotal = order_total.totalPrice
         self.authorization_number = None
         self.amount = None
         self.invoice = None
         self.order = None
-        self.payment_method = CreditCard().fetch_by_hashed(self.customer.
-                                                           creditCard)
+        self.payment_method = customer.fetch_by_hashed(self.customer.
+                                                       creditCard)
 
     def pay(self, paid_at=time.time()):
 

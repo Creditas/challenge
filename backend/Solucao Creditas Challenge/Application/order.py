@@ -14,14 +14,14 @@ class OrderItem():
         self.price = price
 
 
-class OrderTotal:
+class OrderTotal(Customer):
     closed_at = None
     items = []
     totalPrice = 0.0
     numOfItems = None
 
-    def __init__(self):
-        self.customer = Customer()
+    def __init__(self, customer):
+        self.customer = customer.customerName
         self.items = []
         self.numOfItems = None
         self.totalPrice = 0.0
