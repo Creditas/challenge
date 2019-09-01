@@ -7,6 +7,7 @@ export class TestUtils {
    * @param {string} tag
    * @param {object} attributes
    * @returns {Promise<HTMLElement>}
+   * @memberof TestUtils
    */
   static render (tag, attributes = {}) {
     TestUtils._renderToDocument(tag, attributes)
@@ -19,6 +20,7 @@ export class TestUtils {
    *
    * @param {string} tag
    * @param {object} attributes
+   * @memberof TestUtils
    */
   static _renderToDocument (tag, attributes) {
     const htmlAttributes = TestUtils._mapObjectToHTMLAttributes(attributes)
@@ -33,6 +35,7 @@ export class TestUtils {
    *
    * @param {object} attributes
    * @returns {string}
+   * @memberof TestUtils
    */
   static _mapObjectToHTMLAttributes (attributes) {
     return Object.entries(attributes).reduce((previous, current) => {
@@ -46,6 +49,7 @@ export class TestUtils {
    *
    * @param {string} tag
    * @returns {Promise<HTMLElement>}
+   * @memberof TestUtils
    */
   static async _waitForComponentToRender (tag) {
     return new Promise(resolve => {
