@@ -1,0 +1,24 @@
+.creditas-dropdown__label {
+  color: var(--dove-gray);
+  display: block;
+  font-size: .8rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.creditas-dropdown__select {
+  appearance: none;
+  -ms-appearance: none;
+  border:none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.creditas-dropdown__select {
+  background-color: var(--alabaster);
+  border: 1px solid var(--nobel);
+  border-radius: 4px;
+  color: var(--emperor);
+  padding: 10px 5px;
+  width: 150px;
+}
