@@ -28,9 +28,13 @@ module.exports = {
   transformIgnorePatterns: [
     '/node_modules/'
   ],
-  setupTestFrameworkScriptFile: '<rootDir>/config/setupTest.js',
+  setupFilesAfterEnv: [
+    '<rootDir>/node_modules/regenerator-runtime/runtime',
+    '<rootDir>/config/setupTest.js'
+  ],
   transform: {
-    '.+\\.js$': 'babel-jest'
+    '.+\\.js$': 'babel-jest',
+    '^.+\\.html?$': 'html-loader-jest'
   },
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/fileMock.js',
