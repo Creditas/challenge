@@ -67,9 +67,16 @@ export function handleChangeVehicleLoanAmount(
   })
 }
 
+import { CreditasHeader } from './components/creditas-header'
+
 export default class CreditasChallenge {
   static initialize() {
+    this.registerComponents()
     this.registerEvents()
+  }
+
+  static registerComponents() {
+    window.customElements.define(CreditasHeader.tag, CreditasHeader)
   }
 
   static registerEvents() {
