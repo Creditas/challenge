@@ -1,0 +1,21 @@
+.creditas-header {
+  background-color: var(--mountain-meadow);
+  padding: 20px 0;
+}
+
+.creditas-header__container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 80%;
+}
+
+.creditas-header__logo {
+  height: 1em;
+}
+
+.creditas-header__link {
+  color: var(--concrete);
+  text-decoration: none;
+}
