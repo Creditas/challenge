@@ -1,9 +1,17 @@
+let instance = null
+
 export class PubSub {
   /**
    * Creates a new instance of PubSub.
    */
   constructor () {
-      this.events = {}
+    if (instance) {
+      return instance
+    }
+
+    instance = this
+    this.events = {}
+    return instance
   }
 
   /**
@@ -46,5 +54,9 @@ export class PubSub {
 
       // Get each subscription and call its callback with the passed data.
       return this.events[event].map((callback) => callback(data))
+  }
+
+  destroy () {
+    instance = null
   }
 }

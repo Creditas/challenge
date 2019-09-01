@@ -1,15 +1,23 @@
 import { PubSub } from './pubsub'
 
 describe('PubSub library', () => {
-  it('should have an empty list of events', () => {
-    let pubsub = new PubSub()
+  let pubsub
 
+  beforeEach(() => {
+    pubsub = new PubSub()
+  })
+
+  afterEach(() => {
+    pubsub.destroy()
+    pubsub = null
+  })
+
+  it('should have an empty list of events', () => {
     expect(pubsub.events).toEqual({})
   })
 
   describe('when a single event is used', () => {
     it('should subscribe one callback', () => {
-      let pubsub = new PubSub()
       let callback = jasmine.createSpy()
 
       pubsub.subscribe('stateChange', callback)
@@ -18,7 +26,6 @@ describe('PubSub library', () => {
     })
 
     it('should call single callback on publish', () => {
-      let pubsub = new PubSub()
       let callback = jasmine.createSpy()
 
       pubsub.subscribe('stateChange', callback)
@@ -33,7 +40,6 @@ describe('PubSub library', () => {
     const EVENT_NAME = 'stateChange'
 
     it('should subscribe multiple callbacks to the same event', () => {
-      let pubsub = new PubSub()
       let callbacks = []
 
       for (let i = 0; i < NUMBER_OF_MOCKS; i++) {
@@ -47,7 +53,6 @@ describe('PubSub library', () => {
     })
 
     it('should call multiple callbacks upon publish', () => {
-      let pubsub = new PubSub()
       let callbacks = []
 
       for (let i = 0; i < NUMBER_OF_MOCKS; i++) {
