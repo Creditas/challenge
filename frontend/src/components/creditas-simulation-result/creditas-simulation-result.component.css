@@ -1,0 +1,59 @@
+.creditas-simulation-result__container {
+  align-items: center;
+  display: flex;
+  flex-basis: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.creditas-simulation-result__title {
+  color: var(--boulder);
+  font-size: .7rem;
+  margin-bottom: 3px;
+  text-align: center;
+}
+
+.creditas-simulation-result__title--big {
+  font-weight: 200;
+  font-size: 18px;
+}
+
+.creditas-simulation-result__value {
+  font-size: .7rem;
+  font-weight: 100;
+}
+
+.creditas-simulation-result__quota {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.creditas-simulation-result__quota-details strong {
+  color: var(--dove-gray);
+  font-size: 21px;
+}
+
+.creditas-simulation-result__quota span {
+  color: var(--mountain-meadow);
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.creditas-simulation-result__cta {
+  background-color: var(--green-yellow);
+  border-radius: 20px;
+  color: var(--tom-thumb);
+  border: none;
+  font-weight: bold;
+  padding: 10px 0;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+@media screen and (max-width: 630px) {
+  .creditas-simulation-result__container {
+    min-height: 250px;
+    width: 200px;
+  }
+}

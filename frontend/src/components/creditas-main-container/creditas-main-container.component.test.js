@@ -24,7 +24,13 @@ describe('CreditasMainContainer component', () => {
   it('should render creditas-footer component', async () => {
     const el = await TestUtils.render(CreditasMainContainer.tag)
 
-    console.log(el.querySelector('creditas-footer'))
     expect(el.querySelector('creditas-footer')).not.toBeNull()
+  })
+
+  it('should render creditas-simulation-result component', async () => {
+    const el = await TestUtils.render(CreditasMainContainer.tag)
+    const childComponent = el.querySelector('.creditas-main-container__simulation .creditas-main-container__simulation-box')
+
+    expect(childComponent).not.toBeNull()
   })
 })

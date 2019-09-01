@@ -69,6 +69,7 @@ export function handleChangeVehicleLoanAmount(
 
 import { CreditasHeader } from '@components/creditas-header'
 import { CreditasMainContainer } from '@components/creditas-main-container'
+import { CreditasSimulationResult } from '@components/creditas-simulation-result'
 import { CreditasFooter } from '@components/creditas-footer'
 
 export default class CreditasChallenge {
@@ -80,6 +81,7 @@ export default class CreditasChallenge {
   static registerComponents() {
     window.customElements.define(CreditasHeader.tag, CreditasHeader)
     window.customElements.define(CreditasMainContainer.tag, CreditasMainContainer)
+    window.customElements.define(CreditasSimulationResult.tag, CreditasSimulationResult)
     window.customElements.define(CreditasFooter.tag, CreditasFooter)
   }
 

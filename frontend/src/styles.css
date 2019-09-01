@@ -1,3 +1,14 @@
+/**
+ * Having colour names is great, but we need to create
+ * some functional names for components, otherwise maintainability
+ * would end up being compromised. Think of the following examples:
+ *
+ * If you have a button, and it has a background colour, what would
+ * you prefer to use? A `--orange` variable, or something like:
+ *
+ * --orange: orange;
+ * --button-background-colour: --orange;
+ */
 :root {
   --mountain-meadow: #1eb98a;
   --green-yellow: #bcf236;
