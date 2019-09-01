@@ -33,6 +33,7 @@
     "babel-plugin-transform-react-constant-elements": "6.23.0",
     "babel-plugin-transform-react-inline-elements": "6.22.0",
     "css-loader": "3.2.0",
+    "document-register-element": "1.14.3",
     "html-loader": "0.5.5",
     "html-loader-jest": "0.2.1",
     "html-webpack-plugin": "3.2.0",

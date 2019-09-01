@@ -3,7 +3,7 @@ module.exports = {
   verbose: true,
   clearMocks: true,
   collectCoverage: true,
-  testEnvironment: 'jest-environment-jsdom',
+  testEnvironment: 'jsdom',
   coverageThreshold: {
     global: {
       branches: 80,
