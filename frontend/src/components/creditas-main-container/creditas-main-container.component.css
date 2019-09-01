@@ -1,0 +1,158 @@
+.creditas-main-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 80px);
+  justify-content: center;
+  padding: 0 10px;
+}
+
+.creditas-main-container__title {
+  color: var(--dove-gray);
+  line-height: 34px;
+  margin-bottom: 50px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 50px;
+}
+
+.field-group {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.field-group .field:first-child {
+  margin-right: 30px;
+}
+
+.field label {
+  color: var(--dove-gray);
+  font-weight: bold;
+  font-size: .8rem;
+  margin-bottom: 5px;
+}
+
+.field select {
+  border:none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -ms-appearance: none;
+}
+
+.field select, .field input[type="text"] {
+  color: var(--emperor);
+  border: 1px solid var(--nobel);
+  background-color: var(--alabaster);
+  border-radius: 4px;
+  padding: 10px 5px;
+  width: 150px;
+}
+
+.form__fields {
+  max-width: 400px;
+  min-width: 400px;
+}
+
+.footer {
+  font-size: .6rem;
+  font-weight: 100;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.form__result {
+  background-color: var(--white);
+  border-radius: 4px;
+  box-shadow: 0px -5px 2px -1px var(--silver);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 35%;
+}
+
+.form__result h4 {
+  color: var(--boulder);
+  font-size: .7rem;
+  text-align: center;
+  margin-bottom: 3px;
+}
+
+.form__result p {
+  font-size: .7rem;
+  font-weight: 100;
+  text-align: center;
+}
+
+.quota__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quota__container h4 {
+  font-weight: 200;
+  font-size: 18px;
+}
+
+.quota strong {
+  font-size: 21px;
+  color: var(--dove-gray);
+}
+
+.quota span {
+  font-size: 28px;
+  color: var(--mountain-meadow);
+  font-weight: bold;
+}
+
+.button {
+  background-color: var(--green-yellow);
+  border: none;
+  padding: 10px 0;
+  width: 100%;
+  color: var(--tom-thumb);
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 630px) {
+  .main {
+    height: auto;
+    margin: 30px 0;
+  }
+
+  .form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form > div {
+    width: 100%;
+  }
+
+  .form .form__fields {
+    min-width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .form .form__result {
+    width: 200px;
+    height: 250px;
+  }
+}
