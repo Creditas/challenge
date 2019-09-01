@@ -4,6 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   mode: 'development',
   entry: ['webpack/hot/dev-server', './src/index.js'],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      '@components': path.resolve(__dirname, 'src/components'),
+      '@test': path.resolve(__dirname, 'test'),
+    }
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
