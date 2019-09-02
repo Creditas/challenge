@@ -8,7 +8,7 @@ describe('CreditasMainContainer component', () => {
 
   it('should contain a main element', async () => {
     const el = await TestUtils.render(CreditasMainContainer.tag)
-    const main = el.querySelectorAll('main.creditas-main-container')
+    const main = el.querySelectorAll('creditas-form-container')
 
     expect(main.length).toBe(1)
   })
@@ -25,12 +25,5 @@ describe('CreditasMainContainer component', () => {
     const el = await TestUtils.render(CreditasMainContainer.tag)
 
     expect(el.querySelector('creditas-footer')).not.toBeNull()
-  })
-
-  it('should render creditas-simulation-result component', async () => {
-    const el = await TestUtils.render(CreditasMainContainer.tag)
-    const childComponent = el.querySelector('.creditas-main-container__simulation .creditas-main-container__simulation-box')
-
-    expect(childComponent).not.toBeNull()
   })
 })
