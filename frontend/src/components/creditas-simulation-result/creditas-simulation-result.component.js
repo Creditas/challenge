@@ -2,6 +2,18 @@ import './creditas-simulation-result.component.css'
 
 export class CreditasSimulationResult extends HTMLElement {
   /**
+   * Creates an instance of CreditasSimulationResult.
+   *
+   * @memberof CreditasSimulationResult
+   */
+  constructor () {
+    super()
+
+    // Attaching context to event listeners.
+    this.onCtaClick = this.onCtaClick.bind(this)
+  }
+
+  /**
    * Gets the tag of the web-component.
    *
    * @readonly
@@ -33,7 +45,10 @@ export class CreditasSimulationResult extends HTMLElement {
    * @memberof CreditasSimulationResult
    */
   attributeChangedCallback() {
+    this.removeEventListeners()
     this.render()
+    this.getDomElements()
+    this.setEventListeners()
   }
 
   /**
@@ -43,7 +58,10 @@ export class CreditasSimulationResult extends HTMLElement {
    * @memberof CreditasSimulationResult
    */
   connectedCallback () {
+    this.removeEventListeners()
     this.render()
+    this.getDomElements()
+    this.setEventListeners()
   }
 
   /**
@@ -79,5 +97,47 @@ export class CreditasSimulationResult extends HTMLElement {
         <button class="creditas-simulation-result__cta">Solicitar</button>
       </div>
     `
+  }
+
+  /**
+   * Gets all dom elements for later use only once.
+   *
+   * @memberof CreditasSimulationResult
+   */
+  getDomElements () {
+    this.$cta = this.querySelector('.creditas-simulation-result__cta')
+  }
+
+  /**
+   * Sets all event listeners.
+   *
+   * @memberof CreditasSimulationResult
+   */
+  setEventListeners () {
+    if (this.$cta) {
+      this.$cta.addEventListener('click', this.onCtaClick, false)
+    }
+  }
+
+  /**
+   * Removes all event listeners.
+   *
+   * @memberof CreditasSimulationResult
+   */
+  removeEventListeners () {
+    if (this.$cta) {
+      this.$cta.removeEventListener('click', this.onCtaClick, false)
+    }
+  }
+
+  /**
+   * Triggers creditas-cta:clicked event.
+   *
+   * @param {*} event
+   * @memberof CreditasSimulationResult
+   */
+  onCtaClick (event) {
+    event.preventDefault()
+    this.dispatchEvent(new CustomEvent('creditas-cta:clicked', { bubbles: true }))
   }
 }

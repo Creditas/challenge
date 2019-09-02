@@ -42,4 +42,8 @@ describe('CreditasSimulationResult component', () => {
 
     expect(cta.innerText).toBe('SOLICITAR')
   })
+
+  it('should trigger event when clicking cta', async () => {
+    // TODO.
+  })
 })

@@ -1,7 +1,8 @@
 import './creditas-form-container.component.css'
 import template from './creditas-form-container.component.html'
 import { calculateTotalToPay, calculateMonthlyFee, toCurrency } from '@/src/utils/calculate-loan'
-import { IOF } from '@/src/config/constants'
+import { getFormValues } from '@/src/utils/forms'
+import { IOF, INTEREST_RATE } from '@/src/config/constants'
 import loanTypesConfig from '@/src/config/types'
 
 export class CreditasFormContainer extends HTMLElement {
@@ -19,6 +20,7 @@ export class CreditasFormContainer extends HTMLElement {
     this.loanAmount = loanTypesConfig.types[this.loanType].minLoanAmount
 
     // Attaching context to event listeners.
+    this.onCtaClicked = this.onCtaClicked.bind(this)
     this.onDropdownChange = this.onDropdownChange.bind(this)
     this.onRangeChange = this.onRangeChange.bind(this)
   }
@@ -65,6 +67,7 @@ export class CreditasFormContainer extends HTMLElement {
    * @memberof CreditasFormContainer
    */
   getDomElements () {
+    this.$form = this.querySelector('.form')
     this.$selectMonths = this.querySelector('.creditas-main-container__select-months')
     this.$selectTypes = this.querySelector('.creditas-main-container__select-types')
     this.$warrantyRange = this.querySelector('.creditas-main-container__warranty-range')
@@ -96,6 +99,7 @@ export class CreditasFormContainer extends HTMLElement {
   setEventListeners () {
     this.addEventListener('creditas-dropdown:changed', this.onDropdownChange, false)
     this.addEventListener('creditas-range-input:changed', this.onRangeChange, false)
+    this.addEventListener('creditas-cta:clicked', this.onCtaClicked, false)
   }
 
   /**
@@ -106,6 +110,7 @@ export class CreditasFormContainer extends HTMLElement {
   removeEventListeners () {
     this.removeEventListener('creditas-dropdown:changed', this.onDropdownChange, false)
     this.removeEventListener('creditas-range-input:changed', this.onRangeChange, false)
+    this.removeEventListener('creditas-cta:clicked', this.onCtaClicked, false)
   }
 
   /**
@@ -131,6 +136,23 @@ export class CreditasFormContainer extends HTMLElement {
     }
 
     this.updateSimulationBox()
+  }
+
+  /**
+   * Triggered when the form submit is triggered.
+   *
+   * @param {*} event
+   * @memberof CreditasFormContainer
+   */
+  onCtaClicked (event) {
+    let values = getFormValues(this.$form)
+    let confirmation = `Confirmação\n${values
+      .map(value => `Campo: ${value.field}, Valor: ${value.value}`)
+      .join('\n')}`.concat(
+        `\nTotal ${toCurrency((IOF + INTEREST_RATE + this.loanMonths + 1) * this.loanAmount)}`
+      )
+
+    alert(confirmation)
   }
 
   /**
@@ -161,8 +183,11 @@ export class CreditasFormContainer extends HTMLElement {
     const totalPayments = calculateTotalToPay(this.loanAmount, this.loanMonths)
     const monthlyFee = calculateMonthlyFee(totalPayments, this.loanMonths)
 
-    this.$simulationBox.setAttribute('total-to-pay', toCurrency(totalPayments))
-    this.$simulationBox.setAttribute('monthly-fee', toCurrency(monthlyFee))
+    this.totalPayments = toCurrency(totalPayments)
+    this.monthlyFee = toCurrency(monthlyFee)
+
+    this.$simulationBox.setAttribute('total-to-pay', this.totalPayments)
+    this.$simulationBox.setAttribute('monthly-fee', this.monthlyFee)
     this.$simulationBox.setAttribute('tax-rate', toCurrency(IOF * 100))
   }
 }
