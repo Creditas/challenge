@@ -1,0 +1,54 @@
+<form class="form" name="form">
+  <div class="form__fields">
+    <div class="field-group">
+      <div class="field">
+        <creditas-dropdown
+          class="creditas-main-container__select-months"
+          label-text="Número de parcelas"
+          label-for="parcelas"
+          dropdown-values="24,36,48">
+        </creditas-dropdown>
+      </div>
+
+      <div class="field">
+        <creditas-dropdown
+          class="creditas-main-container__select-types"
+          label-text="Garantia"
+          label-for="garantia"
+          dropdown-values="Veículo,Imóvel">
+        </creditas-dropdown>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <creditas-range-input
+        class="creditas-main-container__warranty-range"
+        label-text="Valor da Garantia"
+        label-for="garantia"
+        min-value="12000"
+        max-value="24000"
+        initial-value="14400">
+      </creditas-range-input>
+    </div>
+
+    <div class="field-group">
+      <creditas-range-input
+        class="creditas-main-container__loan-range"
+        label-text="Valor do Empréstimo"
+        label-for="emprestimo"
+        min-value="30000"
+        max-value="60000"
+        initial-value="57000">
+      </creditas-range-input>
+    </div>
+  </div>
+
+  <div class="creditas-main-container__simulation">
+    <creditas-simulation-result
+      class="creditas-main-container__simulation-box"
+      monthly-fee="465,00"
+      total-to-pay="11.112,00"
+      tax-rate="111,12">
+    </creditas-simulation-result>
+  </div>
+</form>
