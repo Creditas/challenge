@@ -2,6 +2,18 @@ import './creditas-dropdown.component.css'
 
 export class CreditasDropdown extends HTMLElement {
   /**
+   * Creates an instance of CreditasDropdown.
+   *
+   * @memberof CreditasDropdown
+   */
+  constructor () {
+    super()
+
+    // Attaching context to event listeners.
+    this.onChange = this.onChange.bind(this)
+  }
+
+  /**
    * Gets the tag of the web-component.
    *
    * @readonly
@@ -34,6 +46,7 @@ export class CreditasDropdown extends HTMLElement {
   attributeChangedCallback() {
     this.removeEventListeners()
     this.render()
+    this.getDomElements()
     this.setEventListeners()
   }
 
@@ -45,50 +58,10 @@ export class CreditasDropdown extends HTMLElement {
    * @memberof CreditasDropdown
    */
   connectedCallback () {
+    this.removeEventListeners()
     this.render()
+    this.getDomElements()
     this.setEventListeners()
-  }
-
-  /**
-   * Sets all event listeners.
-   *
-   * @memberof CreditasDropdown
-   */
-  setEventListeners () {
-    this.$dropdown = this.querySelector('.creditas-dropdown__select')
-
-    if (this.$dropdown) {
-      this.$dropdown.addEventListener('change', this.onChange.bind(this), false)
-    }
-  }
-
-  /**
-   * Removes all event listeners.
-   *
-   * @memberof CreditasDropdown
-   */
-  removeEventListeners () {
-    this.$dropdown = this.querySelector('.creditas-dropdown__select')
-
-    if (this.$dropdown) {
-      this.$dropdown.removeEventListener('change', this.onChange.bind(this), false)
-    }
-  }
-
-  /**
-   * Onchange event listener
-   *
-   * @param {*} event
-   * @memberof CreditasDropdown
-   */
-  onChange (event) {
-    this.dispatchEvent(new CustomEvent('creditas-dropdown:changed', {
-      bubbles: true,
-      detail: {
-        label: this.labelFor,
-        value: event.target.value
-      }
-    }))
   }
 
   /**
@@ -109,5 +82,52 @@ export class CreditasDropdown extends HTMLElement {
         </select>
       </div>
     `
+  }
+
+  /**
+   * Gets all dom elements for later use only once.
+   *
+   * @memberof CreditasDropdown
+   */
+  getDomElements () {
+    this.$dropdown = this.querySelector('.creditas-dropdown__select')
+  }
+
+  /**
+   * Sets all event listeners.
+   *
+   * @memberof CreditasDropdown
+   */
+  setEventListeners () {
+    if (this.$dropdown) {
+      this.$dropdown.addEventListener('change', this.onChange, false)
+    }
+  }
+
+  /**
+   * Removes all event listeners.
+   *
+   * @memberof CreditasDropdown
+   */
+  removeEventListeners () {
+    if (this.$dropdown) {
+      this.$dropdown.removeEventListener('change', this.onChange, false)
+    }
+  }
+
+  /**
+   * Onchange event listener
+   *
+   * @param {*} event
+   * @memberof CreditasDropdown
+   */
+  onChange (event) {
+    this.dispatchEvent(new CustomEvent('creditas-dropdown:changed', {
+      bubbles: true,
+      detail: {
+        label: this.labelFor,
+        value: event.target.value
+      }
+    }))
   }
 }

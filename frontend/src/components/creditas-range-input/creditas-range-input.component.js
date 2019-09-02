@@ -2,6 +2,19 @@ import './creditas-range-input.component.css'
 
 export class CreditasRangeInput extends HTMLElement {
   /**
+   * Creates an instance of CreditasRangeInput.
+   *
+   * @memberof CreditasRangeInput
+   */
+  constructor () {
+    super()
+
+    // Attaching context to event listeners.
+    this.onInputChange = this.onInputChange.bind(this)
+    this.onRangeChange = this.onRangeChange.bind(this)
+  }
+
+  /**
    * Gets the tag of the web-component.
    *
    * @memberof CreditasRangeInput
@@ -31,7 +44,10 @@ export class CreditasRangeInput extends HTMLElement {
    * @memberof CreditasRangeInput
    */
   attributeChangedCallback() {
+    this.removeEventListeners()
     this.render()
+    this.getDomElements()
+    this.setEventListeners()
   }
 
   /**
@@ -41,7 +57,9 @@ export class CreditasRangeInput extends HTMLElement {
    * @memberof CreditasRangeInput
    */
   connectedCallback () {
+    this.removeEventListeners()
     this.render()
+    this.getDomElements()
     this.setEventListeners()
   }
 
@@ -75,31 +93,76 @@ export class CreditasRangeInput extends HTMLElement {
   }
 
   /**
-   * Sets all event listeners.
+   * Gets all dom elements for later use only once.
    *
-   * @memberof CreditasDropdown
+   * @memberof CreditasRangeInput
    */
-  setEventListeners () {
+  getDomElements () {
     this.$input = this.querySelector(`#${this.labelFor}`)
     this.$range = this.querySelector(`#${this.labelFor}-range`)
+  }
 
-    // Updating the input value onInput so the user can actually
-    // see the value while dragging the slider.
-    const updateInput = (e) => this.$input.value = event.target.value
-    this.$range.addEventListener('input', updateInput)
-    this.$range.addEventListener('change', updateInput)
+  /**
+   * Sets all event listeners.
+   *
+   * @memberof CreditasRangeInput
+   */
+  setEventListeners () {
+    if (this.$range) {
+      // Updating the input value onInput so the user can actually
+      // see the value while dragging the slider.
+      this.$range.addEventListener('input', this.onRangeChange, false)
+      this.$range.addEventListener('change', this.onRangeChange, false)
+    }
 
-    // Updating any other components once the input changes.
-    this.$input.addEventListener('change', (event) => {
-      this.$range.value = event.target.value
+    if (this.$input) {
+      // Updating any other components once the input changes.
+      this.$input.addEventListener('change', this.onInputChange, false)
+    }
+  }
 
-      this.dispatchEvent(new CustomEvent(`creditas-range-input:changed`, {
-        bubbles: true,
-        detail: {
-          label: this.labelFor,
-          value: event.target.value
-        }
-      }))
-    })
+  /**
+   * Removes all event listeners.
+   *
+   * @memberof CreditasRangeInput
+   */
+  removeEventListeners () {
+    if (this.$range) {
+      this.$range.removeEventListener('input', this.onRangeChange, false)
+      this.$range.removeEventListener('change', this.onRangeChange, false)
+    }
+
+    if (this.$input) {
+      this.$input.removeEventListener('change', this.onInputChange, false)
+    }
+  }
+
+  /**
+   * Triggered when the range input changes its value.
+   *
+   * @param {*} event
+   * @memberof CreditasRangeInput
+   */
+  onRangeChange (event) {
+    this.$input.value = event.target.value
+  }
+
+  /**
+   * Triggered when the text input changes its value.
+   *
+   * @param {*} event
+   * @memberof CreditasRangeInput
+   */
+  onInputChange (event) {
+    // Keeping the input and range inputs in sync.
+    this.$range.value = event.target.value
+
+    this.dispatchEvent(new CustomEvent(`creditas-range-input:changed`, {
+      bubbles: true,
+      detail: {
+        label: this.labelFor,
+        value: event.target.value
+      }
+    }))
   }
 }

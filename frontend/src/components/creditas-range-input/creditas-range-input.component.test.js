@@ -2,6 +2,7 @@ import { CreditasRangeInput } from './creditas-range-input.component'
 import { TestUtils } from '@test/utils'
 
 describe('CreditasRangeInput component', () => {
+  let el
   let mockAttributes = {
     'label-for': 'for',
     'label-text': 'Text!',
@@ -14,8 +15,15 @@ describe('CreditasRangeInput component', () => {
     window.customElements.define(CreditasRangeInput.tag, CreditasRangeInput)
   })
 
+  beforeEach(async () => {
+    el = await TestUtils.render(CreditasRangeInput.tag, mockAttributes)
+  })
+
+  afterEach(() => {
+    el.removeEventListeners()
+  })
+
   it('should contain the passed in label', async () => {
-    const el = await TestUtils.render(CreditasRangeInput.tag, mockAttributes)
     const label = el.querySelector('label')
 
     expect(label.getAttribute('for')).toBe('for')
@@ -23,7 +31,6 @@ describe('CreditasRangeInput component', () => {
   })
 
   it('should render input text with the initial value', async () => {
-    const el = await TestUtils.render(CreditasRangeInput.tag, mockAttributes)
     const input = el.querySelector('input[type="text"]')
 
     expect(input.getAttribute('id')).toBe('for')
@@ -32,7 +39,6 @@ describe('CreditasRangeInput component', () => {
   })
 
   it('should render the range input', async () => {
-    const el = await TestUtils.render(CreditasRangeInput.tag, mockAttributes)
     const range = el.querySelector('input[type="range"]')
 
     expect(range.getAttribute('id')).toBe('for-range')
@@ -40,7 +46,6 @@ describe('CreditasRangeInput component', () => {
   })
 
   it('should render the min and max values', async () => {
-    const el = await TestUtils.render(CreditasRangeInput.tag, mockAttributes)
     const rangeValues = el.querySelectorAll('.creditas-range-input__range-values span')
 
     expect(rangeValues[0].innerText).toBe('30000')
@@ -48,7 +53,6 @@ describe('CreditasRangeInput component', () => {
   })
 
   it('should update input value when range value changes', async () => {
-    const el = await TestUtils.render(CreditasRangeInput.tag, mockAttributes)
     const input = el.querySelector('input[type="text"]')
     const range = el.querySelector('input[type="range"]')
 
@@ -59,7 +63,6 @@ describe('CreditasRangeInput component', () => {
   })
 
   it('should update range value when input value changes', async () => {
-    const el = await TestUtils.render(CreditasRangeInput.tag, mockAttributes)
     const input = el.querySelector('input[type="text"]')
     const range = el.querySelector('input[type="range"]')
 
