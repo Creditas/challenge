@@ -1,8 +1,8 @@
 import './creditas-form-container.component.css'
 import template from './creditas-form-container.component.html'
 import { calculateTotalToPay, calculateMonthlyFee, toCurrency } from '@/src/utils/calculate-loan'
-import { IOF } from '@/config/constants'
-import loanTypesConfig from '@/config/types'
+import { IOF } from '@/src/config/constants'
+import loanTypesConfig from '@/src/config/types'
 
 export class CreditasFormContainer extends HTMLElement {
   /**

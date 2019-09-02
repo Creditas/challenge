@@ -1,5 +1,5 @@
 // import { CreditasFormContainer } from './creditas-form-container.component'
-// import loanTypesConfig from '@/config/types'
+// import loanTypesConfig from '@/src/config/types'
 // import { TestUtils } from '@test/utils'
 
 // describe('CreditasFormContainer component', () => {

@@ -1,4 +1,4 @@
-import { IOF, INTEREST_RATE } from '@/config/constants'
+import { IOF, INTEREST_RATE } from '@/src/config/constants'
 
 export const toCurrency = (n) => {
   return n.toLocaleString('pt-br', {
