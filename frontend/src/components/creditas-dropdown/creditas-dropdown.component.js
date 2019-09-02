@@ -32,7 +32,9 @@ export class CreditasDropdown extends HTMLElement {
    * @memberof CreditasDropdown
    */
   attributeChangedCallback() {
+    this.removeEventListeners()
     this.render()
+    this.setEventListeners()
   }
 
 
@@ -55,15 +57,38 @@ export class CreditasDropdown extends HTMLElement {
   setEventListeners () {
     this.$dropdown = this.querySelector('.creditas-dropdown__select')
 
-    this.$dropdown.addEventListener('change', (event) => {
-      this.dispatchEvent(new CustomEvent(`creditas-dropdown:changed`, {
-        bubbles: true,
-        detail: {
-          label: this.labelFor,
-          value: event.target.value
-        }
-      }))
-    })
+    if (this.$dropdown) {
+      this.$dropdown.addEventListener('change', this.onChange.bind(this), false)
+    }
+  }
+
+  /**
+   * Removes all event listeners.
+   *
+   * @memberof CreditasDropdown
+   */
+  removeEventListeners () {
+    this.$dropdown = this.querySelector('.creditas-dropdown__select')
+
+    if (this.$dropdown) {
+      this.$dropdown.removeEventListener('change', this.onChange.bind(this), false)
+    }
+  }
+
+  /**
+   * Onchange event listener
+   *
+   * @param {*} event
+   * @memberof CreditasDropdown
+   */
+  onChange (event) {
+    this.dispatchEvent(new CustomEvent(`creditas-dropdown:changed`, {
+      bubbles: true,
+      detail: {
+        label: this.labelFor,
+        value: event.target.value
+      }
+    }))
   }
 
   /**
