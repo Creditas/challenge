@@ -145,6 +145,7 @@ export class CreditasRangeInput extends HTMLElement {
    */
   onRangeChange (event) {
     this.$input.value = event.target.value
+    this.$input.dispatchEvent(new Event('change'))
   }
 
   /**
@@ -157,7 +158,7 @@ export class CreditasRangeInput extends HTMLElement {
     // Keeping the input and range inputs in sync.
     this.$range.value = event.target.value
 
-    this.dispatchEvent(new CustomEvent(`creditas-range-input:changed`, {
+    this.dispatchEvent(new CustomEvent('creditas-range-input:changed', {
       bubbles: true,
       detail: {
         label: this.labelFor,
