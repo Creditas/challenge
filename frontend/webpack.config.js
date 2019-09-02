@@ -6,7 +6,7 @@ module.exports = {
   entry: ['webpack/hot/dev-server', './src/index.js'],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname),
       '@components': path.resolve(__dirname, 'src/components'),
       '@lib': path.resolve(__dirname, 'src/lib'),
       '@test': path.resolve(__dirname, 'test'),
