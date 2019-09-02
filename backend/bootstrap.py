@@ -1,7 +1,9 @@
 import time
-
+import random
+import string
 
 class Payment:
+    paymentId = None
     authorization_number = None
     amount = None
     invoice = None
@@ -27,7 +29,8 @@ class Payment:
         self.invoice = Invoice(attributes=attributes)
         self.paid_at = paid_at
         self.order.close(self.paid_at)
-
+        self.paymentId = "".join(random.choices(string.digits, k=10))
+        
     def is_paid(self):
         return self.paid_at != None
 
@@ -49,28 +52,69 @@ class Order:
     payment = None
     address = None
     closed_at = None
+    ship_messages = None
 
     def __init__(self, customer, attributes={}):
         self.customer = customer
         self.items = []
+        self.ship_messages = []
         self.order_item_class = attributes.get('order_item_class', OrderItem)
         self.address = attributes.get('address', Address(zipcode='45678-979'))
-
+        
     def add_product(self, product):
         self.items.append(self.order_item_class(order=self, product=product))
 
     def total_amount(self):
         total = 0
-        for item in items:
-            total += item.total
+        for item in self.items:
+            total += item.product.value
 
         return total
 
     def close(self, closed_at=time.time()):
         self.closed_at = closed_at
 
-    # remember: you can create new methods inside those classes to help you create a better design
+    def generateShippingLabel(self, item, notification=None):
+        
+        # Random Shipping Label
+        shippingLabel = "".join(random.choices(string.ascii_uppercase + string.digits, k=10))
+        notif = 'Item isento de impostos conforme disposto na Constituição Art. 150, VI, d.'
 
+        result = "Shipping Label for "+item.product.name+": "+shippingLabel
+        result = result + " - " + notif if notification else result
+        
+        return result
+
+    def sendUserMail(self, type):
+        return 'E-mail of ' + type + ' sended to ' + self.customer.email
+
+    def applyDiscount(self, payment):
+
+        discount = Discount({'payment':payment.paymentId, 'value':'10.00'})
+
+        self.customer.vouchers.append(discount)
+        self.customer.vouchers.append(discount)
+
+        return 'New $ 10.00 voucher added, linked to payment '+payment.paymentId 
+
+    def ship(self, payment):
+
+        membership = Membership(self.customer)
+            
+        for item in self.items:
+            
+            productType = item.product.type
+
+            if productType == 'book' :
+                self.ship_messages.append(self.generateShippingLabel(item, True))
+            elif productType == 'membership' :
+                self.ship_messages.append(membership.activateMembership(item))
+                self.ship_messages.append(self.sendUserMail('new membership'))
+            elif productType == 'physical' :
+                self.ship_messages.append(self.generateShippingLabel(item))
+            elif productType == 'digital' :
+                self.ship_messages.append(self.applyDiscount(payment))
+                self.ship_messages.append(self.sendUserMail('purchase information'))
 
 class OrderItem:
     order = None
@@ -81,18 +125,25 @@ class OrderItem:
         self.product = product
 
     def total(self):
-        return 10
+        return self.product.value
 
+class Discount:
+    payment = None
+    value = None
+
+    def __init__(self, attributes={}):
+        self.payment = attributes.get('payment', None)
+        self.value = attributes.get('value', None)
 
 class Product:
-    # use type to distinguish each kind of product: physical, book, digital, membership, etc.
     name = None
     type = None
+    value = None
 
-    def __init__(self, name, type):
+    def __init__(self, name, type, value):
         self.name = name
         self.type = type
-
+        self.value = value
 
 class Address:
     zipcode = None
@@ -107,30 +158,35 @@ class CreditCard:
     def fetch_by_hashed(code):
         return CreditCard()
 
-
 class Customer:
-    # you can customize this class by yourself
-    pass
 
+    #Personal Identification Number
+    pin = None
+
+    name = None
+    email = None
+    vouchers = None
+
+    def __init__(self, attributes={}):
+        self.pin = attributes.get('pin', None)
+        self.name = attributes.get('name', None)
+        self.email = attributes.get('email', None)
+        self.vouchers = []
 
 class Membership:
-    # you can customize this class by yourself
-    pass
 
+    customer = None
+    activatedMemberships = None
 
-# Book Example (build new payments if you need to properly test it)
-foolano = Customer()
-book = Product(name='Awesome book', type='book')
-book_order = Order(foolano)
-book_order.add_product(book)
+    def __init__(self, customer, attributes={}):
+        self.customer = customer
+        self.activatedMemberships = []
 
-attributes = dict(
-    order=book_order,
-    payment_method=CreditCard.fetch_by_hashed('43567890-987654367')
-)
-payment_book = Payment(attributes=attributes)
-payment_book.pay()
-print(payment_book.is_paid())  # < true
-print(payment_book.order.items[0].product.type)
-
-# now, how to deal with shipping rules then?
+    def activateMembership(self, item):
+        # Activate Membership for Customer
+        self.activatedMemberships.append(item.product.name)
+        
+        result = "New membership added for customer " + self.customer.name + "\n"
+        result += "Activated Memberships: " + ','.join(self.activatedMemberships)
+        
+        return result 
