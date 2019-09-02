@@ -93,7 +93,7 @@ class Order:
         discount = Discount({'payment':payment.paymentId, 'value':'10.00'})
 
         self.customer.vouchers.append(discount)
-        self.customer.vouchers.append(discount)
+        
 
         return 'New $ 10.00 voucher added, linked to payment '+payment.paymentId 
 
