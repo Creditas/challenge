@@ -11,6 +11,30 @@ export class CreditasRangeInput extends HTMLElement {
   }
 
   /**
+   * Setting up attributes to observe.
+   *
+   * @readonly
+   * @static
+   * @memberof CreditasRangeInput
+   */
+  static get observedAttributes() {
+    return [
+      'initial-value',
+      'min-value',
+      'max-value'
+    ]
+  }
+
+  /**
+   * Fired every time an attribute changes its value.
+   *
+   * @memberof CreditasRangeInput
+   */
+  attributeChangedCallback() {
+    this.render()
+  }
+
+  /**
    * Is invoked each time the custom element is appended into
    * a document-connected element.
    *
@@ -19,6 +43,35 @@ export class CreditasRangeInput extends HTMLElement {
   connectedCallback () {
     this.render()
     this.setEventListeners()
+  }
+
+  /**
+   * Renders the component.
+   *
+   * @memberof CreditasRangeInput
+   */
+  render () {
+    this.labelFor = this.getAttribute('label-for')
+    this.labelText = this.getAttribute('label-text')
+    this.initialValue = this.getAttribute('initial-value')
+    this.minValue = this.getAttribute('min-value')
+    this.maxValue = this.getAttribute('max-value')
+
+    this.innerHTML = `
+      <div class="field">
+        <label for="${this.labelFor}">${this.labelText}</label>
+        <input type="text" name="${this.labelFor}" id="${this.labelFor}" value="${this.initialValue}" required />
+      </div>
+      <div class="field">
+        <div class="creditas-range-input__range">
+          <input type="range" name="${this.labelFor}-range" id="${this.labelFor}-range" min="${this.minValue}" max="${this.maxValue}" value="${this.initialValue}" step="100">
+          <div class="creditas-range-input__range-values">
+            <span>${this.minValue}</span>
+            <span>${this.maxValue}</span>
+          </div>
+        </div>
+      </div>
+    `
   }
 
   /**
@@ -48,36 +101,5 @@ export class CreditasRangeInput extends HTMLElement {
         }
       }))
     })
-  }
-
-  /**
-   * Renders the component.
-   *
-   * @memberof CreditasRangeInput
-   */
-  render () {
-    this.labelFor = this.getAttribute('label-for')
-    this.labelText = this.getAttribute('label-text')
-    this.initialValue = this.getAttribute('initial-value')
-    this.minValue = this.getAttribute('min-value')
-    this.maxValue = this.getAttribute('max-value')
-
-    this.innerHTML = `
-      <div class="field-group">
-        <div class="field">
-          <label for="${this.labelFor}">${this.labelText}</label>
-          <input type="text" name="${this.labelFor}" id="${this.labelFor}" value="${this.initialValue}" required />
-        </div>
-        <div class="field">
-          <div class="creditas-range-input__range">
-            <input type="range" name="${this.labelFor}-range" id="${this.labelFor}-range" min="${this.minValue}" max="${this.maxValue}" value="${this.initialValue}" step="100">
-            <div class="creditas-range-input__range-values">
-              <span>${this.minValue}</span>
-              <span>${this.maxValue}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    `
   }
 }

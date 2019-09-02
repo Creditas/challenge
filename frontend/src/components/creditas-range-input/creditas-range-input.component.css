@@ -1,3 +1,7 @@
+creditas-range-input {
+  display: flex;
+}
+
 .creditas-range-input__range {
   transform: translateY(11px);
 }
