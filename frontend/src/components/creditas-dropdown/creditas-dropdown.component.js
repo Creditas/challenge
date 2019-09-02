@@ -12,6 +12,30 @@ export class CreditasDropdown extends HTMLElement {
     return 'creditas-dropdown'
   }
 
+
+  /**
+   * Setting up attributes to observe.
+   *
+   * @readonly
+   * @static
+   * @memberof CreditasDropdown
+   */
+  static get observedAttributes() {
+    return [
+      'dropdown-values'
+    ]
+  }
+
+  /**
+   * Fired every time an attribute changes its value.
+   *
+   * @memberof CreditasDropdown
+   */
+  attributeChangedCallback() {
+    this.render()
+  }
+
+
   /**
    * Is invoked each time the custom element is appended into
    * a document-connected element.
