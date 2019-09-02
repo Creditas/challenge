@@ -1,0 +1,17 @@
+.creditas-range-input__range {
+  transform: translateY(11px);
+}
+
+.creditas-range-input__range-values {
+  display: flex;
+  justify-content: space-between;
+}
+
+.creditas-range-input__range-values span {
+  font-size: .6rem;
+  font-weight: 100;
+}
+
+.field input[type="range"] {
+  transform: translateY(5px);
+}
