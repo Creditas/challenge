@@ -82,7 +82,7 @@ export class CreditasDropdown extends HTMLElement {
    * @memberof CreditasDropdown
    */
   onChange (event) {
-    this.dispatchEvent(new CustomEvent(`creditas-dropdown:changed`, {
+    this.dispatchEvent(new CustomEvent('creditas-dropdown:changed', {
       bubbles: true,
       detail: {
         label: this.labelFor,

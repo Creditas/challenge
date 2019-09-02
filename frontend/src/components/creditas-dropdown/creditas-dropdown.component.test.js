@@ -2,12 +2,18 @@ import { CreditasDropdown } from './creditas-dropdown.component'
 import { TestUtils } from '@test/utils'
 
 describe('CreditasDropdown component', () => {
+  let el
+
   beforeAll(() => {
     window.customElements.define(CreditasDropdown.tag, CreditasDropdown)
   })
 
+  afterEach(() => {
+    el.removeEventListeners()
+  })
+
   it('should render the label with the right text and for property', async () => {
-    const el = await TestUtils.render(CreditasDropdown.tag, {
+    el = await TestUtils.render(CreditasDropdown.tag, {
       'label-for': 'for',
       'label-text': 'Text!',
       'dropdown-values': '25,50,100'
@@ -20,7 +26,7 @@ describe('CreditasDropdown component', () => {
   })
 
   it('should render the select element with the right options', async () => {
-    const el = await TestUtils.render(CreditasDropdown.tag, {
+    el = await TestUtils.render(CreditasDropdown.tag, {
       'label-for': 'for',
       'label-text': 'Text!',
       'dropdown-values': '25,50,100'
@@ -33,7 +39,7 @@ describe('CreditasDropdown component', () => {
   })
 
   it('should render the right options within the select element', async () => {
-    const el = await TestUtils.render(CreditasDropdown.tag, {
+    el = await TestUtils.render(CreditasDropdown.tag, {
       'label-for': 'for',
       'label-text': 'Text!',
       'dropdown-values': '25,50,100'
@@ -51,7 +57,7 @@ describe('CreditasDropdown component', () => {
   })
 
   it('should dispatch event', async (done) => {
-    const el = await TestUtils.render(CreditasDropdown.tag, {
+    el = await TestUtils.render(CreditasDropdown.tag, {
       'label-for': 'for',
       'label-text': 'Text!',
       'dropdown-values': '25,50,100'
