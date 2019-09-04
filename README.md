@@ -1,4 +1,6 @@
-Proposal for [this challenge](https://github.com/Creditas/challenge/tree/master/backend)
+Proposal for [this challenge](https://github.com/Creditas/challenge/tree/master/backend).
+
+For the full history of commits, please check [gitlab](https://gitlab.com/adamatti/challenge).
 
 #### thoughts
 

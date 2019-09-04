@@ -3,5 +3,7 @@
 build/
 .idea/
 out/
+bin/
 
 .project
+.classpath
