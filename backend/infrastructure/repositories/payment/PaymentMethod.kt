@@ -1,0 +1,3 @@
+package challenge.infrastructure.repositories.payment
+
+interface PaymentMethod
