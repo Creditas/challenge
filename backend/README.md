@@ -1,5 +1,15 @@
 ## Desafio para Backend Software Engineer
 
+
+Decisões tomadas:
+  - Considerei que o pagamento é processado por um message brocker como Kafka ou RabbitMQ
+  - Utilizei (de forma básica) logs para auxiliar em possíveis futuras análises.
+  - Utilização dos padrões de projeto Strategy (formas de pagamento), Fatory (fabricar os objetos), Builder (lógica de construção de alguns objetos) para organizar o código com o objetivo de ter pouco impacto nas futuras evoluções do sistema
+
+
+---------------------------------
+
+
 Você está revisando as decisões de design de um software que processa Pedidos online. Por estes pedidos, são realizados pagamentos que recebem tratamentos a depender as situações específicas de cada um como segue:
 
   - Se o pagamento for para um item físico, você deverá gerar um `shipping label` para o mesmo ser colocado na caixa do envio;
