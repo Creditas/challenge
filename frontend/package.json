@@ -36,10 +36,12 @@
     "jest": "^24.1.0",
     "jest-dom": "^2.1.1",
     "mini-css-extract-plugin": "^0.4.2",
+    "node-sass": "^4.12.0",
     "regenerator-runtime": "^0.12.1",
+    "sass-loader": "^8.0.0",
     "standard": "^12.0.1",
     "style-loader": "^0.23.0",
-    "webpack": "^4.18.0",
+    "webpack": "^4.39.3",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": ">=3.1.11"
   },
@@ -81,5 +83,11 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js"
     }
+  },
+  "dependencies": {
+    "babel-loader": "^8.0.6",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-modal": "^3.10.1"
   }
 }

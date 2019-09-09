@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'ubuntu';
+  }
+  
+  html, body {
+    height: 100%;
+  }
+  
+  body {
+    background-color: $concrete;
+  }
+
+  .container {
+    height: 100%;
+  }
