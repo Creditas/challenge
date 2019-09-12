@@ -14,8 +14,12 @@ data class Payment(val order: Order, val paymentMethod: PaymentMethod) {
     var discount: Discount? = null
         private set
 
-    fun addDiscount(discount: Discount): Unit {
+    fun addDiscount(discount: Discount) {
         this.discount = discount
+    }
+
+    fun customer(): Customer {
+        return order.customer
     }
 }
 
@@ -27,3 +31,4 @@ data class Invoice(val order: Order) {
     val billingAddress: Address = order.address
     val shippingAddress: Address = order.address
 }
+

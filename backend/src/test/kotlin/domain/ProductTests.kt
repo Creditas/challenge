@@ -1,10 +1,8 @@
-import main.challenge.domain.PhysicalItemProcessingStrategy
-import main.challenge.domain.Product
-import main.challenge.domain.ProductType
-import main.challenge.domain.createOrderItemProcessorFromProductType
+import kotlin.test.assertEquals
+import main.challenge.domain.*
+import main.challenge.strategies.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
-import kotlin.test.assertEquals
 
 object ProductTests : Spek({
     describe("Product") {
@@ -15,11 +13,10 @@ object ProductTests : Spek({
         val membershippProduct by memoized { Product("Spotify Family", ProductType.MEMBERSHIP, 35.00) }
 
         it("physicalProduct should use PhysicalItemProcessingStrategy") {
-
-            val orderProcessor =
-                physicalProduct.type.createOrderItemProcessorFromProductType()
+            val orderProcessor = OrderItemProcessors.getProcessorForProductType(physicalProduct.type)
 
             assertEquals(orderProcessor::class, PhysicalItemProcessingStrategy::class)
         }
     }
 })
+

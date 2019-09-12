@@ -4,13 +4,14 @@ import java.util.*
 
 class Order(val customer: Customer, val address: Address) {
 
-    var items = mutableListOf<OrderItem>()
-        private set
+    private var items = mutableListOf<OrderItem>()
 
     var closedAt: Date? = null
         private set
+
     var payment: Payment? = null
         private set
+
     val totalAmount
         get() = items.sumByDouble { it.total }
 
@@ -40,16 +41,20 @@ class Order(val customer: Customer, val address: Address) {
         closedAt = Date()
     }
 
-    fun processOrderItems() {
+    private fun processOrderItems() {
         this.items.forEach {
-            val orderProcessor = it.product.type
-                .createOrderItemProcessorFromProductType()
+            val orderProcessor = OrderItemProcessors.getProcessorForProductType(it.product.type)
 
-            orderProcessor.processOrderItem(it, payment)
+            orderProcessor.processOrderItem(it, payment!!)
         }
+    }
+
+    fun items(): List<OrderItem> {
+        return items.toList()
     }
 }
 
 data class OrderItem(val product: Product, val quantity: Int) {
     val total get() = product.price * quantity
 }
+

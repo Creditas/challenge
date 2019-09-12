@@ -2,8 +2,7 @@ package main.challenge.domain
 
 import java.time.LocalDateTime
 
-
-class Address
+data class Address(val value: String)
 
 data class Discount(val value: Double)
 
@@ -18,5 +17,5 @@ class Customer(val name: String, val email: String) {
     fun addMembership(product: Product) {
         this.memberships.add(Membership(LocalDateTime.now(), product.name))
     }
-
 }
+
