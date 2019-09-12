@@ -15,6 +15,9 @@ class Customer(val name: String, val email: String) {
         get() = memberships
 
     fun addMembership(product: Product) {
+        if (product.type != ProductType.MEMBERSHIP)
+            throw Exception("Only membership products can create a new membership")
+
         this.memberships.add(Membership(LocalDateTime.now(), product.name))
     }
 }
