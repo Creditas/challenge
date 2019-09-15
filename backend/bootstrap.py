@@ -50,7 +50,9 @@ class Order:
     address = None
     closed_at = None
 
-    def __init__(self, customer, attributes={}):
+    def __init__(self, customer, attributes=None):
+        if attributes is None:
+            attributes = {}
         self.customer = customer
         self.items = []
         self.order_item_class = attributes.get('order_item_class', OrderItem)
@@ -61,7 +63,7 @@ class Order:
 
     def total_amount(self):
         total = 0
-        for item in items:
+        for item in self.items:
             total += item.total
 
         return total
@@ -109,28 +111,50 @@ class CreditCard:
 
 
 class Customer:
-    # you can customize this class by yourself
-    pass
+    email = None
+
+    def __init__(self, email):
+        self.email = email
 
 
 class Membership:
-    # you can customize this class by yourself
-    pass
+    customer = None
+
+    def __init__(self, customer):
+        self.customer = customer
 
 
-# Book Example (build new payments if you need to properly test it)
-foolano = Customer()
-book = Product(name='Awesome book', type='book')
-book_order = Order(foolano)
-book_order.add_product(book)
+class Ship:
+    @staticmethod
+    def print_shipping_label(order):
+        # get the address from the order and do something
+        return "printed"
 
-attributes = dict(
-    order=book_order,
-    payment_method=CreditCard.fetch_by_hashed('43567890-987654367')
-)
-payment_book = Payment(attributes=attributes)
-payment_book.pay()
-print(payment_book.is_paid())  # < true
-print(payment_book.order.items[0].product.type)
+    @staticmethod
+    def send_notification(email, message):
+        # get the email address and the message and send the email
+        return "message returned"
 
-# now, how to deal with shipping rules then?
+
+def sell(customer, product):
+    product_order = Order(customer)
+    product_order.add_product(product)
+
+    attributes = dict(
+        order=product_order,
+        payment_method=CreditCard.fetch_by_hashed('43567890-987654367')
+    )
+    payment_book = Payment(attributes=attributes)
+    payment_book.pay()
+
+    print(payment_book.is_paid())  # < true
+    print(payment_book.order.items[0].product.type)
+
+    # now, how to deal with shipping rules then?
+
+
+if __name__ == '__main__':
+    # Book Example (build new payments if you need to properly test it)
+    customer = Customer("fulano@email.com")
+    book = Product(name='Awesome book', type='book')
+    sell(customer, book)
