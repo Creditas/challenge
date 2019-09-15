@@ -1,0 +1,13 @@
+.range {
+  transform: translateY(11px);
+}
+
+.range__values {
+  display: flex;
+  justify-content: space-between;
+}
+
+.range__values span {
+  font-size: .6rem;
+  font-weight: 100;
+}

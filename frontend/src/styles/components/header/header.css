@@ -1,0 +1,21 @@
+.header {
+  background-color: var(--mountain-meadow);
+  padding: 20px 0;
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.header__logo {
+  height: 1em;
+}
+
+.header__help {
+  text-decoration: none;
+  color: var(--concrete);
+}

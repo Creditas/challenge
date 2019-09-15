@@ -19,9 +19,7 @@ export const toStringFormValues = values => {
 
   return `Confirmação\n${values
     .map(value => `Campo: ${value.field}, Valor: ${value.value}`)
-    .join('\n')}`.concat(
-      `\nTotal ${(IOF + INTEREST_RATE + TIME + 1) * VEHICLE_LOAN_AMOUNT}`
-    )
+    .join('\n')}`.concat(`\nTotal ${(IOF + INTEREST_RATE + TIME + 1) * VEHICLE_LOAN_AMOUNT}`)
 }
 
 export function Send(values) {
