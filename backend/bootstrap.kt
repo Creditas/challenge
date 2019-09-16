@@ -7,10 +7,12 @@ class Order(
     val customer: Customer,
     val address: Address
 ) {
-    private val items = mutableListOf<OrderItem>()
+    var items = mutableListOf<OrderItem>()
+        private set
     var closedAt: Date? = null
         private set
-    private var totalDiscount = 0.00
+    var totalDiscount = 0.00
+        private set
     var payment: Payment? = null
         private set
     val totalAmount
@@ -203,7 +205,7 @@ fun main(args : Array<String>) {
     order.addProduct(book, 1)
     order.addProduct(music, 1)
 
-    order.pay(CreditCard("43567890-987654367"))
+    order.pay(CreditCard("43567890987654367"))
 
     println(" ========== END APPLICATION")
 }
