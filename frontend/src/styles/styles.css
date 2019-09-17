@@ -1,0 +1,11 @@
+@import './variables/variables.css';
+
+@import './resets/resets.css';
+
+@import './general/general.css';
+
+@import './components/header/header.css';
+@import './components/form/form.css';
+@import './components/quota/quota.css';
+@import './components/button/button.css';
+@import './components/footer/footer.css';

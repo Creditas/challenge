@@ -1,11 +1,11 @@
-@import './styles/variables/variables.css';
+@import url('./styles/variables/variables.css');
 
-@import './styles/resets/resets.css';
+@import url('./styles/resets/resets.css');
 
-@import './styles/general/general.css';
+@import url('./styles/general/general.css');
 
-@import './styles/components/header/header.css';
-@import './styles/components/form/form.css';
-@import './styles/components/quota/quota.css';
-@import './styles/components/button/button.css';
-@import './styles/components/footer/footer.css';
+@import url('./styles/components/header/header.css');
+@import url('./styles/components/form/form.css');
+@import url('./styles/components/quota/quota.css');
+@import url('./styles/components/button/button.css');
+@import url('./styles/components/footer/footer.css');

@@ -21,52 +21,46 @@
       <main class="main">
         <h1 class="main__title">Realize uma simulação de crédito utilizando seu bem como garantia.</h1>
         <section class="section__container">
-          <form class="form" name="form">
+          <form class="form" name="form" data-loan>
             <div class="form__fields">
               <div class="field-group">
                 <div class="field">
-                  <label for="parcelas">Número de parcelas</label>
-                  <select name="parcelas" id="parcelas" required>
+                  <label for="quota">Número de parcelas</label>
+                  <select name="quota" id="quota" required data-loan-quota>
                     <option value="24">24</option>
                     <option value="36">36</option>
                     <option value="48">48</option>
                   </select>
                 </div>
                 <div class="field">
-                  <label for="garantia">Garantia</label>
-                  <select name="garantia" id="garantia" required>
-                    <option value="veiculo">Veículo</option>
-                    <option value="imovel">Imóvel</option>
+                  <label for="warranty">Garantia</label>
+                  <select name="warranty" id="warranty" required data-loan-warranty>
+                    <option value="vehicle">Veículo</option>
+                    <option value="property">Imóvel</option>
                   </select>
                 </div>
               </div>
               <div class="field-group">
                 <div class="field">
-                  <label for="valor-garantia">Valor da Garantia</label>
-                  <input type="text" required name="valor-garantia" id="valor-garantia" value="14400" />
+                  <label for="warrantyValue">Valor da Garantia</label>
+                  <input type="text" required name="warrantyValue" id="warrantyValue" data-loan-warranty-value  />
                 </div>
                 <div class="field">
                   <div class="range">
-                    <input type="range" name="valor-garantia-range" id="valor-garantia-range" min="0" max="100" value="20" step="10">
-                    <div class="range__values">
-                      <span>12.000</span>
-                      <span>24.000</span>
-                    </div>
+                    <input type="range" name="rangeWarrantyValue" id="rangeWarrantyValue" step="10" data-loan-range-warranty-value>
+                    <div class="range__values" data-loan-warranty-range-text-values></div>
                   </div>
                 </div>
               </div>
               <div class="field-group">
                 <div class="field">
-                  <label for="valor-emprestimo">Valor do Empréstimo</label>
-                  <input type="text" required name="valor-emprestimo" id="valor-emprestimo" value="57000">
+                  <label for="loanValue">Valor do Empréstimo</label>
+                  <input type="text" required name="loanValue" id="loanValue" data-loan-value>
                 </div>
                 <div class="field">
                   <div class="range">
-                    <input type="range" name="valor-emprestimo-range" id="valor-emprestimo-range" min="0" max="100" value="90" step="10">
-                    <div class="range__values">
-                      <span>30.000</span>
-                      <span>60.000</span>
-                    </div>
+                    <input type="range" name="rangeLoanValue" id="rangeLoanValue" step="10" data-loan-range-value>
+                    <div class="range__values" data-loan-range-text-values></div>
                   </div>
                 </div>
               </div>
@@ -76,18 +70,18 @@
                 <h4>Valor da Parcela</h4>
                 <div class="quota">
                   <strong>R$</strong>
-                  <span>465,00</span>
+                  <span data-loan-parcel></span>
                 </div>
               </div>
-              <div class="amount_container">
+              <div class="amount__container">
                 <h4>Total a pagar</h4>
-                <p>R$ 11.112,00</p>
+                <p data-loan-total></p>
               </div>
               <div class="tax__container">
                 <h4>Taxa de juros (mês)</h4>
                 <p>111,12%</p>
               </div>
-              <button class="button">
+              <button class="button" data-loan-submit>
                 Solicitar
               </button>
             </div>
