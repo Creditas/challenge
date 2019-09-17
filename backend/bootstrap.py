@@ -1,4 +1,5 @@
 import time
+from enum import Enum
 
 
 class Payment:
@@ -86,14 +87,21 @@ class OrderItem:
         return 10
 
 
+class ProductClassification(Enum):
+    physical = 1
+    digital = 2
+
+
 class Product:
     # use type to distinguish each kind of product: physical, book, digital, membership, etc.
     name = None
     type = None
+    classification = None
 
-    def __init__(self, name, type):
+    def __init__(self, name, type, classification):
         self.name = name
         self.type = type
+        self.classification = classification
 
 
 class Address:
@@ -119,12 +127,24 @@ class Customer:
 
 class Membership:
     customer = None
+    is_active = False
 
     def __init__(self, customer):
         self.customer = customer
 
+    def activate(self):
+        self.is_active = True
 
-class Ship:
+    def deactivate(self):
+        self.is_active = False
+
+    def status(self):
+        return self.is_active
+
+
+class ShipService:
+    order = None
+
     @staticmethod
     def print_shipping_label(order):
         # get the address from the order and do something
@@ -134,6 +154,12 @@ class Ship:
     def send_notification(email, message):
         # get the email address and the message and send the email
         return "message returned"
+
+    def __init__(self, order):
+        self.order = order
+
+    def ship(self):
+        return self.print_shipping_label(self.order)
 
 
 def sell(customer, product):
@@ -151,10 +177,17 @@ def sell(customer, product):
     print(payment_book.order.items[0].product.type)
 
     # now, how to deal with shipping rules then?
+    service = ShipService(product_order)
+
+    print(service.ship())
 
 
 if __name__ == '__main__':
     # Book Example (build new payments if you need to properly test it)
     customer = Customer("fulano@email.com")
-    book = Product(name='Awesome book', type='book')
+
+    book = Product(name='Awesome book', type='book', classification=ProductClassification.physical)
     sell(customer, book)
+
+    membership = Product(name='1 year signature', type='membership', classification=ProductClassification.digital)
+    sell(customer, membership)
