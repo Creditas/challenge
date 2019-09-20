@@ -1,5 +1,5 @@
 import time
-from enum import Enum
+from abc import ABCMeta, abstractmethod
 
 
 class Payment:
@@ -20,17 +20,17 @@ class Payment:
     def pay(self, paid_at=time.time()):
         self.amount = self.order.total_amount
         self.authorization_number = int(time.time())
-        attributes = dict(
+        invoice_attributes = dict(
             billing_address=self.order.address,
             shipping_address=self.order.address,
             order=self.order
         )
-        self.invoice = Invoice(attributes=attributes)
+        self.invoice = Invoice(attributes=invoice_attributes)
         self.paid_at = paid_at
         self.order.close(self.paid_at)
 
     def is_paid(self):
-        return self.paid_at != None
+        return self.paid_at is not None
 
 
 class Invoice:
@@ -65,14 +65,16 @@ class Order:
     def total_amount(self):
         total = 0
         for item in self.items:
-            total += item.total
+            total += item.product.price
 
         return total
 
     def close(self, closed_at=time.time()):
         self.closed_at = closed_at
 
-    # remember: you can create new methods inside those classes to help you create a better design
+    @staticmethod
+    def apply_discount(price):
+        return price - 10
 
 
 class OrderItem:
@@ -84,24 +86,7 @@ class OrderItem:
         self.product = product
 
     def total(self):
-        return 10
-
-
-class ProductClassification(Enum):
-    physical = 1
-    digital = 2
-
-
-class Product:
-    # use type to distinguish each kind of product: physical, book, digital, membership, etc.
-    name = None
-    type = None
-    classification = None
-
-    def __init__(self, name, type, classification):
-        self.name = name
-        self.type = type
-        self.classification = classification
+        return self.product.price
 
 
 class Address:
@@ -125,12 +110,63 @@ class Customer:
         self.email = email
 
 
-class Membership:
+class AbstractProductService(object, metaclass=ABCMeta):
+    @abstractmethod
+    def ship(self, product):
+        pass
+
+
+class BookService(AbstractProductService):
+    def ship(self, product):
+        ShipProcessor.print_shipping_label(
+            "It is a product that doesn't have taxes, based on the constitution law Art. 150, VI", order=product.order)
+
+
+class MembershipService(AbstractProductService):
+    def ship(self, product):
+        product.product.activate()
+        ShipProcessor.send_notification("you're now a new membership!", product.order)
+
+
+class PhysicalService(AbstractProductService):
+    def ship(self, product):
+        ShipProcessor.print_shipping_label(None, product.order)
+
+
+class DigitalService(AbstractProductService):
+    def ship(self, product):
+        discount = product.order.apply_discount(product.product.price)
+        ShipProcessor.send_notification("You have now the best product in your hands! \n"
+                                        "Product: " + product.product.name +
+                                        "Type: " + product.product.type +
+                                        "Congratulations! You received a discount of R$ 10.00 in your order!"
+                                        "New Price: " + str(discount), order=product.order)
+
+
+class Product:
+    name = None
+    type = None
+    price = None
+
+    def __init__(self, name, type, price):
+        self.name = name
+        self.type = type
+        self.price = price
+
+
+class Book(Product):
+
+    def __init__(self, name, price):
+        super().__init__(name=name, type="book", price=price)
+
+
+class Membership(Product):
     customer = None
     is_active = False
 
-    def __init__(self, customer):
+    def __init__(self, customer, price):
         self.customer = customer
+        super().__init__(name="Assinatura", type="membership", price=price)
 
     def activate(self):
         self.is_active = True
@@ -142,52 +178,83 @@ class Membership:
         return self.is_active
 
 
-class ShipService:
-    order = None
+class Physical(Product):
+    pass
 
+
+class Digital(Product):
+    pass
+
+
+class ShipProcessor:
     @staticmethod
-    def print_shipping_label(order):
-        # get the address from the order and do something
+    def print_shipping_label(notification, order):
+        label = "Address: " + order.address.zipcode
+
+        notification_message = ""
+        if notification is not None:
+            notification_message = " \nNotification: " + notification + ")"
+
+        print("Shipping Label - " + label + notification_message)
         return "printed"
 
     @staticmethod
-    def send_notification(email, message):
-        # get the email address and the message and send the email
-        return "message returned"
-
-    def __init__(self, order):
-        self.order = order
-
-    def ship(self):
-        return self.print_shipping_label(self.order)
+    def send_notification(message, order):
+        print("send_email(" + order.customer.email + ", " + message + ")")
+        return "notification sent!"
 
 
-def sell(customer, product):
-    product_order = Order(customer)
-    product_order.add_product(product)
+class SellService:
+    customer = None
+    product = None
+    service = None
 
-    attributes = dict(
-        order=product_order,
-        payment_method=CreditCard.fetch_by_hashed('43567890-987654367')
-    )
-    payment_book = Payment(attributes=attributes)
-    payment_book.pay()
+    def __init__(self, customer, product, service):
+        self.customer = customer
+        self.product = product
+        self.service = service
 
-    print(payment_book.is_paid())  # < true
-    print(payment_book.order.items[0].product.type)
+    def sell(self):
+        order = Order(self.customer)
+        order.add_product(self.product)
 
-    # now, how to deal with shipping rules then?
-    service = ShipService(product_order)
+        attributes = dict(
+            order=order,
+            payment_method=CreditCard.fetch_by_hashed('43567890-987654367')
+        )
+        payment = Payment(attributes=attributes)
+        payment.pay()
 
-    print(service.ship())
+        print(payment.is_paid())  # < true
+        print(payment.order.items[0].product.type)
+
+        # now, how to deal with shipping rules then?
+        self.ship_items(order)
+
+        print("All products in the order were sent! \n")
+
+        return True
+
+    def ship_items(self, order):
+        for products in order.items:
+            self.service.ship(products)
 
 
 if __name__ == '__main__':
-    # Book Example (build new payments if you need to properly test it)
     customer = Customer("fulano@email.com")
 
-    book = Product(name='Awesome book', type='book', classification=ProductClassification.physical)
-    sell(customer, book)
+    physical = Physical(name='physical', price=100.00, type='physical')
+    physical_service = PhysicalService()
+    SellService(customer, physical, physical_service).sell()
 
-    membership = Product(name='1 year signature', type='membership', classification=ProductClassification.digital)
-    sell(customer, membership)
+    digital = Digital(name='digital', price=99.00, type='digital')
+    digital_service = DigitalService()
+    SellService(customer, digital, digital_service).sell()
+
+    digital_book = Book(name='Digital book', price=149.90)
+    book_service = BookService()
+    SellService(customer, digital_book, book_service).sell()
+
+    membership = Membership(customer, price=58.70)
+    membership_service = MembershipService()
+    SellService(customer, membership, membership_service).sell()
