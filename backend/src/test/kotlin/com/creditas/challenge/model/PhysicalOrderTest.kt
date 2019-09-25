@@ -138,4 +138,100 @@ internal class PhysicalOrderTest {
         assertThat(physicalOrder.grandTotal().toPlainString()).isEqualTo("3276.14")
     }
 
+    @Test
+    fun `when paying for Physical Order, throw IllegalStateEx if Status is not PENDING`() {
+        val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
+        val physicalOrder = PhysicalOrder(physicalItems, account)
+            .selectShippingAddress(shippingAddress)
+            .selectPaymentMethod(paymentMethod)
+
+        val ex = assertThrows(IllegalStateException::class.java) {
+            physicalOrder.pay()
+        }
+        assertThat(ex.message).isEqualTo("Order must be placed before it can be payed")
+    }
+
+    @Test
+    fun `when paying for Physical Order, Status should be updated to NOT_SHIPPED once the payment is done`() {
+        val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
+        val physicalOrder = PhysicalOrder(physicalItems, account)
+            .selectShippingAddress(shippingAddress)
+            .selectPaymentMethod(paymentMethod)
+            .place()
+            .pay()
+
+        assertThat(physicalOrder.status).isEqualTo(OrderStatus.NOT_SHIPPED)
+    }
+
+    @Test
+    fun `when paying for Physical Order that was already payed, throw IllegalArgEx`() {
+        val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
+        val physicalOrder = PhysicalOrder(physicalItems, account)
+            .selectShippingAddress(shippingAddress)
+            .selectPaymentMethod(paymentMethod)
+            .place()
+            .pay()
+
+        val ex = assertThrows(IllegalStateException::class.java) {
+            physicalOrder.pay()
+        }
+        assertThat(ex.message).isEqualTo("Order Payment has been processed already")
+    }
+
+    @Test
+    fun `when fulfilling a Physical Order, throw IllegalStateEx if Status is not PAYMENT_COMPLETE`() {
+        val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
+        val physicalOrder = PhysicalOrder(physicalItems, account)
+            .selectShippingAddress(shippingAddress)
+            .selectPaymentMethod(paymentMethod)
+            .place()
+
+        val ex = assertThrows(IllegalStateException::class.java) {
+            physicalOrder.fulfillment()
+        }
+        assertThat(ex.message).isEqualTo("Order must be placed and payed before it can be fulfilled")
+    }
+
+    @Test
+    fun `when fulfilling a Physical Order, Status should be updated to SHIPPED`() {
+        val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
+        val physicalOrder = PhysicalOrder(physicalItems, account)
+            .selectShippingAddress(shippingAddress)
+            .selectPaymentMethod(paymentMethod)
+            .place()
+            .pay()
+            .fulfillment()
+
+        assertThat(physicalOrder.status).isEqualTo(OrderStatus.SHIPPED)
+    }
+
+    @Test
+    fun `when completing a Physical Order, throw IllegalStateEx if Status is not SHIPPED`() {
+        val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
+        val physicalOrder = PhysicalOrder(physicalItems, account)
+            .selectShippingAddress(shippingAddress)
+            .selectPaymentMethod(paymentMethod)
+            .place()
+            .pay()
+
+        val ex = assertThrows(IllegalStateException::class.java) {
+            physicalOrder.complete()
+        }
+        assertThat(ex.message).isEqualTo("Order must have been shipped/sent and confirmed, before it can be completed")
+    }
+
+    @Test
+    fun `when completing a Physical Order, Status should be updated to DELIVERED`() {
+        val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
+        val physicalOrder = PhysicalOrder(physicalItems, account)
+            .selectShippingAddress(shippingAddress)
+            .selectPaymentMethod(paymentMethod)
+            .place()
+            .pay()
+            .fulfillment()
+            .complete()
+
+        assertThat(physicalOrder.status).isEqualTo(OrderStatus.DELIVERED)
+    }
+
 }
