@@ -101,7 +101,7 @@ class PhysicalOrder(override val items: List<Item>,
             .map { it.getShippingCosts() }
             .fold(BigDecimal.ZERO) { acc, value ->acc.plus(value) }
 
-        feesAndDiscounts["shippingCosts"] = shippingCosts
+        this.feesAndDiscounts["shippingCosts"] = shippingCosts
         this.status = OrderStatus.PENDING
     }
 
@@ -141,24 +141,28 @@ class DigitalOrder(override val items: List<Item>,
     override fun place() = apply {
         super.place()
         require(::paymentMethod.isInitialized) { "A Payment method must be informed to place the Order" }
-
         this.feesAndDiscounts["Voucher"] = BigDecimal("-10")
+        this.status = OrderStatus.PENDING
+
     }
 
     override fun pay() = apply {
         super.pay()
-    }
+        this.status = OrderStatus.UNSENT
 
-    override fun invoice() = apply {
-        super.invoice()
     }
 
     override fun fulfill() = apply {
         super.fulfill()
+        // TODO: Notify Buyer via email
+        // TODO: Prepare Download Link and send it to the buyer
+        this.status = OrderStatus.SENT
     }
 
     override fun complete() = apply {
+        // TODO:: Track when the the Buyer clicks on the emailed link to redeem the item
         super.complete()
+        this.status = OrderStatus.REDEEMED
     }
 }
 
