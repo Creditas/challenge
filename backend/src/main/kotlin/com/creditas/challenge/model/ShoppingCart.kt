@@ -51,7 +51,6 @@ class ShoppingCart {
                     OrderType.PHYSICAL -> listOf(PhysicalOrder(items, account))
                     OrderType.DIGITAL -> listOf(DigitalOrder(items, account))
                     OrderType.MEMBERSHIP -> items.map { item -> MembershipOrder(item, account) }
-                    else -> throw IllegalStateException("Not implemented Order for this ProductType")
                 }
             }.flatten()
     }
