@@ -52,8 +52,8 @@ class PhysicalOrder(override val items: List<Item>,
         this.shippingAddress = address
     }
 
-    val parcels: (List<Item>) -> List<Parcel> = {
-        it.asSequence()
+    val parcels: () -> List<Parcel> = {
+        items.asSequence()
             .groupBy { item -> item.product.type }
             .map { (type, items) ->
                 when(type) {
