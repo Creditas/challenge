@@ -102,22 +102,26 @@ class PhysicalOrder(override val items: List<Item>,
             .fold(BigDecimal.ZERO) { acc, value ->acc.plus(value) }
 
         feesAndDiscounts["shippingCosts"] = shippingCosts
+        this.status = OrderStatus.PENDING
     }
 
     override fun pay() = apply {
         super.pay()
-    }
-
-    override fun invoice() = apply {
-        super.invoice()
+        //TODO("Process Payment")
+        this.status = OrderStatus.NOT_SHIPPED
     }
 
     override fun fulfill() = apply {
         super.fulfill()
+        // TODO: Notify Buyer via email
+        // TODO: Notify Seller about the Order to initiate the Processing & Shipping
+        this.status = OrderStatus.SHIPPED
     }
 
     override fun complete() = apply {
         super.complete()
+        // TODO: Track the Packages until all packages are delivered
+        this.status = OrderStatus.DELIVERED
     }
 }
 
