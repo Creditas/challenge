@@ -187,22 +187,20 @@ class MembershipOrder(override val items: List<Item>,
     override fun place() = apply {
         super.place()
         require(::paymentMethod.isInitialized) { "A Payment method must be informed to place the Order" }
+        this.status = OrderStatus.PENDING
     }
 
     override fun pay() = apply {
         super.pay()
+        // TODO: Process Payment
+        this.status = OrderStatus.PENDING_ACTIVATION
     }
 
-    override fun invoice() = apply {
-        super.invoice()
-    }
 
     override fun fulfill() = apply {
         super.fulfill()
-    }
-
-    override fun complete() = apply {
-        super.complete()
+        // TODO: Activate the Subscription Service
+        this.status = OrderStatus.ACTIVATED
     }
 }
 
