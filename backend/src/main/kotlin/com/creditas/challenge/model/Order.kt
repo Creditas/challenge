@@ -15,15 +15,15 @@ interface Order {
         this.paymentMethod = paymentMethod
     }
 
-    fun place()
+    fun place() = apply {  }
 
-    fun pay()
+    fun pay() = apply {  }
 
-    fun invoice()
+    fun invoice() = apply {  }
 
-    fun fulfillment()
+    fun fulfillment() = apply {  }
 
-    fun complete()
+    fun complete() = apply {  }
 
     fun subtotal(): BigDecimal {
         return items.asSequence()
@@ -47,10 +47,13 @@ class PhysicalOrder(override val items: List<Item>,
     override var paymentMethod: PaymentMethod? = account.getDefaultPaymentMethod()
 
     lateinit var shippingAddress: Address
-    lateinit var parcels: List<Parcel>
 
-    private fun parcelBreakdownOf(items: List<Item>): List<Parcel> {
-        return items.asSequence()
+    fun shippingAddress(address: Address) = apply {
+        this.shippingAddress = address
+    }
+
+    val parcels: (List<Item>) -> List<Parcel> = {
+        it.asSequence()
             .groupBy { item -> item.product.type }
             .map { (type, items) ->
                 when(type) {
@@ -61,25 +64,6 @@ class PhysicalOrder(override val items: List<Item>,
             }
     }
 
-    override fun place() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun pay() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun invoice() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun fulfillment() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun complete() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }
 
 class DigitalOrder(override val items: List<Item>,
@@ -87,26 +71,6 @@ class DigitalOrder(override val items: List<Item>,
 
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
     override var paymentMethod: PaymentMethod? = account.getDefaultPaymentMethod()
-
-    override fun place() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun pay() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun invoice() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun fulfillment() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun complete() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
 }
 
@@ -117,25 +81,5 @@ class MembershipOrder(override val items: List<Item>,
 
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
     override var paymentMethod: PaymentMethod? = account.getDefaultPaymentMethod()
-
-    override fun place() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun pay() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun invoice() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun fulfillment() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun complete() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
 }
