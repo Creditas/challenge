@@ -113,8 +113,7 @@ class DigitalOrder(override val items: List<Item>,
     override lateinit var paymentMethod: PaymentMethod
 
     init {
-        require(items.count {
-            it.product.type != ProductType.DIGITAL } == 0) {
+        require(items.count { it.product.type != ProductType.DIGITAL } == 0) {
             "A Digital Order may only contain Digital items"
         }
     }
@@ -136,4 +135,17 @@ class MembershipOrder(override val items: List<Item>,
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
     override lateinit var paymentMethod: PaymentMethod
 
+    init {
+        require(items.count { it.product.type != ProductType.SUBSCRIPTION } == 0) {
+            "A Membership Order may only contain Membership items"
+        }
+        require(items.count() == 1) {
+            "A Membership Order may only contain one Membership subscription"
+        }
+    }
+
+    override fun place() = apply {
+        super.place()
+        require(::paymentMethod.isInitialized) { "A Payment method must be informed to place the Order" }
+    }
 }
