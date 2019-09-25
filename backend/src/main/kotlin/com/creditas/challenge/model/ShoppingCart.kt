@@ -45,13 +45,12 @@ class ShoppingCart {
 
     fun checkout(account: Account): List<Order> {
         return items.values.asSequence()
-            .groupBy { it.product.type }
-            .map { (type, items) ->
-                when(type) {
-                    ProductType.PHYSICAL -> listOf(PhysicalOrder(items, account))
-                    ProductType.PHYSICAL_TAX_FREE -> listOf(PhysicalOrder(items, account))
-                    ProductType.DIGITAL -> listOf(DigitalOrder(items, account))
-                    ProductType.SUBSCRIPTION -> items.map { item -> MembershipOrder(item, account) }
+            .groupBy { it.product.type.orderType }
+            .map { (orderType, items) ->
+                when(orderType) {
+                    OrderType.PHYSICAL -> listOf(PhysicalOrder(items, account))
+                    OrderType.DIGITAL -> listOf(DigitalOrder(items, account))
+                    OrderType.MEMBERSHIP -> items.map { item -> MembershipOrder(item, account) }
                     else -> throw IllegalStateException("Not implemented Order for this ProductType")
                 }
             }.flatten()

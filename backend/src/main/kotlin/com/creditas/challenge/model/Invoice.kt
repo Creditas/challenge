@@ -10,8 +10,7 @@ data class Invoice(private val order: Order) {
     val parcels by lazy {
         if (order.type == OrderType.PHYSICAL) {
             (order as PhysicalOrder).parcels()
-        }
-        else {
+        } else {
             listOf()
         }
     }
