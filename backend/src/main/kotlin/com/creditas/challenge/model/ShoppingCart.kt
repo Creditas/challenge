@@ -42,7 +42,7 @@ class ShoppingCart {
             .setScale(2, RoundingMode.HALF_UP)
     }
 
-    fun checkout(): Order {
+    fun checkout(account: Account): List<Order> {
         TODO("implement checkout")
     }
 

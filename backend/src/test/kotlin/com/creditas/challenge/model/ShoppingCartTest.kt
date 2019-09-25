@@ -107,4 +107,15 @@ internal class ShoppingCartTest {
         assertThat(anotherShoppingCart.subtotal().toPlainString()).isEqualTo("0.00")
     }
 
+    @Test
+    fun `when checking out, build an Order for Physical, another for Digital, and one Order per Membership`() {
+        val account = Account(name = "Bruno", email = "email@domain.suffix", clrPassword = "123456")
+        val orders = shoppingCart.checkout(account)
+
+        assertThat(orders.size).isEqualTo(5)
+        assertThat(orders.filterIsInstance<PhysicalOrder>().size).isEqualTo(1)
+        assertThat(orders.filterIsInstance<DigitalOrder>().size).isEqualTo(1)
+        assertThat(orders.filterIsInstance<MembershipOrder>().size).isEqualTo(3)
+    }
+
 }
