@@ -64,6 +64,29 @@ class PhysicalOrder(override val items: List<Item>,
             }
     }
 
+    override fun selectPaymentMethod(paymentMethod: PaymentMethod) = apply {
+        super.selectPaymentMethod(paymentMethod)
+    }
+
+    override fun place() = apply {
+        super.place()
+    }
+
+    override fun pay() = apply {
+        super.pay()
+    }
+
+    override fun invoice() = apply {
+        super.invoice()
+    }
+
+    override fun fulfillment() = apply {
+        super.fulfillment()
+    }
+
+    override fun complete() = apply {
+        super.complete()
+    }
 }
 
 class DigitalOrder(override val items: List<Item>,
