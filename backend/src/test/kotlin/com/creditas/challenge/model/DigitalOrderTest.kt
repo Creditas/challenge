@@ -74,4 +74,84 @@ internal class DigitalOrderTest {
             .place()
         assertThat(digitalOrder.grandTotal().toPlainString()).isEqualTo("514.60")
     }
+
+    @Test
+    fun `when paying for a Digital Order, throw IllegalStateEx if Status is not PENDING`() {
+        val digitalOrder = DigitalOrder(digitalItems, account)
+            .selectPaymentMethod(paymentMethod)
+
+        val ex = assertThrows(IllegalStateException::class.java) {
+            digitalOrder.pay()
+        }
+        assertThat(ex.message).isEqualTo("Order must be placed before it can be payed")
+    }
+
+    @Test
+    fun `when paying for a Digital Order, Status should be updated to UNSENT once pay is successful`() {
+        val digitalOrder = DigitalOrder(digitalItems, account)
+            .selectPaymentMethod(paymentMethod)
+            .place()
+            .pay()
+        assertThat(digitalOrder.status).isEqualTo(OrderStatus.UNSENT)
+    }
+
+    @Test
+    fun `when paying for a Digital Order that was already payed, throw IllegalArgEx`() {
+        val digitalOrder = DigitalOrder(digitalItems, account)
+            .selectPaymentMethod(paymentMethod)
+            .place()
+            .pay()
+
+        val ex = assertThrows(IllegalStateException::class.java) {
+            digitalOrder.pay()
+        }
+        assertThat(ex.message).isEqualTo("Order Payment has been processed already")
+    }
+
+    @Test
+    fun `when fulfilling a Digital Order, throw IllegalStateEx if Status is not PAYMENT_COMPLETE`() {
+        val digitalOrder = DigitalOrder(digitalItems, account)
+            .selectPaymentMethod(paymentMethod)
+            .place()
+
+        val ex = assertThrows(IllegalStateException::class.java) {
+            digitalOrder.fulfill()
+        }
+        assertThat(ex.message).isEqualTo("Order must be placed and payed before it can be fulfilled")
+    }
+
+    @Test
+    fun `when fulfilling a Digital Order, Status should be updated to SENT`() {
+        val digitalOrder = DigitalOrder(digitalItems, account)
+            .selectPaymentMethod(paymentMethod)
+            .place()
+            .pay()
+            .fulfill()
+        assertThat(digitalOrder.status).isEqualTo(OrderStatus.SENT)
+    }
+
+    @Test
+    fun `when completing a Digital Order, throw IllegalStateEx if Status is not UNSENT`() {
+        val digitalOrder = DigitalOrder(digitalItems, account)
+            .selectPaymentMethod(paymentMethod)
+            .place()
+            .pay()
+
+        val ex = assertThrows(IllegalStateException::class.java) {
+            digitalOrder.complete()
+        }
+        assertThat(ex.message).isEqualTo("Order must have been shipped/sent and confirmed, before it can be completed")
+    }
+
+    @Test
+    fun `when completing a Digital Order, Status should be updated to REDEEMED`() {
+        val digitalOrder = DigitalOrder(digitalItems, account)
+            .selectPaymentMethod(paymentMethod)
+            .place()
+            .pay()
+            .fulfill()
+            .complete()
+        assertThat(digitalOrder.status).isEqualTo(OrderStatus.REDEEMED)
+    }
+
 }
