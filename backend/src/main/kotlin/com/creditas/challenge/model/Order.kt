@@ -112,6 +112,20 @@ class DigitalOrder(override val items: List<Item>,
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
     override lateinit var paymentMethod: PaymentMethod
 
+    init {
+        require(items.count {
+            it.product.type != ProductType.DIGITAL } == 0) {
+            "A Digital Order may only contain Digital items"
+        }
+    }
+
+    override fun place() = apply {
+        super.place()
+        require(::paymentMethod.isInitialized) { "A Payment method must be informed to place the Order" }
+
+        this.feesAndDiscounts["Voucher"] = BigDecimal("-10")
+    }
+
 }
 
 class MembershipOrder(override val items: List<Item>,
