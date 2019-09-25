@@ -19,4 +19,6 @@ class DigitalOrder(override val items: List<Item>,
 class MembershipOrder(override val items: List<Item>,
                       override val account: Account) : Order {
 
+    constructor(item: Item, account: Account): this(listOf(item), account)
+
 }
