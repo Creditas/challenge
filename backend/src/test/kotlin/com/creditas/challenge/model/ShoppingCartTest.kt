@@ -56,6 +56,22 @@ internal class ShoppingCartTest {
     }
 
     @Test
+    fun `when updating Quantity of a Product to Zero, it should delete it from the Cart`() {
+        val videoGameDigitalCopy = Product("Nier:Automata", ProductType.DIGITAL, 129.90)
+        shoppingCart.updateQuantity(videoGameDigitalCopy, 0)
+        assertThat(shoppingCart.items.containsKey(videoGameDigitalCopy)).isFalse()
+    }
+
+    @Test
+    fun `when updating Quantity of a Product that is not in the cart, throw IllegalArgEx`() {
+        val someProductNotInTheCart = Product("lorem ipsum", ProductType.PHYSICAL, 19.90)
+        val ex = assertThrows(IllegalArgumentException::class.java) {
+            shoppingCart.updateQuantity(someProductNotInTheCart, 4)
+        }
+        assertThat(ex.message).isEqualTo("Product specified is not in the Cart")
+    }
+
+    @Test
     fun `when computing Subtotal, sum the price of all items in the cart`() {
         assertThat(shoppingCart.subtotal().toPlainString()).isEqualTo("3838.44")
     }
