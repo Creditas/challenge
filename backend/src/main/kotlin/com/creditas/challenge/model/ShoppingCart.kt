@@ -1,6 +1,7 @@
 package com.creditas.challenge.model
 
 import java.lang.IllegalArgumentException
+import java.lang.IllegalStateException
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.function.BiFunction
@@ -43,7 +44,17 @@ class ShoppingCart {
     }
 
     fun checkout(account: Account): List<Order> {
-        TODO("implement checkout")
+        return items.values.asSequence()
+            .groupBy { item -> item.product.type }
+            .map { (type, items) ->
+                when(type) {
+                    ProductType.PHYSICAL -> listOf(PhysicalOrder(items, account))
+                    ProductType.PHYSICAL_TAX_FREE -> listOf(PhysicalOrder(items, account))
+                    ProductType.DIGITAL -> listOf(DigitalOrder(items, account))
+                    ProductType.SUBSCRIPTION -> items.map { item -> MembershipOrder(item, account) }
+                    else -> throw IllegalStateException("Not implemented Order for this ProductType")
+                }
+            }.flatten()
     }
 
 }
