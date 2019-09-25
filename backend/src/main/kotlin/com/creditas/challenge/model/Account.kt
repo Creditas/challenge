@@ -1,5 +1,7 @@
 package com.creditas.challenge.model
 
+import com.creditas.challenge.utils.Patterns.Companion.emailRegex
+
 data class Account(val name: String, val email: String, private val clrPassword: String) {
 
     val password: String by lazy { encryptPassword(clrPassword) }
@@ -36,8 +38,7 @@ data class Account(val name: String, val email: String, private val clrPassword:
     }
 
     private fun validateEmail(email: String) {
-        //TODO("include regex validation for email")
-        require(email.isNotEmpty()) { "Invalid email address" }
+        require(emailRegex.matcher(email).matches()) { "Invalid email address" }
     }
 
 }
