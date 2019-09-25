@@ -1,5 +1,6 @@
 package com.creditas.challenge.model
 
+import java.lang.IllegalArgumentException
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -44,6 +45,21 @@ class PhysicalOrder(override val items: List<Item>,
 
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
     override var paymentMethod: PaymentMethod? = account.getDefaultPaymentMethod()
+
+    lateinit var shippingAddress: Address
+    lateinit var parcels: List<Parcel>
+
+    private fun parcelBreakdownOf(items: List<Item>): List<Parcel> {
+        return items.asSequence()
+            .groupBy { item -> item.product.type }
+            .map { (type, items) ->
+                when(type) {
+                    ProductType.PHYSICAL -> Parcel(items, shippingAddress, ShippingLabel.DEFAULT)
+                    ProductType.PHYSICAL_TAX_FREE -> Parcel(items, shippingAddress, ShippingLabel.TAX_FREE)
+                    else -> throw IllegalArgumentException("No rules found to handle shipment for this Product Type")
+                }
+            }
+    }
 
     override fun place() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
