@@ -38,7 +38,7 @@ internal class ShoppingCartTest {
         val ex = assertThrows(IllegalArgumentException::class.java) {
             shoppingCart.add(Product("product", ProductType.PHYSICAL, 1.90), 0)
         }
-        assertThat(ex.message).isEqualTo("Quantity must be > 0")
+        assertThat(ex.message).isEqualTo("Quantity must be greaterThan 0")
     }
 
     @Test
@@ -49,7 +49,7 @@ internal class ShoppingCartTest {
     }
 
     @Test
-    fun `when updating Quantity of a Product in the Cart, overwrite the value`() {
+    fun `when updating Quantity of a Product to greaterThan Zero, overwrite the value`() {
         val videoGameDigitalCopy = Product("Nier:Automata", ProductType.DIGITAL, 129.90)
         shoppingCart.updateQuantity(videoGameDigitalCopy, 1)
         assertThat(shoppingCart.items[videoGameDigitalCopy]!!.quantity).isEqualTo(1)
@@ -63,10 +63,35 @@ internal class ShoppingCartTest {
     }
 
     @Test
+    fun `when updating Quantity of a Product to lowerThan Zero, it should throw IllegalArgEx`() {
+        val videoGameDigitalCopy = Product("Nier:Automata", ProductType.DIGITAL, 129.90)
+        val ex = assertThrows(IllegalArgumentException::class.java) {
+            shoppingCart.updateQuantity(videoGameDigitalCopy, -1)
+        }
+        assertThat(ex.message).isEqualTo("Quantity must be equalTo or greaterThan 0")
+
+    }
+    @Test
     fun `when updating Quantity of a Product that is not in the cart, throw IllegalArgEx`() {
         val someProductNotInTheCart = Product("lorem ipsum", ProductType.PHYSICAL, 19.90)
         val ex = assertThrows(IllegalArgumentException::class.java) {
             shoppingCart.updateQuantity(someProductNotInTheCart, 4)
+        }
+        assertThat(ex.message).isEqualTo("Product specified is not in the Cart")
+    }
+
+    @Test
+    fun `when deleting a Product that is in the cart, it should vanish`() {
+        val videoGameDigitalCopy = Product("Nier:Automata", ProductType.DIGITAL, 129.90)
+        shoppingCart.delete(videoGameDigitalCopy)
+        assertThat(shoppingCart.items.containsKey(videoGameDigitalCopy)).isFalse()
+    }
+
+    @Test
+    fun `when deleting a Product that is NOT in the cart, it should vanish`() {
+        val someProductNotInTheCart = Product("lorem ipsum", ProductType.PHYSICAL, 19.90)
+        val ex = assertThrows(IllegalArgumentException::class.java) {
+            shoppingCart.delete(someProductNotInTheCart)
         }
         assertThat(ex.message).isEqualTo("Product specified is not in the Cart")
     }
@@ -79,7 +104,7 @@ internal class ShoppingCartTest {
     @Test
     fun `when computing Subtotal, return Zero if there's nothing in the cart`() {
         val anotherShoppingCart = ShoppingCart()
-        assertThat(anotherShoppingCart.subtotal()).isEqualTo(BigDecimal.ZERO)
+        assertThat(anotherShoppingCart.subtotal().toPlainString()).isEqualTo("0.00")
     }
 
 }
