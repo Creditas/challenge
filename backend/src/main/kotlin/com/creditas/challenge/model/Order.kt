@@ -21,13 +21,24 @@ interface Order {
         require(items.isNotEmpty()) { "There must be at least one item to place the Order" }
     }
 
-    fun pay() = apply {  }
+    fun pay() = apply {
+        check((status.code < OrderStatus.PENDING.code).not()) { "Order must be placed before it can be payed" }
+        check((status.code >= OrderStatus.NOT_SHIPPED.code).not()) { "Order Payment has been processed already" }
+    }
 
-    fun invoice() = apply {  }
+    fun invoice() = apply {
+        check((status.code < OrderStatus.NOT_SHIPPED.code).not()) { "Invoice can only be generated after payment is complete"}
+    }
 
-    fun fulfillment() = apply {  }
+    fun fulfill() = apply{
+        check((status.code < OrderStatus.NOT_SHIPPED.code).not()) { "Order must be placed and payed before it can be fulfilled" }
+        check((status.code >= OrderStatus.SHIPPED.code).not()) { "Order Fulfillment has been processed already" }
+    }
 
-    fun complete() = apply {  }
+    fun complete() = apply {
+        check((status.code < OrderStatus.SHIPPED.code).not()) { "Order must have been shipped/sent and confirmed, before it can be completed" }
+        check((status.code >= OrderStatus.DELIVERED.code).not()) { "Order has been delivered already" }
+    }
 
     fun subtotal(): BigDecimal {
         return items.asSequence()
@@ -101,8 +112,8 @@ class PhysicalOrder(override val items: List<Item>,
         super.invoice()
     }
 
-    override fun fulfillment() = apply {
-        super.fulfillment()
+    override fun fulfill() = apply {
+        super.fulfill()
     }
 
     override fun complete() = apply {
