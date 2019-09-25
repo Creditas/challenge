@@ -1,8 +1,15 @@
 package com.creditas.challenge.model
 
+import java.math.BigDecimal
+
 data class Parcel(val items: List<Item>,
                   val shippingAddress: Address,
                   val shippingLabel: ShippingLabel) {
+
+    fun getShippingCosts(): BigDecimal {
+        //TODO("compute logistics costs based on size, weight and shippingAddress")
+        return BigDecimal.TEN
+    }
 
 }
 
