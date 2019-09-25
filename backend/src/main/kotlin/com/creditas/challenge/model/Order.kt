@@ -6,10 +6,11 @@ import java.math.RoundingMode
 
 interface Order {
 
-    val account: Account
     val items: List<Item>
-
+    val account: Account
+    val type: OrderType
     val feesAndDiscounts: Map<String, BigDecimal>
+
     var paymentMethod: PaymentMethod
     var status: OrderStatus
 
@@ -59,10 +60,11 @@ interface Order {
 class PhysicalOrder(override val items: List<Item>,
                     override val account: Account) : Order {
 
+    override val type = OrderType.PHYSICAL
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
+
     override lateinit var paymentMethod: PaymentMethod
     override var status: OrderStatus = OrderStatus.UNKNOWN
-
     lateinit var shippingAddress: Address
 
     val parcels: () -> List<Parcel> = {
@@ -129,7 +131,9 @@ class PhysicalOrder(override val items: List<Item>,
 class DigitalOrder(override val items: List<Item>,
                    override val account: Account) : Order {
 
+    override val type = OrderType.DIGITAL
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
+
     override lateinit var paymentMethod: PaymentMethod
     override var status: OrderStatus = OrderStatus.UNKNOWN
 
@@ -172,7 +176,9 @@ class MembershipOrder(override val items: List<Item>,
 
     constructor(item: Item, account: Account): this(listOf(item), account)
 
+    override val type = OrderType.MEMBERSHIP
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
+
     override lateinit var paymentMethod: PaymentMethod
     override var status: OrderStatus = OrderStatus.UNKNOWN
 
@@ -216,4 +222,10 @@ enum class OrderStatus(val code: Int = 0) {
     DELIVERED(400),
     REDEEMED(400),
     ACTIVATED(400)
+}
+
+enum class OrderType {
+    PHYSICAL,
+    DIGITAL,
+    MEMBERSHIP
 }
