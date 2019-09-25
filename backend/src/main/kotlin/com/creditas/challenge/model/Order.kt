@@ -26,8 +26,9 @@ interface Order {
         check((status.code >= OrderStatus.NOT_SHIPPED.code).not()) { "Order Payment has been processed already" }
     }
 
-    fun invoice() = apply {
+    fun invoice(): Invoice {
         check((status.code < OrderStatus.NOT_SHIPPED.code).not()) { "Invoice can only be generated after payment is complete"}
+        return Invoice(this)
     }
 
     fun fulfill() = apply{
