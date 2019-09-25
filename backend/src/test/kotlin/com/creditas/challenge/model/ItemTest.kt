@@ -12,6 +12,7 @@ internal class ItemTest {
             val product = Product("product", ProductType.PHYSICAL, 1.99)
             Item(product, 0)
         }
+        assertThat(ex.message).isEqualTo("Quantity must be greaterThan 0")
     }
 
     @Test
