@@ -141,6 +141,21 @@ class DigitalOrder(override val items: List<Item>,
         this.feesAndDiscounts["Voucher"] = BigDecimal("-10")
     }
 
+    override fun pay() = apply {
+        super.pay()
+    }
+
+    override fun invoice() = apply {
+        super.invoice()
+    }
+
+    override fun fulfill() = apply {
+        super.fulfill()
+    }
+
+    override fun complete() = apply {
+        super.complete()
+    }
 }
 
 class MembershipOrder(override val items: List<Item>,
@@ -164,6 +179,22 @@ class MembershipOrder(override val items: List<Item>,
     override fun place() = apply {
         super.place()
         require(::paymentMethod.isInitialized) { "A Payment method must be informed to place the Order" }
+    }
+
+    override fun pay() = apply {
+        super.pay()
+    }
+
+    override fun invoice() = apply {
+        super.invoice()
+    }
+
+    override fun fulfill() = apply {
+        super.fulfill()
+    }
+
+    override fun complete() = apply {
+        super.complete()
     }
 }
 
