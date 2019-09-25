@@ -45,7 +45,7 @@ class ShoppingCart {
 
     fun checkout(account: Account): List<Order> {
         return items.values.asSequence()
-            .groupBy { item -> item.product.type }
+            .groupBy { it.product.type }
             .map { (type, items) ->
                 when(type) {
                     ProductType.PHYSICAL -> listOf(PhysicalOrder(items, account))
