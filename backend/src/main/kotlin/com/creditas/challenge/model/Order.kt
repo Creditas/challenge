@@ -9,13 +9,15 @@ interface Order {
     val account: Account
     val items: List<Item>
     val feesAndDiscounts: Map<String, BigDecimal>
-    var paymentMethod: PaymentMethod?
+    var paymentMethod: PaymentMethod
 
     fun selectPaymentMethod(paymentMethod: PaymentMethod) = apply {
         this.paymentMethod = paymentMethod
     }
 
-    fun place() = apply {  }
+    fun place() = apply {
+        require(items.isNotEmpty()) { "There must be at least one item to place the Order" }
+    }
 
     fun pay() = apply {  }
 
@@ -44,14 +46,9 @@ class PhysicalOrder(override val items: List<Item>,
                     override val account: Account) : Order {
 
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
-    override var paymentMethod: PaymentMethod? = account.getDefaultPaymentMethod()
+    override lateinit var paymentMethod: PaymentMethod
 
     lateinit var shippingAddress: Address
-
-    fun shippingAddress(address: Address) = apply {
-        this.shippingAddress = address
-    }
-
     val parcels: () -> List<Parcel> = {
         items.asSequence()
             .groupBy { item -> item.product.type }
@@ -64,12 +61,32 @@ class PhysicalOrder(override val items: List<Item>,
             }
     }
 
+    init {
+        require(items.count {
+            it.product.type != ProductType.PHYSICAL &&
+            it.product.type != ProductType.PHYSICAL_TAX_FREE } == 0) {
+            "A Physical Order may only contain Physical items"
+        }
+    }
+
+    fun selectShippingAddress(address: Address) = apply {
+        this.shippingAddress = address
+    }
+
     override fun selectPaymentMethod(paymentMethod: PaymentMethod) = apply {
         super.selectPaymentMethod(paymentMethod)
     }
 
     override fun place() = apply {
         super.place()
+        require(::shippingAddress.isInitialized) { "Shipping Address must be informed for Orders with physical delivery" }
+        require(::paymentMethod.isInitialized) { "A Payment method must be informed to place the Order" }
+
+        val shippingCosts = parcels()
+            .map { it.getShippingCosts() }
+            .fold(BigDecimal.ZERO) { acc, value ->acc.plus(value) }
+
+        feesAndDiscounts["shippingCosts"] = shippingCosts
     }
 
     override fun pay() = apply {
@@ -93,7 +110,7 @@ class DigitalOrder(override val items: List<Item>,
                    override val account: Account) : Order {
 
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
-    override var paymentMethod: PaymentMethod? = account.getDefaultPaymentMethod()
+    override lateinit var paymentMethod: PaymentMethod
 
 }
 
@@ -103,6 +120,6 @@ class MembershipOrder(override val items: List<Item>,
     constructor(item: Item, account: Account): this(listOf(item), account)
 
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
-    override var paymentMethod: PaymentMethod? = account.getDefaultPaymentMethod()
+    override lateinit var paymentMethod: PaymentMethod
 
 }
