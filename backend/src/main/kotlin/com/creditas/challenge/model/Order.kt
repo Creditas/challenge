@@ -8,8 +8,10 @@ interface Order {
 
     val account: Account
     val items: List<Item>
+
     val feesAndDiscounts: Map<String, BigDecimal>
     var paymentMethod: PaymentMethod
+    var status: OrderStatus
 
     fun selectPaymentMethod(paymentMethod: PaymentMethod) = apply {
         this.paymentMethod = paymentMethod
@@ -47,8 +49,10 @@ class PhysicalOrder(override val items: List<Item>,
 
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
     override lateinit var paymentMethod: PaymentMethod
+    override var status: OrderStatus = OrderStatus.UNKNOWN
 
     lateinit var shippingAddress: Address
+
     val parcels: () -> List<Parcel> = {
         items.asSequence()
             .groupBy { item -> item.product.type }
@@ -111,6 +115,7 @@ class DigitalOrder(override val items: List<Item>,
 
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
     override lateinit var paymentMethod: PaymentMethod
+    override var status: OrderStatus = OrderStatus.UNKNOWN
 
     init {
         require(items.count { it.product.type != ProductType.DIGITAL } == 0) {
@@ -134,6 +139,7 @@ class MembershipOrder(override val items: List<Item>,
 
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
     override lateinit var paymentMethod: PaymentMethod
+    override var status: OrderStatus = OrderStatus.UNKNOWN
 
     init {
         require(items.count { it.product.type != ProductType.SUBSCRIPTION } == 0) {
@@ -148,4 +154,17 @@ class MembershipOrder(override val items: List<Item>,
         super.place()
         require(::paymentMethod.isInitialized) { "A Payment method must be informed to place the Order" }
     }
+}
+
+enum class OrderStatus(val code: Int = 0) {
+    UNKNOWN,
+    PENDING(100),
+    NOT_SHIPPED(200),
+    UNSENT(200),
+    PENDING_ACTIVATION(200),
+    SHIPPED(300),
+    SENT(300),
+    DELIVERED(400),
+    REDEEMED(400),
+    ACTIVATED(400)
 }
