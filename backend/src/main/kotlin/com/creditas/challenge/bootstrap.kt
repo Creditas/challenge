@@ -1,4 +1,4 @@
-package challenge
+package com.creditas.challenge
 
 import java.lang.Exception
 import java.util.*
