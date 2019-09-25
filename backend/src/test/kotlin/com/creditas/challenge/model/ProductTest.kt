@@ -26,4 +26,11 @@ internal class ProductTest {
         assertThat(product.price.toPlainString()).isEqualTo("1.97")
     }
 
+    @Test
+    fun `when two products have the same name and type, they should be equal`() {
+        val productA = Product("product", ProductType.PHYSICAL, 19.99)
+        val productB = Product("product", ProductType.PHYSICAL, 15.90)
+        assertThat(productA).isEqualTo(productB)
+    }
+
 }
