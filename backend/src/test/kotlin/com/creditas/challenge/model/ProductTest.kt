@@ -1,6 +1,6 @@
 package com.creditas.challenge.model
 
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -23,7 +23,7 @@ internal class ProductTest {
     @Test
     fun `when price has more than 2 digits, round up`() {
         val product = Product("product", ProductType.PHYSICAL, 1.965)
-        Assertions.assertThat(product.price.toPlainString()).isEqualTo("1.97")
+        assertThat(product.price.toPlainString()).isEqualTo("1.97")
     }
 
 }

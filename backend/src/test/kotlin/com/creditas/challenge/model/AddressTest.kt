@@ -1,6 +1,6 @@
 package com.creditas.challenge.model
 
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -16,11 +16,11 @@ internal class AddressTest {
             .city(" Sao Paulo ")
             .build()
 
-        Assertions.assertThat(address.city).isEqualTo("Sao Paulo")
-        Assertions.assertThat(address.state).isEqualTo("SP")
-        Assertions.assertThat(address.country).isEqualTo("Brazil")
-        Assertions.assertThat(address.streetAddress).isEqualTo("Av Paulista, 1000")
-        Assertions.assertThat(address.postalCode).isEqualTo("01000-000")
+        assertThat(address.city).isEqualTo("Sao Paulo")
+        assertThat(address.state).isEqualTo("SP")
+        assertThat(address.country).isEqualTo("Brazil")
+        assertThat(address.streetAddress).isEqualTo("Av Paulista, 1000")
+        assertThat(address.postalCode).isEqualTo("01000-000")
     }
 
     @Test
@@ -34,7 +34,7 @@ internal class AddressTest {
                 .city(" Sao Paulo ")
                 .build()
         }
-        Assertions.assertThat(ex.message).isEqualTo("Country cannot be empty")
+        assertThat(ex.message).isEqualTo("Country cannot be empty")
     }
 
     @Test
@@ -48,7 +48,7 @@ internal class AddressTest {
                 .city(" Sao Paulo ")
                 .build()
         }
-        Assertions.assertThat(ex.message).isEqualTo("Street address cannot be empty")
+        assertThat(ex.message).isEqualTo("Street address cannot be empty")
     }
 
     @Test
@@ -62,7 +62,7 @@ internal class AddressTest {
                 .city(" Sao Paulo ")
                 .build()
         }
-        Assertions.assertThat(ex.message).isEqualTo("Postal code cannot be empty")
+        assertThat(ex.message).isEqualTo("Postal code cannot be empty")
     }
 
 
@@ -77,7 +77,7 @@ internal class AddressTest {
                 .city(" Sao Paulo ")
                 .build()
         }
-        Assertions.assertThat(ex.message).isEqualTo("State cannot be empty")
+        assertThat(ex.message).isEqualTo("State cannot be empty")
     }
 
     @Test
@@ -91,7 +91,7 @@ internal class AddressTest {
                 .state("SP ")
                 .build()
         }
-        Assertions.assertThat(ex.message).isEqualTo("City cannot be empty")
+        assertThat(ex.message).isEqualTo("City cannot be empty")
     }
 
     @Test
