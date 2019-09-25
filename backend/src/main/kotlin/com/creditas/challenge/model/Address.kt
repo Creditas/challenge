@@ -6,6 +6,14 @@ data class Address(val country: String,
                    val state: String,
                    val postalCode: String) {
 
+    init {
+        require(country.isNotEmpty()) { "Country cannot be empty" }
+        require(streetAddress.isNotEmpty()) { "Street address cannot be empty" }
+        require(postalCode.isNotEmpty()) { "Postal code cannot be empty" }
+        require(city.isNotEmpty()) { "City cannot be empty" }
+        require(state.isNotEmpty()) { "State cannot be empty" }
+    }
+
     class Builder {
         private lateinit var country: String
         private lateinit var streetAddress: String
