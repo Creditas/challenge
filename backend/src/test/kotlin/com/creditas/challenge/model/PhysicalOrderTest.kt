@@ -25,13 +25,17 @@ internal class PhysicalOrderTest {
             .streetAddress("Av Paulista, 1000")
             .build()
 
+        val billingAddress = shippingAddress
+
+        account = Account("Bruno", "email@domain.suffix", "password")
+
         paymentMethod = CreditCard(
             "JOHN DOE",
             "123.456.789-00", 123,
-            YearMonth.of(2027, 11)
+            YearMonth.of(2027, 11),
+            billingAddress
         )
 
-        account = Account("Bruno", "email@domain.suffix", "password")
 
         val console = Product("PS4 Slim 1TB", ProductType.PHYSICAL, 1899.00)
         val chair = Product("PDP Chair", ProductType.PHYSICAL, 399.00)

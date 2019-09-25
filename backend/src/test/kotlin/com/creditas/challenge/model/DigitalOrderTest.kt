@@ -15,10 +15,19 @@ internal class DigitalOrderTest {
 
     @BeforeEach
     fun setup() {
+        val billingAddress = Address.Builder()
+            .country("Brazil")
+            .city("Sao Paulo")
+            .state("SP")
+            .postalCode("01000-000")
+            .streetAddress("Av Paulista, 1000")
+            .build()
+
         paymentMethod = CreditCard(
             "JOHN DOE",
             "123.456.789-00", 123,
-            YearMonth.of(2027, 11)
+            YearMonth.of(2027, 11),
+            billingAddress
         )
 
         account = Account("Bruno", "email@domain.suffix", "password")
