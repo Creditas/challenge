@@ -1,6 +1,6 @@
 package com.creditas.challenge.model
 
-import com.creditas.challenge.utils.Patterns.Companion.emailRegex
+import com.creditas.challenge.utils.Patterns.emailRegex
 
 data class Account(val name: String, val email: String, private val clrPassword: String) {
 
