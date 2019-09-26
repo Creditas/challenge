@@ -1,5 +1,6 @@
 package com.creditas.challenge.model
 
+import com.creditas.challenge.model.ProductType.*
 import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
 import java.math.BigDecimal
@@ -45,12 +46,17 @@ class ShoppingCart {
 
     fun checkout(account: Account): List<Order> {
         return items.values.asSequence()
-            .groupBy { it.product.type.orderType }
-            .map { (orderType, items) ->
-                when(orderType) {
-                    OrderType.PHYSICAL -> listOf(PhysicalOrder(items, account))
-                    OrderType.DIGITAL -> listOf(DigitalOrder(items, account))
-                    OrderType.MEMBERSHIP -> items.map { item -> MembershipOrder(item, account) }
+            .groupBy {
+                if (it.product.type == PHYSICAL_TAX_FREE)
+                    PHYSICAL
+                else
+                    it.product.type
+            }.map { (productType, items) ->
+                when(productType) {
+                    PHYSICAL -> listOf(PhysicalOrder(items, account))
+                    DIGITAL -> listOf(DigitalOrder(items, account))
+                    SUBSCRIPTION -> items.map { item -> MembershipOrder(item, account) }
+                    else -> throw IllegalStateException("Unmapped ProductType to Order")
                 }
             }.flatten()
     }
