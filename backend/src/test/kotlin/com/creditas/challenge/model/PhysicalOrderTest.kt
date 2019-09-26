@@ -116,7 +116,7 @@ internal class PhysicalOrderTest {
             .asSequence()
             .find { it.shippingLabel == ShippingLabel.TAX_FREE }
 
-        assertThat(parcel!!.shippingLabel.desc)
+        assertThat(parcel!!.shippingLabel.description)
             .isEqualTo("Isento de impostos conforme disposto na Constituição Art. 150, VI, d.")
     }
 

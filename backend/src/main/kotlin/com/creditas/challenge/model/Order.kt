@@ -68,15 +68,7 @@ class PhysicalOrder(override val items: List<Item>,
     lateinit var shippingAddress: Address
 
     val parcels: () -> List<Parcel> = {
-        items.asSequence()
-            .groupBy { item -> item.product.type }
-            .map { (type, items) ->
-                when(type) {
-                    ProductType.PHYSICAL -> Parcel(items, shippingAddress, ShippingLabel.DEFAULT)
-                    ProductType.PHYSICAL_TAX_FREE -> Parcel(items, shippingAddress, ShippingLabel.TAX_FREE)
-                    else -> throw IllegalArgumentException("No rules found to handle shipment for this Product Type")
-                }
-            }
+        Parcel.breakdown(items, shippingAddress)
     }
 
     init {
@@ -100,11 +92,8 @@ class PhysicalOrder(override val items: List<Item>,
         require(::shippingAddress.isInitialized) { "Shipping Address must be informed for Orders with physical delivery" }
         require(::paymentMethod.isInitialized) { "A Payment method must be informed to place the Order" }
 
-        val shippingCosts = parcels()
-            .map { it.getShippingCosts() }
-            .fold(BigDecimal.ZERO) { acc, value ->acc.plus(value) }
-
-        this.feesAndDiscounts["shippingCosts"] = shippingCosts
+        this.feesAndDiscounts["shippingCosts"] = Parcel.shippingCostsOf(parcels())
+        this.feesAndDiscounts["importationTaxes"] = Parcel.importationFeesOf(parcels())
         this.status = OrderStatus.PENDING
     }
 
