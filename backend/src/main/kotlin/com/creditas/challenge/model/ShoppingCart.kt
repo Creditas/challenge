@@ -55,7 +55,7 @@ class ShoppingCart {
                 when(productType) {
                     PHYSICAL -> listOf(PhysicalOrder(items, account))
                     DIGITAL -> listOf(DigitalOrder(items, account))
-                    SUBSCRIPTION -> items.map { item -> MembershipOrder(item, account) }
+                    SUBSCRIPTION -> items.map { item -> SubscriptionOrder(item, account) }
                     else -> throw IllegalStateException("Unmapped ProductType to Order")
                 }
             }.flatten()

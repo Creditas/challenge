@@ -115,7 +115,7 @@ internal class ShoppingCartTest {
         assertThat(orders.size).isEqualTo(5)
         assertThat(orders.filterIsInstance<PhysicalOrder>().size).isEqualTo(1)
         assertThat(orders.filterIsInstance<DigitalOrder>().size).isEqualTo(1)
-        assertThat(orders.filterIsInstance<MembershipOrder>().size).isEqualTo(3)
+        assertThat(orders.filterIsInstance<SubscriptionOrder>().size).isEqualTo(3)
     }
 
 }

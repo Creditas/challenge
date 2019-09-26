@@ -1,20 +1,35 @@
 package com.creditas.challenge.model
 
-import java.lang.IllegalArgumentException
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 interface Order {
-
     val items: List<Item>
-    val account: Account
-    val type: OrderType
     val feesAndDiscounts: Map<String, BigDecimal>
+    val account: Account
 
     var paymentMethod: PaymentMethod
     var status: OrderStatus
+    val type: OrderType
 
-    fun selectPaymentMethod(paymentMethod: PaymentMethod) = apply {
+    fun subtotal(): BigDecimal {
+        return items.map { it.subtotal }
+            .fold(BigDecimal.ZERO) { acc, value -> acc.plus(value) }
+            .setScale(2, RoundingMode.HALF_UP)
+    }
+
+    fun feesAndDiscounts(): BigDecimal {
+        return feesAndDiscounts.values
+            .asSequence()
+            .fold(BigDecimal.ZERO) { acc, value -> acc.plus(value) }
+            .setScale(2, RoundingMode.HALF_UP)
+    }
+
+    fun grandTotal(): BigDecimal {
+        return subtotal().plus(feesAndDiscounts())
+    }
+
+    fun withPaymentMethod(paymentMethod: PaymentMethod) = apply {
         this.paymentMethod = paymentMethod
     }
 
@@ -23,8 +38,8 @@ interface Order {
     }
 
     fun pay() = apply {
-        check((status.code < OrderStatus.PENDING.code).not()) { "Order must be placed before it can be payed" }
-        check((status.code >= OrderStatus.NOT_SHIPPED.code).not()) { "Order Payment has been processed already" }
+        check(status.code >= OrderStatus.PENDING.code) { "Order must be placed before it can be payed" }
+        check(status.code < OrderStatus.NOT_SHIPPED.code) { "Order Payment has been processed already" }
     }
 
     fun invoice(): Invoice {
@@ -33,38 +48,24 @@ interface Order {
     }
 
     fun fulfill() = apply{
-        check((status.code < OrderStatus.NOT_SHIPPED.code).not()) { "Order must be placed and payed before it can be fulfilled" }
-        check((status.code >= OrderStatus.SHIPPED.code).not()) { "Order Fulfillment has been processed already" }
+        check(status.code >= OrderStatus.NOT_SHIPPED.code) { "Order must be placed and payed before it can be fulfilled" }
+        check(status.code < OrderStatus.SHIPPED.code) { "Order Fulfillment has been processed already" }
     }
 
     fun complete() = apply {
-        check((status.code < OrderStatus.SHIPPED.code).not()) { "Order must have been shipped/sent and confirmed, before it can be completed" }
-        check((status.code >= OrderStatus.DELIVERED.code).not()) { "Order has been delivered already" }
-    }
-
-    fun subtotal(): BigDecimal {
-        return items.asSequence()
-            .map { item -> item.subtotal }
-            .fold(BigDecimal.ZERO) { acc, value ->acc.plus(value) }
-            .setScale(2, RoundingMode.HALF_UP)
-    }
-
-    fun grandTotal(): BigDecimal {
-        return feesAndDiscounts.values.asSequence()
-            .fold(BigDecimal.ZERO) { acc, value ->acc.plus(value) }
-            .plus(subtotal())
-            .setScale(2, RoundingMode.HALF_UP)
+        check(status.code >= OrderStatus.SHIPPED.code) { "Order must have been shipped/sent and confirmed, before it can be completed" }
+        check(status.code < OrderStatus.DELIVERED.code) { "Order has been delivered already" }
     }
 }
 
-class PhysicalOrder(override val items: List<Item>,
-                    override val account: Account) : Order {
+data class PhysicalOrder(override val items: List<Item>,
+                         override val account: Account) : Order {
 
-    override val type = OrderType.PHYSICAL
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
-
     override lateinit var paymentMethod: PaymentMethod
-    override var status: OrderStatus = OrderStatus.UNKNOWN
+    override lateinit var status: OrderStatus
+
+    override val type: OrderType = OrderType.PHYSICAL
     lateinit var shippingAddress: Address
 
     val parcels: () -> List<Parcel> = {
@@ -74,30 +75,30 @@ class PhysicalOrder(override val items: List<Item>,
     init {
         require(items.count {
             it.product.type != ProductType.PHYSICAL &&
-            it.product.type != ProductType.PHYSICAL_TAX_FREE } == 0) {
+                    it.product.type != ProductType.PHYSICAL_TAX_FREE } == 0) {
             "A Physical Order may only contain Physical items"
         }
     }
 
-    fun selectShippingAddress(address: Address) = apply {
+    fun withShippingAddress(address: Address) = apply {
         this.shippingAddress = address
     }
 
-    override fun selectPaymentMethod(paymentMethod: PaymentMethod) = apply {
-        super.selectPaymentMethod(paymentMethod)
+    override fun withPaymentMethod(paymentMethod: PaymentMethod) = apply {
+        super.withPaymentMethod(paymentMethod)
     }
 
     override fun place() = apply {
+        require(this::shippingAddress.isInitialized) { "Shipping Address must be informed for Orders with physical delivery" }
+        require(this::paymentMethod.isInitialized) { "A Payment method must be informed to place the Order" }
         super.place()
-        require(::shippingAddress.isInitialized) { "Shipping Address must be informed for Orders with physical delivery" }
-        require(::paymentMethod.isInitialized) { "A Payment method must be informed to place the Order" }
-
-        this.feesAndDiscounts["shippingCosts"] = Parcel.shippingCostsOf(parcels())
+        this.feesAndDiscounts["shippingAndHandling"] = Parcel.shippingCostsOf(parcels())
         this.feesAndDiscounts["importationTaxes"] = Parcel.importationFeesOf(parcels())
         this.status = OrderStatus.PENDING
     }
 
     override fun pay() = apply {
+        check(this::status.isInitialized) { "Order must be placed before it can be payed" }
         super.pay()
         //TODO("Process Payment")
         this.status = OrderStatus.NOT_SHIPPED
@@ -117,14 +118,15 @@ class PhysicalOrder(override val items: List<Item>,
     }
 }
 
-class DigitalOrder(override val items: List<Item>,
-                   override val account: Account) : Order {
+
+data class DigitalOrder(override val items: List<Item>,
+                        override val account: Account) : Order {
+
+    override val feesAndDiscounts = HashMap<String, BigDecimal>()
+    override lateinit var paymentMethod: PaymentMethod
+    override lateinit var status: OrderStatus
 
     override val type = OrderType.DIGITAL
-    override val feesAndDiscounts = HashMap<String, BigDecimal>()
-
-    override lateinit var paymentMethod: PaymentMethod
-    override var status: OrderStatus = OrderStatus.UNKNOWN
 
     init {
         require(items.count { it.product.type != ProductType.DIGITAL } == 0) {
@@ -132,18 +134,22 @@ class DigitalOrder(override val items: List<Item>,
         }
     }
 
+    override fun withPaymentMethod(paymentMethod: PaymentMethod) = apply {
+        super.withPaymentMethod(paymentMethod)
+    }
+
     override fun place() = apply {
+        require(this::paymentMethod.isInitialized) { "A Payment method must be informed to place the Order" }
         super.place()
-        require(::paymentMethod.isInitialized) { "A Payment method must be informed to place the Order" }
         this.feesAndDiscounts["Voucher"] = BigDecimal("-10")
         this.status = OrderStatus.PENDING
-
     }
 
     override fun pay() = apply {
+        check(this::status.isInitialized) { "Order must be placed before it can be payed" }
         super.pay()
+        //TODO("Process Payment")
         this.status = OrderStatus.UNSENT
-
     }
 
     override fun fulfill() = apply {
@@ -154,22 +160,23 @@ class DigitalOrder(override val items: List<Item>,
     }
 
     override fun complete() = apply {
-        // TODO:: Track when the the Buyer clicks on the emailed link to redeem the item
         super.complete()
+        // TODO:: Track when the the Buyer clicks on the emailed link to redeem the item
         this.status = OrderStatus.REDEEMED
     }
 }
 
-class MembershipOrder(override val items: List<Item>,
-                      override val account: Account) : Order {
+
+data class SubscriptionOrder(override val items: List<Item>,
+                             override val account: Account) : Order {
 
     constructor(item: Item, account: Account): this(listOf(item), account)
 
-    override val type = OrderType.MEMBERSHIP
     override val feesAndDiscounts = HashMap<String, BigDecimal>()
-
     override lateinit var paymentMethod: PaymentMethod
-    override var status: OrderStatus = OrderStatus.UNKNOWN
+    override lateinit var status: OrderStatus
+
+    override val type = OrderType.SUBSCRIPTION
 
     init {
         require(items.count { it.product.type != ProductType.SUBSCRIPTION } == 0) {
@@ -180,28 +187,40 @@ class MembershipOrder(override val items: List<Item>,
         }
     }
 
+    override fun withPaymentMethod(paymentMethod: PaymentMethod) = apply {
+        super.withPaymentMethod(paymentMethod)
+    }
+
     override fun place() = apply {
+        require(this::paymentMethod.isInitialized) { "A Payment method must be informed to place the Order" }
         super.place()
-        require(::paymentMethod.isInitialized) { "A Payment method must be informed to place the Order" }
         this.status = OrderStatus.PENDING
     }
 
     override fun pay() = apply {
+        check(this::status.isInitialized) { "Order must be placed before it can be payed" }
         super.pay()
-        // TODO: Process Payment
+        //TODO("Process Payment")
         this.status = OrderStatus.PENDING_ACTIVATION
     }
-
 
     override fun fulfill() = apply {
         super.fulfill()
         // TODO: Activate the Subscription Service
         this.status = OrderStatus.ACTIVATED
     }
+
+    override fun complete() = apply { }
+
+}
+
+enum class OrderType {
+    PHYSICAL,
+    DIGITAL,
+    SUBSCRIPTION
 }
 
 enum class OrderStatus(val code: Int = 0) {
-    UNKNOWN,
     PENDING(100),
     NOT_SHIPPED(200),
     UNSENT(200),
@@ -211,10 +230,4 @@ enum class OrderStatus(val code: Int = 0) {
     DELIVERED(400),
     REDEEMED(400),
     ACTIVATED(400)
-}
-
-enum class OrderType {
-    PHYSICAL,
-    DIGITAL,
-    MEMBERSHIP
 }
