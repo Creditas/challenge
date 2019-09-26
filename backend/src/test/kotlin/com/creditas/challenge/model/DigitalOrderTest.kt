@@ -12,7 +12,6 @@ internal class DigitalOrderTest {
     private lateinit var paymentMethod: PaymentMethod
     private lateinit var digitalItems: List<Item>
 
-
     @BeforeEach
     fun setup() {
         val billingAddress = Address.Builder()
@@ -30,7 +29,7 @@ internal class DigitalOrderTest {
             billingAddress
         )
 
-        account = Account("Bruno", "email@domain.suffix", "password")
+        account = Account("John Doe", "john.doe@domain.suffix", "passwd")
 
         val musicDigitalAlbum = Product("Stairway to Heaven", ProductType.DIGITAL, 5.00)
         val videoGameDigitalCopy = Product("Nier:Automata", ProductType.DIGITAL, 129.90)
@@ -53,8 +52,9 @@ internal class DigitalOrderTest {
     @Test
     fun `when placing a DigitalOrder, there must be at least one item in the list`() {
         val ex = assertThrows(IllegalArgumentException::class.java) {
-            val digitalOrder = DigitalOrder(listOf(), account)
-            digitalOrder.place()
+            DigitalOrder(listOf(), account)
+                .withPaymentMethod(paymentMethod)
+                .place()
         }
         assertThat(ex.message).isEqualTo("There must be at least one item to place the Order")
     }
@@ -71,7 +71,7 @@ internal class DigitalOrderTest {
     @Test
     fun `when placing a Digital Order, subtotal should compute overall sum of all Item prices`() {
         val digitalOrder = DigitalOrder(digitalItems, account)
-            .selectPaymentMethod(paymentMethod)
+            .withPaymentMethod(paymentMethod)
             .place()
         assertThat(digitalOrder.subtotal().toPlainString()).isEqualTo("524.60")
     }
@@ -79,7 +79,7 @@ internal class DigitalOrderTest {
     @Test
     fun `when placing a Digital Order, total should compute subtotal plus discounts for Digital Items`() {
         val digitalOrder = DigitalOrder(digitalItems, account)
-            .selectPaymentMethod(paymentMethod)
+            .withPaymentMethod(paymentMethod)
             .place()
         assertThat(digitalOrder.grandTotal().toPlainString()).isEqualTo("514.60")
     }
@@ -87,7 +87,7 @@ internal class DigitalOrderTest {
     @Test
     fun `when paying for a Digital Order, throw IllegalStateEx if Status is not PENDING`() {
         val digitalOrder = DigitalOrder(digitalItems, account)
-            .selectPaymentMethod(paymentMethod)
+            .withPaymentMethod(paymentMethod)
 
         val ex = assertThrows(IllegalStateException::class.java) {
             digitalOrder.pay()
@@ -98,16 +98,16 @@ internal class DigitalOrderTest {
     @Test
     fun `when paying for a Digital Order, Status should be updated to UNSENT once pay is successful`() {
         val digitalOrder = DigitalOrder(digitalItems, account)
-            .selectPaymentMethod(paymentMethod)
+            .withPaymentMethod(paymentMethod)
             .place()
             .pay()
         assertThat(digitalOrder.status).isEqualTo(OrderStatus.UNSENT)
     }
 
     @Test
-    fun `when paying for a Digital Order that was already payed, throw IllegalArgEx`() {
+    fun `when paying for a Digital Order that was already payed, throw IllegalStateEx`() {
         val digitalOrder = DigitalOrder(digitalItems, account)
-            .selectPaymentMethod(paymentMethod)
+            .withPaymentMethod(paymentMethod)
             .place()
             .pay()
 
@@ -120,7 +120,7 @@ internal class DigitalOrderTest {
     @Test
     fun `when fulfilling a Digital Order, throw IllegalStateEx if Status is not PAYMENT_COMPLETE`() {
         val digitalOrder = DigitalOrder(digitalItems, account)
-            .selectPaymentMethod(paymentMethod)
+            .withPaymentMethod(paymentMethod)
             .place()
 
         val ex = assertThrows(IllegalStateException::class.java) {
@@ -132,7 +132,7 @@ internal class DigitalOrderTest {
     @Test
     fun `when fulfilling a Digital Order, Status should be updated to SENT`() {
         val digitalOrder = DigitalOrder(digitalItems, account)
-            .selectPaymentMethod(paymentMethod)
+            .withPaymentMethod(paymentMethod)
             .place()
             .pay()
             .fulfill()
@@ -142,7 +142,7 @@ internal class DigitalOrderTest {
     @Test
     fun `when completing a Digital Order, throw IllegalStateEx if Status is not UNSENT`() {
         val digitalOrder = DigitalOrder(digitalItems, account)
-            .selectPaymentMethod(paymentMethod)
+            .withPaymentMethod(paymentMethod)
             .place()
             .pay()
 
@@ -155,7 +155,7 @@ internal class DigitalOrderTest {
     @Test
     fun `when completing a Digital Order, Status should be updated to REDEEMED`() {
         val digitalOrder = DigitalOrder(digitalItems, account)
-            .selectPaymentMethod(paymentMethod)
+            .withPaymentMethod(paymentMethod)
             .place()
             .pay()
             .fulfill()

@@ -6,12 +6,11 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.YearMonth
 
-internal class MembershipOrderTest {
+internal class SubscriptionOrderTest {
 
     private lateinit var account: Account
     private lateinit var paymentMethod: PaymentMethod
     private lateinit var subscriptions: List<Item>
-
 
     @BeforeEach
     fun setup() {
@@ -30,7 +29,7 @@ internal class MembershipOrderTest {
             billingAddress
         )
 
-        account = Account("Bruno", "email@domain.suffix", "password")
+        account = Account("John Doe", "john.doe@domain.suffix", "passwd")
 
         val netflix = Product("Netflix Familiar Plan", ProductType.SUBSCRIPTION, 29.90)
         val spotify = Product("Spotify Premium", ProductType.SUBSCRIPTION, 14.90)
@@ -44,54 +43,54 @@ internal class MembershipOrderTest {
     }
 
     @Test
-    fun `when creating a Membership Order, there must be only a Membership item the list`() {
+    fun `when creating a Subscription Order, there must be only a Membership item the list`() {
         val ex = assertThrows(IllegalArgumentException::class.java) {
             val product = Product("physical product", ProductType.PHYSICAL, 1.99)
-            MembershipOrder(listOf(Item(product, 1)), account)
+            SubscriptionOrder(listOf(Item(product, 1)), account)
         }
         assertThat(ex.message).isEqualTo("A Membership Order may only contain Membership items")
     }
 
     @Test
-    fun `when placing a MembershipOrder, a paymentMethod must be informed`() {
+    fun `when placing a Subscription, a paymentMethod must be informed`() {
         val ex = assertThrows(IllegalArgumentException::class.java) {
-            MembershipOrder(subscriptions[0], account).place()
+            SubscriptionOrder(subscriptions[0], account).place()
         }
         assertThat(ex.message).isEqualTo("A Payment method must be informed to place the Order")
     }
 
     @Test
-    fun `when placing a MembershipOrder, there must be exactly one item in the list`() {
+    fun `when placing a Subscription, there must be exactly one item in the list`() {
         val ex = assertThrows(IllegalArgumentException::class.java) {
-            MembershipOrder(subscriptions, account)
-                .selectPaymentMethod(paymentMethod)
+            SubscriptionOrder(subscriptions, account)
+                .withPaymentMethod(paymentMethod)
                 .place()
         }
         assertThat(ex.message).isEqualTo("A Membership Order may only contain one Membership subscription")
     }
 
     @Test
-    fun `when placing a Membership Order, subtotal should be equalTo the Item price`() {
-        val membershipOrder = MembershipOrder(subscriptions[0], account)
-            .selectPaymentMethod(paymentMethod)
+    fun `when placing a Subscription Order, subtotal should be equalTo the Item price`() {
+        val membershipOrder = SubscriptionOrder(subscriptions[0], account)
+            .withPaymentMethod(paymentMethod)
             .place()
 
         assertThat(membershipOrder.subtotal().toPlainString()).isEqualTo("29.90")
     }
 
     @Test
-    fun `when placing a Membership Order, total should be equalTo the Subtotal`() {
-        val membershipOrder = MembershipOrder(subscriptions[0], account)
-            .selectPaymentMethod(paymentMethod)
+    fun `when placing a Subscription Order, total should be equalTo the Subtotal`() {
+        val membershipOrder = SubscriptionOrder(subscriptions[0], account)
+            .withPaymentMethod(paymentMethod)
             .place()
 
         assertThat(membershipOrder.grandTotal().toPlainString()).isEqualTo("29.90")
     }
 
     @Test
-    fun `when paying for Membership Order, throw IllegalStateEx if Status is not PENDING`() {
-        val membershipOrder = MembershipOrder(subscriptions[0], account)
-            .selectPaymentMethod(paymentMethod)
+    fun `when paying for Subscription Order, throw IllegalStateEx if Status is not PENDING`() {
+        val membershipOrder = SubscriptionOrder(subscriptions[0], account)
+            .withPaymentMethod(paymentMethod)
 
         val ex = assertThrows(IllegalStateException::class.java) {
             membershipOrder.pay()
@@ -101,9 +100,9 @@ internal class MembershipOrderTest {
     }
 
     @Test
-    fun `when paying for Membership Order, Status should be updated to PENDING_ACTIVATION once pay is successful`() {
-        val membershipOrder = MembershipOrder(subscriptions[0], account)
-            .selectPaymentMethod(paymentMethod)
+    fun `when paying for Subscription Order, Status should be updated to PENDING_ACTIVATION once pay is successful`() {
+        val membershipOrder = SubscriptionOrder(subscriptions[0], account)
+            .withPaymentMethod(paymentMethod)
             .place()
             .pay()
 
@@ -111,9 +110,9 @@ internal class MembershipOrderTest {
     }
 
     @Test
-    fun `when paying for Membership Order that was already payed, throw IllegalArgEx`() {
-        val membershipOrder = MembershipOrder(subscriptions[0], account)
-            .selectPaymentMethod(paymentMethod)
+    fun `when paying for Subscription Order that was already payed, throw IllegalStateEx`() {
+        val membershipOrder = SubscriptionOrder(subscriptions[0], account)
+            .withPaymentMethod(paymentMethod)
             .place()
             .pay()
 
@@ -125,9 +124,9 @@ internal class MembershipOrderTest {
     }
 
     @Test
-    fun `when fulfilling a Membership Order, throw IllegalStateEx if Status is not PAYMENT_COMPLETE`() {
-        val membershipOrder = MembershipOrder(subscriptions[0], account)
-            .selectPaymentMethod(paymentMethod)
+    fun `when fulfilling a Subscription Order, throw IllegalStateEx if Status is not PAYMENT_COMPLETE`() {
+        val membershipOrder = SubscriptionOrder(subscriptions[0], account)
+            .withPaymentMethod(paymentMethod)
             .place()
 
         val ex = assertThrows(IllegalStateException::class.java) {
@@ -138,15 +137,14 @@ internal class MembershipOrderTest {
     }
 
     @Test
-    fun `when fulfilling a Membership Order, Status should be updated to ACTIVATED`() {
-        val membershipOrder = MembershipOrder(subscriptions[0], account)
-            .selectPaymentMethod(paymentMethod)
+    fun `when fulfilling a Subscription Order, Status should be updated to ACTIVATED`() {
+        val membershipOrder = SubscriptionOrder(subscriptions[0], account)
+            .withPaymentMethod(paymentMethod)
             .place()
             .pay()
             .fulfill()
 
         assertThat(membershipOrder.status).isEqualTo(OrderStatus.ACTIVATED)
     }
-
 
 }

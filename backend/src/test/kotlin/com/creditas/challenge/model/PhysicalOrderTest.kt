@@ -14,7 +14,6 @@ internal class PhysicalOrderTest {
     private lateinit var physicalItems: List<Item>
     private lateinit var physicalTaxFreeItems: List<Item>
 
-
     @BeforeEach
     fun setup() {
         shippingAddress = Address.Builder()
@@ -27,7 +26,7 @@ internal class PhysicalOrderTest {
 
         val billingAddress = shippingAddress
 
-        account = Account("Bruno", "email@domain.suffix", "password")
+        account = Account("John Doe", "john.doe@domain.suffix", "passwd")
 
         paymentMethod = CreditCard(
             "JOHN DOE",
@@ -35,7 +34,6 @@ internal class PhysicalOrderTest {
             YearMonth.of(2027, 11),
             billingAddress
         )
-
 
         val console = Product("PS4 Slim 1TB", ProductType.PHYSICAL, 1899.00)
         val chair = Product("PDP Chair", ProductType.PHYSICAL, 399.00)
@@ -52,7 +50,6 @@ internal class PhysicalOrderTest {
         )
     }
 
-
     @Test
     fun `when creating a Physical Order, there must be only Physical items in the list`() {
         val ex = assertThrows(IllegalArgumentException::class.java) {
@@ -65,8 +62,10 @@ internal class PhysicalOrderTest {
     @Test
     fun `when placing a PhysicalOrder, there must be at least one item in the list`() {
         val ex = assertThrows(IllegalArgumentException::class.java) {
-            val physicalOrder = PhysicalOrder(listOf(), account)
-            physicalOrder.place()
+            PhysicalOrder(listOf(), account)
+                .withShippingAddress(shippingAddress)
+                .withPaymentMethod(paymentMethod)
+                .place()
         }
         assertThat(ex.message).isEqualTo("There must be at least one item to place the Order")
     }
@@ -74,9 +73,9 @@ internal class PhysicalOrderTest {
     @Test
     fun `when placing a Physical Order, a shippingAddress must be informed`() {
         val ex = assertThrows(IllegalArgumentException::class.java) {
-            val physicalOrder = PhysicalOrder(physicalItems, account)
-                .selectPaymentMethod(paymentMethod)
-            physicalOrder.place()
+            PhysicalOrder(physicalItems, account)
+                .withPaymentMethod(paymentMethod)
+                .place()
         }
         assertThat(ex.message).isEqualTo("Shipping Address must be informed for Orders with physical delivery")
     }
@@ -84,9 +83,9 @@ internal class PhysicalOrderTest {
     @Test
     fun `when placing a PhysicalOrder, a paymentMethod must be informed`() {
         val ex = assertThrows(IllegalArgumentException::class.java) {
-            val physicalOrder = PhysicalOrder(physicalItems, account)
-            physicalOrder.selectShippingAddress(shippingAddress)
-            physicalOrder.place()
+            PhysicalOrder(physicalItems, account)
+                .withShippingAddress(shippingAddress)
+                .place()
         }
         assertThat(ex.message).isEqualTo("A Payment method must be informed to place the Order")
     }
@@ -96,8 +95,8 @@ internal class PhysicalOrderTest {
     fun `when placing a Physical Order with Physical and Physical_Books, there should be different parcels`() {
         val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
         val physicalOrder = PhysicalOrder(physicalItems, account)
-            .selectShippingAddress(shippingAddress)
-            .selectPaymentMethod(paymentMethod)
+            .withShippingAddress(shippingAddress)
+            .withPaymentMethod(paymentMethod)
             .place()
 
         val parcels = physicalOrder.parcels()
@@ -108,8 +107,8 @@ internal class PhysicalOrderTest {
     fun `when placing a Physical Order with physical_books, its package must contain notes informing it's free of taxes`() {
         val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
         val physicalOrder = PhysicalOrder(physicalItems, account)
-            .selectShippingAddress(shippingAddress)
-            .selectPaymentMethod(paymentMethod)
+            .withShippingAddress(shippingAddress)
+            .withPaymentMethod(paymentMethod)
             .place()
 
         val parcel = physicalOrder.parcels()
@@ -124,8 +123,8 @@ internal class PhysicalOrderTest {
     fun `when placing a Physical Order, subtotal should compute overall sum of all Item prices`() {
         val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
         val physicalOrder = PhysicalOrder(physicalItems, account)
-            .selectShippingAddress(shippingAddress)
-            .selectPaymentMethod(paymentMethod)
+            .withShippingAddress(shippingAddress)
+            .withPaymentMethod(paymentMethod)
             .place()
 
         assertThat(physicalOrder.subtotal().toPlainString()).isEqualTo("3256.14")
@@ -135,8 +134,8 @@ internal class PhysicalOrderTest {
     fun `when placing a Physical Order, total should compute subtotal plus shippingCosts`() {
         val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
         val physicalOrder = PhysicalOrder(physicalItems, account)
-            .selectShippingAddress(shippingAddress)
-            .selectPaymentMethod(paymentMethod)
+            .withShippingAddress(shippingAddress)
+            .withPaymentMethod(paymentMethod)
             .place()
 
         assertThat(physicalOrder.grandTotal().toPlainString()).isEqualTo("3276.14")
@@ -146,8 +145,8 @@ internal class PhysicalOrderTest {
     fun `when paying for Physical Order, throw IllegalStateEx if Status is not PENDING`() {
         val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
         val physicalOrder = PhysicalOrder(physicalItems, account)
-            .selectShippingAddress(shippingAddress)
-            .selectPaymentMethod(paymentMethod)
+            .withShippingAddress(shippingAddress)
+            .withPaymentMethod(paymentMethod)
 
         val ex = assertThrows(IllegalStateException::class.java) {
             physicalOrder.pay()
@@ -159,8 +158,8 @@ internal class PhysicalOrderTest {
     fun `when paying for Physical Order, Status should be updated to NOT_SHIPPED once the payment is done`() {
         val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
         val physicalOrder = PhysicalOrder(physicalItems, account)
-            .selectShippingAddress(shippingAddress)
-            .selectPaymentMethod(paymentMethod)
+            .withShippingAddress(shippingAddress)
+            .withPaymentMethod(paymentMethod)
             .place()
             .pay()
 
@@ -171,8 +170,8 @@ internal class PhysicalOrderTest {
     fun `when paying for Physical Order that was already payed, throw IllegalArgEx`() {
         val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
         val physicalOrder = PhysicalOrder(physicalItems, account)
-            .selectShippingAddress(shippingAddress)
-            .selectPaymentMethod(paymentMethod)
+            .withShippingAddress(shippingAddress)
+            .withPaymentMethod(paymentMethod)
             .place()
             .pay()
 
@@ -186,8 +185,8 @@ internal class PhysicalOrderTest {
     fun `when fulfilling a Physical Order, throw IllegalStateEx if Status is not PAYMENT_COMPLETE`() {
         val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
         val physicalOrder = PhysicalOrder(physicalItems, account)
-            .selectShippingAddress(shippingAddress)
-            .selectPaymentMethod(paymentMethod)
+            .withShippingAddress(shippingAddress)
+            .withPaymentMethod(paymentMethod)
             .place()
 
         val ex = assertThrows(IllegalStateException::class.java) {
@@ -200,8 +199,8 @@ internal class PhysicalOrderTest {
     fun `when fulfilling a Physical Order, Status should be updated to SHIPPED`() {
         val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
         val physicalOrder = PhysicalOrder(physicalItems, account)
-            .selectShippingAddress(shippingAddress)
-            .selectPaymentMethod(paymentMethod)
+            .withShippingAddress(shippingAddress)
+            .withPaymentMethod(paymentMethod)
             .place()
             .pay()
             .fulfill()
@@ -213,8 +212,8 @@ internal class PhysicalOrderTest {
     fun `when completing a Physical Order, throw IllegalStateEx if Status is not SHIPPED`() {
         val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
         val physicalOrder = PhysicalOrder(physicalItems, account)
-            .selectShippingAddress(shippingAddress)
-            .selectPaymentMethod(paymentMethod)
+            .withShippingAddress(shippingAddress)
+            .withPaymentMethod(paymentMethod)
             .place()
             .pay()
 
@@ -228,8 +227,8 @@ internal class PhysicalOrderTest {
     fun `when completing a Physical Order, Status should be updated to DELIVERED`() {
         val physicalItems = listOf(physicalItems, physicalTaxFreeItems).flatten()
         val physicalOrder = PhysicalOrder(physicalItems, account)
-            .selectShippingAddress(shippingAddress)
-            .selectPaymentMethod(paymentMethod)
+            .withShippingAddress(shippingAddress)
+            .withPaymentMethod(paymentMethod)
             .place()
             .pay()
             .fulfill()
