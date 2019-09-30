@@ -2,8 +2,9 @@
 ## Desafio para Backend Software Engineer
 
 - Não foram feitos tratamentos de erro.
-- Não foram consideradas as chamadas de acesso a Banco de dados
-- Não faria uso de entidades em todas as camadas do codigo, iria recorrer a DTO's
+- Não foram consideradas as chamadas de acesso a Banco de dados.
+- Não faria uso de entidades em todas as camadas do codigo, iria recorrer a DTO's.
+- Foi usado Junit e Mockito para escrita dos testes.
 - Voucher foi gerado para uso futuro.
 - Usei Injeção por construtor, o que facilita os teste e não se faz necessario o uso de nenhum Runner.
 - Foi utilizado um BigDecimalProvider, de modo que possamos controlar a crição do BigDecimal, assim evitando inumeras configurações atraves do sistema.
