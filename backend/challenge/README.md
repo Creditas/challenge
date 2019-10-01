@@ -21,8 +21,8 @@ Como a proposta **não requer um código final funcionando**, não há a necessi
 
 
 ## Resolução
--Foi mantido o modelo Sincrono de execução dos sistema, apenas utilizando de paralelismo no momento de processamento das regras de envio.
--De modo a evitar o acumulo de responsabilidades em uma unica classe, foi utilizado o pattern Strategy nas regras de envio, assim evitando 
+- Foi mantido o modelo Sincrono de execução dos sistema, apenas utilizando de paralelismo no momento de processamento das regras de envio.
+- De modo a evitar o acumulo de responsabilidades em uma unica classe, foi utilizado o pattern Strategy nas regras de envio, assim evitando 
 - Para encapsular a escolha de qual implementação será utilizado pelo serviço, fazemos uso do pattern Factory
 - Para encapsular o processo de envio, foi utilizado o pattern Facade
 
