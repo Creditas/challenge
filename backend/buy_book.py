@@ -1,7 +1,7 @@
-from bootstrap import Costumer, Product, Order, Payment, CreditCard, Shipping
+from bootstrap import Costomer, Product, Order, Payment, CreditCard, Shipping
 
 # Book Example (build new payments if you need to properly test it)
-foolano = Costumer("William", "william@will.com")
+foolano = Costomer("William", "william@will.com")
 book = Product(name='Awesome book', type='book')
 book_order = Order(foolano)
 book_order.add_product(book)

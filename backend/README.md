@@ -17,31 +17,10 @@ Crie as classes, métodos e suas respectivas chamadas (a seu critério) para que
 
 Como a proposta **não requer um código final funcionando**, não há a necessidade de implementar os testes de unidade. Entretanto, levaremos isso como _bonus points_. É permitido o uso de libs para facilitar a implementação dos testes.
 
-__O que está sob avaliação?__
+__O que eu fiz?__
 
-Sua capacidade de analisar, projetar e codificar uma solução guiando-se com **Design Orientado a Objetos** e **Princípios de Orientação a Objetos**.
-
-Sinta-se à vontade para modificar/refatorar quaisquer aspectos das classes/métodos do arquivo `bootstrap` caso julgue necessário. Escolha o arquivo de bootstrap da linguagem que for mais familiar pra você, as opções que temos hoje são [bootstrap.py](https://github.com/Creditas/challenge/blob/master/backend/bootstrap.py), [bootstrap.rb](https://github.com/Creditas/challenge/blob/master/backend/bootstrap.rb), [bootstrap.kt](https://github.com/Creditas/challenge/blob/master/backend/bootstrap.kt).
-
-Por favor, inclua suas considerações da atividade em um arquivo de texto ou markdown.
-
-__O que não vale?__
- - Frameworks :] (aliás, nem precisa)
- - Metaprogramação/Reflection
-
-__Qual linguagem?__
-Ruby, Python ou Kotlin
-
-__Tempo__
-Estima-se 4 a 8 horas para este desafio, entretanto não há um limite.
-
-__Apresentação__
-  - Código
-  - Explicação da solução (em arquivo separado em Markdown/Plain Text)
-
-__Avaliação__
-
-Para nos enviar seu código, você pode:
-
- - Fazer um fork desse repositório, e nos mandar uma pull-request.
- - Dar acesso ao seu repositório privado no [Gitlab](http://gitlab.com) para o usuário `creditaschallenge`.
+- Primeiro eu separei os scripts de compra em arquivos separados (buy_boook.py etc)
+- Implementei a classe Costomer, que a além do nome do cliente armazena os vouchers adquiridos e se ele é membro
+- Implementei uma classe Mail, para representar os atributos básicos do envio de e-mail de notificação
+- Implementei a classe ShippingLabel, que recebe os dados de uma compra para entrega e com a função print retorna uma string com a informações referentes em caso de envio de livro ou não
+- Implementei a classe Shipping, que recebe o resultado da efetivação da compra e procede com os desdobramentos de cada caso (marca o usuário como mebro, envia o e-mail e registra o voucher em caso de produto digital ou chama a classe ShippingLabel para gerar a etiqueta correspondente ao tipo de produto)

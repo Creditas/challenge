@@ -1,5 +1,5 @@
-from bootstrap import Costumer, Product, Order, Payment, CreditCard, Shipping
-foolano = Costumer("William", "william@will.com")
+from bootstrap import Costomer, Product, Order, Payment, CreditCard, Shipping
+foolano = Costomer("William", "william@will.com")
 phone = Product(name="Xiaomi Redmi 7", type="physical")
 phone_order = Order(foolano)
 phone_order.add_product(phone)

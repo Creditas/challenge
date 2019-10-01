@@ -1,6 +1,6 @@
-from bootstrap import Costumer, Product, Order, Payment, CreditCard, Shipping
+from bootstrap import Costomer, Product, Order, Payment, CreditCard, Shipping
 
-foolano = Costumer("William", "william@will.com")
+foolano = Costomer("William", "william@will.com")
 membership = Product(name="Membership", type="membership")
 
 membership_order = Order(foolano)

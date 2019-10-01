@@ -43,14 +43,14 @@ class Invoice:
 
 
 class Order:
-    costumer = None
+    costomer = None
     items = None
     payment = None
     address = None
     closed_at = None
 
-    def __init__(self, costumer, attributes={}):
-        self.costumer = costumer
+    def __init__(self, costomer, attributes={}):
+        self.costomer = costomer
         self.items = []
         self.order_item_class = attributes.get('order_item_class', OrderItem)
         self.address = attributes.get('address', Address(zipcode='45678-979'))
@@ -106,7 +106,7 @@ class CreditCard:
         return CreditCard()
 
 
-class Costumer:
+class Costomer:
     name = None
     email = None
     vouchers = None
@@ -126,11 +126,11 @@ class Costumer:
 
 
 class Membership:
-    costumer = None
+    costomer = None
     since = None
 
-    def __init__(self, costumer):
-        self.costumer = costumer
+    def __init__(self, costomer):
+        self.costomer = costomer
         self.since = time.time()
 
 class Mail:
@@ -208,7 +208,7 @@ class Shipping:
     def _physical(self, product_name):
         label = ShippingLabel(
             self.payment.order.address,
-            self.payment.order.costumer.name,
+            self.payment.order.costomer.name,
             product_name,
             "physical"
         )
@@ -221,7 +221,7 @@ class Shipping:
     def _book(self, product_name):
         label = ShippingLabel(
             self.payment.order.address,
-            self.payment.order.costumer.name,
+            self.payment.order.costomer.name,
             product_name,
             "book"
         )
@@ -233,10 +233,10 @@ class Shipping:
     
     def _digital(self, product_name):
         voucher = Voucher(10)
-        self.payment.order.costumer.give_voucher(voucher)
+        self.payment.order.costomer.give_voucher(voucher)
 
         mail_content = "Obrigado por comprar %s conosco, você ganhou um voucher de R$ 10" % product_name
-        mail = Mail(self.payment.order.costumer.email, mail_content)
+        mail = Mail(self.payment.order.costomer.email, mail_content)
         mail.send()
 
         response = {
@@ -246,12 +246,12 @@ class Shipping:
         return response
     
     def _membership(self, product_name):
-        costumer_membership = Membership(self.payment.order.costumer)
-        self.payment.order.costumer.make_member()
+        costomer_membership = Membership(self.payment.order.costomer)
+        self.payment.order.costomer.make_member()
 
         response = {
             "message": "Obrigado por se tornar membro!",
-            "membership": costumer_membership
+            "membership": costomer_membership
         }
 
         return response
