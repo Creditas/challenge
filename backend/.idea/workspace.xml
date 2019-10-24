@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a9417497-94e0-4312-b4eb-b1f93522c060" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pedidos/src/main.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pedidos/src/model/Cartao.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pedidos/src/model/Cliente.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pedidos/src/model/Endereco.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pedidos/src/model/FormaPagamentoEnum.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pedidos/src/model/Item.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pedidos/src/model/MensagemEnum.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pedidos/src/model/Pagamento.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pedidos/src/model/Pedido.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pedidos/src/model/Produto.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pedidos/src/model/ProdutoEnum.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pedidos/src/service/Ordem.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap.rb" beforeDir="false" />
-    </list>
+    <list default="true" id="a9417497-94e0-4312-b4eb-b1f93522c060" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +25,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pedidos/src/main.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
+            <state relative-caret-position="193">
               <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
@@ -183,7 +168,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1382" />
@@ -236,12 +221,13 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="project.propCompiler" />
@@ -272,18 +258,17 @@
       <option name="presentableId" value="Default" />
       <updated>1571868188792</updated>
       <workItem from="1571868208204" duration="1214000" />
-      <workItem from="1571869777231" duration="9164000" />
+      <workItem from="1571869777231" duration="9547000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10378000" />
+    <option name="totallyTimeSpent" value="10761000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24962178" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24962178" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -306,7 +291,7 @@
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="SQL" order="13" />
       <window_info anchor="bottom" id="Version Control" order="14" />
-      <window_info anchor="bottom" id="Terminal" order="15" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="15" visible="true" weight="0.5986394" />
       <window_info anchor="bottom" id="GitLabIntegration" order="16" />
       <window_info anchor="bottom" id="SonarQube" order="17" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -444,7 +429,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pedidos/src/main.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
+        <state relative-caret-position="193">
           <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
@@ -455,6 +440,29 @@
   </component>
   <component name="masterDetails">
     <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
       <state key="GlobalLibrariesConfigurable.UI">
         <settings>
           <splitter-proportions>
@@ -469,6 +477,17 @@
       <state key="JdkListConfigurable.UI">
         <settings>
           <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
           <splitter-proportions>
             <option name="proportions">
               <list>
