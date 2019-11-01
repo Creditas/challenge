@@ -22,19 +22,34 @@
   Jest: "global" coverage threshold for functions (80%) not met: 9.52%
 --> */
 
-import CreditasChallenge, {
-  checkFormValidity,
-  getFormValues,
-  toStringFormValues,
-  Send,
-  Submit
-} from '../src/index'
+import setValuesToGuarantee, { setValuesDOM } from '../src/js/setValuesToGuarantee'
+import { numberWithCommas, getFormValues, getItemForm, send, checkFormValidity } from '../src/js/helpers'
 
 function initializeAppMock () {
   document.body.innerHTML = `
     <form class="form" data-testid="form">
+      <select name="parcelas" id="parcelas" required>
+        <option value="24">24</option>
+        <option value="36">36</option>
+        <option value="48">48</option>
+      </select>
+      <select name="garantia" id="garantia" required>
+        <option value="VEICULO">Veículo</option>
+        <option value="IMOVEL">Imóvel</option>
+      </select>
       <label for="valor-garantia">Valor da Garantia</label>
-      <input id="valor-garantia" required />
+      <input name="valor-garantia" id="valor-garantia" value="3750" required />
+      <input type="range" name="valor-garantia-range" id="valor-garantia-range" min="0" max="100" value="0" step="10">
+      <div id="valor-garantia-range-value" class="range__values">
+      <span>3,750</span>
+      <span>80.000</span>
+      </div>
+      <input type="range" name="valor-emprestimo-range" id="valor-emprestimo-range" min="0" max="100" value="0" step="10">
+      <div id="valor-emprestimo-range-value" class="range__values">
+      <span>30.000</span>
+      <span>60.000</span>
+      </div>
+      <input name="valor-emprestimo" id="valor-emprestimo" value="3000" required />
       <button type="button"></button>
     </form>
   `
@@ -47,30 +62,133 @@ function clean () {
 describe('Creditas Challenge', () => {
   beforeEach(() => {
     initializeAppMock()
+    // DOM.init()
   })
 
   afterEach(() => {
     clean()
   })
 
-  describe('Method: checkFormValidity', () => {
-    it('should return true when form has valid', () => {
-      const form = document.querySelector('.form')
-      const input = document.querySelector('input')
-      input.value = 10
-      expect(checkFormValidity(form)).toBeTruthy()
+  describe('setValuesToGuarantee', () => {
+    describe('Method: setValuesToGuarantee', () => {
+      it('should return indefinitely change the DOM data for car', () => {
+        const payload = {
+          key: 'VEICULO',
+          element: {
+            months: document.getElementById('parcelas'),
+            valueGuaranteeRange: document.getElementById('valor-garantia-range'),
+            valueGuarantee: document.getElementById('valor-garantia'),
+            valuesGuaranteeRangeBottom: document.getElementById('valor-garantia-range-value'),
+            valueBusinessRange: document.getElementById('valor-emprestimo-range'),
+            valueBusiness: document.getElementById('valor-emprestimo'),
+            valuesBusinessRangeBottom: document.getElementById('valor-emprestimo-range-value')
+          }
+        }
+        expect(setValuesToGuarantee(payload)).toEqual(undefined)
+      })
     })
 
-    it('should return false when form has not valid', () => {
-      const form = document.querySelector('.form')
-      expect(checkFormValidity(form)).toBeFalsy()
+    describe('Method: setValuesToGuarantee', () => {
+      it('should return indefinitely change the DOM data for Home', () => {
+        const payload = {
+          key: 'IMOVEL',
+          element: {
+            months: document.getElementById('parcelas'),
+            valueGuaranteeRange: document.getElementById('valor-garantia-range'),
+            valueGuarantee: document.getElementById('valor-garantia'),
+            valuesGuaranteeRangeBottom: document.getElementById('valor-garantia-range-value'),
+            valueBusinessRange: document.getElementById('valor-emprestimo-range'),
+            valueBusiness: document.getElementById('valor-emprestimo'),
+            valuesBusinessRangeBottom: document.getElementById('valor-emprestimo-range-value')
+          }
+        }
+        expect(setValuesToGuarantee(payload)).toEqual(undefined)
+      })
     })
+
+    describe('Method: setValuesDOM', () => {
+      it('should return  undefined as it only sends data to the DOM', () => {
+        const params = {
+          min: 3750.0,
+          max: 125000.0,
+          months: [24, 36, 48]
+        }
+        const elements = {
+          months: document.getElementById('parcelas'),
+          valueGuaranteeRange: document.getElementById('valor-garantia-range'),
+          valueGuarantee: document.getElementById('valor-garantia'),
+          valuesGuaranteeRangeBottom: document.getElementById('valor-garantia-range-value'),
+          valueBusinessRange: document.getElementById('valor-emprestimo-range'),
+          valueBusiness: document.getElementById('valor-emprestimo'),
+          valuesBusinessRangeBottom: document.getElementById('valor-emprestimo-range-value')
+        }
+        expect(setValuesDOM(elements, params)).toEqual(undefined)
+      })
+    })
+
   })
 
-  describe('Method: Submit', () => {
-    it('should add event listener to submit data form', () => {
-      const container = document.querySelector('.form')
-      Submit(container)
+  describe('Helpers...', () => {
+    describe('Method: numberWithCommas', () => {
+      it('should return a comma separated string value', () => {
+        expect(numberWithCommas(10000000)).toBe('10,000,000')
+      })
     })
+
+    describe('Method: getFormValues', () => {
+      it('should return an array with the fields and values of the form ', () => {
+        const form = document.querySelector('.form')
+        const expected = [
+          { field: 'parcelas', value: '24' },
+          { field: 'garantia', value: 'VEICULO' },
+          { field: 'valor-garantia', value: '3750' },
+          { field: 'valor-garantia-range', value: '0' },
+          { field: 'valor-emprestimo-range', value: '0' },
+          { field: 'valor-emprestimo', value: '3000' }
+        ]
+        expect(getFormValues(form)).toEqual(expected)
+      })
+    })
+
+    describe('Method: getItemForm', () => {
+      it('should return an object of the form with its field and value ', () => {
+        const form = document.querySelector('.form')
+        const expected = { field: 'parcelas', value: '24' }
+        expect(getItemForm(form, 'parcelas')).toEqual(expected)
+      })
+    })
+
+    describe('Method: send', () => {
+      it('should return return a promise of a function ', () => {
+        const func = () => ({})
+        expect(send(func)).resolves.toEqual({})
+      })
+    })
+
+    describe('Method: checkFormValidity', () => {
+      it('should return true if the form fields are valid and if the loan is less than 80% of the guarantee ', () => {
+        const form = document.querySelector('.form')
+        const params = {
+          VALUE_GUARANTEE: 'valor-garantia',
+          VALUE_BUSINESS: 'valor-emprestimo',
+          MAX_CREDIT_PERCENTAGE: 0.8
+        }
+        const expected = { isValid: true }
+        expect(checkFormValidity(form, params)).toMatchObject(expected)
+      })
+      it('should return true false if the form fields are invalid and if the loan is greater than 80% of the guarantee ', () => {
+        const form = document.querySelector('.form')
+        const input = document.getElementById('valor-emprestimo')
+        input.value = 4000
+        const params = {
+          VALUE_GUARANTEE: 'valor-garantia',
+          VALUE_BUSINESS: 'valor-emprestimo',
+          MAX_CREDIT_PERCENTAGE: 0.8
+        }
+        const expected = { isValid: false }
+        expect(checkFormValidity(form, params)).toMatchObject(expected)
+      })
+    })
+
   })
 })

@@ -43,7 +43,7 @@ export default (payload) => {
   }
 }
 
-const setValuesDOM = (payload, params) => {
+export const setValuesDOM = (payload = {}, params = {}) => {
   Object
     .values(payload.months)
     .map((element, index) => {

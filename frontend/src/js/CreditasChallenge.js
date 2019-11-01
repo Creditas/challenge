@@ -30,7 +30,6 @@ export default class CreditasChallenge {
     const loanAmount = getItemForm(DOM.element.form, VALUE_BUSINESS).value.replace(',', '')
     const totalLoanPayments = (ftt + interestRate + (termInMonths / 1000) + 1) * loanAmount
     const monthlyPayment = totalLoanPayments / termInMonths
-    console.log(totalLoanPayments.toFixed(2))
     return {
       totalLoanPayments,
       monthlyPayment
