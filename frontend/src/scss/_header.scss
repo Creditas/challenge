@@ -1,0 +1,19 @@
+.header {
+    background-color: v(mountain-meadow);
+    padding: 20px 0;
+
+    &__container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 80%;
+        margin: 0 auto;
+    }
+    .logo {
+        height: 1em;
+    }
+    .help {
+      text-decoration: none;
+      color: var(--concrete);
+    }
+}
