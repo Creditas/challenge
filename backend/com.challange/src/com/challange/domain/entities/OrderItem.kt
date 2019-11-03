@@ -8,7 +8,6 @@ class OrderItem : IOrderItem {
     var totalPaid: Double = 0.0
 
     override fun addProduct(product: Product) {
-
         this.calculateTotalPaid(product.quantity, product.price)
 
         if(this.productsAdded.contains(product)) {
@@ -19,6 +18,6 @@ class OrderItem : IOrderItem {
     }
 
     override fun calculateTotalPaid(quantity: Int, price: Double) {
-        this.totalPaid = quantity * price
+        this.totalPaid += quantity * price
     }
 }

@@ -4,7 +4,6 @@ import com.challange.domain.enum.ETypeOfPayment
 import com.challange.domain.interfaces.IPayment
 import com.challange.domain.interfaces.IPaymentMethod
 import com.sun.istack.internal.NotNull
-import java.lang.Exception
 import java.util.*
 
 open class Payment(
@@ -18,7 +17,20 @@ open class Payment(
     var paymentNumber: String = Math.random().toString().toUpperCase()
 
     override fun pay(orderItem: OrderItem) {
-        if (orderItem.productsAdded.count() == 0)
-            throw Exception("Empty order can not be paid!")
+        when(this.typeOfPayment) {
+            ETypeOfPayment.CREDITCARD -> {
+                val creditCardPayment = CreditCardPayment("1234567890",
+                        "HEITOR R SOUZA",
+                        Date(),
+                        "12345",
+                        this.customer,
+                        this.paidDate,
+                        this.expireDate,
+                        this.typeOfPayment,
+                        this.totalPaid)
+
+                creditCardPayment.pay(orderItem)
+            }
+        }
     }
 }

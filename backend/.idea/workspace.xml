@@ -2,21 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d6b2ebf-0297-48b6-b75d-1848c160a47f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/com.challange/src/com/challange/data/Email.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.challange/src/com/challange/data/ShippingLabel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.challange/src/com/challange/data/interfaces/IEmail.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.challange/src/com/challange/data/interfaces/IShippingLabel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/CreditCardPaymet.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Subscriptions.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.challange/src/com/challange/domain/enum/ETypeOfPayment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IOrderInterface.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IOrderItem.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IPayment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IPaymentMethod.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/ISubscription.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap.rb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.challange/src/com/challange/data/Email.kt" beforeDir="false" afterPath="$PROJECT_DIR$/com.challange/src/com/challange/data/Email.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.challange/src/com/challange/data/interfaces/IEmail.kt" beforeDir="false" afterPath="$PROJECT_DIR$/com.challange/src/com/challange/data/interfaces/IEmail.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/CreditCardPaymet.kt" beforeDir="false" afterPath="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/CreditCardPayment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Order.kt" beforeDir="false" afterPath="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Order.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/OrderItem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/OrderItem.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Payment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Payment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IOrderInterface.kt" beforeDir="false" afterPath="$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IOrderInterface.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IPayment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IPayment.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,10 +23,58 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com.challange/src/bootstrap.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="35" column="16" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="16" />
+              <folding>
+                <element signature="e#19#64#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com.challange/src/main.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#223#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/OrderItem.kt">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Payment.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="600">
+              <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
+              <folding>
+                <element signature="e#39#273#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IPayment.kt">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
-              <caret line="6" column="21" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="21" />
+              <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+              <folding>
+                <element signature="e#41#135#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -41,8 +82,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Order.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="29" column="70" selection-start-line="29" selection-start-column="70" selection-end-line="29" selection-end-column="70" />
+            <state relative-caret-position="140">
+              <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
               <folding>
                 <element signature="e#39#250#0" expanded="true" />
               </folding>
@@ -51,76 +92,43 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/enum/EProductType.kt">
+        <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/CreditCardPayment.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/enum/ETypeOfPayment.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IOrderInterface.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Product.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" column="104" selection-start-line="4" selection-start-column="104" selection-end-line="4" selection-end-column="104" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/data/Email.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="6" column="45" selection-start-line="6" selection-start-column="45" selection-end-line="6" selection-end-column="45" />
+            <state relative-caret-position="400">
+              <caret line="20" column="59" selection-start-line="20" selection-start-column="59" selection-end-line="20" selection-end-column="59" />
               <folding>
-                <element signature="e#28#117#0" expanded="true" />
+                <element signature="e#39#159#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Customer.kt">
+        <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IPaymentMethod.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+            <state relative-caret-position="120">
+              <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
+              <folding>
+                <element signature="e#41#153#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Subscriptions.kt">
+        <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/ISubscription.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+            <state relative-caret-position="60">
+              <caret line="3" column="28" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/data/ShippingLabel.kt">
+        <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/valueObjects/Address.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+            <state relative-caret-position="40">
+              <caret line="2" column="137" selection-start-line="2" selection-start-column="137" selection-end-line="2" selection-end-column="137" />
             </state>
           </provider>
         </entry>
@@ -158,19 +166,20 @@
         <option value="$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/ISubscription.kt" />
         <option value="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Subscriptions.kt" />
         <option value="$PROJECT_DIR$/com.challange/src/com/challange/data/interfaces.kt" />
-        <option value="$PROJECT_DIR$/com.challange/src/com/challange/data/interfaces/IEmail.kt" />
-        <option value="$PROJECT_DIR$/com.challange/src/com/challange/data/Email.kt" />
         <option value="$PROJECT_DIR$/com.challange/src/com/challange/domain/valueObjects/Email.kt" />
         <option value="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Customer.kt" />
-        <option value="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/OrderItem.kt" />
-        <option value="$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IPayment.kt" />
         <option value="$PROJECT_DIR$/com.challange/src/main.kt" />
-        <option value="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Payment.kt" />
         <option value="$PROJECT_DIR$/com.challange/src/com/challange/data/interfaces/IShippingLabel.kt" />
         <option value="$PROJECT_DIR$/com.challange/src/com/challange/data/ShippingLabel.kt" />
+        <option value="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Product.kt" />
+        <option value="$PROJECT_DIR$/com.challange/src/com/challange/data/interfaces/IEmail.kt" />
+        <option value="$PROJECT_DIR$/com.challange/src/com/challange/data/Email.kt" />
         <option value="$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IOrderInterface.kt" />
         <option value="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Order.kt" />
-        <option value="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Product.kt" />
+        <option value="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/OrderItem.kt" />
+        <option value="$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IPayment.kt" />
+        <option value="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/CreditCardPayment.kt" />
+        <option value="$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Payment.kt" />
       </list>
     </option>
   </component>
@@ -279,16 +288,6 @@
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="challange" type="462c0819:PsiDirectoryNode" />
               <item name="domain" type="462c0819:PsiDirectoryNode" />
-              <item name="enum" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="com.challange" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="challange" type="462c0819:PsiDirectoryNode" />
-              <item name="domain" type="462c0819:PsiDirectoryNode" />
               <item name="interfaces" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -325,6 +324,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -485,8 +485,91 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/data/interfaces/IEmail.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+        <state relative-caret-position="120">
+          <caret line="6" column="54" selection-start-line="6" selection-start-column="54" selection-end-line="6" selection-end-column="54" />
+          <folding>
+            <element signature="e#39#129#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/data/interfaces/IShippingLabel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="3" column="30" lean-forward="true" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/data/Email.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="7" column="63" selection-start-line="7" selection-start-column="63" selection-end-line="7" selection-end-column="63" />
+          <folding>
+            <element signature="e#28#162#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/data/ShippingLabel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Customer.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Product.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="4" column="69" lean-forward="true" selection-start-line="4" selection-start-column="69" selection-end-line="4" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Subscriptions.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/enum/EProductType.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/enum/ETypeOfPayment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" column="1" lean-forward="true" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IOrderInterface.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="7" column="45" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IOrderItem.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" column="56" selection-start-line="6" selection-start-column="56" selection-end-line="6" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/ISubscription.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="3" column="28" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -497,10 +580,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/ISubscription.kt">
+    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/OrderItem.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="3" column="28" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="28" />
+        <state relative-caret-position="400">
+          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.challange/src/bootstrap.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="35" column="16" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="16" />
+          <folding>
+            <element signature="e#19#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.challange/src/main.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#223#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -514,140 +617,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IOrderItem.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="56" selection-start-line="6" selection-start-column="56" selection-end-line="6" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IPayment.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/main.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="33" column="28" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#223#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Payment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="21" column="59" lean-forward="true" selection-start-line="21" selection-start-column="59" selection-end-line="21" selection-end-column="59" />
-          <folding>
-            <element signature="e#39#271#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/bootstrap.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="700">
-          <caret line="35" column="16" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="16" />
-          <folding>
-            <element signature="e#19#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/CreditCardPaymet.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="10" column="39" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
-          <folding>
-            <element signature="e#39#159#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/data/interfaces/IShippingLabel.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="3" column="30" lean-forward="true" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/interfaces/IOrderInterface.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/OrderItem.kt">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="6" column="21" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Subscriptions.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Product.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="104" selection-start-line="4" selection-start-column="104" selection-end-line="4" selection-end-column="104" />
+          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+          <folding>
+            <element signature="e#41#135#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Order.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="29" column="70" selection-start-line="29" selection-start-column="70" selection-end-line="29" selection-end-column="70" />
+        <state relative-caret-position="140">
+          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
           <folding>
             <element signature="e#39#250#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Customer.kt">
+    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/CreditCardPayment.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/data/Email.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="45" selection-start-line="6" selection-start-column="45" selection-end-line="6" selection-end-column="45" />
+        <state relative-caret-position="400">
+          <caret line="20" column="59" selection-start-line="20" selection-start-column="59" selection-end-line="20" selection-end-column="59" />
           <folding>
-            <element signature="e#28#117#0" expanded="true" />
+            <element signature="e#39#159#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/data/ShippingLabel.kt">
+    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/entities/Payment.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/enum/EProductType.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com.challange/src/com/challange/domain/enum/ETypeOfPayment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        <state relative-caret-position="600">
+          <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
+          <folding>
+            <element signature="e#39#273#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

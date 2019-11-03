@@ -1,10 +1,11 @@
 package com.challange.domain.interfaces
 
-import com.challange.domain.entities.Customer
+import com.challange.domain.entities.Product
 
 interface IOrderInterface {
     fun executePayment()
     fun generateThreatment()
-    fun activateSubscription(customer: Customer)
+    fun activateSubscription(product: Product)
     fun generateShippingLabel(isARegularBook: Boolean)
+    fun generateVoucher(product: Product)
 }
