@@ -20,7 +20,7 @@ export default SearchKeywordInput = (props) => {
           placeholderTextColor={Colors.primary}
           autoCorrect={false}
           autoCompleteType="off"
-          autoCapitalize={false}
+          autoCapitalize="none"
           {...props}
       />
       <TouchableOpacity onPress={() => props.onChange('')}>

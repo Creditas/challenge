@@ -4,8 +4,10 @@ import {
   ActivityIndicator,
   StatusBar,
   View,
+  Keyboard,
 } from 'react-native';
 import { connect } from 'react-redux';
+import DismissKeyboard from '../../Components/DismissKeyboard';
 
 import RepoListScrollView from './RepoListScrollView';
 import SearchInput from '../../Components/SearchInput';
@@ -32,7 +34,6 @@ export class RepoList extends React.Component {
   static defaultProps = {
     isLoading: false,
     repos: [],
-    getRepos: () => {}
   }
 
   state = {
@@ -53,17 +54,25 @@ export class RepoList extends React.Component {
     }, 300)
   }
 
+  onChange(value) {
+    if (!value) {
+      Keyboard.dismiss();
+    }
+    this.onSearch(value.nativeEvent ? value.nativeEvent.text : value);
+  }
+
   render() {
     const { repos, isLoading } = this.props;
     const { keyword } = this.state;
 
     return (
+      <DismissKeyboard>
       <Wrapper>
         <StatusBar barStyle="default" />
         <Logo source={require('../../Assets/github-logo-full.png')} />
         <SearchInput
           defaultValue={keyword}
-          onChange={value => this.onSearch(value.nativeEvent ? value.nativeEvent.text : value)}
+          onChange={value => this.onChange(value)}
           placeholder="Repository Search"
         />
         <RepoListScrollView
@@ -72,6 +81,7 @@ export class RepoList extends React.Component {
           repos={filterByKeyword(repos, keyword)}
         />
       </Wrapper>
+      </DismissKeyboard>
     );
   }
 }
