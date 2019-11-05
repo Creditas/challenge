@@ -5,7 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "pod:install": "cd ios && pod install",
-    "run:ios": "ENVFILE=.env.staging react-native run-ios --simulator='iPhone XS'",
+    "run:ios": "react-native run-ios --simulator='iPhone XS'",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint ."
@@ -56,8 +56,11 @@
     "setupFilesAfterEnv": [
       "./jest.bootstrap"
     ],
+    "setupFiles": [
+      "./node_modules/react-native-gesture-handler/jestSetup.js"
+    ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-navigation)"
+      "node_modules/(?!(jest-)?react-native|react-navigation|react-navigation-redux-helpers|@react-navigation/.*)"
     ]
   }
 }
