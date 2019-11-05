@@ -42,10 +42,11 @@ exports[`renders Login correctly (snapshot) 1`] = `
           "width": 375,
         },
         Object {
-          "opacity": 0,
+          "opacity": 0.8,
+          "top": 0,
           "transform": Array [
             Object {
-              "translateY": -100,
+              "scale": 0.3,
             },
           ],
         },
@@ -77,6 +78,7 @@ exports[`renders Login correctly (snapshot) 1`] = `
         autoCorrect={false}
         keyboardType="email-address"
         onChange={[Function]}
+        placeholder="Your Github email address"
         rejectResponderTermination={true}
         style={
           Array [
