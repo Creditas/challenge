@@ -40,9 +40,9 @@ Todas versões estão atualualizadas e lockadas (3/11/2019).
 # TODO
 - Unity test
   - Styleguide test
-  - Styleguide storybook
+  - Styleguide storybook?
   - getFilteredRepos (move to utils)
 - Normalize components (reuse) + Styled Component theme
-- Search API + Pagination + debounce
-- GitHub Authentication com 2Factor (SMS code)
-- Splashscreen
+- Search API + Pagination + debounce?
+- GitHub Authentication com 2Factor (SMS code)?
+- Splashscreen?
