@@ -35,12 +35,11 @@ class RepoListScrollView extends React.Component {
 
     if (contentOffset.y < -40 && !this.state.isRefreshing) {
       Vibration.vibrate();
-      // configureLayoutAnimation();
       this.setState({ isRefreshing: true },
         () => setTimeout(() => {
           this.props.getRepos().then(() => {
             this.setState({ isRefreshing: false });
-            LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+            configureLayoutAnimation();
           });
         }, 1500),
       );
@@ -57,9 +56,7 @@ class RepoListScrollView extends React.Component {
         onScrollEndDrag={this.onScrollEndDrag}
       >
         {isRefreshing && (
-          <Animatable.View
-            animation="fadeIn"
-          >
+          <Animatable.View animation="fadeIn">
             <ActivityIndicator />
           </Animatable.View>
         )}

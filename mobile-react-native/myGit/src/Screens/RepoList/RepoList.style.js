@@ -10,10 +10,11 @@ export const Wrapper = styled.View`
   padding: 8px;
 `;
 
-export const RepoLogo = styled.Image`
+export const Logo = styled.Image`
   width: ${width / 2}px;
   height: ${width / 5}px;
   marginBottom: ${Margins.small}px;
   align-self: center;
   resizeMode: contain;
 `;
+

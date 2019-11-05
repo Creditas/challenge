@@ -2,28 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   ActivityIndicator,
-  AsyncStorage,
   StatusBar,
-  StyleSheet,
   View,
-  TextInput,
 } from 'react-native';
 import { connect } from 'react-redux';
 
 import RepoListScrollView from './RepoListScrollView';
+import SearchInput from '../../Components/SearchInput';
 
+import { configureLayoutAnimation } from '../../Utils/layoutAnimation';
 import { getRepos } from '../../Store/Ducks/repository';
+import { filterByKeyword } from '../../Utils/repoFilter';
 
 import {
   Wrapper,
-  RepoLogo,
+  Logo,
 } from './RepoList.style';
 
 export class RepoList extends React.Component {
   static propTypes = {
     repos: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
+      description: PropTypes.string,
     })),
     getRepos: PropTypes.func.isRequired,
     isLoading: PropTypes.bool
@@ -43,33 +43,33 @@ export class RepoList extends React.Component {
     this.props.getRepos();
   }
 
+  // Search keyword (debounce com 400ms)
   onSearch(keyword) {
-    this.setState({ keyword });
-  }
+    clearTimeout(this.typeKeywordDebounce);
 
-  getFilteredRepos(repos) {
-    const { keyword } = this.state;
-    if (repos.length) {
-      return repos.filter(repo => (repo.name.toLowerCase()).includes(keyword.toLowerCase()))
-    }
-    return repos;
+    this.typeKeywordDebounce = setTimeout(() => {
+      configureLayoutAnimation();
+      this.setState({ keyword });
+    }, 300)
   }
 
   render() {
     const { repos, isLoading } = this.props;
+    const { keyword } = this.state;
 
     return (
       <Wrapper>
         <StatusBar barStyle="default" />
-        <RepoLogo source={require('../../Assets/github-logo-full.png')} />
-        <TextInput
-          onChange={event => this.onSearch(event.nativeEvent.text)}
+        <Logo source={require('../../Assets/github-logo-full.png')} />
+        <SearchInput
+          defaultValue={keyword}
+          onChange={value => this.onSearch(value.nativeEvent ? value.nativeEvent.text : value)}
           placeholder="Repository Search"
-          style={{ borderWidth: 1, borderRadius: 4, width: '100%', padding: 8, marginBottom: 40 }} />
+        />
         <RepoListScrollView
           isLoading={isLoading}
           getRepos={this.props.getRepos}
-          repos={this.getFilteredRepos(repos)}
+          repos={filterByKeyword(repos, keyword)}
         />
       </Wrapper>
     );

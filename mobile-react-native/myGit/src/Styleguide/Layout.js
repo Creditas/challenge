@@ -14,6 +14,7 @@ const Global = {
     flex: 1,
     background: Colors.white,
   },
+  radius: 6,
 };
 
 export default {

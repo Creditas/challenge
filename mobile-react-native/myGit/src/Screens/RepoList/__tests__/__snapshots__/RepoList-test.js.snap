@@ -36,22 +36,98 @@ exports[`renders RepoList correctly (snapshot) 1`] = `
       ]
     }
   />
-  <TextInput
-    allowFontScaling={true}
-    onChange={[Function]}
-    placeholder="Repository Search"
-    rejectResponderTermination={true}
+  <View
     style={
       Object {
-        "borderRadius": 4,
+        "alignItems": "center",
+        "borderRadius": 6,
         "borderWidth": 1,
+        "flexDirection": "row",
+        "justifyContent": "center",
         "marginBottom": 40,
-        "padding": 8,
-        "width": "100%",
+        "padding": 10,
       }
     }
-    underlineColorAndroid="transparent"
-  />
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        Array [
+          Object {
+            "color": "#333",
+            "fontSize": 24,
+          },
+          undefined,
+          Object {
+            "fontFamily": "FontAwesome",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+    >
+      
+    </Text>
+    <TextInput
+      allowFontScaling={true}
+      autoCapitalize={false}
+      autoCompleteType="off"
+      autoCorrect={false}
+      defaultValue=""
+      onChange={[Function]}
+      placeholder="Repository Search"
+      placeholderTextColor="#333"
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "flex": 1,
+          "textAlign": "center",
+        }
+      }
+      underlineColorAndroid="transparent"
+    />
+    <View
+      accessible={true}
+      focusable={true}
+      isTVSelectable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": "#333",
+              "fontSize": 24,
+            },
+            Object {
+              "opacity": 0,
+            },
+            Object {
+              "fontFamily": "FontAwesome",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        
+      </Text>
+    </View>
+  </View>
   <RCTScrollView
     onScrollEndDrag={[Function]}
     scrollEventThrottle={100}

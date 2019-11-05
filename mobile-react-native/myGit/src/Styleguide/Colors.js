@@ -1,5 +1,5 @@
 export default Colors = {
-  primary: '#000',
+  primary: '#333',
   secondary: '#CCC',
   darkPurple: '#686AD1',
   white: '#FFF',
