@@ -5,6 +5,7 @@ import {
   StatusBar,
   View,
   Keyboard,
+  Animated
 } from 'react-native';
 import { connect } from 'react-redux';
 import DismissKeyboard from '../../Components/DismissKeyboard';
@@ -20,6 +21,10 @@ import {
   Wrapper,
   Logo,
 } from './RepoList.style';
+
+const HEADER_HEIGHT = 150;
+const MAX_SCROLL_OFFSET = HEADER_HEIGHT - 100;
+const HEADER_MIN_HEIGHT = 40;
 
 export class RepoList extends React.Component {
   static propTypes = {
@@ -39,6 +44,8 @@ export class RepoList extends React.Component {
   state = {
     keyword: ''
   }
+
+  scrollYValue = new Animated.Value(0);
 
   componentDidMount() {
     this.props.getRepos();
@@ -65,20 +72,53 @@ export class RepoList extends React.Component {
     const { repos, isLoading } = this.props;
     const { keyword } = this.state;
 
+    const headerHeight = this.scrollYValue.interpolate(
+      {
+        inputRange: [0, MAX_SCROLL_OFFSET],
+        outputRange: [HEADER_HEIGHT, HEADER_MIN_HEIGHT],
+        extrapolate: 'clamp'
+      });
+
+    const inputOpacity = this.scrollYValue.interpolate(
+      {
+        inputRange: [0, MAX_SCROLL_OFFSET],
+        outputRange: [1, 0],
+        extrapolate: 'clamp'
+      });
+
+    const logoSize = this.scrollYValue.interpolate(
+      {
+        inputRange: [0, MAX_SCROLL_OFFSET],
+        outputRange: [60, 30],
+        extrapolate: 'clamp'
+      });
+
     return (
       <DismissKeyboard>
       <Wrapper>
         <StatusBar barStyle="default" />
-        <Logo source={require('../../Assets/github-logo-full.png')} />
-        <SearchInput
-          defaultValue={keyword}
-          onChange={value => this.onChange(value)}
-          placeholder="Repository Search"
-        />
+
+        <Animated.View style={{ height: headerHeight }}>
+          <Logo
+            style={{ height: logoSize }}
+            source={require('../../Assets/github-logo-full.png')}
+          />
+          <Animated.View style={{ opacity: inputOpacity }}>
+            <SearchInput
+              defaultValue={keyword}
+              onChange={value => this.onChange(value)}
+              placeholder="Repository Search"
+            />
+          </Animated.View>
+        </Animated.View>
+
         <RepoListScrollView
           isLoading={isLoading}
           getRepos={this.props.getRepos}
           repos={filterByKeyword(repos, keyword)}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: this.scrollYValue } } }]
+          )}
         />
       </Wrapper>
       </DismissKeyboard>

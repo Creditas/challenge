@@ -48,12 +48,14 @@ class RepoListScrollView extends React.Component {
 
   render() {
     const { isRefreshing } = this.state;
-    const { repos } = this.props;
+    const { repos, onScroll } = this.props;
 
     return (
       <ScrollView
         scrollEventThrottle={100}
         onScrollEndDrag={this.onScrollEndDrag}
+        scrollEventThrottle={16}
+        onScroll={onScroll}
       >
         {isRefreshing && (
           <Animatable.View animation="fadeIn">

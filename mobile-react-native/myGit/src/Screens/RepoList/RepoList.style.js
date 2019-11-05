@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Animated } from 'react-native';
 import styled from 'styled-components/native';
 
 import { Layout, Margins } from '../../Styleguide';
@@ -10,10 +10,8 @@ export const Wrapper = styled.View`
   padding: 8px;
 `;
 
-export const Logo = styled.Image`
-  width: ${width / 2}px;
-  height: ${width / 5}px;
-  marginBottom: ${Margins.small}px;
+export const Logo = styled(Animated.Image)`
+  height: 60px;
   align-self: center;
   resizeMode: contain;
 `;
