@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders RepoList correctly (snapshot) 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#FFF",
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "marginTop": 20,
+        "paddingBottom": 8,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 8,
+      },
+    ]
+  }
+>
+  <Image
+    source={
+      Object {
+        "testUri": "../../../src/Assets/github-logo-full.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "alignSelf": "center",
+          "height": 150,
+          "marginBottom": 10,
+          "resizeMode": "contain",
+          "width": 375,
+        },
+      ]
+    }
+  />
+  <TextInput
+    allowFontScaling={true}
+    onChange={[Function]}
+    placeholder="Repository Search"
+    rejectResponderTermination={true}
+    style={
+      Object {
+        "borderRadius": 4,
+        "borderWidth": 1,
+        "marginBottom": 40,
+        "padding": 8,
+        "width": "100%",
+      }
+    }
+    underlineColorAndroid="transparent"
+  />
+  <RCTScrollView
+    onScrollEndDrag={[Function]}
+    scrollEventThrottle={100}
+  >
+    <View />
+  </RCTScrollView>
+</View>
+`;

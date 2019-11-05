@@ -1,0 +1,63 @@
+{
+  "name": "myGit",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "pod:install": "cd ios && pod install",
+    "run:ios": "ENVFILE=.env.staging react-native run-ios --simulator='iPhone XS'",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@react-native-community/async-storage": "1.6.2",
+    "@react-native-community/netinfo": "4.4.0",
+    "add": "^2.0.6",
+    "axios": "0.19.0",
+    "base-64": "^0.1.0",
+    "prop-types": "^15.7.2",
+    "react": "16.9.0",
+    "react-native": "0.61.3",
+    "react-native-animatable": "^1.3.3",
+    "react-native-gesture-handler": "^1.5.0",
+    "react-native-i18n": "^2.0.15",
+    "react-native-iphone-x-helper": "1.2.1",
+    "react-native-reanimated": "^1.4.0",
+    "react-native-screens": "^2.0.0-alpha.7",
+    "react-native-vector-icons": "6.6.0",
+    "react-navigation": "4.0.10",
+    "react-navigation-fluid-transitions": "^0.3.2",
+    "react-navigation-stack": "1.10.3",
+    "react-redux": "7.1.1",
+    "reactotron-react-native": "4.0.2",
+    "reactotron-redux": "3.1.2",
+    "reactotron-redux-saga": "4.2.2",
+    "redux": "4.0.4",
+    "redux-persist": "6.0.0",
+    "redux-saga": "1.1.1",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "4.4.1",
+    "yarn": "^1.19.1"
+  },
+  "devDependencies": {
+    "@babel/core": "7.6.4",
+    "@babel/runtime": "7.6.3",
+    "@react-native-community/eslint-config": "0.0.5",
+    "babel-jest": "24.9.0",
+    "eslint": "6.6.0",
+    "eslint-plugin-jest": "^23.0.2",
+    "jest": "24.9.0",
+    "metro-react-native-babel-preset": "0.57.0",
+    "react-test-renderer": "16.9.0"
+  },
+  "jest": {
+    "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "./jest.bootstrap"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-navigation)"
+    ]
+  }
+}

@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Login correctly (snapshot) 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#FFF",
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "justifyContent": "center",
+        "marginTop": 20,
+        "paddingLeft": 40,
+        "paddingRight": 40,
+      },
+    ]
+  }
+>
+  <Image
+    source={
+      Object {
+        "testUri": "../../../src/Assets/github-logo.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "alignSelf": "center",
+          "height": 375,
+          "marginBottom": 40,
+          "resizeMode": "contain",
+          "width": 375,
+        },
+        Object {
+          "opacity": 0,
+          "transform": Array [
+            Object {
+              "translateY": -100,
+            },
+          ],
+        },
+      ]
+    }
+  />
+  <View
+    onLayout={[Function]}
+    style={
+      Array [
+        Object {
+          "alignSelf": "center",
+          "width": "100%",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "bottom": 0,
+        }
+      }
+    >
+      <TextInput
+        allowFontScaling={true}
+        autoCapitalize="none"
+        autoCompleteType="off"
+        autoCorrect={false}
+        keyboardType="email-address"
+        onChange={[Function]}
+        rejectResponderTermination={true}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#FFF",
+              "borderColor": "#CCC",
+              "borderWidth": 1,
+              "height": 40,
+              "marginTop": 20,
+              "textAlign": "center",
+              "width": "100%",
+            },
+          ]
+        }
+        underlineColorAndroid="transparent"
+      />
+      <View
+        accessible={true}
+        focusable={false}
+        isTVSelectable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "marginTop": 40,
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#FFF",
+                "borderColor": "#000",
+                "borderRadius": 6,
+                "borderWidth": 1,
+                "color": "#000",
+                "marginBottom": 40,
+                "paddingBottom": 8,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 8,
+              },
+            ]
+          }
+        >
+          <Text>
+            Next
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
