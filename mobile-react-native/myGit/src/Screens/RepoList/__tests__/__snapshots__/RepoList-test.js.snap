@@ -2,6 +2,15 @@
 
 exports[`renders RepoList correctly (snapshot) 1`] = `
 <View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
   style={
     Array [
       Object {
@@ -18,119 +27,132 @@ exports[`renders RepoList correctly (snapshot) 1`] = `
     ]
   }
 >
-  <Image
-    source={
-      Object {
-        "testUri": "../../../src/Assets/github-logo-full.png",
-      }
-    }
-    style={
-      Array [
-        Object {
-          "alignSelf": "center",
-          "height": 150,
-          "marginBottom": 10,
-          "resizeMode": "contain",
-          "width": 375,
-        },
-      ]
-    }
-  />
   <View
     style={
       Object {
-        "alignItems": "center",
-        "borderRadius": 6,
-        "borderWidth": 1,
-        "flexDirection": "row",
-        "justifyContent": "center",
-        "marginBottom": 40,
-        "padding": 10,
+        "height": 150,
       }
     }
   >
-    <Text
-      allowFontScaling={false}
-      style={
-        Array [
-          Object {
-            "color": "#333",
-            "fontSize": 24,
-          },
-          undefined,
-          Object {
-            "fontFamily": "FontAwesome",
-            "fontStyle": "normal",
-            "fontWeight": "normal",
-          },
-          Object {},
-        ]
-      }
-    >
-      
-    </Text>
-    <TextInput
-      allowFontScaling={true}
-      autoCapitalize={false}
-      autoCompleteType="off"
-      autoCorrect={false}
-      defaultValue=""
-      onChange={[Function]}
-      placeholder="Repository Search"
-      placeholderTextColor="#333"
-      rejectResponderTermination={true}
-      style={
+    <Image
+      source={
         Object {
-          "flex": 1,
-          "textAlign": "center",
+          "testUri": "../../../src/Assets/github-logo-full.png",
         }
       }
-      underlineColorAndroid="transparent"
+      style={
+        Object {
+          "alignSelf": "center",
+          "height": 60,
+          "resizeMode": "contain",
+        }
+      }
     />
     <View
-      accessible={true}
-      focusable={true}
-      isTVSelectable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         Object {
           "opacity": 1,
         }
       }
     >
-      <Text
-        allowFontScaling={false}
+      <View
         style={
-          Array [
-            Object {
-              "color": "#333",
-              "fontSize": 24,
-            },
-            Object {
-              "opacity": 0,
-            },
-            Object {
-              "fontFamily": "FontAwesome",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
+          Object {
+            "alignItems": "center",
+            "borderRadius": 6,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "marginBottom": 40,
+            "padding": 10,
+          }
         }
       >
-        
-      </Text>
+        <Text
+          allowFontScaling={false}
+          style={
+            Array [
+              Object {
+                "color": "#333",
+                "fontSize": 24,
+              },
+              undefined,
+              Object {
+                "fontFamily": "FontAwesome",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              Object {},
+            ]
+          }
+        >
+          
+        </Text>
+        <TextInput
+          allowFontScaling={true}
+          autoCapitalize="none"
+          autoCompleteType="off"
+          autoCorrect={false}
+          defaultValue=""
+          onChange={[Function]}
+          placeholder="Repository Search"
+          placeholderTextColor="#333"
+          rejectResponderTermination={true}
+          style={
+            Object {
+              "flex": 1,
+              "textAlign": "center",
+            }
+          }
+          underlineColorAndroid="transparent"
+        />
+        <View
+          accessible={true}
+          focusable={true}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              Array [
+                Object {
+                  "color": "#333",
+                  "fontSize": 24,
+                },
+                Object {
+                  "opacity": 0,
+                },
+                Object {
+                  "fontFamily": "FontAwesome",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+                Object {},
+              ]
+            }
+          >
+            
+          </Text>
+        </View>
+      </View>
     </View>
   </View>
   <RCTScrollView
+    onScroll={[Function]}
     onScrollEndDrag={[Function]}
-    scrollEventThrottle={100}
+    scrollEventThrottle={16}
   >
     <View />
   </RCTScrollView>

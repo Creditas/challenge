@@ -39,6 +39,7 @@ export class RepoList extends React.Component {
   static defaultProps = {
     isLoading: false,
     repos: [],
+    getRepos: () => {},
   }
 
   state = {

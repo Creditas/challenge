@@ -24,6 +24,7 @@ class RepoListScrollView extends React.Component {
 
   static defaultProps = {
     repos: [],
+    getRepos: () => {},
   };
 
   state = {
