@@ -194,7 +194,6 @@
 				A3590D91E747DCCA523F42BE /* Pods-myGitTests.debug.xcconfig */,
 				EDB00FA7501B5CC5DB96B41A /* Pods-myGitTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -309,6 +308,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
