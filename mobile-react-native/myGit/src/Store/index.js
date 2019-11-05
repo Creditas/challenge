@@ -14,7 +14,7 @@ enhancers.push(applyMiddleware(thunk, ...middlewares));
 const createAppropriateStore = createStore;
 
 const persistConfig = {
-  key: '1.5v',
+  key: 'v1.0',
   storage: AsyncStorage,
 };
 

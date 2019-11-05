@@ -4,7 +4,7 @@ import { Dimensions } from 'react-native';
 import PrimaryButton from '../../Components/PrimaryButton';
 import { Colors, Layout, Margins, Buttons } from '../../Styleguide';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 export const Wrapper = styled.View`
   ${Layout.Global.wrapper};

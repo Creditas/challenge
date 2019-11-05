@@ -28,6 +28,35 @@ import {
 const AnimatedLoginLogo = Animatable.createAnimatableComponent(LoginLogo);
 const AnimatedLoginError = Animatable.createAnimatableComponent(LoginError);
 
+const scaleOut = {
+  style: {
+    top: 0
+  },
+  0: {
+    opacity: 0.8,
+    scale: 0.3,
+  },
+  1: {
+    opacity: 1,
+    scale: 1,
+  },
+};
+
+const scaleIn = {
+  style: {
+    position: 'absolute',
+    top: 0
+  },
+  0: {
+    opacity: 1,
+    scale: 1,
+  },
+  1: {
+    opacity: 0.8,
+    scale: 0.3,
+  },
+};
+
 const Login = ({ navigation }) => {
   const userState = useSelector(state => state.user);
   const dispatch = useDispatch();
@@ -39,7 +68,10 @@ const Login = ({ navigation }) => {
   configureLayoutAnimation();
 
   onClickNext = () => userAddEmail({ dispatch })({ email });
-  onClickBack = () => dispatch({ type: Types.LOGIN_RESET });
+  onClickBack = () => {
+    dispatch({ type: Types.LOGIN_RESET });
+    setFocus(false);
+  }
   onClickLogin = () => userLogin({ dispatch })({ email: userState.email, password, navigation });
   onFocus = () => setFocus(true);
   onBlur = () => setFocus(false);
@@ -49,7 +81,7 @@ const Login = ({ navigation }) => {
     <Wrapper>
       <AnimatedLoginLogo
         source={require('../../Assets/github-logo.png')}
-        animation={isFocussed ? 'fadeOutUp' : 'fadeInDown' }
+        animation={isFocussed ? scaleIn : scaleOut }
         useNativeDriver
       />
 
@@ -65,11 +97,12 @@ const Login = ({ navigation }) => {
             <LoginText>{userState.email}</LoginText>
 
             <LoginInput
+              placeholder="Password"
               onChange={value => setPassword(value.nativeEvent.text)}
               secureTextEntry
               onFocus={this.onFocus}
               onBlur={this.onBlur}
-              onTouchCancel
+              autoFocus
             />
             <LoginButton title="Login" onPress={this.onClickLogin} />
             <LoginButton title="Back" onPress={this.onClickBack} />
@@ -77,6 +110,7 @@ const Login = ({ navigation }) => {
         ) : (
           <React.Fragment>
             <LoginInput
+              placeholder="Your Github email address"
               onChange={value => setEmail(value.nativeEvent.text)}
               keyboardType="email-address"
               autoCapitalize="none"
