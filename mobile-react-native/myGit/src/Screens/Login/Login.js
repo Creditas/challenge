@@ -9,6 +9,7 @@ import {
   Keyboard,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import I18n from '../../I18n/I18n';
 
 import DismissKeyboard from '../../Components/DismissKeyboard';
 
@@ -97,20 +98,20 @@ const Login = ({ navigation }) => {
             <LoginText>{userState.email}</LoginText>
 
             <LoginInput
-              placeholder="Password"
+              placeholder={I18n.t('password')}
               onChange={value => setPassword(value.nativeEvent.text)}
               secureTextEntry
               onFocus={this.onFocus}
               onBlur={this.onBlur}
               autoFocus
             />
-            <LoginButton title="Login" onPress={this.onClickLogin} />
-            <LoginButton title="Back" onPress={this.onClickBack} />
+            <LoginButton title={I18n.t('login')} onPress={this.onClickLogin} />
+            <LoginButton title={I18n.t('back')} onPress={this.onClickBack} />
           </React.Fragment>
         ) : (
           <React.Fragment>
             <LoginInput
-              placeholder="Your Github email address"
+              placeholder={I18n.t('email')}
               onChange={value => setEmail(value.nativeEvent.text)}
               keyboardType="email-address"
               autoCapitalize="none"
@@ -119,11 +120,10 @@ const Login = ({ navigation }) => {
               onFocus={this.onFocus}
               onBlur={this.onBlur}
             />
-            <LoginButton title="Next" onPress={this.onClickNext} />
+            <LoginButton title={I18n.t('next')} onPress={this.onClickNext} />
           </React.Fragment>
         )}
       </LoginFormWrapper>
-      {!!userState.dsadsa && <LoginButton title="Back" onPress={this.onClickBack} />}
     </Wrapper>
     </DismissKeyboard>
   )

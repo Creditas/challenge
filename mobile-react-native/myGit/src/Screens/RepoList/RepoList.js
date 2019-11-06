@@ -16,6 +16,7 @@ import SearchInput from '../../Components/SearchInput';
 import { configureLayoutAnimation } from '../../Utils/layoutAnimation';
 import { getRepos } from '../../Store/Ducks/repository';
 import { filterByKeyword } from '../../Utils/repoFilter';
+import I18n from '../../I18n/I18n';
 
 import {
   Wrapper,
@@ -108,7 +109,7 @@ export class RepoList extends React.Component {
             <SearchInput
               defaultValue={keyword}
               onChange={value => this.onChange(value)}
-              placeholder="Repository Search"
+              placeholder={I18n.t('search')}
             />
           </Animated.View>
         </Animated.View>
