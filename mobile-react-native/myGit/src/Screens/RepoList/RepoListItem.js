@@ -9,7 +9,15 @@ import {
 import * as Animatable from 'react-native-animatable';
 // import { Transition } from 'react-navigation-fluid-transitions';
 
-import { Layout } from '../../Styleguide'
+import {
+  ItemDescription,
+  ItemWrapper,
+  ItemText,
+} from './RepoList.style';
+
+import { Layout } from '../../Styleguide';
+
+const AnimatedItemWrapper = Animatable.createAnimatableComponent(ItemWrapper);
 
 {/* <Transition shared={`container-${slug}`}>
 <View style={styles.container} />
@@ -24,18 +32,17 @@ const RepoListItem = ({
     onPress={onPress}
     testID={`RepoItem-${index}`}
   >
-    <Animatable.View
+    <AnimatedItemWrapper
       animation="fadeInUp"
       duration={200}
       delay={index * 200}
       useNativeDriver
-      style={{ width: '100%', borderBottomWidth: 1 }}
     >
-      <Text style={{ fontSize: 21, color: '#212121' }}>{name}</Text>
-      <View style={{ borderRadius: Layout.Global.radius, borderWidth: 1, alignItems: 'center', padding: 24, marginTop: 4, marginBottom: 24 }}>
+      <ItemText>{name}</ItemText>
+      <ItemDescription>
         <Text>{description}</Text>
-      </View>
-    </Animatable.View>
+      </ItemDescription>
+    </AnimatedItemWrapper>
   </TouchableWithoutFeedback>
 );
 
