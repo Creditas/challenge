@@ -5,6 +5,10 @@ jest.mock('react-redux', () => ({
   useSelector: () => ({ error: false }),
 }));
 
+jest.mock('react-navigation', () => ({
+  withNavigation: el => el
+}));
+
 jest.mock("react-native/Libraries/LayoutAnimation/LayoutAnimation", () => ({
   ...require.requireActual("react-native/Libraries/LayoutAnimation/LayoutAnimation"),
   configureNext: jest.fn(),

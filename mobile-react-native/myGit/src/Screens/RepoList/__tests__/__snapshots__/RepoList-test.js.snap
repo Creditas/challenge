@@ -59,6 +59,7 @@ exports[`renders RepoList correctly (snapshot) 1`] = `
         style={
           Object {
             "alignItems": "center",
+            "borderColor": "#CCC",
             "borderRadius": 6,
             "borderWidth": 1,
             "flexDirection": "row",
@@ -73,7 +74,7 @@ exports[`renders RepoList correctly (snapshot) 1`] = `
           style={
             Array [
               Object {
-                "color": "#333",
+                "color": "#CCC",
                 "fontSize": 24,
               },
               undefined,
@@ -128,7 +129,7 @@ exports[`renders RepoList correctly (snapshot) 1`] = `
             style={
               Array [
                 Object {
-                  "color": "#333",
+                  "color": "#CCC",
                   "fontSize": 24,
                 },
                 Object {

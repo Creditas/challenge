@@ -14,6 +14,10 @@ import { getCommits, getCommitAvatar } from '../../Store/Ducks/repository';
 import {
   Wrapper,
   Logo,
+  DetailTitle,
+  DetailItem,
+  DetailItemAvatar,
+  DetailItemMessageWrapper,
 } from './RepoDetail.style';
 import { Margins, Colors, Layout } from '../../Styleguide';
 
@@ -22,12 +26,13 @@ const RepoDetail = ({ navigation }) => {
   const repo = navigation.getParam('repo');
   const commitState = useSelector(state => state.repository.commits);
   const commits = commitState[repo.id]; // Cached Commits
-  const isLoadingCommits = useSelector(state => state.repository.loadingCommits);
+  const isLoadingCommits = useSelector(state => state.repository.loadingCommits) || false;
 
   useEffect(() => {
     if (!commits) {
-      console.log(`Fetching new commits for ${repo.name}`);
-      dispatch(getCommits(repo));
+      if (dispatch) {
+        dispatch(getCommits(repo));
+      }
     }
   }, [commits])
 
@@ -40,32 +45,24 @@ const RepoDetail = ({ navigation }) => {
   return (
     <Wrapper>
       <Logo source={require('../../Assets/github-logo-full.png')} />
-      <Text style={{ borderRadius: Layout.Global.radius, padding: 16, textAlign: 'center', borderWidth: 1, borderColor: Colors.secondary, marginBottom: Margins.medium }}>
+      <DetailTitle>
         {repo.name} ({commits.length} commits)
-      </Text>
+      </DetailTitle>
       <ScrollView>
         {commits.map((commit, index) => (
-          <Animatable.View
+          <DetailItem
             key={commit.sha}
             animation="fadeInUpBig"
             duration={200}
             delay={index * 200}
             useNativeDriver
-            style={{
-              flexDirection: 'row',
-              padding: Margins.small,
-              borderTopWidth: index ? 1 : 0,
-              borderColor: Colors.secondary,
-            }}
+            style={{ borderTopWidth: index ? 1 : 0 }}
           >
-            <Image
-              style={{ width: 50, height: 50, marginRight: Margins.small }}
-              source={getCommitAvatar(commit)}
-            />
-            <View style={{ borderWidth: 1, borderRadius: Layout.Global.radius, borderColor: Colors.secondary, padding: Margins.medium, flexGrow: 1, maxWidth: '84%' }}>
+            <DetailItemAvatar source={getCommitAvatar(commit)} />
+            <DetailItemMessageWrapper>
               <Text>{commit.commit.message}</Text>
-            </View>
-          </Animatable.View>
+            </DetailItemMessageWrapper>
+          </DetailItem>
         ))}
       </ScrollView>
     </Wrapper>
