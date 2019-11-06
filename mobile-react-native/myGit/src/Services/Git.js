@@ -1,7 +1,7 @@
 import Config from '../Config';
 
 // Service Response Handler
-// TODO: High Order Function (Utilizar algum callApi())
+// TODO: High Order Function (Utilizar algum callApi() configuravel)
 const handleResponse = async response => {
   if (response.status) {
     const data = await response.json();
@@ -27,7 +27,8 @@ const fetchUser = ({ email, password, credential }) => {
 };
 
 const fetchDynamic = ({ url, credential }) => {
-  return fetch(url, {
+  const normalizedUrl = String(url).replace('{/sha}', '');
+  return fetch(normalizedUrl, {
     method: 'GET',
     headers: {
       Accept: 'application/json',

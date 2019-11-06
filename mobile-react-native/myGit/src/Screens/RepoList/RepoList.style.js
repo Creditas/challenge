@@ -19,7 +19,8 @@ export const Logo = styled(Animated.Image)`
 export const ItemWrapper = styled.View`
   width: 100%;
   borderBottomWidth: 1;
-  border-color: ${Colors.primary};
+  border-color: ${Colors.secondary};
+  margin-bottom: ${Margins.small}
 `;
 
 export const ItemText = styled.Text`
@@ -30,8 +31,8 @@ export const ItemText = styled.Text`
 export const ItemDescription = styled.View`
   borderRadius: ${Layout.Global.radius};
   borderWidth: 1;
+  border-color: ${Colors.secondary};
   align-items: center;
   padding: 24px;
-  margin-top: 4px;
   margin-bottom: 24px;
 `

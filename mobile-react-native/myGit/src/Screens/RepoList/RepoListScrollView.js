@@ -8,10 +8,12 @@ import {
   ActivityIndicator
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import { withNavigation } from 'react-navigation';
 
 import { configureLayoutAnimation } from '../../Utils/layoutAnimation';
 
 import RepoListItem from './RepoListItem';
+import { Margins } from '../../Styleguide';
 
 class RepoListScrollView extends React.Component {
   static propTypes = {
@@ -49,18 +51,21 @@ class RepoListScrollView extends React.Component {
 
   render() {
     const { isRefreshing } = this.state;
-    const { repos, onScroll } = this.props;
+    const { repos, onScroll, isLoading } = this.props;
+
+    if (isLoading) {
+      return <ActivityIndicator style={{ flex: 1 }} />
+    }
 
     return (
       <ScrollView
-        scrollEventThrottle={100}
         onScrollEndDrag={this.onScrollEndDrag}
         scrollEventThrottle={16}
         onScroll={onScroll}
       >
         {isRefreshing && (
           <Animatable.View animation="fadeIn">
-            <ActivityIndicator />
+            <ActivityIndicator style={{ margin: Margins.small }} />
           </Animatable.View>
         )}
         {repos.map((repo, index) => (
@@ -68,7 +73,7 @@ class RepoListScrollView extends React.Component {
             key={repo.name}
             repo={repo}
             index={index}
-            onPress={() => {}}
+            onPress={() => this.props.navigation.navigate('RepoDetail', { repo })}
           />
         ))}
       </ScrollView>
@@ -76,4 +81,4 @@ class RepoListScrollView extends React.Component {
   }
 }
 
-export default RepoListScrollView;
+export default withNavigation(RepoListScrollView);

@@ -7,7 +7,6 @@ import {
   Text,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-// import { Transition } from 'react-navigation-fluid-transitions';
 
 import {
   ItemDescription,
@@ -19,10 +18,6 @@ import { Layout } from '../../Styleguide';
 
 const AnimatedItemWrapper = Animatable.createAnimatableComponent(ItemWrapper);
 
-{/* <Transition shared={`container-${slug}`}>
-<View style={styles.container} />
-</Transition> */}
-
 const RepoListItem = ({
   index,
   repo: { name, description },
@@ -33,7 +28,7 @@ const RepoListItem = ({
     testID={`RepoItem-${index}`}
   >
     <AnimatedItemWrapper
-      animation="fadeInUp"
+      animation="fadeInUpBig"
       duration={200}
       delay={index * 200}
       useNativeDriver
@@ -46,13 +41,13 @@ const RepoListItem = ({
   </TouchableWithoutFeedback>
 );
 
-  RepoListItem.propTypes = {
-    index: PropTypes.number.isRequired,
-    onPress: PropTypes.func.isRequired,
-    repo: PropTypes.shape({
-      name: PropTypes.string,
-      description: PropTypes.string,
-    }).isRequired,
+RepoListItem.propTypes = {
+  index: PropTypes.number.isRequired,
+  onPress: PropTypes.func.isRequired,
+  repo: PropTypes.shape({
+    name: PropTypes.string,
+    description: PropTypes.string,
+  }).isRequired,
 };
 
 export default RepoListItem;

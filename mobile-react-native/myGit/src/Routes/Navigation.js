@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../Screens/Login/Login';
 import AuthLoading from '../Screens/AuthLoading/AuthLoading';
 import RepoList from '../Screens/RepoList/RepoList';
+import RepoDetail from '../Screens/RepoDetail/RepoDetail';
 
 import { ROUTES } from './Routes';
 
@@ -16,7 +17,7 @@ const AuthStack = createStackNavigator(
 
 const MainStack = createStackNavigator(
   { [ROUTES.REPO_LIST]: RepoList,
-    [ROUTES.REPO_DETAIL]: RepoList,
+    [ROUTES.REPO_DETAIL]: RepoDetail,
   },
   { headerMode: 'none' }
 );
