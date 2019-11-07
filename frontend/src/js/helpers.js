@@ -27,8 +27,8 @@ export const numberWithCommas = (num) => {
 }
 
 export const checkFormValidity = (formElement, params) => {
-  const valueGuarantee = getItemForm(formElement, params.VALUE_GUARANTEE).value.replace(',', '')
-  const valueBusiness = getItemForm(formElement, params.VALUE_BUSINESS).value.replace(',', '')
+  const valueGuarantee = getItemForm(formElement, params.VALUE_GUARANTEE).value.replace(/,/g, '')
+  const valueBusiness = getItemForm(formElement, params.VALUE_BUSINESS).value.replace(/,/g, '')
   const percent = valueGuarantee * params.MAX_CREDIT_PERCENTAGE
   const validate = {
     isValid: (formElement.checkValidity() && valueBusiness <= percent),
