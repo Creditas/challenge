@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  Platform,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import I18n from '../../I18n/I18n';
@@ -45,7 +46,7 @@ const scaleOut = {
 
 const scaleIn = {
   style: {
-    position: 'absolute',
+    position: Platform.OS !== 'android' ? 'absolute' : 'relative',
     top: 0
   },
   0: {
@@ -64,6 +65,7 @@ const Login = ({ navigation }) => {
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ isFocussed, setFocus ] = useState(false);
+  const keyboardBehvior = Platform.OS === 'android' ? 'padding' : 'position';
 
   // Solução muito legal, mas infelizmente executa ao mesmo tempo KeyboardAvoidingView causando warning (talvez problemas de performance).
   configureLayoutAnimation();
@@ -92,7 +94,7 @@ const Login = ({ navigation }) => {
         </AnimatedLoginError>
       )}
 
-      <LoginFormWrapper behavior="position" enabled>
+      <LoginFormWrapper behavior={keyboardBehvior}>
         {userState.email ? (
           <React.Fragment>
             <LoginText>{userState.email}</LoginText>

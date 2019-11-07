@@ -1,4 +1,10 @@
-import { LayoutAnimation } from 'react-native';
+import { LayoutAnimation, Platform, UIManager } from 'react-native';
+
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 
 export const configureLayoutAnimation = () =>
   LayoutAnimation.configureNext({
