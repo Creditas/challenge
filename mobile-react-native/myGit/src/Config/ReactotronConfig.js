@@ -1,12 +1,13 @@
+import { NativeModules } from 'react-native';
 import Reactotron, { openInEditor } from 'reactotron-react-native';
 import { reactotronRedux } from 'reactotron-redux';
-import sagaPlugin from 'reactotron-redux-saga';
+import url from 'url';
 
+const { hostname } = url.parse(NativeModules.SourceCode.scriptURL);
 
-const tron = Reactotron.configure()
+const tron = Reactotron.configure({ host: hostname })
   .useReactNative()
   .use(reactotronRedux())
-  .use(sagaPlugin())
   .use(openInEditor())
   .connect();
 
