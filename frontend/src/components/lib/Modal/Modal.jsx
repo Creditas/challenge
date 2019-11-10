@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import styles from './styles';
 
 const Modal = ({ handleClose, show, children }) => (
-    <section {...styles(show)}>
+    <section {...styles(show)} data-testid="modal">
         <div className="modal-main">
             {children}
-            <button onClick={handleClose} type="button">
+            <button onClick={handleClose} type="button" data-testid="modal-close">
                 Ok
             </button>
         </div>

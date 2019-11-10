@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Button from 'Lib/Button';
-import { numberWithCommas } from 'Helpers';
+import { numberWithCommas } from '../../helpers';
 import styles from './styles';
 
 
 const Result = ({ handleSubmit, result }) => (
-    <div {...styles}>
+    <div {...styles} data-testid="result">
         <div className="result__container">
             <h4 className="result__title">Valor da Parcela</h4>
             <div className="quota__container">
@@ -19,13 +19,13 @@ const Result = ({ handleSubmit, result }) => (
         </div>
         <div className="result__container">
             <h4 className="result__title">Total a pagar</h4>
-            <p className="result__text">
-                {`R$${numberWithCommas(result.total)}`}
+            <p className="result__text" data-testid="total">
+                {`R$ ${numberWithCommas(result.total)}`}
             </p>
         </div>
         <div className="result__container">
             <h4 className="result__title">Taxa de juros (mês)</h4>
-            <p className="result__text">
+            <p className="result__text" data-testid="interes">
                 {`${numberWithCommas(result.interestRate)}%`}
             </p>
         </div>

@@ -8,18 +8,21 @@ const Button = ({ text, type, onClick }) => (
         type={type}
         onClick={onClick}
         {...styles}
+        data-testid="button"
     >
         {text}
     </button>
 );
 Button.propTypes = {
-    type: PropTypes.string.isRequired,
+    type: PropTypes.string,
     text: PropTypes.string,
-    onClick: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
 };
 
 Button.defaultProps = {
+    type: 'button',
     text: '',
+    onClick: () => ({}),
 };
 
 export default Button;

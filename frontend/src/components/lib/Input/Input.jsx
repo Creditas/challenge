@@ -6,7 +6,7 @@ const Input = ({
     text, type, value, onChange, id, required, width, disabled,
 }) => (
     <div {...styles(width)}>
-        <label htmlFor={id}>{text}</label>
+        <label htmlFor={id} data-testid="Label">{text}</label>
         <input
             id={id}
             name={id}
@@ -15,6 +15,7 @@ const Input = ({
             onChange={onChange}
             required={required}
             disabled={disabled}
+            data-testid="Input"
         />
     </div>
 );
@@ -24,7 +25,7 @@ Input.propTypes = {
     text: PropTypes.string,
     type: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string,
     onChange: PropTypes.func,
     required: PropTypes.bool,
     disabled: PropTypes.bool,
@@ -33,6 +34,7 @@ Input.propTypes = {
 Input.defaultProps = {
     width: 150,
     text: '',
+    value: '',
     required: false,
     disabled: false,
     onChange: () => ({}),

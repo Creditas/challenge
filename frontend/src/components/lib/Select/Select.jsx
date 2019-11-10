@@ -6,7 +6,7 @@ const Input = ({
     text, options, value, onChange, id, required, width, disabled,
 }) => (
     <div {...styles(width)}>
-        <label htmlFor={id}>{text}</label>
+        <label htmlFor={id} data-testid="label">{text}</label>
         <select
             id={id}
             name={id}
@@ -14,6 +14,7 @@ const Input = ({
             onChange={onChange}
             required={required}
             disabled={disabled}
+            data-testid="select"
         >
             {
                 options.map((opt) => (

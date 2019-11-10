@@ -6,13 +6,14 @@ import ReactDOM from 'react-dom';
 
 import Provider from 'Provider';
 import Calculate from './pages';
+import store from './store';
 
 import './reset.css';
 import './colors.css';
 
 
 const App = () => (
-    <Provider>
+    <Provider store={store}>
         <Calculate />
     </Provider>
 );

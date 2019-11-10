@@ -25,6 +25,7 @@
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.7.0",
     "@babel/preset-stage-0": "^7.0.0",
+    "@testing-library/dom": "^6.10.1",
     "@types/jest": "^23.3.2",
     "babel-jest": "^24.1.0",
     "babel-loader": "^8.0.6",
@@ -84,11 +85,13 @@
     ],
     "setupTestFrameworkScriptFile": "<rootDir>/config/setupTest.js",
     "transform": {
-      "^.+\\.js$": "babel-jest"
+      "^.+\\.jsx?$": "babel-jest"
     },
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js"
+      "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js",
+      "Lib(.*)$": "<rootDir>/src/components/lib/$1",
+      "Helpers(.*)$": "<rootDir>/src/helpers/$1"
     }
   },
   "dependencies": {

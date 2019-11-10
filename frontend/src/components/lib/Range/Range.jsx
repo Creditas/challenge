@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { numberWithCommas } from 'Helpers';
+import { numberWithCommas } from '../../../helpers';
 
 import styles from './styles';
 
@@ -19,6 +19,7 @@ const Range = ({
             onChange={onChange}
             required={required}
             disabled={disabled}
+            data-testid="range"
         />
         <div className="range__values">
             <span>{numberWithCommas(min)}</span>

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles';
 
 const Header = () => (
-    <header {...styles}>
+    <header {...styles} data-testid="header">
         <div className="header__container">
             <h1 className="header__title">
                 <a href="#home" title="Creditas">

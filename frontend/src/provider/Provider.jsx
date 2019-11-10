@@ -2,10 +2,9 @@ import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './context';
 import reducer from './reducer';
-import initialState from './initialState';
 
-const Provider = ({ children }) => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+const Provider = ({ children, store }) => {
+    const [state, dispatch] = useReducer(reducer, store);
     const value = { state, dispatch };
 
     return (
@@ -17,6 +16,7 @@ const Provider = ({ children }) => {
 
 Provider.propTypes = {
     children: PropTypes.element.isRequired,
+    store: PropTypes.shape({}).isRequired,
 };
 
 export default Provider;
