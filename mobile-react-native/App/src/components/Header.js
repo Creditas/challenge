@@ -8,7 +8,8 @@ const Header = () => (
 		alignItems="center"
 		justifyContent="center"
 		backgroundColor="white"
-		height={45}
+		height={30}
+		pt={22}
 		>
 		<Image source={LogoLabel} height={40} resizeMode="center" />
 	</Box>

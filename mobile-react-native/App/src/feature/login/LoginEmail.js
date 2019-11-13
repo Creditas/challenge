@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
 import { Box, Input, Button, Image } from '../../components';
-
 import LogoRounded from '../../../assets/github-rounded.png';
-import { Actions } from 'react-native-router-flux';
+import { SessionContext } from '../../context';
 
 const LoginEmail = () => {
-	const [email, setEmail] = useState('');
+	const {
+		useEmail,
+		valideEmail,
+	} = useContext(SessionContext);
 
-	const pressNext = () => {
-		Actions.loginPassword({ email });
-	};
+	const [email, setEmail] = useEmail;
 
 	return (
 		<Box
@@ -31,10 +31,11 @@ const LoginEmail = () => {
 				mb="4"
 				autoCompleteType="email"
 				keyboardType="email-address"
+				onSubmitEditing={valideEmail}
 			/>
 			<Button
 				label="Next"
-				onPress={pressNext}
+				onPress={valideEmail}
 			/>
 		</Box>
 	)

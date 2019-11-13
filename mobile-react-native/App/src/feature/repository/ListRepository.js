@@ -1,19 +1,36 @@
-import React from 'react';
-import { FlatList } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { FlatList, ActivityIndicator } from 'react-native';
 
 import { Box } from '../../components';
 import RepositoryItem from './components/RepositoryItem';
 import HeaderRepository from './components/HeaderRepository';
+import ProviderRepository, { RepositoryContext } from '../../context/repository';
 
 const ListRepository = () => {
-	return(
+	const [filter, setFilter] = useState("");
+
+	const {
+		repos,
+		isLoadingRepos,
+		getAllRepository
+	} = useContext(RepositoryContext);
+
+	useEffect(() => {
+		getAllRepository();
+	}, []);
+
+	const getReposSearch = () => repos.filter(repo => repo.name.toUpperCase().includes(filter.toUpperCase()));
+
+	return (
 		<Box variant="main" pt="4">
+			{
+				isLoadingRepos && <ActivityIndicator size="large" color="#515151" />
+			}
+			<HeaderRepository changeTextSearch={term => setFilter(term)} />
 			<FlatList
-				data={[0,1,2,3,4,5]}
-				ListHeaderComponent={
-					<HeaderRepository />
-				}
-				renderItem={()=><RepositoryItem />}
+				keyExtractor={item => `${item.id}`}
+				data={getReposSearch()}
+				renderItem={({ item }) => <RepositoryItem repo={item} />}
 			/>
 		</Box>
 	);

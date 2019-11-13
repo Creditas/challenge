@@ -1,13 +1,13 @@
 import React from 'react';
 import { Box, Text } from '../../../components';
 
-const HeaderRepository = () => {
+const HeaderRepository = ({name}) => {
 	return (
 		<Box
 			borderRadius={1}
 			borderWidth={1}
 			borderColor="border"
-			mb="4"
+			mb="1"
 		>
 			<Text
 
@@ -16,7 +16,7 @@ const HeaderRepository = () => {
 				fontWeight="bold"
 				mt="2"
 				mb="2"
-				>Repository Name</Text>
+				>{name}</Text>
 		</Box>
 
 	);

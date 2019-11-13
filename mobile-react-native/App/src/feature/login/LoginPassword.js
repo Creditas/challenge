@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
-import { Actions, ActionConst } from 'react-native-router-flux';
+import React, { useContext } from 'react';
 
 import { Box, Input, Button, Image, Text } from '../../components';
 import LogoRounded from '../../../assets/github-rounded.png';
+import { SessionContext } from '../../context';
 
-const LoginPassword = ({ email }) => {
-	const [password, setPassword] = useState("");
+const LoginPassword = () => {
+	const {
+		useEmail: [email],
+		usePassword,
+		validePassword,
+		backToEmail,
+	} = useContext(SessionContext);
 
-	const pressNext = () => {
-		Actions.repository({type: ActionConst.RESET});
-	};
-
-	const backPress = () => {
-		Actions.pop();
-	};
+	const [password, setPassword] = usePassword;
 
 	return (
 		<Box
@@ -23,7 +22,7 @@ const LoginPassword = ({ email }) => {
 			py="6"
 		>
 			<Image
-				mb="5"
+				meb="5"
 				source={LogoRounded}
 				size={180}
 			/>
@@ -40,15 +39,16 @@ const LoginPassword = ({ email }) => {
 				mb="4"
 				keyboardType="password"
 				secureTextEntry
+				onSubmitEditing={validePassword}
 			/>
 			<Button
 				mb="4"
 				label="Login"
-				onPress={pressNext}
+				onPress={validePassword}
 			/>
 			<Button
 				label="Back"
-				onPress={backPress}
+				onPress={backToEmail}
 			/>
 		</Box>
 	)
