@@ -1,13 +1,14 @@
 import React from 'react';
-import {
-  Router as RouterApp,
-  Scene,
-  Stack,
-} from 'react-native-router-flux';
+import { Router as RouterApp, Scene, Stack } from 'react-native-router-flux';
 import { ThemeProvider } from 'emotion-theming';
 
 import theme from './theme';
-import { LoginEmail, LoginPassword, ListRepository, ListCommits } from './feature';
+import {
+  LoginEmail,
+  LoginPassword,
+  ListRepository,
+  ListCommits,
+} from './feature';
 import { Header } from './components';
 import { SessionProvider } from './context';
 import ProviderRepository from './context/repository';
@@ -31,7 +32,7 @@ const Router = () => (
                 title="Login"
               />
             </Scene>
-            <Scene key="repository" navBar={Header} >
+            <Scene key="repository" navBar={Header}>
               <Scene
                 key="listRepositories"
                 component={ListRepository}

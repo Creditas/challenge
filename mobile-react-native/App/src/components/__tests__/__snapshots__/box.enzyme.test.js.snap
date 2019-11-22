@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Box /> can add a Todo with Enzyme 1`] = `
+<emotion(View)
+  m="3"
+>
+  <View
+    m="3"
+    style={
+      Object {
+        "margin": 16,
+      }
+    }
+  >
+    <View
+      m="3"
+      style={
+        Object {
+          "margin": 16,
+        }
+      }
+    />
+  </View>
+</emotion(View)>
+`;
