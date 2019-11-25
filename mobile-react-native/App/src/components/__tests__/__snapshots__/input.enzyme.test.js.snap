@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input/> should render rigth 1`] = `
+<SetupInput>
+  <ThemeProvider
+    theme={
+      Object {
+        "colors": Object {
+          "border": "#BEBEBE",
+          "primary": "#515151",
+          "white": "#F7F7F7",
+        },
+        "fontSizes": Object {
+          "lg": 18,
+          "md": 16,
+          "sm": 12,
+        },
+        "fontWeights": Object {
+          "black": "900",
+          "bold": "700",
+          "extrabold": "800",
+          "hairline": "100",
+          "light": "300",
+          "medium": "500",
+          "normal": "400",
+          "semibold": "600",
+          "thin": "200",
+        },
+        "name": "Github Theme",
+        "radii": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+        "space": Array [
+          0,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+        ],
+      }
+    }
+  >
+    <Input
+      onChangeText={[Function]}
+      placeholder="Hi hummant, i'm a test"
+    >
+      <emotion(TextInput)
+        borderColor="border"
+        borderRadius={1}
+        borderWidth={1}
+        color="primary"
+        fontSize="sm"
+        fontWeight="bold"
+        height={30}
+        onChangeText={[Function]}
+        placeholder="Hi hummant, i'm a test"
+        placeholderTextColor="#515151"
+        py="0"
+        textAlign="center"
+      >
+        <TextInput
+          allowFontScaling={true}
+          borderColor="border"
+          borderRadius={1}
+          borderWidth={1}
+          color="primary"
+          fontSize="sm"
+          fontWeight="bold"
+          height={30}
+          onChangeText={[Function]}
+          placeholder="Hi hummant, i'm a test"
+          placeholderTextColor="#515151"
+          py="0"
+          rejectResponderTermination={true}
+          style={
+            Object {
+              "borderColor": "#BEBEBE",
+              "borderRadius": 4,
+              "borderWidth": 1,
+              "color": "#515151",
+              "fontSize": 12,
+              "fontWeight": "700",
+              "paddingBottom": 0,
+              "paddingTop": 0,
+              "textAlign": "center",
+            }
+          }
+          textAlign="center"
+          underlineColorAndroid="transparent"
+        >
+          <TextInput
+            allowFontScaling={true}
+            borderColor="border"
+            borderRadius={1}
+            borderWidth={1}
+            color="primary"
+            fontSize="sm"
+            fontWeight="bold"
+            height={30}
+            onChangeText={[Function]}
+            placeholder="Hi hummant, i'm a test"
+            placeholderTextColor="#515151"
+            py="0"
+            rejectResponderTermination={true}
+            style={
+              Object {
+                "borderColor": "#BEBEBE",
+                "borderRadius": 4,
+                "borderWidth": 1,
+                "color": "#515151",
+                "fontSize": 12,
+                "fontWeight": "700",
+                "paddingBottom": 0,
+                "paddingTop": 0,
+                "textAlign": "center",
+              }
+            }
+            textAlign="center"
+            underlineColorAndroid="transparent"
+          />
+        </TextInput>
+      </emotion(TextInput)>
+    </Input>
+  </ThemeProvider>
+</SetupInput>
+`;

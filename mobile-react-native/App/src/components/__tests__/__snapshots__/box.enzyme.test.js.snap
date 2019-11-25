@@ -1,25 +1,79 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Box /> can add a Todo with Enzyme 1`] = `
-<emotion(View)
-  m="3"
->
+exports[`<Box /> should render with more cases 1`] = `
+<emotion(View)>
   <View
-    m="3"
-    style={
-      Object {
-        "margin": 16,
-      }
-    }
+    style={Object {}}
   >
     <View
-      m="3"
-      style={
-        Object {
-          "margin": 16,
-        }
-      }
-    />
+      style={Object {}}
+    >
+      <emotion(View)
+        size="6"
+      >
+        <View
+          size="6"
+          style={
+            Object {
+              "height": "6",
+              "width": "6",
+            }
+          }
+        >
+          <View
+            size="6"
+            style={
+              Object {
+                "height": "6",
+                "width": "6",
+              }
+            }
+          />
+        </View>
+      </emotion(View)>
+      <emotion(View)
+        p="4"
+      >
+        <View
+          p="4"
+          style={
+            Object {
+              "padding": 32,
+            }
+          }
+        >
+          <View
+            p="4"
+            style={
+              Object {
+                "padding": 32,
+              }
+            }
+          />
+        </View>
+      </emotion(View)>
+      <emotion(View)
+        m="2"
+      >
+        <View
+          m="2"
+          style={
+            Object {
+              "margin": 8,
+            }
+          }
+        >
+          <View
+            m="2"
+            style={
+              Object {
+                "margin": 8,
+              }
+            }
+          />
+        </View>
+      </emotion(View)>
+    </View>
   </View>
 </emotion(View)>
 `;
