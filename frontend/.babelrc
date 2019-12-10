@@ -7,6 +7,6 @@
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
     "transform-class-properties",
     "transform-react-constant-elements",
-    "transform-react-inline-elements"
+    //"transform-react-inline-elements"
   ]
 }
