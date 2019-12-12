@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading Rendering should match to snapshot - hidden 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#fff",
+      "bottom": 0,
+      "justifyContent": "center",
+      "left": 0,
+      "opacity": 1,
+      "position": "absolute",
+      "right": 0,
+      "top": 0,
+      "zIndex": 99,
+    }
+  }
+>
+  <ActivityIndicator
+    animating={true}
+    color="#3099DD"
+    hidesWhenStopped={true}
+    size="large"
+  />
+</View>
+`;
+
+exports[`Loading Rendering should match to snapshot 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#fff",
+      "bottom": 0,
+      "justifyContent": "center",
+      "left": 0,
+      "position": "absolute",
+      "right": 0,
+      "top": 0,
+      "zIndex": 99,
+    }
+  }
+>
+  <ActivityIndicator
+    animating={true}
+    color="#3099DD"
+    hidesWhenStopped={true}
+    size="large"
+  />
+</View>
+`;

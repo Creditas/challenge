@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`theme constants should return colors  1`] = `
+Object {
+  "dark": "#333",
+  "error": "#FF612B",
+  "grey": "#e2e2e2",
+  "light": "#fff",
+  "primary": "#3099DD",
+  "secondary": "#FFC82B",
+  "success": "#26E288",
+}
+`;
+
+exports[`theme constants should return spacing  1`] = `
+Object {
+  "margin": 12,
+  "padding": 12,
+}
+`;
