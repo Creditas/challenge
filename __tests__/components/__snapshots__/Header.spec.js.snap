@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Rendering should match to snapshot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "paddingBottom": 6,
+        "paddingLeft": 6,
+        "paddingRight": 6,
+        "paddingTop": 6,
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <Image
+    resizeMode="contain"
+    source={
+      Object {
+        "testUri": "../../../src/assets/images/HeaderLogoImg.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 45,
+        },
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`Header Rendering should match to snapshot 2`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "paddingBottom": 6,
+        "paddingLeft": 6,
+        "paddingRight": 6,
+        "paddingTop": 6,
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "left": 12,
+        "opacity": 1,
+        "position": "absolute",
+        "top": 16,
+        "zIndex": 99,
+      }
+    }
+  >
+    <Image
+      resizeMode="contain"
+      source={
+        Object {
+          "testUri": "../../../src/assets/images/BackIconImg.png",
+        }
+      }
+      style={
+        Array [
+          Object {
+            "height": 25,
+            "width": 25,
+          },
+        ]
+      }
+    />
+  </View>
+  <Image
+    resizeMode="contain"
+    source={
+      Object {
+        "testUri": "../../../src/assets/images/HeaderLogoImg.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 45,
+        },
+      ]
+    }
+  />
+</View>
+`;

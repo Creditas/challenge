@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Label Rendering should match to snapshot - light color 1`] = `
+<Text
+  light={true}
+  style={
+    Array [
+      Object {
+        "color": "#fff",
+        "marginBottom": 6,
+        "marginLeft": 6,
+        "marginRight": 6,
+        "marginTop": 6,
+        "textAlign": "left",
+      },
+    ]
+  }
+>
+  Testing
+</Text>
+`;
+
+exports[`Label Rendering should match to snapshot 1`] = `
+<Text
+  style={
+    Array [
+      Object {
+        "color": "#3099DD",
+        "marginBottom": 6,
+        "marginLeft": 6,
+        "marginRight": 6,
+        "marginTop": 6,
+        "textAlign": "left",
+      },
+    ]
+  }
+>
+  Testing
+</Text>
+`;

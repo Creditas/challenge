@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScreenContainer Rendering should match to snapshot - with padding 1`] = `
+<RCTSafeAreaView
+  className="sc-bdVaJa lkMMd"
+  emulateUnlessSupported={true}
+  padding={true}
+/>
+`;
+
+exports[`ScreenContainer Rendering should match to snapshot 1`] = `
+<RCTSafeAreaView
+  className="sc-bdVaJa kiIDIj"
+  emulateUnlessSupported={true}
+/>
+`;
