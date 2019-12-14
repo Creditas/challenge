@@ -1,12 +1,10 @@
 import './styles.css';
 import { 
   bindSubmit,
-  bindAnyFormChange,
-  handleChangeRangeVehicleUnderWarranty,
-  handleChangeVehicleLoanAmount,
-  handleChangeWarrantyType,
-  changeRangeValuesByWarranty,
-  changeAvailableInstallmentValues
+  bindToAnyFormChange,
+  changeWarrantyInputValue,
+  changeLoanInputValue,
+  handleChangeWarrantyType
 } from './scripts/loan-calculator'
 
 export default class LoanCalculatorComponent {
@@ -16,19 +14,9 @@ export default class LoanCalculatorComponent {
 
   static registerEvents() {
     bindSubmit(document.querySelector('.calculator__form'))
-
-    bindAnyFormChange(document.querySelector('.calculator__form'))
-
-    handleChangeRangeVehicleUnderWarranty(
-      document.querySelector('#warranty-range-value'),
-      document.querySelector('#warranty-value')
-    )
-
-    handleChangeVehicleLoanAmount(
-      document.querySelector('#loan-range-value'),
-      document.querySelector('#loan-value')
-    )
-
+    bindToAnyFormChange(document.querySelector('.calculator__form'))
+    changeWarrantyInputValue(document.querySelector('#warranty-range-value'), document.querySelector('#warranty-value'))
+    changeLoanInputValue(document.querySelector('#loan-range-value'), document.querySelector('#loan-value'))
     handleChangeWarrantyType(document.querySelector('#warranty'))
   }
 }

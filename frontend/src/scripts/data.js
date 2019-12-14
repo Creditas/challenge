@@ -1,6 +1,6 @@
 export const loanData = {
-    IOF: 6.38 / 100,
-    INTEREST_RATE: 2.34 / 100,
+    IOF: 6.38,
+    INTEREST_RATE: 2.34,
     vehicle: {
         minLoanValue: 3000.0,
         maxLoanValue: 100000.0,

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+
 /*
 * VARIABLES
 */
@@ -24,7 +26,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'ubuntu';
+  font-family: 'Ubuntu';
 }
 
 /* 
@@ -32,15 +34,15 @@
 */
 
 html, body {
-  height: 100%;
+  height: 100vh;
 }
 
 body {
   background-color: var(--concrete);
 }
 
-.main__container {
-  height: 100vh;
+.container {
+  height: 100%;
 }
 
 /*
