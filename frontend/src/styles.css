@@ -57,16 +57,7 @@ body {
   text-align: center;
 }
 
-.button {
-  background-color: var(--green-yellow);
-  border: none;
-  padding: 10px 0;
-  width: 100%;
-  color: var(--tom-thumb);
-  border-radius: 20px;
-  text-transform: uppercase;
-  font-weight: bold;
-}
+
 
 @media screen and (max-width: 630px) {
   .main {

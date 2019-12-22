@@ -12,6 +12,7 @@ import './form/__result/form__result.css'
 import './footer/footer.css'
 import './quota/quota.css'
 import './quota/__container/quota__container.css'
+import './button/button.css'
 
 export const checkFormValidity = formElement => formElement.checkValidity()
 
