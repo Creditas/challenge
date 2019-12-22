@@ -1,3 +1,4 @@
+import './variable/colors.css'
 import './styles.css'
 import './header/header.css'
 import './header/__container/header__container.css'
