@@ -57,10 +57,7 @@ body {
   text-align: center;
 }
 
-.form__fields {
-  max-width: 400px;
-  min-width: 400px;
-}
+
 
 .range {
   transform: translateY(11px);
