@@ -59,23 +59,11 @@ body {
 
 
 
-.range {
-  transform: translateY(11px);
-}
 
-.range__values {
-  display: flex;
-  justify-content: space-between;
-}
 
-.range__values span {
-  font-size: .6rem;
-  font-weight: 100;
-}
 
-.field input[type="range"] {
-  transform: translateY(5px);
-}
+
+
 
 .footer {
   font-size: .6rem;

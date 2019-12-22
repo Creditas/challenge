@@ -5,6 +5,9 @@ import './form/form.css'
 import './field-group/field-group.css'
 import './field/field.css'
 import './form/__fields/form__fields.css'
+import './range/range.css'
+import './range/__values/range__values.css'
+import './range/__input/range__input.css'
 
 export const checkFormValidity = formElement => formElement.checkValidity()
 
