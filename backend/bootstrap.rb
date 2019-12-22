@@ -75,6 +75,91 @@ class Product
   def initialize(name:, type:)
     @name, @type = name, type
   end
+
+  def send (customer, invoice) 
+    puts "Processing #{@type} order"
+  end
+end
+
+class Physical < Product
+  attr_reader :height, :width, :length, :weight
+
+  def initialize(name:)
+    super(name: name, type: :physical)
+  end
+
+  def send (customer, invoice)
+    super(customer, invoice)
+    generate_shipping_label(customer, invoice)
+  end
+
+  def generate_shipping_label(customer, invoice)
+    # with appropriate informations about the physical item, customer and address
+  end
+
+end
+
+class Membership < Product
+  attr_reader :service, :duration
+
+  def initialize(name:)
+    super(name: name, type: :membership)
+  end
+
+  def send (customer, invoice)
+    super(customer, invoice)
+    activate_membership(customer)
+    notify_customer(customer)
+  end
+
+  def activate_membership (customer)
+    puts "Activating membership for #{customer.full_name}"
+    # send customer data to service asking for activation?
+  end
+
+  def notify_customer(customer)
+    # send mail with membership activation confirmation
+  end
+
+end
+
+class Book < Physical
+  attr_reader :isbn, :pages
+
+  def initialize(name:)
+    super(name: name)
+    @type = :book
+  end
+
+  def generate_shipping_label(customer, invoice)
+    super
+    # add information about taxes exemption (Constituição Art. 150, VI, d.)
+  end
+
+end
+
+class Digital < Product
+  attr_reader :genre, :release, :artists
+
+  def initialize(name:)
+    super(name: name, type: :digital)
+  end
+
+  def send (customer, invoice)
+    super(customer, invoice)
+    notify_customer(customer)
+  end
+
+  def notify_customer(customer)
+    generate_voucher()
+    # send mail with data access and voucher information
+  end
+
+  def generate_voucher()
+    # R$ 10,00 discount voucher generation
+    # return voucher
+  end
+
 end
 
 class Address
@@ -92,22 +177,9 @@ class CreditCard
 end
 
 class Customer
-  # you can customize this class by yourself
+  attr_reader :cpf, :full_name, :mail_address, :shipping_addressess, :default_credit_card
+  def initialize(full_name)
+    @full_name = full_name
+  end
 end
 
-class Membership
-  # you can customize this class by yourself
-end
-
-# Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
-
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
-
-# now, how to deal with shipping rules then?
