@@ -57,40 +57,6 @@ body {
   text-align: center;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-.quota__container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.quota__container h4 {
-  font-weight: 200;
-  font-size: 18px;
-}
-
-.quota strong {
-  font-size: 21px;
-  color: var(--dove-gray);
-}
-
-.quota span {
-  font-size: 28px;
-  color: var(--mountain-meadow);
-  font-weight: bold;
-}
-
 .button {
   background-color: var(--green-yellow);
   border: none;
