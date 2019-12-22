@@ -1,6 +1,8 @@
 import './styles.css'
 import './header/header.css'
 import './header/__container/header__container.css'
+import './form/form.css'
+import './field-group/field-group.css'
 
 export const checkFormValidity = formElement => formElement.checkValidity()
 
