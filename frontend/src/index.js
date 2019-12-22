@@ -8,6 +8,7 @@ import './form/__fields/form__fields.css'
 import './range/range.css'
 import './range/__values/range__values.css'
 import './range/__input/range__input.css'
+import './form/__result/form__result.css'
 
 export const checkFormValidity = formElement => formElement.checkValidity()
 
