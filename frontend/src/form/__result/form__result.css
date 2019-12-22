@@ -22,3 +22,10 @@
   font-weight: 100;
   text-align: center;
 }
+
+@media screen and (max-width: 630px) {
+  .form .form__result {
+    width: 200px;
+    height: 250px;
+  }
+}

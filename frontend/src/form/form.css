@@ -3,3 +3,14 @@
   justify-content: space-around;
   margin-bottom: 50px;
 }
+
+@media screen and (max-width: 630px) {
+  .form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form > div {
+    width: 100%;
+  }
+}
