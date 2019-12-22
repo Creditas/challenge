@@ -2,7 +2,6 @@ import './variable/colors.css'
 import './styles.css'
 import './header/header.css'
 import './header/__container/header__container.css'
-import './form/form.css'
 import './field-group/field-group.css'
 import './field/field.css'
 import './form/__fields/form__fields.css'
@@ -14,8 +13,7 @@ import './footer/footer.css'
 import './quota/quota.css'
 import './quota/__container/quota__container.css'
 import './button/button.css'
-
-export const checkFormValidity = formElement => formElement.checkValidity()
+import Submit from './form/form'
 
 export const getFormValues = formElement =>
   Object.values(formElement.elements)
@@ -25,42 +23,7 @@ export const getFormValues = formElement =>
       value: element.value
     }))
 
-export const toStringFormValues = values => {
-  const match = matchString => value => value.field === matchString
-  const IOF = 6.38 / 100
-  const INTEREST_RATE = 2.34 / 100
-  const TIME = values.find(match('parcelas')).value / 1000
-  const VEHICLE_LOAN_AMOUNT = values.find(match('valor-emprestimo')).value
-
-  return `Confirmação\n${values
-    .map(value => `Campo: ${value.field}, Valor: ${value.value}`)
-    .join('\n')}`.concat(
-      `\nTotal ${(IOF + INTEREST_RATE + TIME + 1) * VEHICLE_LOAN_AMOUNT}`
-    )
-}
-
-export function Send(values) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(toStringFormValues(values))
-    } catch (error) {
-      reject(error)
-    }
-  })
-}
-
-export function Submit(formElement) {
-  formElement.addEventListener('submit', function (event) {
-    event.preventDefault()
-    if (checkFormValidity(formElement)) {
-      Send(getFormValues(formElement))
-        .then(result => confirm(result, 'Your form submited success'))
-        .catch(error => Alert('Your form submited error', error))
-    }
-  })
-}
-
-export function handleChangeRangeVehicleUnderWarranty(
+export function handleChangeRangeVehicleUnderWarranty (
   warrantyRangeElement,
   vehicleWarrantyElement
 ) {
@@ -71,7 +34,7 @@ export function handleChangeRangeVehicleUnderWarranty(
   })
 }
 
-export function handleChangeVehicleLoanAmount(
+export function handleChangeVehicleLoanAmount (
   loanAmountRangeElement,
   loanAmountElement
 ) {
@@ -83,12 +46,14 @@ export function handleChangeVehicleLoanAmount(
 }
 
 export default class CreditasChallenge {
-  static initialize() {
+  static initialize () {
     this.registerEvents()
   }
 
-  static registerEvents() {
-    Submit(document.querySelector('.form'))
+  static registerEvents () {
+    const formElement = document.querySelector('.form')
+    const fromValues = getFormValues(formElement)  
+    Submit(formElement, fromValues)
 
     handleChangeRangeVehicleUnderWarranty(
       document.getElementById('valor-garantia-range'),
