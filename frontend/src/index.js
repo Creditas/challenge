@@ -9,6 +9,7 @@ import './range/range.css'
 import './range/__values/range__values.css'
 import './range/__input/range__input.css'
 import './form/__result/form__result.css'
+import './footer/footer.css'
 
 export const checkFormValidity = formElement => formElement.checkValidity()
 
