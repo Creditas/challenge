@@ -6,6 +6,8 @@ const toCurrency = (value) => {
   return formatter.format(value)
 }
 
+const prettryValue = (value) => Number((value).toFixed(1)).toLocaleString('pt-BR')
+
 const match = matchString => value => value.field === matchString
 
 function calculationLending (values) {
@@ -17,10 +19,11 @@ function calculationLending (values) {
 }
 
 const fromValuesToString = values => {
+  const amount = calculationLending(values)
   return `Confirmação\n${values
     .map(value => `Campo: ${value.field}, Valor: ${value.value}`)
     .join('\n')}`
-    .concat(`\nTotal ${calculationLending(values)}`)
+    .concat(`\nTotal ${toCurrency(amount)}`)
 }
 
 const checkFormValidity = formElement => formElement.checkValidity()
@@ -30,5 +33,6 @@ export {
   match,
   calculationLending,
   fromValuesToString,
-  checkFormValidity
+  checkFormValidity,
+  prettryValue
 }

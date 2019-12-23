@@ -3,7 +3,8 @@ import {
   match,
   calculationLending,
   checkFormValidity,
-  fromValuesToString
+  fromValuesToString,
+  prettryValue
 } from './logic'
 
 const warrantyByType = {
@@ -76,7 +77,7 @@ function updateResultCard (
   const lendinValue = calculationLending(formValues)
   const installmentsPerMonth = lendinValue / formValues.find(match('parcelas')).value
   totalAmountElement.innerHTML = toCurrency(lendinValue)
-  valueInstallmentElement.innerHTML = toCurrency(installmentsPerMonth)
+  valueInstallmentElement.innerHTML = toCurrency(installmentsPerMonth).slice(3)
 }
 
 function send (values) {

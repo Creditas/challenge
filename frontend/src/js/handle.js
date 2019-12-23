@@ -1,4 +1,9 @@
-import { updateFieldsByWarrantyType, updateFieldByRangeValue, updateResultCard, sendInformation } from './controller'
+import {
+  updateFieldsByWarrantyType,
+  updateFieldByRangeValue,
+  updateResultCard,
+  sendInformation
+} from './controller'
 
 const isInputElement = (element) => ['SELECT', 'INPUT'].includes(element.nodeName)
 
