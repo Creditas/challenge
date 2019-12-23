@@ -2,12 +2,10 @@ import './range.css'
 
 function handleChangeRangeUnderMinValue (
   rangeElement,
-  inputElement,
-  minValue
+  inputElement
 ) {
   rangeElement.addEventListener('change', function (event) {
-    inputElement.value =
-      (Number(minValue) * Number(event.target.value)) / 100 + Number(minValue)
+    inputElement.value = event.target.value
   })
 }
 

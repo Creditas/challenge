@@ -12,7 +12,7 @@ import './quota/quota.css'
 import './quota/__container/quota__container.css'
 import './button/button.css'
 import Submit from './form/form'
-import getFormValues from './form/__fields/form__fields'
+import { getFormValues, handleWarrantyChange } from './form/__fields/form__fields'
 import handleChangeRangeUnderMinValue from './range/range'
 
 export default class CreditasChallenge {
@@ -27,14 +27,20 @@ export default class CreditasChallenge {
 
     handleChangeRangeUnderMinValue(
       document.getElementById('valor-garantia-range'),
-      document.getElementById('valor-garantia'),
-      12000.0
+      document.getElementById('valor-garantia')
     )
 
     handleChangeRangeUnderMinValue(
       document.getElementById('valor-emprestimo-range'),
-      document.getElementById('valor-emprestimo'),
-      30000.0
+      document.getElementById('valor-emprestimo')
+    )
+
+    handleWarrantyChange(
+      document.querySelector('#garantia'),
+      document.querySelector('#valor-min-emprestimo'),
+      document.querySelector('#valor-max-emprestimo'),
+      document.querySelector('#parcelas'),
+      document.querySelector('#valor-emprestimo-range'),
     )
   }
 }
