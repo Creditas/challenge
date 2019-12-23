@@ -17,16 +17,7 @@ const data = {
   }
 }
 
-function getFormValues(formElement) {
-  return Object.values(formElement.elements)
-    .filter(element => ['SELECT', 'INPUT'].includes(element.nodeName))
-    .map(element => ({
-      field: element.name,
-      value: element.value
-    }))
-}
-
-function updateInstallmentsOptions(
+function updateInstallmentsOptions (
   installmentsOptions,
   values
 ) {
@@ -37,12 +28,12 @@ function updateInstallmentsOptions(
   })
 }
 
-function updateLimites(input, values) {
+function updateLimites (input, values) {
   input.min = values.minLending
   input.max = values.maxLending
 }
 
-function updateLendingValues(
+function updateLendingValues (
   minLendingElement,
   maxLendingElement,
   values
@@ -51,12 +42,12 @@ function updateLendingValues(
   maxLendingElement.innerHTML = values.maxLending
 }
 
-function handleWarrantyChange(
+function handleWarrantyChange (
   warrantyElement,
   minLendingElement,
   maxLendingElement,
   installmentsElement,
-  warrantyRangeElement,
+  warrantyRangeElement
 ) {
   warrantyElement.addEventListener('change', function () {
     const warrantyType = warrantyElement.value
@@ -67,4 +58,4 @@ function handleWarrantyChange(
   })
 }
 
-export { getFormValues, handleWarrantyChange }
+export { handleWarrantyChange }

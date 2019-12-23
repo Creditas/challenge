@@ -11,8 +11,8 @@ import './footer/footer.css'
 import './quota/quota.css'
 import './quota/__container/quota__container.css'
 import './button/button.css'
-import Submit from './form/form'
-import { getFormValues, handleWarrantyChange } from './form/__fields/form__fields'
+import { Submit, handleFields } from './form/form'
+import { handleWarrantyChange } from './form/__fields/form__fields'
 import handleChangeRangeUnderMinValue from './range/range'
 
 export default class CreditasChallenge {
@@ -21,9 +21,7 @@ export default class CreditasChallenge {
   }
 
   static registerEvents () {
-    const formElement = document.querySelector('.form')
-    const fromValues = getFormValues(formElement)
-    Submit(formElement, fromValues)
+    Submit(document.querySelector('.form'))
 
     handleChangeRangeUnderMinValue(
       document.getElementById('valor-garantia-range'),
@@ -41,6 +39,12 @@ export default class CreditasChallenge {
       document.querySelector('#valor-max-emprestimo'),
       document.querySelector('#parcelas'),
       document.querySelector('#valor-emprestimo-range'),
+    )
+
+    handleFields(
+      document.querySelector('.form'), 
+      document.querySelector('#total-a-pagar'),
+      document.querySelector('#valor-parcela')
     )
   }
 }
