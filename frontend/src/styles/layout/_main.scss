@@ -1,0 +1,25 @@
+@import './form.scss';
+
+body {
+  background-color: $concrete;
+}
+
+.container {
+  height: 100%;
+}
+
+main {
+  display: flex;
+  height: calc(100% - 80px);
+  padding: 0 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .main__title {
+    max-width: 600px;
+    margin-bottom: 50px;
+    color: $dove-gray;
+    line-height: 34px;
+    text-align: center;
+  }
+}

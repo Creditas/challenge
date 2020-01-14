@@ -1,92 +1,158 @@
-import './styles.css'
+import './styles/index.scss'
 
-export const checkFormValidity = formElement => formElement.checkValidity()
+import {
+  clearOptions,
+  addOptions,
+  setRangesTags,
+  mapRangeValue,
+  getValueByPercentage,
+  checkFormValidity,
+  getFormValues
+} from './helpers'
+import dictonary from './dictonary'
 
-export const getFormValues = formElement =>
-  Object.values(formElement.elements)
-    .filter(element => ['SELECT', 'INPUT'].includes(element.nodeName))
-    .map(element => ({
-      field: element.name,
-      value: element.value
-    }))
-
-export const toStringFormValues = values => {
-  const match = matchString => value => value.field === matchString
-  const IOF = 6.38 / 100
-  const INTEREST_RATE = 2.34 / 100
-  const TIME = values.find(match('parcelas')).value / 1000
-  const VEHICLE_LOAN_AMOUNT = values.find(match('valor-emprestimo')).value
-
-  return `Confirmação\n${values
-    .map(value => `Campo: ${value.field}, Valor: ${value.value}`)
-    .join('\n')}`.concat(
-      `\nTotal ${(IOF + INTEREST_RATE + TIME + 1) * VEHICLE_LOAN_AMOUNT}`
-    )
-}
-
-export function Send(values) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(toStringFormValues(values))
-    } catch (error) {
-      reject(error)
-    }
-  })
-}
-
-export function Submit(formElement) {
-  formElement.addEventListener('submit', function (event) {
-    event.preventDefault()
-    if (checkFormValidity(formElement)) {
-      Send(getFormValues(formElement))
-        .then(result => confirm(result, 'Your form submited success'))
-        .catch(error => Alert('Your form submited error', error))
-    }
-  })
-}
-
-export function handleChangeRangeVehicleUnderWarranty(
-  warrantyRangeElement,
-  vehicleWarrantyElement
-) {
-  const MIN_VALUE = 12000.0
-  warrantyRangeElement.addEventListener('change', function (event) {
-    vehicleWarrantyElement.value =
-      (Number(MIN_VALUE) * Number(event.target.value)) / 100 + Number(MIN_VALUE)
-  })
-}
-
-export function handleChangeVehicleLoanAmount(
-  loanAmountRangeElement,
-  loanAmountElement
-) {
-  const MIN_VALUE = 30000.0
-  loanAmountRangeElement.addEventListener('change', function (event) {
-    loanAmountElement.value =
-      (Number(MIN_VALUE) * Number(event.target.value)) / 100 + Number(MIN_VALUE)
-  })
-}
-
-export default class CreditasChallenge {
-  static initialize() {
-    this.registerEvents()
+const creditasChallenge = (() => {
+  const iv = {
+    IOF: 6.3,
+    INTEREST_RATE: 2.34,
+    BORROW_PERCENTAGE: 80
   }
 
-  static registerEvents() {
-    Submit(document.querySelector('.form'))
-
-    handleChangeRangeVehicleUnderWarranty(
-      document.getElementById('valor-garantia-range'),
-      document.getElementById('valor-garantia')
-    )
-
-    handleChangeVehicleLoanAmount(
-      document.getElementById('valor-emprestimo-range'),
-      document.getElementById('valor-emprestimo')
-    )
+  const st = {
+    form: 'form',
+    warrantyRange: 'valor-garantia-range',
+    warrantyTextF: 'valor-garantia',
+    loanRange: 'valor-emprestimo-range',
+    loanTextF: 'valor-emprestimo',
+    warrantyType: 'garantia',
+    terms: 'parcelas',
+    tagWarrantyRange: 'tag-garantia-range',
+    tagLoanRange: 'tag-emprestimo-range',
+    resultQuota: 'result-quota',
+    resultAmount: 'result-amount-month',
+    resultTax: 'result-tax'
   }
-}
 
-document.addEventListener('DOMContentLoaded', function () {
-  CreditasChallenge.initialize()
-})
+  const dom = {}
+
+  const catchDom = () => {
+    dom.form = document.getElementsByClassName(st.form)[0]
+    dom.warrantyRange = document.getElementById(st.warrantyRange)
+    dom.warrantyTextF = document.getElementById(st.warrantyTextF)
+    dom.loanRange = document.getElementById(st.loanRange)
+    dom.loanTextF = document.getElementById(st.loanTextF)
+    dom.warrantyType = document.getElementById(st.warrantyType)
+    dom.terms = document.getElementById(st.terms)
+    dom.resultQuota = document.getElementById(st.resultQuota)
+    dom.resultAmount = document.getElementById(st.resultAmount)
+    dom.resultTax = document.getElementById(st.resultTax)
+  }
+
+  const suscribeEvents = () => {
+    dom.form.addEventListener('submit', events.handleSubmit)
+    dom.warrantyRange.addEventListener('change', events.handleChangeWarrantyRange)
+    dom.loanRange.addEventListener('change', events.handleChangeLoanRange)
+    dom.warrantyType.addEventListener('change', events.handleChangeWarrantyType)
+    dom.terms.addEventListener('change', events.handleChangeTerm)
+  }
+
+  const events = {
+    handleSubmit: (event) => {
+      event.preventDefault()
+      if (checkFormValidity(dom.form)) {
+        functions.send(getFormValues(dom.form))
+          .then(result => window.confirm(result, 'Your form submited success'))
+          .catch(error => window.alert('Your form submited error', error))
+      }
+    },
+    handleChangeWarrantyRange: (event) => {
+      dom.warrantyTextF.value = mapRangeValue(event.target.value, iv.maxWarranty, iv.minWarranty)
+      functions.calculateResult()
+    },
+    handleChangeLoanRange: (event) => {
+      dom.loanTextF.value = mapRangeValue(event.target.value, iv.maxLoan, iv.minLoan)
+      functions.calculateResult()
+    },
+    handleChangeWarrantyType: (event) => {
+      const warrantyType = event.target.value
+      functions.setBaseValues(warrantyType)
+      functions.calculateResult()
+    },
+    handleChangeTerm: (event) => {
+      iv.term = event.target.value
+      functions.calculateResult()
+    }
+  }
+
+  const functions = {
+    toStringFormValues: values => (
+      `Confirmação\n${values
+        .map(value => `Campo: ${value.field}, Valor: ${value.value}`)
+        .join('\n')}`.concat(`\nTotal ${iv.totalLoanPayments}`)
+    ),
+    send: values => (
+      new Promise((resolve, reject) => {
+        try {
+          resolve(functions.toStringFormValues(values))
+        } catch (error) {
+          reject(error)
+        }
+      })
+    ),
+    showBaseValues: () => {
+      clearOptions(dom.terms)
+      addOptions(dom.terms, iv.terms)
+
+      dom.loanRange.value = 0
+      setRangesTags(st.tagLoanRange, iv.minLoan, iv.maxLoan)
+      dom.warrantyRange.value = 0
+      setRangesTags(st.tagWarrantyRange, iv.minWarranty, iv.maxWarranty)
+
+      dom.loanTextF.value = iv.minLoan
+      dom.warrantyTextF.value = iv.minWarranty
+    },
+    setBaseValues: (warrantyType) => {
+      iv.minLoan = dictonary[warrantyType].minLoan
+      iv.maxLoan = dictonary[warrantyType].maxLoan
+      iv.minWarranty = getValueByPercentage(iv.BORROW_PERCENTAGE / 100, iv.minLoan, 1)
+      iv.maxWarranty = getValueByPercentage(iv.BORROW_PERCENTAGE / 100, iv.maxLoan, 1)
+      iv.terms = dictonary[warrantyType].terms
+      iv.term = dictonary[warrantyType].terms[0]
+      functions.showBaseValues()
+    },
+    showResult: () => {
+      dom.resultQuota.innerHTML = iv.monthlyPayment.toLocaleString('pt-br')
+      dom.resultAmount.innerHTML = `R$ ${iv.totalLoanPayments.toLocaleString('pt-br')}`
+      dom.resultTax.innerHTML = `${(iv.taxMonth * 100).toLocaleString('pt-br')}%`
+    },
+    calculateResult: () => {
+      const time = iv.term / 1000
+      const taxMonth = (iv.IOF / 100 + iv.INTEREST_RATE / 100 + time + 1)
+      const totalLoanPayments = taxMonth * dom.loanTextF.value
+      const monthlyPayment = totalLoanPayments / time
+      iv.taxMonth = taxMonth
+      iv.totalLoanPayments = totalLoanPayments
+      iv.monthlyPayment = monthlyPayment
+      functions.showResult()
+    }
+  }
+
+  const initValues = () => {
+    const firstSelect = Object.keys(dictonary)[0]
+    dom.warrantyType.value = firstSelect
+    functions.setBaseValues(firstSelect)
+    functions.calculateResult()
+  }
+
+  const initialize = () => {
+    catchDom()
+    suscribeEvents()
+    initValues()
+  }
+
+  return {
+    init: initialize
+  }
+})()
+
+creditasChallenge.init()

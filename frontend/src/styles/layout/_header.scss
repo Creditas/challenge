@@ -1,0 +1,20 @@
+header {
+  padding: 20px 0;
+  background-color: $mountain-meadow;
+  .header__container {
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    height: 1em;
+  }
+  
+  .help {
+    color: $concrete;
+    text-decoration: none;
+  }
+}
+
