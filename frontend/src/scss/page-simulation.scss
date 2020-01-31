@@ -1,0 +1,31 @@
+@import './helpers/font-size';
+@import './helpers/variables';
+@import './helpers/global';
+
+@import './header';
+@import './page-simulation/form-input';
+@import './page-simulation/form-results';
+@import './footer';
+
+.main {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0 rem(10);
+    height: auto;
+    margin: rem(30) 0;
+
+    @media screen and (min-width: 960px) {
+        height: calc(100% - #{$header-height});
+        margin: initial;
+    }
+
+    &__title {
+        color: $dove-gray;
+        margin: rem(32) 0;
+        max-width: rem(600);
+        line-height: rem(34);
+        text-align: center;
+    }
+}

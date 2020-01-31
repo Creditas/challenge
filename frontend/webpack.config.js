@@ -1,14 +1,32 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const scripts = {
+  test: /\.js$/,
+  exclude: /(node_modules|bower_components)/,
+  use: {
+    loader: 'babel-loader'
+  }
+}
+
+const styles = {
+      test: /\.scss|css$/,
+      loader: [
+        'style-loader',
+        'css-loader',
+        'sass-loader'
+      ]
+    }
+
+
 module.exports = {
   mode: 'development',
-  entry: ['webpack/hot/dev-server', './src/index.js'],
+  entry: ['webpack/hot/dev-server', './src/js/page-simulation/page-simulation.js'],
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
     publicPath: '/'
-  },
+  }, 
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Creditas Challenge',
@@ -23,10 +41,7 @@ module.exports = {
   ],
   module: {
     rules: [
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
+      scripts, styles
     ]
   }
 }

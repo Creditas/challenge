@@ -1,0 +1,130 @@
+.errormessage {
+    font-size: rem(12) !important;
+    color: #FE5050 !important;
+    font-weight: 400 !important;
+    margin-top: 1em !important;
+    max-width: rem(150);
+  }
+  
+  .error {
+    border-color: #FE5050 !important;
+    
+  }
+
+  .disabled {
+      background-color: #f0f0f0 !important;
+      color: #AAAAAA !important;
+  }
+
+.form {
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: rem(50);
+
+    @media screen and (min-width: 960px) {
+        flex-direction: initial;
+        align-items: initial;
+    }
+
+    div {
+        width: 100%;
+
+        @media screen and (min-width: 960px) {
+            width: rem(150);
+        }
+    }
+
+    &__fields {
+        min-width: 100%;
+        margin-bottom: rem(30);
+
+        @media screen and (min-width: 960px) {
+            max-width: rem(400);
+            min-width: rem(400);
+        }
+
+        &__group {
+            display: flex;
+            margin-bottom: rem(30);
+            flex-direction: column;
+            justify-content: center;
+
+            @media screen and (min-width: 960px) {
+                flex-direction: row;
+                justify-content: initial;
+            }
+
+            &__field {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                @media screen and (min-width: 960px) {
+                    align-items: initial;
+                }
+
+                &:first-child {
+                    margin-right: rem(30);
+                    margin-bottom: rem(16);
+
+                    @media screen and (min-width: 960px) {
+                        margin-bottom: initial;
+                    }
+                }
+
+                &__label {
+                    color: $dove-gray;
+                    font-weight: bold;
+                    font-size: rem(12.8);
+                    margin-bottom: rem(5);
+                }
+
+                &__select {
+                    border: none;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+                    -ms-appearance: none;
+                }
+
+                @at-root #{&}__select,
+                #{&}__input--text {
+                    color: $emperor;
+                    border: 1px solid $nobel;
+                    background-color: $alabaster;
+                    border-radius: 4px;
+                    padding: rem(10) rem(5);
+                    width: rem(150);
+                }
+
+                &__range {
+                    transform: translateY(11px);
+
+                    &__input {
+                        &--range {
+                            transform: translateY(5px);
+                            width: 100%;
+                        }
+                    }
+
+                    &__values {
+                        display: flex;
+                        justify-content: space-between;
+
+                        &__span {
+                            font-size: rem(9.6);
+                            font-weight: 100;
+
+                            &:last-child {
+                                text-align: right;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

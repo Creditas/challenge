@@ -1,0 +1,73 @@
+.form__result {
+    background-color: $white;
+    border-radius: rem(4);
+    box-shadow: 0px rem(-5) rem(2) rem(-1) $silver;
+    padding: rem(10);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    min-width: 35%;
+    width: rem(200);
+    height: rem(250);
+
+    @media screen and (min-width: 930px) {
+        width: initial;
+        height: initial;
+    }
+
+    &__h4 {
+        color: $boulder;
+        font-size: .7rem;
+        text-align: center;
+        margin-bottom: 3px;
+    }
+
+    &__p {
+        font-size: rem(11.2);
+        font-weight: 100;
+        text-align: center;
+    }
+
+    &__quota {
+        &__container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__label {
+            font-weight: 200;
+            font-size: rem(18);
+        }
+
+        &__value {
+            display: flex;
+            justify-content: center;
+
+            &__currency {
+                font-size: rem(21);
+                color: $dove-gray;
+                align-self: flex-end;
+            }
+
+            &__number {
+                font-size: rem(28);
+                color: $mountain-meadow;
+                font-weight: bold;
+            }
+        }
+    }
+
+    &__btn--submit {
+        background-color: $green-yellow;
+        border: none;
+        padding: rem(10) 0;
+        width: 100%;
+        color: $tom-thumb;
+        border-radius: rem(20);
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+}
