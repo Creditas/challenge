@@ -50,8 +50,17 @@ class Order
 
   def close(closed_at = Time.now)
     @closed_at = closed_at
+    shipping_type = @items.first.product.type
+    SHIPPING_STRATEGIES[shipping_type].shipping(self) #### Pode ser substituido por multi_shipping(), conforme comentário.
   end
 
+  #### Caso o pedido contenha mais de um tipo de produto
+  def multi_shipping
+    @items.each do |item|
+      shipping_type = item.product.type
+      SHIPPING_STRATEGIES[shipping_type].shipping(self)
+    end
+  end
   # remember: you can create new methods inside those classes to help you create a better design
 end
 
@@ -93,17 +102,125 @@ end
 
 class Customer
   # you can customize this class by yourself
+  attr_reader :vouchers, :memberships
+
+  def initialize
+    @vouchers = []
+    @memberships = []
+  end
+
 end
 
+
 class Membership
+  attr_reader :customer, :actvated
+
+  def initialize(customer)
+    @customer = customer
+    @activated = false
+  end
+
+  def activate!
+    activate = true
+  end
   # you can customize this class by yourself
 end
 
+class Voucher
+  attr_reader :customer, :value
+  def initialize(customer:,value:)
+    @customer = customer
+    @value = value
+  end
+end
+
+module Mailer
+  def send_mail(options = {} )
+  end
+end
+
+module Labler
+  def shipping_label(content)
+    content
+  end
+end
+
+
+class ProductShippingStrategy
+  def shipping(order)
+    raise "Not implemented yet"
+  end
+end
+
+class PhysicalShippingStrategy < ProductShippingStrategy
+  include Labler
+  def shipping(order)
+    shipping_label(order.address.zipcode)
+  end
+end
+
+class BookShippingStrategy < ProductShippingStrategy
+  include Labler
+  def shipping(order)
+    content = generate_label(order)
+    shipping_label(content)
+  end
+
+  private
+  def generate_label(order)
+    "#{order.address.zipcode} - ITEM ISENTO"
+  end
+end
+
+class DigitalShippingStrategy < ProductShippingStrategy
+  include Mailer
+
+  def shipping(order)
+    message = generate_message(order)
+    send_mail(message: message, destinatary: order.customer)
+    generate_voucher(order.customer)
+  end
+
+  private
+  def generate_message(order)
+    "Order description"
+  end
+
+  def generate_voucher(customer)
+    customer.vouchers << Voucher.new(customer: customer, value: 10.0)
+  end
+end
+
+class MembershipShippingStrategy < ProductShippingStrategy
+  include Mailer
+  def shipping(order)
+    activate_membership(order.customer)
+    send_mail(message: "Your membership was activated successfully", desinatary: order.customer)
+  end
+
+  private
+  def activate_membership(customer)
+    membership = Membership.new(customer: customer)
+    membership.activate!
+    customer.memberships << membership
+  end
+end
+
+
+
+
+SHIPPING_STRATEGIES = {
+                        physical: PhysicalShippingStrategy.new,
+                        book: BookShippingStrategy.new ,
+                        digital: DigitalShippingStrategy.new,
+                        membership: MembershipShippingStrategy.new
+                      }
+
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
-book = Product.new(name: 'Awesome book', type: :book)
-book_order = Order.new(foolano)
-book_order.add_product(book)
+  foolano = Customer.new
+  book = Product.new(name: 'Awesome book', type: :book)
+  book_order = Order.new(foolano)
+  book_order.add_product(book)
 
 payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
 payment_book.pay
