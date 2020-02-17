@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Challenge Creditas</title>
+    <link rel="stylesheet" href="../src/styles.css">
+  </head>
+<!-- Modal -->
+  <div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <!-- Botão fechar -->
+    <span class="close">&times;</span>
+    <!-- Div text_modal -->
+    <div class="text_modal">
+      <!-- Especificações-->
+      <p>ESPECIFICAÇÕES DO EMPRESTIMO</p>
+      <div class="espec_veiculo">
+        <p>Garantia Veículo</p>
+        <p>Emprestimo minimo: R$ 3.000.00</p>
+        <p>Emprestimo maximo: R$ 100.000.00</p>
+      </div>
+      <div class="espec_imovel">
+        <p>Garantia Ímovel</p>
+        <p>Emprestimo minimo: R$ 30.000.00</p>
+        <p>Emprestimo maximo: R$ 4.500.000.00</p>
+      </div>
+    </div>
+    <!-- Informações -->
+    <div class="info">
+      <p>Valor máximo para empréstimo: 80% do valor da garantia</p>
+    </div>
+    <!-- Taxas -->
+    <footer>TAXA DE IOF: 6.38% | TAXA DE JUROS: 2.34% </footer>
+  </div>
+</div>
+<!-- Body -->
+  <body onload="changeGarantia()"> 
+    <div class="container">
+      <header class="header">
+        <div class="header__container">
+          <h1 class="header__title">
+            <a href="#" title="Creditas">
+              <img class="logo" src="https://staging.creditas.com.br/static/images/logo-creditas-white-3cd22a2808.svg" alt="Creditas">
+            </a>
+          </h1>
+          <a class="help" href="#ajuda">Ajuda</a>
+        </div>
+      </header>
+      <main class="main">
+        <h1 class="main__title">Realize uma simulação de crédito utilizando seu bem como garantia.</h1>
+        <section class="section__container">
+          <!-- Formulario -->
+          <form class="form" name="form" >
+            <div class="form__fields">
+              <!-- Select Parcelas -->
+              <div class="field-group">
+                <div class="field">
+                  <label for="parcelas">Número de parcelas</label>
+                  <select name="parcelas" id="parcelas" required>
+                    <option value="0">0</option>
+                    <option value="1">0</option>
+                    <option value="2">0</option>
+                  </select>
+                </div>
+                <!-- Select tipo garantia -->
+                <div class="field">
+                  <label for="garantia">Garantia</label>
+                  <select name="garantia" id="garantia" onchange="changeGarantia()" required>
+                    <option value="veiculo">Veículo</option>
+                    <option value="imovel">Imóvel</option>
+                  </select>
+                </div>
+              </div>
+              <!-- Input valor garantia -->
+              <div class="valor-garantia">
+                <div class="field-group">
+                  <div class="field">
+                    <label for="valor-garantia">Valor da Garantia</label>
+                    <input type="text" required name="valor-garantia" id="valor-garantia"/>
+                  </div>
+                  <!-- range valor garantia-->
+                  <div class="field">
+                    <div class="range">
+                      <input type="range" name="valor-garantia-range" id="valor-garantia-range" min="3600" max="6000" value="20" step="10" onmousemove="changeRange()">
+                      <div class="range__values">
+                        <span>3.600</span>
+                        <span>6.000</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- input valor emprestimo -->
+              <div class="emprestimo">
+                <div class="field-group">
+                  <div class="field">
+                    <label for="valor-emprestimo">Valor do Empréstimo</label>
+                    <input type="text" required name="valor-emprestimo" id="valor-emprestimo" value="0">
+                  </div>
+                  <!-- range valor emprestimo-->
+                  <div class="field">
+                    <div class="range">
+                      <input type="range" name="valor-emprestimo-range" id="valor-emprestimo-range" min="3000" max="100000" value="90" step="10" onmousemove="changeRange()">
+                      <div class="range__values">
+                        <span>3.000</span>
+                        <span>100.000</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- form resultado -->
+            <div class="form__result">
+              
+              <div class="quota__container">
+                <h4>Valor da Parcela</h4>
+                <div class="quota">
+                  <strong>R$</strong>
+                  <span>00,00</span>
+                </div>
+              </div>
+              <div class="amount_container">
+                <h4>Total a pagar</h4>
+                <p>R$ 00,00</p>
+              </div>
+              <div class="tax__container">
+                <h4>Taxa de juros (mês)</h4>
+                <p>00,00%</p>
+              </div>
+              <button class="button" id="resultado">
+                Solicitar
+              </button>
+            </div>
+          </form>
+        </section>
+        <!-- Footer -->
+        <footer class="footer">*Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere quas non harum dolor eligendi id, ab corrupti blanditiis suscipit ex odit error alias minus. Enim dolores eum officiis quae rem!*</footer>
+      </main>
+    </div>
+  </body>
+  <script src=../src/calculo.js></script>
+  <script src="../src/modal.js"></script>
+  </html>
