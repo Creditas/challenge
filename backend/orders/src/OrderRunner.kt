@@ -1,6 +1,6 @@
 package challenge
 
-import challenge.model.Product
+import challenge.model.*
 
 fun main() {
     val shirt = Product("Flowered t-shirt", ProductType.PHYSICAL, 35.00)
@@ -15,7 +15,7 @@ fun main() {
     order.addProduct(book, 1)
     order.addProduct(music, 1)
 
-    println(order.toString())
+    println(order.totalAmount)
 
     order.pay(CreditCard("43567890-987654367"))
     // now, how to deal with shipping rules then?
