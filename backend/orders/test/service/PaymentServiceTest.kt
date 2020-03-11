@@ -35,4 +35,14 @@ class PaymentServiceTest {
 
         assertNotNull(order.closedAt)
     }
+
+    @Test(expected = Exception::class)
+    fun processPaymentWithDuplicatedProduct_then_ShouldThrowException() {
+        val shirt = Product("Flowered t-shirt", ProductType.PHYSICAL,35.00)
+        val shirt2 = Product("Flowered t-shirt", ProductType.PHYSICAL,35.00)
+        val order = Order(Customer("Henry", "Henry@email.com"), Address())
+        order.addProduct(shirt, 1, PaymentDigitalStrategy())
+        order.addProduct(shirt2, 1, PaymentDigitalStrategy())
+        paymentService.processPayment(CreditCard("12312312312"), order)
+    }
 }
