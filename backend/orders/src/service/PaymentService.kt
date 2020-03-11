@@ -5,10 +5,10 @@ import challenge.model.Payment
 import challenge.model.PaymentMethod
 import java.lang.Exception
 
-class PaymentService(private val method: PaymentMethod, private val order: Order) {
+class PaymentService {
 
-    fun processPayment() {
-        if (this.order.payment != null)
+    fun processPayment(method: PaymentMethod, order: Order) {
+        if (order.payment != null)
             throw Exception(ALREADY_PAYED_EXCEPTION_MESSAGE)
 
         if (order.items.count() == 0)

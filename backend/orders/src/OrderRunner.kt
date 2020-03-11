@@ -15,15 +15,17 @@ fun main() {
 
     val order = Order(Customer("Henry", "Henry@email.com"), Address())
 
-    val paymentService = PaymentService(order = order, method = CreditCard("43567890-987654367"))
+    val paymentService = PaymentService()
 
     order.addProduct(shirt, 2, PaymentPhysicalItemStrategy())
     order.addProduct(netflix, 1, PaymentServiceSignatureStrategy())
     order.addProduct(book, 1, PaymentRegularBookStrategy())
     order.addProduct(music, 1, PaymentDigitalStrategy())
 
-    println(order.totalAmount)
+    println("Your order total amount is: " + order.totalAmount)
 
-    paymentService.processPayment()
+    paymentService.processPayment(order = order, method = CreditCard("43567890-987654367"))
+
+    println("Congratulations! Your order $order has been approved")
     // now, how to deal with shipping rules then?
 }
