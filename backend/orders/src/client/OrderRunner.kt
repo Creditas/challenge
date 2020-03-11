@@ -1,4 +1,4 @@
-package challenge
+package client
 
 import challenge.model.*
 import challenge.service.PaymentService
