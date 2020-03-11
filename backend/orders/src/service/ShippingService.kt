@@ -1,4 +1,4 @@
-package challenge.service.paymentstrategy
+package challenge.service
 
 import challenge.model.ShippingLabel
 
