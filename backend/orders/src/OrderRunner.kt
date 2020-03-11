@@ -13,7 +13,7 @@ fun main() {
     val book = Product("The Hitchhiker's Guide to the Galaxy", ProductType.BOOK,120.00)
     val music = Product("Stairway to Heaven", ProductType.DIGITAL,5.00)
 
-    val order = Order(Customer(), Address())
+    val order = Order(Customer("Henry", "Henry@email.com"), Address())
 
     val paymentService = PaymentService(order = order, method = CreditCard("43567890-987654367"))
 
