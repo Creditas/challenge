@@ -32,6 +32,12 @@ Project
 
 The project has some unit tests to cover some key scenarios. Please find at Test folder.
 
+### Contributors
+
+- Murilo M. Santos <murilommms@gmail.com>
+
+---
+
 ## Support
 
 * If you have any query or doubt, please, feel free to contact me by e-mail.
