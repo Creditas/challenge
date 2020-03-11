@@ -5,7 +5,7 @@ import challenge.service.paymentstrategy.PaymentStrategy
 import java.lang.Exception
 import java.util.*
 
-class Order(val customer: Customer, val address: Address) {
+data class Order(val customer: Customer, val address: Address) {
     val items = mutableListOf<OrderItem>()
     val paymentStrategies = mutableListOf<PaymentStrategy>()
     var closedAt: Date? = null
@@ -26,5 +26,7 @@ class Order(val customer: Customer, val address: Address) {
     fun close() {
         closedAt = Date()
     }
+
+    override fun toString(): String = "Items: " + this.items + " Total Price: " + totalAmount;
 }
 
