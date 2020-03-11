@@ -1,6 +1,5 @@
 package challenge.model
 
-import challenge.Order
 import java.util.*
 
 data class Payment(val order: Order, val paymentMethod: PaymentMethod) {

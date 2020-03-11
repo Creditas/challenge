@@ -1,6 +1,6 @@
 package challenge.service
 
-import challenge.Order
+import challenge.model.Order
 import challenge.model.Payment
 import challenge.model.PaymentMethod
 import java.lang.Exception
