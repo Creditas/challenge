@@ -1,8 +1,11 @@
 package challenge.service.paymentstrategy
 
+import challenge.model.Payment
+
 class PaymentDigitalStrategy: PaymentStrategy {
 
-    override fun pay() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun pay(payment: Payment) {
+        println("PaymentDigitalStrategy")
+
     }
 }

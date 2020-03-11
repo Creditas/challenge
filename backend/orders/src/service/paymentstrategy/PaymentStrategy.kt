@@ -1,6 +1,7 @@
 package challenge.service.paymentstrategy
 
-interface PaymentStrategy {
+import challenge.model.Payment
 
-    fun pay()
+interface PaymentStrategy {
+    fun pay(payment: Payment)
 }
