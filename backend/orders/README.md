@@ -20,6 +20,7 @@ Project
 ├── orders
 │   ├── model: Data classes with related attributes
 │   ├── service: Main service logic. Those classes will process the payment, send e-mail, and so on.
+│          ├── paymentstrategy: Following the requirements, this directory contains all possible payment strategies. This will facilitate reusability and maintainability.
 │   ├── client: This package contain code which will communicate with client, here services will be called       
 ```
 
