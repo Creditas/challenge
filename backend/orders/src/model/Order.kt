@@ -29,7 +29,7 @@ data class Order(val customer: Customer, val address: Address) {
     override fun toString(): String = "Items: " + this.items + " Total Price: " + totalAmount;
 
     companion object {
-        const val DUPLICATED_PRODUCT_EXCEPTION_MESSAGE = "Product Free from taxes, according to Constitution Art. 150, VI, d."
+        const val DUPLICATED_PRODUCT_EXCEPTION_MESSAGE = "The product have already been added. Change the amount if you want more."
     }
 }
 

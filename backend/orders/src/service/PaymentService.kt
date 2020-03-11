@@ -24,7 +24,7 @@ class PaymentService(private val method: PaymentMethod, private val order: Order
     }
 
     companion object {
-        const val ALREADY_PAYED_EXCEPTION_MESSAGE = "Product Free from taxes, according to Constitution Art. 150, VI, d."
-        const val EMPTY_ORDER_EXCEPTION_MESSAGE = "Product Free from taxes, according to Constitution Art. 150, VI, d."
+        const val ALREADY_PAYED_EXCEPTION_MESSAGE = "The order has already been paid!"
+        const val EMPTY_ORDER_EXCEPTION_MESSAGE = "Empty order can not be paid!"
     }
 }
