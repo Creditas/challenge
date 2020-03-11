@@ -1,6 +1,7 @@
 package challenge
 
 import challenge.model.*
+import challenge.service.PaymentService
 
 fun main() {
     val shirt = Product("Flowered t-shirt", ProductType.PHYSICAL, 35.00)
@@ -10,6 +11,8 @@ fun main() {
 
     val order = Order(Customer(), Address())
 
+    val paymentService = PaymentService(order = order, method = CreditCard("43567890-987654367"))
+
     order.addProduct(shirt, 2)
     order.addProduct(netflix, 1)
     order.addProduct(book, 1)
@@ -17,6 +20,6 @@ fun main() {
 
     println(order.totalAmount)
 
-    order.pay(CreditCard("43567890-987654367"))
+    paymentService.pay()
     // now, how to deal with shipping rules then?
 }
