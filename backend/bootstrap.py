@@ -49,7 +49,8 @@ class Order:
     payment = None
     address = None
     closed_at = None
-
+    voucher = 0
+    
     def __init__(self, customer, attributes={}):
         self.customer = customer
         self.items = []
@@ -61,10 +62,10 @@ class Order:
 
     def total_amount(self):
         total = 0
-        for item in items:
-            total += item.total
+        for item in self.items:
+            total += item.total()
 
-        return total
+        return total - self.voucher
 
     def close(self, closed_at=time.time()):
         self.closed_at = closed_at
@@ -100,6 +101,9 @@ class Address:
     def __init__(self, zipcode):
         self.zipcode = zipcode
 
+    def __repr__(self):
+        return '{}'.format(self.zipcode)
+
 
 class CreditCard:
 
@@ -109,28 +113,64 @@ class CreditCard:
 
 
 class Customer:
-    # you can customize this class by yourself
-    pass
+    email = None
+    
+    def __init__(self, email=None):
+        self.email = email
 
+class Physical:
+    label = None
+
+    def shipping(self, order):
+        self.label = order.address
 
 class Membership:
-    # you can customize this class by yourself
-    pass
+    membership_active = False
+    
+    def shipping(self, order):
+        self.membership_active = True
+        self.send_email(order.customer)
 
+    def is_membership_active(self):
+        return self.membership_active
+
+    def send_email(self, customer):
+        # TODO: Enviar email notificando o comprador da assinatura.
+        pass
+
+
+class Book(Physical):    
+    warning = 'Item isento de impostos conforme disposto na Constituição Art. 150, VI, d.'
+
+    def shipping(self, order):
+        self.label = '{} {}'.format(order.address, self.warning)
+
+class Digital(Membership):
+    voucher = 10
+
+    def shipping(self, order):
+        order.voucher = self.voucher
+        self.send_email(order.customer)
+
+    def send_email(self, order):
+        # TODO: Enviar email notificando o comprador da compra.
+        # TODO: Texto com descricao do item
+        pass
+    
 
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer()
-book = Product(name='Awesome book', type='book')
-book_order = Order(foolano)
-book_order.add_product(book)
+# foolano = Customer()
+# book = Product(name='Awesome book', type='book')
+# book_order = Order(foolano)
+# book_order.add_product(book)
 
-attributes = dict(
-    order=book_order,
-    payment_method=CreditCard.fetch_by_hashed('43567890-987654367')
-)
-payment_book = Payment(attributes=attributes)
-payment_book.pay()
-print(payment_book.is_paid())  # < true
-print(payment_book.order.items[0].product.type)
+# attributes = dict(
+#     order=book_order,
+#     payment_method=CreditCard.fetch_by_hashed('43567890-987654367')
+# )
+# payment_book = Payment(attributes=attributes)
+# payment_book.pay()
+# print(payment_book.is_paid())  # < true
+# print(payment_book.order.items[0].product.type)
 
 # now, how to deal with shipping rules then?
