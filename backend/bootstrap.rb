@@ -1,24 +1,7 @@
-class Payment
-  attr_reader :authorization_number, :amount, :invoice, :order, :payment_method, :paid_at
-
-  def initialize(attributes = {})
-    @authorization_number, @amount = attributes.values_at(:authorization_number, :amount)
-    @invoice, @order = attributes.values_at(:invoice, :order)
-    @payment_method = attributes.values_at(:payment_method)
-  end
-
-  def pay(paid_at = Time.now)
-    @amount = order.total_amount
-    @authorization_number = Time.now.to_i
-    @invoice = Invoice.new(billing_address: order.address, shipping_address: order.address, order: order)
-    @paid_at = paid_at
-    order.close(@paid_at)
-  end
-
-  def paid?
-    !paid_at.nil?
-  end
-end
+require_relative 'shipping/shipping.rb'
+require_relative 'payment/paymentservice.rb'
+require_relative 'notification/notification.rb'
+require_relative 'payment/payment.rb'
 
 class Invoice
   attr_reader :billing_address, :shipping_address, :order
@@ -52,6 +35,7 @@ class Order
     @closed_at = closed_at
   end
 
+  
   # remember: you can create new methods inside those classes to help you create a better design
 end
 
@@ -93,21 +77,61 @@ end
 
 class Customer
   # you can customize this class by yourself
+  attr_reader :name , :email
+
+  def initialize(name:,email:)
+    @name = name
+    @email = email
+  end
 end
 
 class Membership
   # you can customize this class by yourself
+  attr_reader :name , :email
+  def initialize(name:,email:)
+    @name = name
+    @email = email
+  end
+  def enable()
+      puts "membership is enabled"
+     
+  end
+  
 end
 
+#**************************************** new classes for solution ***********************
+
+
 # Book Example (build new payments if you need to properly test it)
-foolano = Customer.new
+foolano = Customer.new(name:"JOAO SILVA", email: "joao@email.com")
+
 book = Product.new(name: 'Awesome book', type: :book)
+membership = Product.new(name: 'membership book', type: :membership)
+physical = Product.new(name: 'physical book', type: :physical)
+digital = Product.new(name: 'physical book', type: :digital)
+
 book_order = Order.new(foolano)
 book_order.add_product(book)
+book_order.add_product(membership)
+book_order.add_product(physical)
+book_order.add_product(digital)
 
-payment_book = Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
-payment_book.pay
-p payment_book.paid? # < true
-p payment_book.order.items.first.product.type
+#payment_book = PaymentModule::Payment.new(order: book_order, payment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+#payment_book.pay
+#p payment_book.paid? # < true
+#p payment_book.order.items.first.product.type
+
+paymentService = PaymentModule::PaymentService.new(productOrder: book_order, orderPayment_method: CreditCard.fetch_by_hashed('43567890-987654367'))
+paymentService.process
+
 
 # now, how to deal with shipping rules then?
+
+
+
+
+
+
+
+
+
