@@ -8,10 +8,11 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo/vector-icons": "^10.0.6",
     "axios": "^0.19.2",
-    "basic-authorization-header": "^0.2.7",
     "buffer": "^5.5.0",
     "expo": "~37.0.3",
+    "expo-constants": "^9.0.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.0.tar.gz",

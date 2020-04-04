@@ -1,3 +1,4 @@
+require("react-native").unstable_enableLogBox();
 import React, { useState } from "react";
 
 import {
@@ -9,7 +10,7 @@ import {
   TextInput,
   TouchableOpacity,
   AsyncStorage,
-  Alert
+  Alert,
 } from "react-native";
 
 import api from "../services/api";
@@ -19,15 +20,16 @@ import logo from "../assets/logo.png";
 export default function Login1({ navigation }) {
   const [username, setUsername] = useState("");
 
-  async function handleSubmit() {
-    const response = await api.get(`/users/${username}`);
-
-    if (response) {
-      await AsyncStorage.setItem("username", username);
-      navigation.navigate("Login2");
-    } else {
-      Alert.alert("User does not exist");
-    }
+  function handleSubmit() {
+    api
+      .get(`/users/${username}`)
+      .then(async (response) => {
+        await AsyncStorage.setItem("username", username);
+        navigation.navigate("Login2");
+      })
+      .catch((err) => {
+        Alert.alert("User not exists");
+      });
   }
 
   return (
@@ -40,7 +42,7 @@ export default function Login1({ navigation }) {
           placeholderTextColor="#999"
           autoCorrect={false}
           value={username}
-          onChangeText={text => setUsername(text)}
+          onChangeText={(text) => setUsername(text)}
         />
       </View>
       <TouchableOpacity onPress={handleSubmit} style={styles.button}>
@@ -54,11 +56,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   image: {
     width: 180,
-    height: 180
+    height: 180,
   },
   input: {
     textAlign: "center",
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#000",
     marginTop: 100,
-    borderRadius: 2
+    borderRadius: 2,
   },
   button: {
     paddingHorizontal: 20,
@@ -80,10 +82,10 @@ const styles = StyleSheet.create({
     marginTop: 50,
     borderRadius: 3,
     borderColor: "#999",
-    borderWidth: 2
+    borderWidth: 2,
   },
   textbutton: {
     fontSize: 15,
-    color: "#999"
-  }
+    color: "#999",
+  },
 });

@@ -7,7 +7,8 @@ import {
   KeyboardAvoidingView,
   TextInput,
   TouchableOpacity,
-  AsyncStorage
+  AsyncStorage,
+  Alert,
 } from "react-native";
 
 import { Buffer } from "buffer";
@@ -20,21 +21,26 @@ export default function Login2({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  AsyncStorage.getItem("username").then(value => {
+  AsyncStorage.getItem("username").then((value) => {
     setUsername(value);
   });
 
-  async function handleNextSubmit() {
+  function handleNextSubmit() {
     const fields = new Buffer(username + ":" + password);
     const encoded = fields.toString("base64");
 
-    const response = await api.get("/user", {
-      headers: {
-        Authorization: "Basic " + encoded
-      }
-    });
-
-    navigation.navigate("Repositories");
+    api
+      .get("/user", {
+        headers: {
+          Authorization: "Basic " + encoded,
+        },
+      })
+      .then((res) => {
+        navigation.navigate("Repositories");
+      })
+      .catch((err) => {
+        Alert.alert("Invalid password");
+      });
   }
 
   async function handleBackSubmit() {
@@ -52,7 +58,7 @@ export default function Login2({ navigation }) {
           placeholderTextColor="#999"
           autoCorrect={false}
           value={password}
-          onChangeText={text => setPassword(text)}
+          onChangeText={(text) => setPassword(text)}
         />
       </View>
       <TouchableOpacity onPress={handleNextSubmit} style={styles.nextButton}>
@@ -69,15 +75,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   image: {
     width: 180,
-    height: 180
+    height: 180,
   },
   username: {
     marginTop: 50,
-    fontSize: 18
+    fontSize: 18,
   },
   input: {
     textAlign: "center",
@@ -88,7 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#000",
     marginTop: 50,
-    borderRadius: 2
+    borderRadius: 2,
   },
   nextButton: {
     paddingHorizontal: 20,
@@ -99,7 +105,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     borderRadius: 3,
     borderColor: "#999",
-    borderWidth: 2
+    borderWidth: 2,
   },
   backButton: {
     paddingHorizontal: 20,
@@ -110,10 +116,10 @@ const styles = StyleSheet.create({
     marginTop: 30,
     borderRadius: 3,
     borderColor: "#999",
-    borderWidth: 2
+    borderWidth: 2,
   },
   textbutton: {
     fontSize: 15,
-    color: "#999"
-  }
+    color: "#999",
+  },
 });
