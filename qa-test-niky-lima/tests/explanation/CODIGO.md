@@ -7,7 +7,7 @@ Bem, já conhecendo a estrutura e como o desafio pedia, foi adotado o padrão de
 - Na pasta **pages** nós temos as classes responsáveis por agrupar os elementos de página e suas ações como por exemplo:
 
 ```
-element :button, '//button'
+element :button, 'button[name="btnClickHere"]'
 
 def do_something
   button.click
