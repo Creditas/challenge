@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.6",
+    "@react-native-community/async-storage": "^1.9.0",
     "axios": "^0.19.2",
     "buffer": "^5.5.0",
     "expo": "~37.0.3",

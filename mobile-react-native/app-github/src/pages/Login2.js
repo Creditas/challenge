@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -21,27 +21,27 @@ export default function Login2({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  AsyncStorage.getItem("username").then((value) => {
-    setUsername(value);
-  });
-
-  function handleNextSubmit() {
+  async function handleNextSubmit() {
     const fields = new Buffer(username + ":" + password);
     const encoded = fields.toString("base64");
 
-    api
-      .get("/user", {
+    try {
+      await api.get("/user", {
         headers: {
           Authorization: "Basic " + encoded,
         },
-      })
-      .then((res) => {
-        navigation.navigate("Repositories");
-      })
-      .catch((err) => {
-        Alert.alert("Invalid password");
       });
+      navigation.navigate("Repositories");
+    } catch (err) {
+      Alert.alert("Invalid password");
+    }
   }
+
+  useEffect(() => {
+    AsyncStorage.getItem("username").then((value) => {
+      setUsername(value);
+    });
+  }, []);
 
   async function handleBackSubmit() {
     navigation.navigate("Login1");

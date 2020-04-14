@@ -1,4 +1,3 @@
-require("react-native").unstable_enableLogBox();
 import React, { useState } from "react";
 
 import {
@@ -20,16 +19,14 @@ import logo from "../assets/logo.png";
 export default function Login1({ navigation }) {
   const [username, setUsername] = useState("");
 
-  function handleSubmit() {
-    api
-      .get(`/users/${username}`)
-      .then(async (response) => {
-        await AsyncStorage.setItem("username", username);
-        navigation.navigate("Login2");
-      })
-      .catch((err) => {
-        Alert.alert("User not exists");
-      });
+  async function handleSubmit() {
+    try {
+      const reponse = await api.get(`/users/${username}`);
+      await AsyncStorage.setItem("username", reponse.data.login);
+      navigation.navigate("Login2");
+    } catch (err) {
+      Alert.alert("User not exists");
+    }
   }
 
   return (

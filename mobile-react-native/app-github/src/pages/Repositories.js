@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   AsyncStorage,
+  Alert,
 } from "react-native";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
@@ -19,39 +20,14 @@ import banner from "../assets/banner.png";
 export default function Repositories({ navigation }) {
   const [repositories, setRepositories] = useState([]);
   const [search, setSearch] = useState("");
-  const [username, setUsername] = useState("");
-
-  AsyncStorage.getItem("username").then((value) => {
-    setUsername(value);
-  });
-
-  function loadRepositories2(value) {
-    api
-      .get(`/users/${value}/repos`)
-      .then((response) => {
-        setRepositories(response.data);
-      })
-      .catch((err) => {
-        AsyncStorage.getItem("username").then((value) => {
-          loadRepositories();
-        });
-      });
-  }
 
   async function loadRepositories() {
-    if (search) setSearch("");
-
-    if (search === "") {
-      api
-        .get(`/users/${username}/repos`)
-        .then((response) => {
-          setRepositories(response.data);
-        })
-        .catch((err) => {
-          AsyncStorage.getItem("username").then((value) => {
-            loadRepositories2(value);
-          });
-        });
+    try {
+      const username = await AsyncStorage.getItem("username");
+      const response = await api.get(`/users/${username}/repos`);
+      setRepositories(response.data);
+    } catch (err) {
+      console.log("Not repositories");
     }
   }
 
@@ -59,10 +35,17 @@ export default function Repositories({ navigation }) {
     loadRepositories();
   }, []);
 
-  function searchRepository() {
-    api.get(`/repos/${username}/${search}`).then((response) => {
-      setRepositories([response.data]);
-    });
+  async function searchRepository() {
+    if (!search) Alert.alert("Fill in the field!");
+    else {
+      try {
+        const username = await AsyncStorage.getItem("username");
+        const response = await api.get(`/repos/${username}/${search}`);
+        setRepositories([response.data]);
+      } catch (err) {
+        Alert.alert("You don't have any repositories");
+      }
+    }
   }
 
   function deleteInput() {
@@ -72,7 +55,6 @@ export default function Repositories({ navigation }) {
 
   async function navigateToCommits(repo) {
     await AsyncStorage.setItem("repo", repo.name);
-
     navigation.navigate("Commits");
   }
 
@@ -100,20 +82,22 @@ export default function Repositories({ navigation }) {
         data={repositories}
         keyExtractor={(repository) => String(repository.id)}
         showsVerticalScrollIndicator={false}
-        onEndReached={loadRepositories}
         onEndReachedThreshold={0.2}
         renderItem={({ item: repository }) => (
-          <View style={styles.repository}>
-            <Text style={styles.repoName}>{repository.name}</Text>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigateToCommits(repository)}
-            >
-              <Text style={styles.buttonText}>
-                {repository.description ? repository.description : ""}
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <>
+            <View style={styles.repository}>
+              <Text style={styles.repoName}>{repository.name}</Text>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigateToCommits(repository)}
+              >
+                <Text style={styles.buttonText}>
+                  {repository.description ? repository.description : ""}
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.lineStyle} />
+          </>
         )}
       />
     </View>
@@ -147,7 +131,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   repository: {
-    marginTop: 20,
+    marginTop: 5,
     marginBottom: 20,
   },
   repoName: {
@@ -163,6 +147,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 50,
     paddingVertical: 10,
+  },
+  lineStyle: {
+    marginTop: 15,
+    borderWidth: 0.5,
+    borderColor: "black",
+    borderBottomColor: "black",
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    alignSelf: "stretch",
+    width: "100%",
   },
   buttonText: {},
 });

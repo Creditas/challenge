@@ -7,6 +7,7 @@ import {
   Image,
   FlatList,
   AsyncStorage,
+  Alert,
 } from "react-native";
 import Constants from "expo-constants";
 
@@ -16,28 +17,18 @@ import banner from "../assets/banner.png";
 
 export default function Commits({ navigation }) {
   const [commits, setCommits] = useState([]);
-  const [username, setUsername] = useState("");
   const [repo, setRepo] = useState("");
 
-  async function loadData() {
-    await AsyncStorage.getItem("username").then((value) => {
-      setUsername(value);
-    });
-
-    await AsyncStorage.getItem("repo").then((value) => {
-      setRepo(value);
-    });
-  }
-
   async function loadCommits() {
-    loadData();
-    while (!(username && repo)) {
-      loadData();
+    try {
+      const username = await AsyncStorage.getItem("username");
+      const repo = await AsyncStorage.getItem("repo");
+      const commits = await api.get(`/repos/${username}/${repo}/commits`);
+      setRepo(repo);
+      setCommits(commits.data);
+    } catch (err) {
+      Alert.alert("This repository has no commits");
     }
-
-    api.get(`/repos/${username}/${repo}/commits`).then((response) => {
-      setCommits(response.data);
-    });
   }
 
   useEffect(() => {
