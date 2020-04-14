@@ -41,10 +41,12 @@ export default function Commits({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Image source={banner} style={styles.banner} />
       <TouchableOpacity style={styles.repository} onPress={backRepositories}>
-        <Text style={styles.repositoryText}>{repo}</Text>
+        <Image source={banner} style={styles.banner} />
       </TouchableOpacity>
+
+      <Text style={styles.repositoryText}>{repo}</Text>
+
       <FlatList
         style={styles.commitList}
         data={commits}
@@ -80,16 +82,19 @@ const styles = StyleSheet.create({
     height: 70,
   },
   repository: {
-    marginTop: 20,
+    marginTop: 10,
   },
   repositoryText: {
     fontSize: 20,
+    marginTop: 10,
   },
   commit: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
-    marginTop: 20,
-    marginBottom: 20,
+    justifyContent: "space-between",
+    paddingTop: 15,
+    paddingHorizontal: 10,
+    borderRadius: 4,
+    marginBottom: 30,
   },
   commitList: {
     marginTop: 32,
@@ -97,11 +102,12 @@ const styles = StyleSheet.create({
   avatar: {
     width: 70,
     height: 70,
-    borderRadius: 3,
+    borderRadius: 4,
   },
   message: {
-    height: 70,
-    width: 270,
+    justifyContent: "center",
+    alignItems: "center",
+    width: 250,
     paddingHorizontal: 20,
     borderWidth: 1,
     borderColor: "#999",

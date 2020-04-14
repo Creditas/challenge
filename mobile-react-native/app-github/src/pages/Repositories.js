@@ -27,7 +27,7 @@ export default function Repositories({ navigation }) {
       const response = await api.get(`/users/${username}/repos`);
       setRepositories(response.data);
     } catch (err) {
-      console.log("Not repositories");
+      console.log("You don't have any repositories");
     }
   }
 
@@ -43,7 +43,8 @@ export default function Repositories({ navigation }) {
         const response = await api.get(`/repos/${username}/${search}`);
         setRepositories([response.data]);
       } catch (err) {
-        Alert.alert("You don't have any repositories");
+        setSearch("");
+        Alert.alert("Repository does not exist");
       }
     }
   }
@@ -91,8 +92,10 @@ export default function Repositories({ navigation }) {
                 style={styles.button}
                 onPress={() => navigateToCommits(repository)}
               >
-                <Text style={styles.buttonText}>
-                  {repository.description ? repository.description : ""}
+                <Text>
+                  {repository.description
+                    ? repository.description
+                    : "Repository has no description"}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -157,5 +160,4 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     width: "100%",
   },
-  buttonText: {},
 });
