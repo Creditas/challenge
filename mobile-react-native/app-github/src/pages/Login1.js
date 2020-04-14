@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    width: 180,
-    height: 180,
+    width: 250,
+    height: 250,
   },
   input: {
     textAlign: "center",
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     fontSize: 16,
     color: "#000",
-    marginTop: 100,
+    marginTop: 80,
     borderRadius: 2,
   },
   button: {

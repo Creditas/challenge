@@ -59,9 +59,18 @@ export default function Repositories({ navigation }) {
     navigation.navigate("Commits");
   }
 
+  function navigateToLogin() {
+    navigation.navigate("Login1");
+  }
+
   return (
     <View style={styles.container}>
-      <Image source={banner} style={styles.banner} />
+      <View style={styles.header}>
+        <Image source={banner} style={styles.banner} />
+        <TouchableOpacity onPress={navigateToLogin} style={styles.logout}>
+          <Feather name="log-out" size={30} color="#000" />
+        </TouchableOpacity>
+      </View>
       <View style={styles.search}>
         <TouchableOpacity onPress={searchRepository}>
           <Feather name="search" size={30} color="#999" />
@@ -111,12 +120,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
-    paddingTop: Constants.statusBarHeight + 10,
+    paddingTop: Constants.statusBarHeight,
     alignItems: "center",
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
   },
   banner: {
     width: 170,
     height: 70,
+    marginLeft: 80,
+  },
+  logout: {
+    marginLeft: 50,
   },
   search: {
     alignItems: "center",
@@ -125,7 +143,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#999",
     borderRadius: 3,
-    marginTop: 30,
+    marginTop: 20,
+    marginBottom: 10,
   },
   input: {
     textAlign: "center",

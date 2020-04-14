@@ -56,6 +56,7 @@ export default function Login2({ navigation }) {
           style={styles.input}
           placeholder="Password"
           placeholderTextColor="#999"
+          secureTextEntry={true}
           autoCorrect={false}
           value={password}
           onChangeText={(text) => setPassword(text)}
@@ -78,11 +79,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    width: 180,
-    height: 180,
+    width: 250,
+    height: 250,
   },
   username: {
-    marginTop: 50,
+    marginTop: 30,
     fontSize: 18,
   },
   input: {
