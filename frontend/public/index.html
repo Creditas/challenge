@@ -44,14 +44,15 @@
                 <div class="field-group">
                   <div class="field">
                     <label for="valor-garantia">Valor da Garantia</label>
-                    <input type="text" required name="valor-garantia" id="valor-garantia" value="14400" />
+                    <span class="prefix">R$</span>
+                    <input type="text" required name="valor-garantia" id="valor-garantia" value="12000" />
                   </div>
                   <div class="field">
                     <div class="range">
-                      <input type="range" name="valor-garantia-range" id="valor-garantia-range" min="0" max="100" value="20" step="10">
+                      <input type="range" name="valor-garantia-range" id="valor-garantia-range" min="12000" max="24000" value="20" step="10">
                       <div class="range__values">
-                        <span>12.000</span>
-                        <span>24.000</span>
+                        <span id="min-garantia">12.000</span>
+                        <span id="max-garantia">24.000</span>
                       </div>
                     </div>
                   </div>
@@ -61,14 +62,15 @@
                 <div class="field-group">
                   <div class="field">
                     <label for="valor-emprestimo">Valor do Empréstimo</label>
-                    <input type="text" required name="valor-emprestimo" id="valor-emprestimo" value="57000">
+                    <span class="prefix">R$</span>
+                    <input type="text" required name="valor-emprestimo" id="valor-emprestimo" value="3000">
                   </div>
                   <div class="field">
                     <div class="range">
-                      <input type="range" name="valor-emprestimo-range" id="valor-emprestimo-range" min="0" max="100" value="90" step="10">
+                      <input type="range" name="valor-emprestimo-range" id="valor-emprestimo-range" min="3000" max="100000" value="90" step="10">
                       <div class="range__values">
-                        <span>30.000</span>
-                        <span>60.000</span>
+                        <span id="min-emprestimo">3.000</span>
+                        <span id="max-emprestimo">100.000</span>
                       </div>
                     </div>
                   </div>
@@ -80,16 +82,16 @@
                 <h4>Valor da Parcela</h4>
                 <div class="quota">
                   <strong>R$</strong>
-                  <span>465,00</span>
+                  <span id="quota">465,00</span>
                 </div>
               </div>
               <div class="amount_container">
                 <h4>Total a pagar</h4>
-                <p>R$ 11.112,00</p>
+                <p id="amount">11.112,00</p>
               </div>
               <div class="tax__container">
                 <h4>Taxa de juros (mês)</h4>
-                <p>111,12%</p>
+                <p>2,34%</p>
               </div>
               <button class="button">
                 Solicitar
