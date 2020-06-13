@@ -1,6 +1,5 @@
 import time
 
-
 class Payment:
     authorization_number = None
     amount = None
@@ -44,14 +43,14 @@ class Invoice:
 
 
 class Order:
-    customer = None
+    costomer = None
     items = None
     payment = None
     address = None
     closed_at = None
 
-    def __init__(self, customer, attributes={}):
-        self.customer = customer
+    def __init__(self, costomer, attributes={}):
+        self.costomer = costomer
         self.items = []
         self.order_item_class = attributes.get('order_item_class', OrderItem)
         self.address = attributes.get('address', Address(zipcode='45678-979'))
@@ -83,7 +82,6 @@ class OrderItem:
     def total(self):
         return 10
 
-
 class Product:
     # use type to distinguish each kind of product: physical, book, digital, membership, etc.
     name = None
@@ -108,29 +106,163 @@ class CreditCard:
         return CreditCard()
 
 
-class Customer:
-    # you can customize this class by yourself
-    pass
+class Costomer:
+    name = None
+    email = None
+    vouchers = None
+    member = None
+    
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+        self.vouchers = []
+        self.member = False
+    
+    def give_voucher(self, voucher):
+        self.vouchers.append(voucher)
+    
+    def make_member(self):
+        self.member = True
 
 
 class Membership:
-    # you can customize this class by yourself
-    pass
+    costomer = None
+    since = None
+
+    def __init__(self, costomer):
+        self.costomer = costomer
+        self.since = time.time()
+
+class Mail:
+    to = None
+    content = None
+
+    def __init__(self, to, content):
+        self.to = to
+        self.content = content
+
+    def send(self):
+        #send_mail(self.to, self.content)
+        pass
+
+class Voucher:
+    value = None
+
+    def __init__(self, value):
+        self.value = value
+
+class ShippingLabel:
+    address = None
+    recipient = None
+    description = None
+    type = None
+    types = ["physical", "book"]
+
+    def __init__(self, address, recipient, description, type):
+        self.address = address
+        self.recipient = recipient
+        self.description = description
+        self.type = type
+    
+    def _physical_label(self):
+        label = """ 
+        CEP: %s 
+        Destinatário: %s
+        Conteúdo: %s
+        """ % (
+            self.address.zipcode,
+            self.recipient,
+            self.description
+        )
+
+        return label
+    
+    def _book_label(self):
+        label = """ 
+        CEP: %s 
+        Destinatário: %s
+        Conteúdo: Livro '%s'
+        ** Item isento de impostos conforme disposto na Constituição Art. 150, VI, d. **
+        """ % (
+            self.address.zipcode,
+            self.recipient,
+            self.description
+        )
+
+        return label
+
+    def print(self):
+        label = ""
+        if self.type in self.types:
+            label = getattr(self, "_%s_label" % self.type) ()
+        
+        return label
+
+class Shipping:
+    payment = None
+    p_types = ["physical", "book", "digital", "membership"]
+
+    def __init__(self, payment):
+        self.payment = payment
+    
+    def _physical(self, product_name):
+        label = ShippingLabel(
+            self.payment.order.address,
+            self.payment.order.costomer.name,
+            product_name,
+            "physical"
+        )
+        response = {
+            "message": label.print()
+        }
+
+        return response
+
+    def _book(self, product_name):
+        label = ShippingLabel(
+            self.payment.order.address,
+            self.payment.order.costomer.name,
+            product_name,
+            "book"
+        )
+        response = {
+            "message": label.print()
+        }
+
+        return response
+    
+    def _digital(self, product_name):
+        voucher = Voucher(10)
+        self.payment.order.costomer.give_voucher(voucher)
+
+        mail_content = "Obrigado por comprar %s conosco, você ganhou um voucher de R$ 10" % product_name
+        mail = Mail(self.payment.order.costomer.email, mail_content)
+        mail.send()
+
+        response = {
+            "message": "Obrigado por comprar %s conosco, você ganhou um voucher de R$ 10" % product_name
+        }
+
+        return response
+    
+    def _membership(self, product_name):
+        costomer_membership = Membership(self.payment.order.costomer)
+        self.payment.order.costomer.make_member()
+
+        response = {
+            "message": "Obrigado por se tornar membro!",
+            "membership": costomer_membership
+        }
+
+        return response
+
+    def ship(self):
+        for p in self.payment.order.items:
+            if p.product.type in self.p_types:
+                processed = getattr(self, "_%s" % p.product.type)(p.product.name)
+
+                print(processed["message"])
+            else:
+                print("Produto - %s - tipo não identificado" % p.product.name)
 
 
-# Book Example (build new payments if you need to properly test it)
-foolano = Customer()
-book = Product(name='Awesome book', type='book')
-book_order = Order(foolano)
-book_order.add_product(book)
-
-attributes = dict(
-    order=book_order,
-    payment_method=CreditCard.fetch_by_hashed('43567890-987654367')
-)
-payment_book = Payment(attributes=attributes)
-payment_book.pay()
-print(payment_book.is_paid())  # < true
-print(payment_book.order.items[0].product.type)
-
-# now, how to deal with shipping rules then?
