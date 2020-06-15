@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders RepoList correctly (snapshot) 1`] = `
+<ActivityIndicator
+  animating={true}
+  color="#999999"
+  hidesWhenStopped={true}
+  size="small"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+/>
+`;
