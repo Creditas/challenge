@@ -1,0 +1,10 @@
+.quota__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quota__container h4 {
+  font-weight: 200;
+  font-size: 18px;
+}

@@ -1,0 +1,10 @@
+.quota strong {
+  font-size: 21px;
+  color: var(--dove-gray);
+}
+
+.quota span {
+  font-size: 28px;
+  color: var(--mountain-meadow);
+  font-weight: bold;
+}

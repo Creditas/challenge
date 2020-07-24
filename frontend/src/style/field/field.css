@@ -1,0 +1,34 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.field:first-child {
+  margin-right: 30px;
+}
+
+.field label {
+  color: var(--dove-gray);
+  font-weight: bold;
+  font-size: .8rem;
+  margin-bottom: 5px;
+}
+
+.field select {
+  border:none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -ms-appearance: none;
+}
+
+.field select, .field input[type="text"] {
+  color: var(--emperor);
+  border: 1px solid var(--nobel);
+  background-color: var(--alabaster);
+  border-radius: 4px;
+  padding: 10px 5px;
+  width: 150px;
+}
