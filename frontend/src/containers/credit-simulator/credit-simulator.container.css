@@ -1,0 +1,31 @@
+.footer {
+  font-size: 0.6rem;
+  font-weight: 100;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 80px);
+  padding: 0 10px;
+}
+
+.main__title {
+  color: var(--dove-gray);
+  margin-bottom: 50px;
+  max-width: 600px;
+  line-height: 34px;
+  text-align: center;
+}
+
+@media screen and (max-width: 630px) {
+  .main {
+    height: auto;
+    margin: 30px 0;
+  }
+}
