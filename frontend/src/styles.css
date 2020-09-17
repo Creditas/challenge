@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+
+/*
+* VARIABLES
+*/
+
 :root {
   --mountain-meadow: #1eb98a;
   --green-yellow: #bcf236;
@@ -12,15 +18,23 @@
   --tom-thumb: #2a492f;
 }
 
+/* 
+* CSS RESET
+*/
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'ubuntu';
+  font-family: 'Ubuntu';
 }
 
+/* 
+* GENERAL STYLING
+*/
+
 html, body {
-  height: 100%;
+  height: 100vh;
 }
 
 body {
@@ -30,6 +44,11 @@ body {
 .container {
   height: 100%;
 }
+
+/*
+* HEADER STYLING
+*/
+
 
 .header {
   background-color: var(--mountain-meadow);
@@ -44,14 +63,20 @@ body {
   margin: 0 auto;
 }
 
-.logo {
+.header__logo {
   height: 1em;
 }
 
-.help {
+.header__link {
   text-decoration: none;
   color: var(--concrete);
 }
+
+
+/*
+* MAIN PAGE CONTAINER STYLING
+*/
+
 
 .main {
   display: flex;
@@ -70,15 +95,33 @@ body {
   text-align: center;
 }
 
-.form {
+
+/*
+* GENERAL CSS FOR FORM ELEMENTS
+*/
+
+
+.calculator__form {
   display: flex;
   justify-content: space-around;
   margin-bottom: 50px;
 }
 
-.field-group {
+.form__fields {
+  max-width: 400px;
+  min-width: 400px;
+}
+
+.field__group {
   display: flex;
   margin-bottom: 30px;
+}
+
+.field__label {
+  color: var(--dove-gray);
+  font-weight: bold;
+  font-size: .8rem;
+  margin-bottom: 5px;
 }
 
 .field {
@@ -87,37 +130,26 @@ body {
   justify-content: center;
 }
 
-.field-group .field:first-child {
+.field__group .field:first-child {
   margin-right: 30px;
 }
 
-.field label {
-  color: var(--dove-gray);
-  font-weight: bold;
-  font-size: .8rem;
-  margin-bottom: 5px;
-}
-
-.field select {
-  border:none;
+.field__select {
+  border: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   -ms-appearance: none;
 }
 
-.field select, .field input[type="text"] {
+.field__select,
+.field__input[type="text"] {
   color: var(--emperor);
   border: 1px solid var(--nobel);
   background-color: var(--alabaster);
   border-radius: 4px;
   padding: 10px 5px;
   width: 150px;
-}
-
-.form__fields {
-  max-width: 400px;
-  min-width: 400px;
 }
 
 .range {
@@ -129,7 +161,7 @@ body {
   justify-content: space-between;
 }
 
-.range__values span {
+.range__label {
   font-size: .6rem;
   font-weight: 100;
 }
@@ -138,13 +170,11 @@ body {
   transform: translateY(5px);
 }
 
-.footer {
-  font-size: .6rem;
-  font-weight: 100;
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-}
+
+/*
+* CALCULATOR RESULTS STYLING
+*/
+
 
 .form__result {
   background-color: var(--white);
@@ -171,29 +201,29 @@ body {
   text-align: center;
 }
 
-.quota__container {
+.installment__container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.quota__container h4 {
+.installment__container h4 {
   font-weight: 200;
   font-size: 18px;
 }
 
-.quota strong {
+.installment strong {
   font-size: 21px;
   color: var(--dove-gray);
 }
 
-.quota span {
+.installment span {
   font-size: 28px;
   color: var(--mountain-meadow);
   font-weight: bold;
 }
 
-.button {
+.btn {
   background-color: var(--green-yellow);
   border: none;
   padding: 10px 0;
@@ -228,4 +258,18 @@ body {
     width: 200px;
     height: 250px;
   }
+}
+
+
+/*
+* FOOTER STYLING
+*/
+
+
+.footer {
+  font-size: .6rem;
+  font-weight: 100;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
 }
