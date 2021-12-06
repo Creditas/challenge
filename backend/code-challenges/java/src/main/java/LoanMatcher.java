@@ -11,10 +11,6 @@ public class LoanMatcher {
     public List<Loan> loans() {
         List<Loan> loans = new ArrayList<>();
 
-        if (customer.income() <= 3000) {
-            loans.add(new Loan("PERSONAL_LOAN"));
-        }
-
         return loans;
     }
 }
