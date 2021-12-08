@@ -1,5 +1,8 @@
 # Configuration & Installation
 
+## Prerequisites
+You must have [rvm](https://rvm.io/) installed
+
 - Ruby Version: 3.0.2
 
 ```sh
