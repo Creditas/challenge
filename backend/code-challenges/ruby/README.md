@@ -1,18 +1,17 @@
 # Configuration & Installation
 
 ## Prerequisites
-You must have [rvm](https://rvm.io/) installed
+You must have ruby version `3.0.2` installed.
 
-- Ruby Version: 3.0.2
+We recommend the usage of a version manager. The most popular ones are:
+- [rvm](https://rvm.io/) 
+- [rbenv](https://github.com/rbenv/rbenv)
+- [asdf](https://github.com/asdf-vm/asdf)
 
-```sh
-rvm install 3.0.2
-rvm use 3.0.2
-```
 
-## Install gem's
+## Install dependencies
 
-We are using bundler as the ruby package manager
+We use bundler as the ruby package manager
 
 ```sh
 gem install bundler
