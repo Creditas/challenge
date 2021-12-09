@@ -8,7 +8,7 @@ describe LoanMatcher do
       result = described_class.new(customer: customer).get_loans_from_customer
 
       expect(result.size).to eq 1
-      expect(result).to contain_exactly([Loan.new(type: 'PERSONAL_LOAN')])
+      expect(result).to include([Loan.new(type: 'PERSONAL_LOAN')])
     end
   end
 end
