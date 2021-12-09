@@ -65,7 +65,7 @@ And must respond the following data:
 
 - Install dependencies
 
-# Rode os testes
+# Run the tests
 
 You may execute the following command via CLI:
 
