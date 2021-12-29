@@ -62,37 +62,20 @@ E deve responder essas informações:
 - Precisamos que você traga para a entrevista um setup inicial da proposta de solução na linguagem que você preferir
 - Esta avaliação é confidencial e NÃO deve ser compartilhada com outras pessoas além de você e nossos tripulantes
 
-# Configuração e Instalação
+# Setup
 
-## Pré-requisitos
-Você precisa ter ruby na versão `3.0.2` instalada na sua máquina.
+- Instale as dependências
 
-Recomendamos o uso de um _version manager_. Os mais populares são:
-- [rvm](https://rvm.io/)
-- [rbenv](https://github.com/rbenv/rbenv)
-- [asdf](https://github.com/asdf-vm/asdf)
+# Rode os testes
 
+Você pode executar o comando a seguir pelo CLI:
 
-## Instale as dependência
-
-Usamos o `bundler` como gerenciador de dependências
-
-```sh
-gem install bundler
+```bash
+$ ./gradlew test
 ```
 
-Para instalar as gems (somente uso do rspec para testes unitários)
+Se o teste estiverem falhando, então você teve sucesso. Nada tema!
 
-```sh
-bundle install
-```
+Agora é só codar.
 
-## Running Project and test
-
-Estamos utilizando rspec para teste unitário
-
-```sh
-rspec
-```
-
-Você deve esperar um teste falhando
+Boa sorte!

@@ -62,37 +62,14 @@ E deve responder essas informações:
 - Precisamos que você traga para a entrevista um setup inicial da proposta de solução na linguagem que você preferir
 - Esta avaliação é confidencial e NÃO deve ser compartilhada com outras pessoas além de você e nossos tripulantes
 
-# Configuração e Instalação
+# Preparação do ambiente
+Para utilizar este ambiente, basta executar o comando `pip install -r requirements.txt` (substitua o `pip` pelo executável que indique seu Python3, como por exemplo, `pip3`).
 
-## Pré-requisitos
-Você precisa ter ruby na versão `3.0.2` instalada na sua máquina.
+## Executando os testes
+Com o ambiente configurado, basta executar o comando `python3 -m pytest test/*`
 
-Recomendamos o uso de um _version manager_. Os mais populares são:
-- [rvm](https://rvm.io/)
-- [rbenv](https://github.com/rbenv/rbenv)
-- [asdf](https://github.com/asdf-vm/asdf)
+Se o teste estiverem falhando, então você teve sucesso. Nada tema!
 
+Agora é só codar.
 
-## Instale as dependência
-
-Usamos o `bundler` como gerenciador de dependências
-
-```sh
-gem install bundler
-```
-
-Para instalar as gems (somente uso do rspec para testes unitários)
-
-```sh
-bundle install
-```
-
-## Running Project and test
-
-Estamos utilizando rspec para teste unitário
-
-```sh
-rspec
-```
-
-Você deve esperar um teste falhando
+Boa sorte!
