@@ -56,11 +56,18 @@ E deve responder essas informações:
 }
 ```
 
-### Observações:
+## Antes da entrevista
+- Como faremos uma dinânima de pair programming, certifique-se que será possível compartilhar sua tela através do Google Meet.
+- Faça o setup do projeto na linguagem de sua escolha. As instruções estão dentro das respectivas pastas. Isso poupará valiosos minutos da entrevista.
+- Tome um tempo para se familiarizar com a problemática, arquivos e estrutura do projeto
 
-- O escopo desse desafio será desenvolvido junto com tripulantes na entrevista de pairing
-- Precisamos que você traga para a entrevista um setup inicial da proposta de solução na linguagem que você preferir
-- Esta avaliação é confidencial e NÃO deve ser compartilhada com outras pessoas além de você e nossos tripulantes
+## Durante a entrevista
+- Este desafio será desenvolvido junto com tripulantes, numa dinâmica de pair programming
+- A dinâmica de pair programming tenta simular o dia-a-dia dos tripulantes, então sinta-se à vontade pra tirar quaisquer dúvidas, pedir sugestões, etc. Nesta entrevista não existe certo e errado, temos  apenas interesse em enteder como você aborda problemas!
+
+## Depois da entrevista
+- O código construído durante esta avaliação é confidencial e NÃO deve ser compartilhado com outras pessoas além de nossos tripulantes
+
 
 # Setup
 
