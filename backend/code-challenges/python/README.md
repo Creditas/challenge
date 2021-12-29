@@ -56,11 +56,18 @@ And must respond the following data:
 }
 ```
 
-### Comments:
+## Before the interview
+- Since this will be a pair programming interview, make sure that you'll be able to share your screen on Google Meet
+- Set up the project on your language of choice. The instructions are inside the respective folders. This will save precious minutes during the interview.
+- Take your time and become familiar with the challenge, files and project structure
 
-- The challenge scope will be developed alongside crew members during the pairing interview
-- We need you to bring for the interview an initial setup of the solution proposal with the preferred language
-- This assessment is confidential and must NOT be shared with other people than you and and our crew members
+## During the interview
+- This challenge will be tackled alongside our crew, in a pair programming dynamic
+- This pair programming dynamic tries to simulate the crew's day-to-day practices, so feel free to raise any question, ask for suggestions, etc. There is no right or wrong, we're only interested in understanding how you approach problems!
+
+## After the interview
+- The code written during this interview is confidential, and MUST NOT be shared with anyone other than our crew. 
+
 
 # Setup
 To use this environment, run the following command: `pip install -r requirements.txt` (replace `pip` with the executable indicating your Python3, e.g.: `pip3`).
