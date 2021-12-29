@@ -13,6 +13,6 @@ final class LoanMatcherTest extends TestCase
         $availableLoans = $loanMatcher->getLoansFromCustomer();
 
         $this->assertCount(1, $availableLoans);
-        $this->assertEquals('EMPRESTIMO_PESSOAL', $availableLoans[0]->loanType);
+        $this->assertEquals('EMPRESTIMO_PESSOAL', $availableLoans[0]->type);
     }
 }

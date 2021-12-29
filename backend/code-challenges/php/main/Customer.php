@@ -3,7 +3,7 @@
 namespace Creditas;
 
 class Customer {
-  private $income;
+  public $income;
 
   public function __construct($income) {
     $this->income = $income;

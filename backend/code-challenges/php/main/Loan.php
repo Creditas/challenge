@@ -3,7 +3,7 @@
 namespace Creditas;
 
 class Loan {
-  private $type;
+  public $type;
 
   public function __construct($type) {
     $this->type = $type;
