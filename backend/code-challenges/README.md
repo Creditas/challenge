@@ -3,9 +3,10 @@
 The assessment proposal which we'll develop together is provide a person with the loan types suitable for her, given some variables:
 
 We must provide the following loan types:
-Personal Loan. Interest Rate: 4%
-Collateralized Loan. Interest Rate: 3%
-Payroll Loan. Interest Rate: 2%
+
+- Personal Loan. Interest Rate: 4%
+- Collateralized Loan. Interest Rate: 3%
+- Payroll Loan. Interest Rate: 2%
 
 Listed below are the business rules for conceding a loan based on the person's profile:
 
@@ -55,26 +56,14 @@ And must respond the following data:
 }
 ```
 
-### Comments:
+## Before the interview
+- Since this will be a pair programming interview, make sure that you'll be able to share your screen on Google Meet
+- Set up the project on your language of choice. The instructions are inside the respective folders. This will save precious minutes during the interview.
+- Take your time and become familiar with the challenge, files and project structure
 
-- The challenge scope will be developed alongside crew members during the pairing interview
-- We need you to bring for the interview an initial setup of the solution proposal with the preferred language
-- This assessment is confidential and must NOT be shared with other people than you and and our crew members
+## During the interview
+- This challenge will be tackled alongside our crew, in a pair programming dynamic
+- This pair programming dynamic tries to simulate the crew's day-to-day practices, so feel free to raise any question, ask for suggestions, etc. There is no right or wrong, we're only interested in understanding how you approach problems!
 
-# Setup
-
-- Install dependencies
-
-# Run the tests
-
-You may execute the following command via CLI:
-
-```bash
-$ ./gradlew test
-```
-
-If tests are failing, then you succeeded. Fear nothing!
-
-Now it's all about coding.
-
-Good luck!
+## After the interview
+- The code written during this interview is confidential, and MUST NOT be shared with anyone other than our crew. 
