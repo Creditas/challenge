@@ -68,37 +68,21 @@ And must respond the following data:
 ## After the interview
 - The code written during this interview is confidential, and MUST NOT be shared with anyone other than our crew. 
 
-# Configuration & Installation
 
-## Prerequisites
-You must have ruby version `3.0.2` installed.
+# Setup
 
-We recommend the usage of a version manager. The most popular ones are:
-- [rvm](https://rvm.io/)
-- [rbenv](https://github.com/rbenv/rbenv)
-- [asdf](https://github.com/asdf-vm/asdf)
+- Install dependencies
 
+# Run the tests
 
-## Install dependencies
+You may execute the following command via CLI:
 
-We use bundler as the ruby package manager
-
-```sh
-gem install bundler
+```bash
+$ ./gradlew test
 ```
 
-To install the packages (only rspec for tests)
+If tests are failing, then you succeeded. Fear nothing!
 
-```sh
-bundle install
-```
+Now it's all about coding.
 
-## Running Project and test
-
-We are using rspec for the unit testing
-
-```sh
-rspec
-```
-
-You should expect a failing test
+Good luck!

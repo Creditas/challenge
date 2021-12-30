@@ -68,43 +68,14 @@ E deve responder essas informações:
 ## Depois da entrevista
 - O código construído durante esta avaliação é confidencial e NÃO deve ser compartilhado com outras pessoas além de nossos tripulantes
 
-# Configuração e Instalação
+# Preparação do ambiente
+Para utilizar este ambiente, basta executar o comando `pip install -r requirements.txt` (substitua o `pip` pelo executável que indique seu Python3, como por exemplo, `pip3`).
 
-## Pré-requisitos
-Você precisa ter php na versão `8.1.0` instalada na sua máquina.
+## Executando os testes
+Com o ambiente configurado, basta executar o comando `python3 -m pytest test/*`
 
-Recomendamos o uso de um _version manager_. Os mais populares são:
-- [phpbrew](https://github.com/phpbrew/phpbrew) 
-- [phpenv](https://github.com/CHH/phpenv)
-- [phpversion](https://github.com/wilmoore/php-version)
+Se o teste estiverem falhando, então você teve sucesso. Nada tema!
 
+Agora é só codar.
 
-## Instale as dependências
-
-Usamos o `composer` como gerenciador de dependências:
-
-Para instalar no Mac ou Linux:
-```sh
-curl -sS https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
-chmod +x /usr/local/bin/composer
-```
-
-Para instalar no Windows:
-Baixe o [Composer-Setup.exe](https://getcomposer.org/Composer-Setup.exe) e siga todos os passos de instalação.
-
-Para instalar as dependências:
-
-```sh
-composer install
-```
-
-## Rodando os testes
-
-Estamos utilizando phpunit para teste unitário
-
-```sh
-vendor/bin/phpunit tests/LoanMatcherTest.php
-```
-
-Você deve esperar um teste falhando
+Boa sorte!

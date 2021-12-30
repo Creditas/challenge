@@ -68,43 +68,26 @@ E deve responder essas informações:
 ## Depois da entrevista
 - O código construído durante esta avaliação é confidencial e NÃO deve ser compartilhado com outras pessoas além de nossos tripulantes
 
-# Configuração e Instalação
 
-## Pré-requisitos
-Você precisa ter php na versão `8.1.0` instalada na sua máquina.
+# Setup
 
-Recomendamos o uso de um _version manager_. Os mais populares são:
-- [phpbrew](https://github.com/phpbrew/phpbrew) 
-- [phpenv](https://github.com/CHH/phpenv)
-- [phpversion](https://github.com/wilmoore/php-version)
+- Instale as dependências:
 
 
-## Instale as dependências
-
-Usamos o `composer` como gerenciador de dependências:
-
-Para instalar no Mac ou Linux:
-```sh
-curl -sS https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
-chmod +x /usr/local/bin/composer
+```bash
+$ npm install
 ```
 
-Para instalar no Windows:
-Baixe o [Composer-Setup.exe](https://getcomposer.org/Composer-Setup.exe) e siga todos os passos de instalação.
+# Rode os testes
 
-Para instalar as dependências:
+Você pode executar o comando a seguir pelo CLI:
 
-```sh
-composer install
+```bash
+$ npm run test
 ```
 
-## Rodando os testes
+Se o teste estiverem falhando, então você teve sucesso. Nada tema!
 
-Estamos utilizando phpunit para teste unitário
+Agora é só codar.
 
-```sh
-vendor/bin/phpunit tests/LoanMatcherTest.php
-```
-
-Você deve esperar um teste falhando
+Boa sorte!
