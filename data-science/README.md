@@ -16,7 +16,7 @@ Após preencher os dados no site da Creditas, solicitando um empréstimo com gar
 
 Mais detalhes sobre os campos do desafio podem ser encontrados no arquivo `description.csv`. 
 
-O seu objetivo é construir um modelo de classificação que retorne a probabilidade que um cliente tem de ser enviado para análise de crédito dado que ele foi pré-aprovado para o empréstimo com garantia de automóvel. Contudo, apenas a construção do modelo não basta, já que é necessário que você realize a apresentação do mesmo para a equipe de Operações da Creditas e o time de Marketing e Analytics. Eles querem entender porque o seu modelo é melhor do que a decisão atual de priorização e para tal, é necessário que você realize a avaliação do modelo com métricas de classificação e avaliação dos atributos mais importantes para o modelo.
+O seu objetivo é construir um modelo de classificação que retorne a probabilidade que um cliente tem de ser enviado para análise de crédito **dado que ele foi pré-aprovado** para o empréstimo com garantia de automóvel. Contudo, apenas a construção do modelo não basta, já que é necessário que você realize a apresentação do mesmo para a equipe de Operações da Creditas e o time de Marketing e Analytics. Eles querem entender porque o seu modelo é melhor do que a decisão atual de priorização e para tal, é necessário que você realize a avaliação do modelo com métricas de classificação e avaliação dos atributos mais importantes para o modelo.
 
 
 ## Os dados
