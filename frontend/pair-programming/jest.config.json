@@ -1,0 +1,4 @@
+{
+  "verbose": true,
+  "roots": ["src/__tests__"]
+}

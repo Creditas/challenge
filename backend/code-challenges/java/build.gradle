@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group 'com.creditas'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    // we are using junit5 here but feel free to a version below this one
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+
+    // we are using this to make more fluent assertions
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.6.1'
+}

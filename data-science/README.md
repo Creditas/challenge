@@ -16,7 +16,7 @@ Após preencher os dados no site da Creditas, solicitando um empréstimo com gar
 
 Mais detalhes sobre os campos do desafio podem ser encontrados no arquivo `description.csv`. 
 
-O seu objetivo é construir um modelo de classificação que retorne a probabilidade que um cliente tem de ser enviado para análise de crédito dado que ele foi pré-aprovado para o empréstimo com garantia de automóvel. Contudo, apenas a construção do modelo não basta, já que é necessário que você realize a apresentação do mesmo para a equipe de Operações da Creditas e o time de Marketing e Analytics. Eles querem entender porque o seu modelo é melhor do que a decisão atual de priorização e para tal, é necessário que você realize a avaliação do modelo com métricas de classificação e avaliação dos atributos mais importantes para o modelo.
+O seu objetivo é construir um modelo de classificação que retorne a probabilidade que um cliente tem de ser enviado para análise de crédito **dado que ele foi pré-aprovado** para o empréstimo com garantia de automóvel. Contudo, apenas a construção do modelo não basta, já que é necessário que você realize a apresentação do mesmo para a equipe de Operações da Creditas e o time de Marketing e Analytics. Eles querem entender porque o seu modelo é melhor do que a decisão atual de priorização e para tal, é necessário que você realize a avaliação do modelo com métricas de classificação e avaliação dos atributos mais importantes para o modelo.
 
 
 ## Os dados
@@ -30,7 +30,7 @@ Utilizando um jupyter notebook, apresente a sua solução em python.
 
 1. Apresentar uma **Análise Exploratória dos Dados** (Exploratory Data Analysis / EDA) com gráficos.
 2. À partir da EDA acima, explicar decisões de pré-processamento, limpeza, e remoção de dados. 
-3. Construir um modelo de classificação que retorne a probabilidade que um cliente tem de ser enviado para análise de crédito dado que ele foi pré-aprovado para o empréstimo com garantia de automóvel. O uso de bibiliotecas é livre, mas você deve ser capaz de explicar o conceito dos algoritmos utilizados de maneira sucinta, ou seja, como eles funcionam e porque os escolheu para uso.
+3. Construir um modelo de classificação que retorne a probabilidade que um cliente tem de ser enviado para análise de crédito **dado que ele foi pré-aprovado** para o empréstimo com garantia de automóvel. O uso de bibiliotecas é livre, mas você deve ser capaz de explicar o conceito dos algoritmos utilizados de maneira sucinta, ou seja, como eles funcionam e porque os escolheu para uso.
 4. Além do desenvolvimento da solução é necessário mostrar métricas de avaliação da solução desenvolvida. Pense em métricas que fazem sentido para o problema em questão e na particularidade destes dados.
 5. Avaliação e interpretabilidade do modelo. Você deve responder quais variáveis são importantes para o modelo construído e porquê.
 6. Você deve garantir que o seu código seja reproduzível e explicar como deveremos rodá-lo em um arquivo `.md`.
@@ -38,8 +38,8 @@ Utilizando um jupyter notebook, apresente a sua solução em python.
 
 ## Como entregar o desafio?
 Para nos enviar seu código, você pode:
-- Dar acesso ao seu repositório privado no [Gitlab](http://gitlab.com) para o usuário `creditaschallenge`.
-- Mandar um email para `ds-squad@creditas.com.br`
+- Comprimir os arquivos do seu desafio em formato `.zip` ou equivalente.
+- Mandar um email para `ds-squad@creditas.com.br`.
 
 
 ### Dicas
