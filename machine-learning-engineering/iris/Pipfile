@@ -7,7 +7,7 @@ verify_ssl = true
 seaborn = "==0.10.1"
 
 [packages]
-numpy = "==1.18.4"
+numpy = "==1.21.0"
 pandas = "==1.0.4"
 scikit-learn = "==0.23.1"
 fastapi = "==0.55.1"
