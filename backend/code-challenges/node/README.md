@@ -32,7 +32,7 @@ The application must receive the following data as input:
     "name": "Erikaya",
     "cpf": "123.456.789-10",
     "age": 29,
-    "location": "SP",
+    "location": "BH",
     "income": 3000
   }
 }
