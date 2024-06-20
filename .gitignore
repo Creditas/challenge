@@ -8,3 +8,5 @@
 /backend/code-challenges/.net/src/main/Creditas.Challenge.WebAPI/obj
 /backend/code-challenges/.net/src/test/Creditas.Challenge.WebAPI.Test/bin/Debug/netcoreapp3.1
 /backend/code-challenges/.net/src/test/Creditas.Challenge.WebAPI.Test/obj
+
+.DS_Store
