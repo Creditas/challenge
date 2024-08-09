@@ -21,7 +21,7 @@ __O que está sob avaliação?__
 
 Sua capacidade de analisar, projetar e codificar uma solução guiando-se com **Design Orientado a Objetos** e **Princípios de Orientação a Objetos**.
 
-Sinta-se à vontade para modificar/refatorar quaisquer aspectos das classes/métodos do arquivo `bootstrap` caso julgue necessário. Escolha o arquivo de bootstrap da linguagem que for mais familiar pra você, as opções que temos hoje são [bootstrap.py](https://github.com/Creditas/challenge/blob/master/backend/bootstrap.py), [bootstrap.rb](https://github.com/Creditas/challenge/blob/master/backend/bootstrap.rb), [bootstrap.kt](https://github.com/Creditas/challenge/blob/master/backend/bootstrap.kt).
+Sinta-se à vontade para modificar/refatorar quaisquer aspectos das classes/métodos do arquivo `bootstrap` caso julgue necessário. Escolha o arquivo de bootstrap da linguagem que for mais familiar pra você, as opções que temos hoje são [bootstrap.py](https://github.com/Creditas/challenge/blob/master/backend/bootstrap.py), [bootstrap.rb](https://github.com/Creditas/challenge/blob/master/backend/bootstrap.rb), [bootstrap.kt](https://github.com/Creditas/challenge/blob/master/backend/bootstrap.kt), [bootstrap.ts](https://github.com/Creditas/challenge/blob/master/backend/bootstrap.ts), [bootstrap.php](https://github.com/Creditas/challenge/blob/master/backend/bootstrap.php).
 
 Por favor, inclua suas considerações da atividade em um arquivo de texto ou markdown.
 
@@ -30,7 +30,7 @@ __O que não vale?__
  - Metaprogramação/Reflection
 
 __Qual linguagem?__
-Ruby, Python ou Kotlin
+Ruby, Python, Kotlin, Node com typescript e PHP com Laravel.
 
 __Tempo__
 Estima-se 4 a 8 horas para este desafio, entretanto não há um limite.
@@ -44,4 +44,3 @@ __Avaliação__
 Para nos enviar seu código, você pode:
 
  - Fazer um fork desse repositório, e nos mandar uma pull-request.
- - Dar acesso ao seu repositório privado no [Gitlab](http://gitlab.com) para o usuário `creditaschallenge`.
