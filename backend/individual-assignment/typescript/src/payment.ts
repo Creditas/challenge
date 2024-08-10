@@ -1,7 +1,7 @@
 import { Invoice } from "./invoice";
 import { Order } from "./order";
 
-interface PaymentMethod {}
+export interface PaymentMethod {}
 
 export class Payment {
   public paidAt: Date;

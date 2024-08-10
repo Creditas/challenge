@@ -22,4 +22,6 @@ order.addProduct(book, 1);
 order.addProduct(music, 1);
 
 order.pay(new CreditCard("43567890-987654367"));
+
+export default order; // to test this case
 // now, how to deal with shipping rules then?

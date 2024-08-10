@@ -1,24 +1,52 @@
 import { Address } from "./address";
 import { Customer } from "./customer";
-import { Product } from "./product";
-import { CreditCard, Payment } from "./payment";
+import { Product, ProductType } from "./product";
+import {
+  BookProductProcessor,
+  DigitalProductProcessor,
+  MembershipProductProcessor,
+  ProductProcessorAfterPurchase,
+  PhysicalProductProcessor,
+} from "./productProcessorAfterPurchase";
+import { Payment, PaymentMethod } from "./payment";
 import { OrderItem } from "./orderItem";
 
 export class Order {
   public items: OrderItem[] = [];
   public closedAt: Date | null = null;
   public payment: Payment | null = null;
+  private processorsAfterPurchase: Map<
+    ProductType,
+    ProductProcessorAfterPurchase
+  > = new Map();
 
   constructor(
     public customer: Customer,
     public address: Address,
-  ) {}
+  ) {
+    this.processorsAfterPurchase.set(
+      ProductType.PHYSICAL,
+      new PhysicalProductProcessor(),
+    );
+    this.processorsAfterPurchase.set(
+      ProductType.BOOK,
+      new BookProductProcessor(),
+    );
+    this.processorsAfterPurchase.set(
+      ProductType.MEMBERSHIP,
+      new MembershipProductProcessor(),
+    );
+    this.processorsAfterPurchase.set(
+      ProductType.DIGITAL,
+      new DigitalProductProcessor(),
+    );
+  }
 
-  get totalAmount(): number {
+  public get totalAmount(): number {
     return this.items.reduce((sum, item) => sum + item.total, 0);
   }
 
-  addProduct(product: Product, quantity: number): void {
+  public addProduct(product: Product, quantity: number): void {
     const productAlreadyAdded = this.items.some(
       (item) => item.product === product,
     );
@@ -31,7 +59,7 @@ export class Order {
     this.items.push(new OrderItem(product, quantity));
   }
 
-  pay(method: PaymentMethodData | CreditCard): void {
+  public pay(method: PaymentMethod): void {
     if (this.payment) {
       throw new Error("The order has already been paid!");
     }
@@ -42,6 +70,16 @@ export class Order {
 
     this.payment = new Payment(this, method);
     this.close();
+    this.processingActionsAfterPurchase();
+  }
+
+  private processingActionsAfterPurchase(): void {
+    this.items.forEach((item) => {
+      const productProcessor = this.processorsAfterPurchase.get(
+        item.product.type,
+      );
+      if (productProcessor) productProcessor.process();
+    });
   }
 
   public close(): void {
