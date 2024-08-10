@@ -1,16 +1,20 @@
 import functools
+import random
 import time
-from typing import Any
 
 
 class Customer:
-    # you can customize this class by yourself
-    pass
+    name: str = None
+
+    def __init__(self, name: str) -> None:
+        self.zipcode = name
 
 
 class Membership:
-    # you can customize this class by yourself
-    pass
+    member_id: str = None
+
+    def __init__(self, member_id: str) -> None:
+        self.member_id = member_id
 
 
 class Address:
@@ -49,11 +53,11 @@ class Order:
     address: Address = None
     closed_at: float = None
 
-    def __init__(self, customer: Customer, data: dict = None) -> None:
+    def __init__(self, customer: Customer, address: Address) -> None:
         self.customer = customer
         self.items = []
-        self.order_item_class = data.get('order_item_class', OrderItem)
-        self.address = data.get('address', Address(zipcode='45678-979'))
+        self.order_item_class = OrderItem
+        self.address = address
 
     def add_product(self, product: Product, quantity: int) -> None:
         self.items.append(self.order_item_class(product=product, quantity=quantity))
@@ -154,7 +158,7 @@ class PhysicalItemPayment(Payment):
             payment_method=payment_method
         )
 
-    def pay(self, price: float = None, paid_at: float = time.time()):
+    def pay(self, price: float = None, paid_at: float = time.time()) -> None:
         super().pay()
         super().generate_shipping_label()
 
@@ -180,7 +184,7 @@ class SubscriptionPayment(Payment):
 
     def pay(self, price: float = None, paid_at: float = time.time()) -> None:
         super().pay()
-        self.membership = Membership()
+        self.membership = Membership(member_id=str(random.random()))
         super().notify_user()
 
 
@@ -201,11 +205,11 @@ class BooksPayment(Payment):
             payment_method=payment_method
         )
 
-    def pay(self, price: float = None, paid_at: float = time.time()):
+    def pay(self, price: float = None, paid_at: float = time.time()) -> None:
         super().pay()
         self.generate_shipping_label()
 
-    def generate_shipping_label(self):
+    def generate_shipping_label(self) -> None:
         print("Will generate shipping label for payment with notification about Art. 150: ", self.authorization_number)
 
 
@@ -226,15 +230,16 @@ class DigitalMediaPayment(Payment):
             payment_method=payment_method
         )
 
-    def pay(self, price: float = None, paid_at: float = time.time()):
+    def pay(self, price: float = None, paid_at: float = time.time()) -> None:
         price = super().generate_payment_price() - 10
         super().pay(price=price)
         super().notify_user()
 
 
-foolano = Customer()
+foolano = Customer(name="astolfo")
+addr = Address(zipcode="123456789")
 book = Product(name='Awesome book', product_type='book', unity_price=10)
-book_order = Order(foolano)
+book_order = Order(customer=foolano, address=addr)
 book_order.add_product(book, 1)
 payment = CreditCard.fetch_by_hashed('43567890-987654367')
 
