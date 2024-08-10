@@ -1,3 +1,4 @@
+import functools
 import time
 
 
@@ -24,13 +25,14 @@ class Product:
 
 class OrderItem:
     product: Product = None
+    quantity: int = None
 
-    def __init__(self, product: Product) -> None:
+    def __init__(self, product: Product, quantity: int) -> None:
         self.product = product
+        self.quantity = quantity
 
-    @staticmethod
-    def total() -> int:
-        return 10
+    def total(self) -> int:
+        return self.quantity
 
 
 class Order:
@@ -45,11 +47,11 @@ class Order:
         self.order_item_class = data.get('order_item_class', OrderItem)
         self.address = data.get('address', Address(zipcode='45678-979'))
 
-    def add_product(self, product: Product):
-        self.items.append(self.order_item_class(product=product))
+    def add_product(self, product: Product, quantity: int) -> None:
+        self.items.append(self.order_item_class(product=product, quantity=quantity))
 
     def total_amount(self) -> int:
-        return len(self.items)
+        return functools.reduce(lambda accumulated, order: accumulated + order.quantity, self.items, 0)
 
     def close(self, closed_at: float = time.time()) -> None:
         self.closed_at = closed_at
@@ -111,7 +113,7 @@ class Membership:
 foolano = Customer()
 book = Product(name='Awesome book', product_type='book')
 book_order = Order(foolano)
-book_order.add_product(book)
+book_order.add_product(book, 1)
 
 attributes = dict(
     order=book_order,
