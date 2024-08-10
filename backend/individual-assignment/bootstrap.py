@@ -1,8 +1,14 @@
 import functools
 import time
+from typing import Any
 
 
 class Customer:
+    # you can customize this class by yourself
+    pass
+
+
+class Membership:
     # you can customize this class by yourself
     pass
 
@@ -16,10 +22,12 @@ class Address:
 
 class Product:
     name: str = None
+    unity_price: float = None
     type: str = None
 
-    def __init__(self, name: str, product_type: str) -> None:
+    def __init__(self, name: str, unity_price: float, product_type: str) -> None:
         self.name = name
+        self.unity_price = unity_price
         self.type = product_type
 
 
@@ -30,9 +38,6 @@ class OrderItem:
     def __init__(self, product: Product, quantity: int) -> None:
         self.product = product
         self.quantity = quantity
-
-    def total(self) -> int:
-        return self.quantity
 
 
 class Order:
@@ -58,14 +63,28 @@ class Order:
 
 
 class Invoice:
+    price: float = None
     billing_address: Address | None = None
     shipping_address: Address | None = None
     order: Order | None = None
 
-    def __init__(self, data: dict = None) -> None:
-        self.billing_address = data.get('billing_address', None)
-        self.shipping_address = data.get('shipping_address', None)
-        self.order = data.get('order', None)
+    def __init__(
+            self,
+            price: float,
+            billing_address: Address = None,
+            shipping_address: Address = None,
+            order: Order = None
+    ) -> None:
+        self.price = price
+        self.billing_address = billing_address
+        self.shipping_address = shipping_address
+        self.order = order
+
+
+class CreditCard:
+    @staticmethod
+    def fetch_by_hashed(code):
+        return CreditCard()
 
 
 class Payment:
@@ -76,50 +95,156 @@ class Payment:
     payment_method: str | None = None
     paid_at: float = None
 
-    def __init__(self, data: dict = None) -> None:
-        self.authorization_number = data.get('attributes', None)
-        self.amount = data.get('amount', 0)
-        self.invoice = data.get('invoice', None)
-        self.order = data.get('order', None)
-        self.payment_method = data.get('payment_method', None)
+    def __init__(
+            self,
+            authorization_number: int = None,
+            amount: int = None,
+            invoice: Invoice = None,
+            order: Order = None,
+            payment_method: CreditCard = None
+    ) -> None:
+        self.authorization_number = authorization_number
+        self.amount = amount
+        self.invoice = invoice
+        self.order = order
+        self.payment_method = payment_method
 
     def pay(self, paid_at: float = time.time()):
         self.amount = self.order.total_amount()
         self.authorization_number = int(time.time())
-        data = dict(
+        self.invoice = Invoice(
+            price=self.generate_payment_price(),
             billing_address=self.order.address,
             shipping_address=self.order.address,
             order=self.order
         )
-        self.invoice = Invoice(data=data)
         self.paid_at = paid_at
         self.order.close(self.paid_at)
+
+    def generate_shipping_label(self) -> None:
+        print("Will generate default shipping label for payment with number", self.authorization_number)
+
+    def notify_user(self) -> None:
+        print("Will notify customer with e-mail of a new payment. Order:", self.order)
+
+    def generate_payment_price(self) -> float:
+        print("Will generate default payment price for payment with number", self.authorization_number)
 
     def is_paid(self) -> bool:
         return self.paid_at is not None
 
 
-class CreditCard:
-    @staticmethod
-    def fetch_by_hashed(code):
-        return CreditCard()
+class PhysicalItemPayment(Payment):
+    def __init__(
+            self,
+            authorization_number: int = None,
+            amount: int = None,
+            invoice: Invoice = None,
+            order: Order = None,
+            payment_method: CreditCard = None
+    ) -> None:
+        super().__init__(
+            authorization_number=authorization_number,
+            amount=amount,
+            invoice=invoice,
+            order=order,
+            payment_method=payment_method
+        )
+
+    def pay(self, paid_at: float = time.time()):
+        super().pay()
+        super().generate_shipping_label()
 
 
-class Membership:
-    # you can customize this class by yourself
-    pass
+class SubscriptionPayment(Payment):
+    membership: Membership = None
+
+    def __init__(
+            self,
+            authorization_number: int = None,
+            amount: int = None,
+            invoice: Invoice = None,
+            order: Order = None,
+            payment_method: CreditCard = None
+    ) -> None:
+        super().__init__(
+            authorization_number=authorization_number,
+            amount=amount,
+            invoice=invoice,
+            order=order,
+            payment_method=payment_method
+        )
+
+    def pay(self, paid_at: float = time.time()) -> None:
+        super().pay()
+        self.membership = Membership()
+        super().notify_user()
+
+
+class BooksPayment(Payment):
+    def __init__(
+            self,
+            authorization_number: int = None,
+            amount: int = None,
+            invoice: Invoice = None,
+            order: Order = None,
+            payment_method: CreditCard = None
+    ) -> None:
+        super().__init__(
+            authorization_number=authorization_number,
+            amount=amount,
+            invoice=invoice,
+            order=order,
+            payment_method=payment_method
+        )
+
+    def pay(self, paid_at: float = time.time()):
+        super().pay()
+        self.generate_shipping_label()
+
+    def generate_shipping_label(self):
+        print("Will generate shipping label for payment with notification about Art. 150: ", self.authorization_number)
+
+
+class DigitalMediaPayment(Payment):
+    def __init__(
+            self,
+            authorization_number: int = None,
+            amount: int = None,
+            invoice: Invoice = None,
+            order: Order = None,
+            payment_method: CreditCard = None
+    ) -> None:
+        super().__init__(
+            authorization_number=authorization_number,
+            amount=amount,
+            invoice=invoice,
+            order=order,
+            payment_method=payment_method
+        )
+
+    def pay(self, paid_at: float = time.time()):
+        self.amount = self.order.total_amount()
+        self.authorization_number = int(time.time())
+        price = super().generate_payment_price() - 10
+        self.invoice = Invoice(
+            price=price,
+            billing_address=self.order.address,
+            shipping_address=self.order.address,
+            order=self.order
+        )
+        self.paid_at = paid_at
+        self.order.close(self.paid_at)
+        super().notify_user()
 
 
 foolano = Customer()
-book = Product(name='Awesome book', product_type='book')
+book = Product(name='Awesome book', product_type='book', unity_price=10)
 book_order = Order(foolano)
 book_order.add_product(book, 1)
+payment = CreditCard.fetch_by_hashed('43567890-987654367')
 
-attributes = dict(
-    order=book_order,
-    payment_method=CreditCard.fetch_by_hashed('43567890-987654367')
-)
-payment_book = Payment(data=attributes)
+payment_book = BooksPayment(order=book_order, payment_method=payment)
 payment_book.pay()
 print(payment_book.is_paid())
 print(payment_book.order.items[0].product.type)
