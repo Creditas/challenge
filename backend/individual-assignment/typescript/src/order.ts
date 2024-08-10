@@ -1,20 +1,23 @@
 import { Address } from "./address";
 import { Customer } from "./customer";
-import { Product, ProductType } from "./product";
 import {
+  Product,
+  ProductType,
   BookProductProcessor,
   DigitalProductProcessor,
+  PhysicalProductProcessor,
   MembershipProductProcessor,
   ProductProcessorAfterPurchase,
-  PhysicalProductProcessor,
-} from "./productProcessorAfterPurchase";
+} from "./product";
 import { Payment, PaymentMethod } from "./payment";
 import { OrderItem } from "./orderItem";
+import { EmailProviderService } from "./emailProviderService";
 
 export class Order {
   public items: OrderItem[] = [];
   public closedAt: Date | null = null;
   public payment: Payment | null = null;
+  public description: string | null = null;
   private processorsAfterPurchase: Map<
     ProductType,
     ProductProcessorAfterPurchase
@@ -38,7 +41,7 @@ export class Order {
     );
     this.processorsAfterPurchase.set(
       ProductType.DIGITAL,
-      new DigitalProductProcessor(),
+      new DigitalProductProcessor(new EmailProviderService()),
     );
   }
 
@@ -78,7 +81,7 @@ export class Order {
       const productProcessor = this.processorsAfterPurchase.get(
         item.product.type,
       );
-      if (productProcessor) productProcessor.process();
+      if (productProcessor) productProcessor.process(this);
     });
   }
 

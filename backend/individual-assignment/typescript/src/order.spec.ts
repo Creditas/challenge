@@ -2,7 +2,7 @@ import { Address } from "./address";
 import { Customer } from "./customer";
 import { Order } from "./order";
 import { CreditCard, Payment } from "./payment";
-import { Product, ProductType } from "./product";
+import { Product, ProductType } from "./product/product";
 
 describe("order", () => {
   let order: Order;
@@ -10,7 +10,7 @@ describe("order", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    order = new Order(new Customer(), new Address());
+    order = new Order(new Customer("Maria", "maria@gmail.com"), new Address());
   });
 
   const shirt = new Product("Basic t-shirt", ProductType.PHYSICAL, 49.9);
@@ -113,7 +113,10 @@ describe("order", () => {
       "Send the purchase description by email to the customer",
     );
     expect(consoleLogSpy).toHaveBeenCalledWith(
-      "Grant a R$10 discount voucher to the buyer associated with the payment",
+      "Grant a R$10 discount voucher to the customer Maria associated with the payment",
+    );
+    expect(consoleLogSpy).toHaveBeenCalledWith(
+      "Sendind email to maria@gmail.com from defaultEmail@gmail.com. Subject: Purchase Description. Body: Default Purchase Description",
     );
   });
 });

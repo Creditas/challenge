@@ -1,4 +1,4 @@
-import { Product } from "./product";
+import { Product } from "./product/product";
 
 export class OrderItem {
   constructor(
@@ -6,7 +6,7 @@ export class OrderItem {
     public quantity: number,
   ) {}
 
-  get total(): number {
+  public get total(): number {
     return this.product.price * this.quantity;
   }
 }
