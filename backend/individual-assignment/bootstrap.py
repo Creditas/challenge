@@ -39,6 +39,9 @@ class OrderItem:
         self.product = product
         self.quantity = quantity
 
+    def total_price(self) -> float:
+        return self.product.unity_price * self.quantity
+
 
 class Order:
     customer: Customer = None
@@ -109,11 +112,11 @@ class Payment:
         self.order = order
         self.payment_method = payment_method
 
-    def pay(self, paid_at: float = time.time()):
+    def pay(self, price: float = None, paid_at: float = time.time()):
         self.amount = self.order.total_amount()
         self.authorization_number = int(time.time())
         self.invoice = Invoice(
-            price=self.generate_payment_price(),
+            price=price if price is not None else self.generate_payment_price(),
             billing_address=self.order.address,
             shipping_address=self.order.address,
             order=self.order
@@ -128,7 +131,7 @@ class Payment:
         print("Will notify customer with e-mail of a new payment. Order:", self.order)
 
     def generate_payment_price(self) -> float:
-        print("Will generate default payment price for payment with number", self.authorization_number)
+        return functools.reduce(lambda accumulated, item: accumulated + item.total_price(), self.order.items, 0)
 
     def is_paid(self) -> bool:
         return self.paid_at is not None
@@ -151,7 +154,7 @@ class PhysicalItemPayment(Payment):
             payment_method=payment_method
         )
 
-    def pay(self, paid_at: float = time.time()):
+    def pay(self, price: float = None, paid_at: float = time.time()):
         super().pay()
         super().generate_shipping_label()
 
@@ -175,7 +178,7 @@ class SubscriptionPayment(Payment):
             payment_method=payment_method
         )
 
-    def pay(self, paid_at: float = time.time()) -> None:
+    def pay(self, price: float = None, paid_at: float = time.time()) -> None:
         super().pay()
         self.membership = Membership()
         super().notify_user()
@@ -198,7 +201,7 @@ class BooksPayment(Payment):
             payment_method=payment_method
         )
 
-    def pay(self, paid_at: float = time.time()):
+    def pay(self, price: float = None, paid_at: float = time.time()):
         super().pay()
         self.generate_shipping_label()
 
@@ -223,18 +226,9 @@ class DigitalMediaPayment(Payment):
             payment_method=payment_method
         )
 
-    def pay(self, paid_at: float = time.time()):
-        self.amount = self.order.total_amount()
-        self.authorization_number = int(time.time())
+    def pay(self, price: float = None, paid_at: float = time.time()):
         price = super().generate_payment_price() - 10
-        self.invoice = Invoice(
-            price=price,
-            billing_address=self.order.address,
-            shipping_address=self.order.address,
-            order=self.order
-        )
-        self.paid_at = paid_at
-        self.order.close(self.paid_at)
+        super().pay(price=price)
         super().notify_user()
 
 
