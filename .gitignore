@@ -10,3 +10,4 @@
 /backend/code-challenges/.net/src/test/Creditas.Challenge.WebAPI.Test/obj
 
 .DS_Store
+.idea
