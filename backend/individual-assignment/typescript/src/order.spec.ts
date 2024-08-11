@@ -2,16 +2,40 @@ import { Address } from "./address";
 import { Customer } from "./customer";
 import { Order } from "./order";
 import { CreditCard, Payment } from "./payment";
-import { Product, ProductType } from "./product/product";
+import {
+  Product,
+  ProductType,
+  BookProductProcessor,
+  DigitalProductProcessor,
+  PhysicalProductProcessor,
+  MembershipProductProcessor,
+} from "./product";
 
 describe("order", () => {
   let order: Order;
-  const consoleLogSpy = jest.spyOn(console, "log");
 
   beforeEach(() => {
     jest.clearAllMocks();
     order = new Order(new Customer("Maria", "maria@gmail.com"), new Address());
   });
+
+  const mockBookProductProcess = jest.fn();
+  const mockDigitalProductProcess = jest.fn();
+  const mockPhysicalProductProcess = jest.fn();
+  const mockMembershipProductProcess = jest.fn();
+
+  jest
+    .spyOn(BookProductProcessor.prototype, "process")
+    .mockImplementation(mockBookProductProcess);
+  jest
+    .spyOn(DigitalProductProcessor.prototype, "process")
+    .mockImplementation(mockDigitalProductProcess);
+  jest
+    .spyOn(PhysicalProductProcessor.prototype, "process")
+    .mockImplementation(mockPhysicalProductProcess);
+  jest
+    .spyOn(MembershipProductProcessor.prototype, "process")
+    .mockImplementation(mockMembershipProductProcess);
 
   const shirt = new Product("Basic t-shirt", ProductType.PHYSICAL, 49.9);
   const max = new Product("Standard plan", ProductType.MEMBERSHIP, 29.9);
@@ -43,6 +67,13 @@ describe("order", () => {
     expect(order.items[2].product).toEqual(music);
     expect(order.items[2].quantity).toEqual(1);
     expect(order.totalAmount).toEqual(134.7);
+
+    order.pay(card);
+
+    expect(mockBookProductProcess).not.toHaveBeenCalled();
+    expect(mockDigitalProductProcess).toHaveBeenCalled();
+    expect(mockPhysicalProductProcess).toHaveBeenCalled();
+    expect(mockMembershipProductProcess).toHaveBeenCalled();
   });
 
   it("should not add the same product twice", () => {
@@ -79,44 +110,19 @@ describe("order", () => {
     expect(() => order.pay(card)).toThrow("Empty order cannot be paid!");
   });
 
-  it("should call console.log with correct value when product type is PHYSICAL", () => {
-    order.addProduct(shirt, 1);
-    order.pay(card);
+  it.each`
+    product  | mockProcessFunction             | productType
+    ${shirt} | ${mockPhysicalProductProcess}   | ${"PHYSICAL"}
+    ${max}   | ${mockMembershipProductProcess} | ${"MEMBERSHIP"}
+    ${book}  | ${mockBookProductProcess}       | ${"BOOK"}
+    ${music} | ${mockDigitalProductProcess}    | ${"DIGITAL"}
+  `(
+    "should call correct processor when product type is $productType",
+    ({ product, mockProcessFunction }) => {
+      order.addProduct(product, 1);
+      order.pay(card);
 
-    expect(consoleLogSpy).toHaveBeenCalledWith("Create shipping label");
-  });
-
-  it("should call console.log with correct value when product type is MEMBERSHIP", () => {
-    order.addProduct(max, 1);
-    order.pay(card);
-
-    expect(consoleLogSpy).toHaveBeenCalledWith("Activate the subscription");
-    expect(consoleLogSpy).toHaveBeenCalledWith(
-      "Notify the user via email about the subscription",
-    );
-  });
-
-  it("should call console.log with correct value when product type is BOOK", () => {
-    order.addProduct(book, 1);
-    order.pay(card);
-
-    expect(consoleLogSpy).toHaveBeenCalledWith(
-      "Create shipping label with notification that it is a tax-exempt item as provided in the Constitution Art. 150, VI, d.",
-    );
-  });
-
-  it("should call console.log with correct value when product type is DIGITAL", () => {
-    order.addProduct(music, 1);
-    order.pay(card);
-
-    expect(consoleLogSpy).toHaveBeenCalledWith(
-      "Send the purchase description by email to the customer",
-    );
-    expect(consoleLogSpy).toHaveBeenCalledWith(
-      "Grant a R$10 discount voucher to the customer Maria associated with the payment",
-    );
-    expect(consoleLogSpy).toHaveBeenCalledWith(
-      "Sendind email to maria@gmail.com from defaultEmail@gmail.com. Subject: Purchase Description. Body: Default Purchase Description",
-    );
-  });
+      expect(mockProcessFunction).toHaveBeenCalled();
+    },
+  );
 });
