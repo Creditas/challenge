@@ -5,6 +5,7 @@ import { ProductProcessorAfterPurchase } from "./product";
 
 export class DigitalProductProcessor implements ProductProcessorAfterPurchase {
   constructor(private emailProvider: EmailProviderService) {}
+
   public process(order: Order) {
     this.sendEmail(order.customer, order.description);
     this.createDiscountVoucher(order.customer);
@@ -19,6 +20,9 @@ export class DigitalProductProcessor implements ProductProcessorAfterPurchase {
     );
   }
 
+  /**
+   * Method to be implemented
+   */
   private createDiscountVoucher(customer: Customer) {
     console.log(
       `Grant a R$10 discount voucher to the customer ${customer.name} associated with the payment`,

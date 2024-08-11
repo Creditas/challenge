@@ -33,7 +33,7 @@ export class Order {
     );
     this.processorsAfterPurchase.set(
       ProductType.BOOK,
-      new BookProductProcessor(),
+      new BookProductProcessor({}),
     );
     this.processorsAfterPurchase.set(
       ProductType.MEMBERSHIP,

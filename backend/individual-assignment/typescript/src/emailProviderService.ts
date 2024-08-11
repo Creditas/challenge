@@ -1,4 +1,7 @@
 export class EmailProviderService {
+  /**
+   * Method to be implemented
+   */
   public send(
     recipient: string,
     subject: string,
