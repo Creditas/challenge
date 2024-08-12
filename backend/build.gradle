@@ -1,0 +1,42 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.9.10'
+    id 'jacoco'
+}
+
+group 'com.creditas'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testImplementation "org.jetbrains.kotlin:kotlin-test"
+}
+
+jacoco {
+    toolVersion = "0.8.10"  // Set JaCoCo to the latest stable version
+}
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = "17"
+    targetCompatibility = "17"
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.required = true
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+}
+
+tasks.test {
+    finalizedBy tasks.jacocoTestReport // Ensure tests run before generating the JaCoCo report
+}
