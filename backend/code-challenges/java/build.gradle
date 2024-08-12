@@ -16,6 +16,7 @@ test {
 dependencies {
     // we are using junit5 here but feel free to a version below this one
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testImplementation 'org.junit-pioneer:junit-pioneer:1.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 
     // we are using this to make more fluent assertions
