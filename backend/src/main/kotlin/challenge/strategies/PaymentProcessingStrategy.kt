@@ -1,6 +1,6 @@
-package model.strategy
+package challenge.strategies
 
-import model.Order
+import challenge.model.Order
 
 interface PaymentProcessingStrategy {
     fun processPayment(order: Order)

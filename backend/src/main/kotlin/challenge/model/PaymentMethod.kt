@@ -1,3 +1,3 @@
-package model
+package challenge.model
 
 interface PaymentMethod

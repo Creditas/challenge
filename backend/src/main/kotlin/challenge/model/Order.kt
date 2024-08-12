@@ -1,5 +1,9 @@
-package model
+package challenge.model
 
+import challenge.strategies.BookPaymentProcessing
+import challenge.strategies.DigitalMediaPaymentProcessing
+import challenge.strategies.MembershipPaymentProcessing
+import challenge.strategies.PhysicalProductPaymentProcessing
 import java.util.*
 
 class Order(val customer: Customer, val address: Address) {
