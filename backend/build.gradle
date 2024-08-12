@@ -14,6 +14,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
     testImplementation "org.jetbrains.kotlin:kotlin-test"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.10.0"
 }
 
 jacoco {
