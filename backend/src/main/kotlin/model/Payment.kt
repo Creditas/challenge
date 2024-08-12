@@ -1,4 +1,0 @@
-package model
-
-interface Payment {
-}
