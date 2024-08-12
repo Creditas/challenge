@@ -1,4 +1,4 @@
-package challenge.model
+package challenge.models
 
 import challenge.strategies.BookPaymentProcessing
 import challenge.strategies.DigitalMediaPaymentProcessing
@@ -7,7 +7,7 @@ import challenge.strategies.PhysicalProductPaymentProcessing
 import java.util.*
 
 class Order(val customer: Customer, val address: Address) {
-    private val items = mutableListOf<OrderItem>()
+    val items = mutableListOf<OrderItem>()
     var closedAt: Date? = null
         private set
     var payment: Payment? = null

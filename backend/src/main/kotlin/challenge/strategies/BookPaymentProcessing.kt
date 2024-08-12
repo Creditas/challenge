@@ -1,6 +1,6 @@
 package challenge.strategies
 
-import challenge.model.Order
+import challenge.models.Order
 
 class BookPaymentProcessing : PaymentProcessingStrategy {
     override fun processPayment(order: Order) {

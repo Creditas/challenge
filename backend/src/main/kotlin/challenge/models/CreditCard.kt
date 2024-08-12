@@ -1,3 +1,3 @@
-package challenge.model
+package challenge.models
 
 data class CreditCard(val number: String) : PaymentMethod

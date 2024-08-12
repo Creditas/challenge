@@ -1,4 +1,4 @@
-import challenge.model.*
+import challenge.models.*
 
 fun main() {
     val customer = Customer("John Doe", "john.doe@example.com")

@@ -1,4 +1,4 @@
-package challenge.model
+package challenge.models
 
 import java.util.*
 
