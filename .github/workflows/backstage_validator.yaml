@@ -11,6 +11,4 @@ permissions:
 jobs:
   validate-catalog-info:
     name: Catalog-info.yaml validation
-    runs-on: ubuntu-latest
-    steps:
-      - uses: creditas/developerhub/actions/validator@master
+    uses: creditas/developerhub-actions/.github/workflows/backstage_validator.yaml@master
