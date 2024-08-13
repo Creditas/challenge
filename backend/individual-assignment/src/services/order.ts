@@ -70,6 +70,7 @@ export default class Order {
       if (!paymentStrategy) {
         throw new Error(ERROR_MESSAGES.NO_PAYMENT_STRATEGY);
       };
+      paymentStrategy.process(item)
     });
   }
 }
