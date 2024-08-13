@@ -1,6 +1,7 @@
 package challenge.domain.entities
 
 import challenge.domain.interfaces.PaymentMethod
+import challenge.domain.validators.ProductValidator
 import java.lang.Exception
 import java.util.*
 
@@ -11,13 +12,10 @@ class Order(val customer: Customer, val address: Address) {
     var payment: Payment? = null
         private set
     val totalAmount
-        get() = items.sumByDouble { it.total }
+        get() = items.sumOf { it.total }
 
     fun addProduct(product: Product, quantity: Int) {
-        var productAlreadyAdded = items.any { it.product == product }
-        if (productAlreadyAdded)
-            throw Exception("The product have already been added. Change the amount if you want more.")
-
+        ProductValidator.validate(items, product)
         items.add(OrderItem(product, quantity))
     }
 
