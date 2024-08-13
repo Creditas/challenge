@@ -1,8 +1,10 @@
 package challenge.domain.entities
 
 import challenge.domain.interfaces.PaymentMethod
+import challenge.domain.interfaces.OrderValidator
+import challenge.domain.validators.AlreadyPaidValidator
+import challenge.domain.validators.EmptyOrderValidator
 import challenge.domain.validators.ProductValidator
-import java.lang.Exception
 import java.util.*
 
 class Order(val customer: Customer, val address: Address) {
@@ -20,14 +22,9 @@ class Order(val customer: Customer, val address: Address) {
     }
 
     fun pay(method: PaymentMethod) {
-        if (payment != null)
-            throw Exception("The order has already been paid!")
-
-        if (items.count() == 0)
-            throw Exception("Empty order can not be paid!")
-
+        EmptyOrderValidator.validate(this)
+        AlreadyPaidValidator.validate(this)
         payment = Payment(this, method)
-
         close()
     }
 
