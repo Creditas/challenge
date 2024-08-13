@@ -3,8 +3,9 @@ import OrderItem from "../services/order-item";
 
 export default class DigitalProductPaymentStrategy implements PaymentStrategy {
   process(orderItem: OrderItem): void {
-    console.log("Sending purchase description and generating discount voucher.");
+    console.log("Sending purchase description for the user email.");
     this.sendEmail(orderItem);
+    console.log("Generating discount voucher.");
     this.generateDiscountVoucher(orderItem);
   }
 
