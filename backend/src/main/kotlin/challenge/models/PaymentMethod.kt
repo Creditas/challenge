@@ -1,0 +1,3 @@
+package challenge.models
+
+interface PaymentMethod
