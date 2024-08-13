@@ -1,13 +1,10 @@
 name: Catalog-info.yaml validation
 
 on:
-  pull_request:
-
+  workflow_call:
 permissions:
   id-token: write
   contents: write
-  statuses: write
-
 jobs:
   validate-catalog-info:
     name: Catalog-info.yaml validation
