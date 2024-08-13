@@ -1,4 +1,4 @@
 package challenge.domain.entities
 
-class Customer {
-}
+data class Customer(val name: String,
+                    val email: String)

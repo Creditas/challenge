@@ -1,4 +1,5 @@
 package challenge.domain.entities
 
-class Address {
-}
+data class Address(val street: String,
+                   val city: String,
+                   val country: String)
