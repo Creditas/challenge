@@ -1,0 +1,3 @@
+package challenge.domain.interfaces
+
+interface PaymentMethod
