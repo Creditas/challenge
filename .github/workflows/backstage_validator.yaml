@@ -11,4 +11,4 @@ permissions:
 jobs:
   validate-catalog-info:
     name: Catalog-info.yaml validation
-    uses: creditas/developerhub-actions/.github/workflows/backstage_validator.yaml@master
+    uses: creditas/developerhub/.github/workflows/backstage_validator.yaml@master
