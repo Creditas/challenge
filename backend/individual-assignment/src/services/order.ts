@@ -3,14 +3,30 @@ import Customer from "./customer";
 import PaymentMethod from "../models/PaymentMethod";
 import OrderItem from "./order-item";
 import Payment from "./payment";
-import Product from "./product";
+import Product, { ProductType } from "./product";
+import { PaymentStrategy } from "../strategies";
+import BookPaymentStrategy from "../strategies/book-payment.strategy";
+import DigitalProductPaymentStrategy from "../strategies/digital-product-payment.strategy";
+import MembershipPaymentStrategy from "../strategies/membership-payment-strategy";
+import PhysicalProductPaymentStrategy from "../strategies/physical-product-payment.strategy";
+import { ERROR_MESSAGES } from "./utils";
+
+
 
 export default class Order {
   public items: OrderItem[] = [];
   public closedAt: Date | null = null;
   public payment: Payment | null = null;
+  private paymentStrategyMap: Map<ProductType, PaymentStrategy>
 
-  constructor(public customer: Customer, public address: Address) { }
+  constructor(public customer: Customer, public address: Address) {
+    this.paymentStrategyMap = new Map<ProductType, PaymentStrategy>([
+      [ProductType.BOOK, new BookPaymentStrategy()],
+      [ProductType.DIGITAL, new DigitalProductPaymentStrategy()],
+      [ProductType.MEMBERSHIP, new MembershipPaymentStrategy()],
+      [ProductType.PHYSICAL, new PhysicalProductPaymentStrategy()],
+    ]);
+  }
 
   get totalAmount(): number {
     return this.items.reduce((sum, item) => sum + item.total, 0);
@@ -19,7 +35,7 @@ export default class Order {
   addProduct(product: Product, quantity: number): void {
     const productAlreadyAdded = this.items.some(item => item.product === product);
     if (productAlreadyAdded) {
-      throw new Error("The product has already been added. Change the amount if you want more.");
+      throw new Error(ERROR_MESSAGES.PRODUCT_ALREADY_ADDED);
     }
 
     this.items.push(new OrderItem(product, quantity));
@@ -27,18 +43,30 @@ export default class Order {
 
   pay(method: PaymentMethod): void {
     if (this.payment) {
-      throw new Error("The order has already been paid!");
+      throw new Error(ERROR_MESSAGES.ORDER_ALREADY_PAID);
     }
 
     if (this.items.length === 0) {
-      throw new Error("Empty order cannot be paid!");
+      throw new Error(ERROR_MESSAGES.EMPTY_ORDER);
     }
 
     this.payment = new Payment(this, method);
+    this.processPayment()
     this.close();
   }
 
   public close(): void {
     this.closedAt = new Date();
+  }
+
+  public processPayment(): void {
+    this.items.forEach((item) => {
+      const paymentStrategy = this.paymentStrategyMap.get(
+        item.product.type,
+      );
+      if (!paymentStrategy) {
+        throw new Error(ERROR_MESSAGES.NO_PAYMENT_STRATEGY);
+      };
+    });
   }
 }
