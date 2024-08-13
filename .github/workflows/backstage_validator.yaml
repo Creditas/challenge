@@ -1,0 +1,16 @@
+name: Catalog-info.yaml validation
+
+on:
+  pull_request:
+
+permissions:
+  id-token: write
+  contents: write
+  statuses: write
+
+jobs:
+  validate-catalog-info:
+    name: Catalog-info.yaml validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: creditas/developerhub/actions/validator@master
