@@ -33,12 +33,15 @@ export default class Order {
   }
 
   addProduct(product: Product, quantity: number): void {
-    const productAlreadyAdded = this.items.some(item => item.product === product);
-    if (productAlreadyAdded) {
-      throw new Error(ERROR_MESSAGES.PRODUCT_ALREADY_ADDED);
+    if (quantity <= 0) {
+      throw new Error(ERROR_MESSAGES.QUANTITY_GREATER_THAN_ZERO);
     }
-
-    this.items.push(new OrderItem(product, quantity));
+    const existingItem = this.items.find(item => item.product === product);
+    if (existingItem) {
+      existingItem.addQuantity(quantity);
+    } else {
+      this.items.push(new OrderItem(product, quantity));
+    }
   }
 
   pay(method: PaymentMethod): void {
