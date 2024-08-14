@@ -6,4 +6,8 @@ class AddressFixture {
     val address = Address(
         street = "somewhere"
     )
+
+    val invalidAddress = Address(
+        street = "nowhere"
+    )
 }

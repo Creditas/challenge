@@ -6,13 +6,13 @@ import org.example.models.impl.*
 fun physicalProcess(
     order: Order
 ): String {
-    if(order.address.isValid()){
+    if(!order.address.isValid()){
         throw Exception("Address not valid")
     }
     return ShippingLabelImpl().ship(
         address = order.address,
         customer = order.customer,
-        exemptTaxes = listOf(Taxes.SHIP_ART_150)
+        exemptTaxes = emptyList()
     )
 }
 
@@ -22,7 +22,7 @@ fun bookProcess(
     return ShippingLabelImpl().ship(
         address = order.address,
         customer = order.customer,
-        exemptTaxes = emptyList()
+        exemptTaxes = listOf(Taxes.SHIP_ART_150)
     )
 }
 

@@ -2,8 +2,12 @@ import fixtures.OrderFixture
 import org.example.extension.bookProcess
 import org.example.extension.digitalProcess
 import org.example.extension.membershipProcess
+import org.example.extension.physicalProcess
+import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
+import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
 class ProductTypeProcessTest {
@@ -11,9 +15,19 @@ class ProductTypeProcessTest {
 
     @Test
     fun `(physicalProcess) Shall ship the object with the taxes`(){
-        val response = bookProcess(order)
+        val response = physicalProcess(order)
 
-        assertEquals("The object was shipped with NO taxes", response)
+        assertEquals("The object was shipped with taxes", response)
+    }
+
+    @Test
+    fun `(physicalProcess) Shall throw exception if Address is not valid`(){
+        val order = OrderFixture().invalidAddressOrder
+        val response = assertFailsWith<Exception>{
+            physicalProcess(order)
+        }
+
+        assertEquals("Address not valid", response.message)
     }
 
     @Test

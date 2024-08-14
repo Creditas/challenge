@@ -12,11 +12,11 @@ class ShippingLabelImpl: ShippingLabel {
         exemptTaxes: List<Taxes>
     ): String {
         if(exemptTaxes.isEmpty()){
-            println("The object was shipped with NO taxes")
-            return "The object was shipped with NO taxes"
-        } else {
             println("The object was shipped with taxes")
             return "The object was shipped with taxes"
+        } else {
+            println("The object was shipped with NO taxes")
+            return "The object was shipped with NO taxes"
         }
     }
 }

@@ -44,7 +44,7 @@ class DigitalPurchaseTest {
         val response = digitalImpl.sendMailWithVoucher(
             customer = customer
         )
-        
+
         /*
          Would Assert message and exception type
          */

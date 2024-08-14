@@ -12,4 +12,9 @@ class OrderFixture {
         customer = CustomerFixture().nonMemberCustomer,
         address = AddressFixture().address
     )
+
+    val invalidAddressOrder = Order(
+        customer = CustomerFixture().nonMemberCustomer,
+        address = AddressFixture().invalidAddress
+    )
 }
