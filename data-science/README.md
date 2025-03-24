@@ -66,8 +66,11 @@ Utilizando um jupyter notebook, apresente a sua solução em python.
 4. Além do desenvolvimento da solução é necessário mostrar métricas de avaliação da solução desenvolvida. Pense em métricas que fazem sentido para o problema em questão e na particularidade destes dados.
 
 5. Avaliação e interpretabilidade do modelo. Você deve responder:
+
 	a. Quais variáveis são importantes para o modelo construído e porquê
+
 	b. Como o modelo se comporta para o contexto de negócio em relação a um benchmark, como outras possíveis ordenações de priorização
+	
 	c. Como você monitoraria o modelo em produção, considerando métricas de performance relevantes para o problema
 
 6. (Opcional) Se possível, incluir ideias de melhorias futuras como novas fontes de dados, algoritmos ou o que considerar relevante
