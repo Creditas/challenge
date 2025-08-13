@@ -86,7 +86,13 @@ Você precisa conhecer um pouco sobre o Git, que é uma ferramenta que nos ajuda
 git clone https://github.com/Creditas/challenge.git
 cd frontend/
 npm install
+
+
+// Unix based os
 npm start
+
+//for windows os
+$env:NODE_OPTIONS="--openssl-legacy-provider" ; yarn start
 ```
 
 Se tudo estiver ok, acesse a url [http://localhost:4000/](http://localhost:4000/)
